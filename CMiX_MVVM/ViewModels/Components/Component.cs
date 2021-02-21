@@ -59,14 +59,36 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-        private bool _isVisible = false;
+        private bool _parentIsVisible = true;
+        public bool ParentIsVisible
+        {
+            get { return _parentIsVisible; }
+            set 
+            { 
+                _parentIsVisible = value;
+                if (!value)
+                    IsVisible = false;
+
+                Console.WriteLine(this.GetType() + " ParentIsVisible " + ParentIsVisible);
+            }
+        }
+
+
+        private bool _isVisible;
         public bool IsVisible
         {
-            get => _isVisible;
+            get
+            {
+                if (!ParentIsVisible)
+                    return false;
+                else
+                    return _isVisible;
+            }
             set
             {
                 SetAndNotify(ref _isVisible, value);
                 SetVisibility();
+                Console.WriteLine(this.GetType() + " IsVisible " + IsVisible);
             }
         }
 
@@ -84,11 +106,11 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _components, value);
         }
 
-        public void SetVisibility()
+        private void SetVisibility()
         {
             foreach (var item in Components)
             {
-                item.IsVisible = this.IsVisible;
+                item.ParentIsVisible = this.IsVisible;
                 item.SetVisibility();
             }
         }

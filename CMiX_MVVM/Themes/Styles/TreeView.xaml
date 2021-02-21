@@ -97,7 +97,7 @@
     <Style x:Key="TreeViewItemDefault" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1,0,0,0" />
         <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource TreeViewItemFocusVisual}" />
@@ -142,17 +142,15 @@
                                         VerticalAlignment="Center">
                                     </ToggleButton>
                                 </Border>
-                                <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid Height="30" Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="19" />
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Border x:Name="toggleBorder">
-                                        <ToggleButton x:Name="Expander"
+                                    <ToggleButton x:Name="Expander"
                                             Style="{DynamicResource ExpandCollapseToggleStyle}"
                                             IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                                             ClickMode="Press"/>
-                                    </Border>
                                     <ContentPresenter x:Name="PART_Header"
                                         Grid.Column="1"
                                         ContentSource="Header"

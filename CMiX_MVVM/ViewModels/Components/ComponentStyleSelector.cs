@@ -5,11 +5,11 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class ComponentStyleSelector : StyleSelector
     {
-        public Style ProjectTemplate { get; set; }
-        public Style LayerTemplate { get; set; }
-        public Style SceneTemplate { get; set; }
-        public Style EntityTemplate { get; set; }
-        public Style CompositionTemplate { get; set; }
+        public Style ProjectStyle { get; set; }
+        public Style LayerStyle { get; set; }
+        public Style SceneStyle { get; set; }
+        public Style EntityStyle { get; set; }
+        public Style CompositionStyle { get; set; }
 
         public override Style SelectStyle(object item, DependencyObject container)
         {
@@ -18,15 +18,15 @@ namespace CMiX.MVVM.ViewModels.Components
             if (item != null)
             {
                 if (item is Project)
-                    style = ProjectTemplate;
+                    style = ProjectStyle;
                 else if (item is Composition)
-                    style = CompositionTemplate;
+                    style = CompositionStyle;
                 else if (item is Layer)
-                    style = LayerTemplate;
+                    style = LayerStyle;
                 else if (item is Scene)
-                    style = SceneTemplate;
+                    style = SceneStyle;
                 else if (item is Entity)
-                    style = EntityTemplate;
+                    style = EntityStyle;
             }
 
             return style;

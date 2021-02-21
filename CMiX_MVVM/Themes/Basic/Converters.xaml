@@ -44,4 +44,6 @@
     
     <Converters:PathToFilenameConverter x:Key="PathToFileName" />
     <Converters:ColorToHSVControledConverter x:Key="ColorToHSVControled"/>
+
+    <Converters:LeftMarginMultiplierConverter x:Key="LeftMarginMultiplier"/>
 </ResourceDictionary>

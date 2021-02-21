@@ -22,18 +22,37 @@
             <Tools:BindingProxy x:Key="OutlinerProxy" Data="{Binding Path=DataContext}"/>
 
             <DataTemplate x:Key="projectComponent" DataType="{x:Type ViewModels:Project}">
-                <Border 
-                    DockPanel.Dock="Left" 
-                    Height="30" 
-                    Width="30" 
-                    BorderBrush="{DynamicResource SuperHighDarkerColor}" 
-                    BorderThickness="0, 0, 1, 0">
-                    <ToggleButton 
-                        IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
-                        Style="{DynamicResource ToggleVisibility}"
-                        VerticalAlignment="Center">
-                    </ToggleButton>
-                </Border>
+                <DockPanel>
+                    <Border 
+                        DockPanel.Dock="Left" 
+                        Height="30" 
+                        Width="30" 
+                        BorderBrush="{DynamicResource SuperHighDarkerColor}" 
+                        BorderThickness="0, 0, 1, 0">
+                        <ToggleButton 
+                            IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
+                            Style="{DynamicResource ToggleVisibility}"
+                            VerticalAlignment="Center">
+                        </ToggleButton>
+                    </Border>
+                    <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource LeftMarginMultiplier}, RelativeSource={RelativeSource TemplatedParent}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="19" />
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="toggleBorder">
+                            <ToggleButton x:Name="Expander"
+                                Style="{DynamicResource ExpandCollapseToggleStyle}"
+                                IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                ClickMode="Press"/>
+                        </Border>
+                        <!--<ContentPresenter x:Name="PART_Header"
+                            Grid.Column="1"
+                            ContentSource="Header"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>-->
+                    </Grid>
+                </DockPanel>
             </DataTemplate>
 
             <DataTemplate x:Key="componentTemplate" DataType="{x:Type ViewModels:Component}">
@@ -158,119 +177,69 @@
             <Controls:TreeViewSelect.Resources>
 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Project}" ItemsSource="{Binding Components}">
-                    <Border Height="30" Background="Transparent">
-                        <Controls:EditableTextBox 
+                    <Controls:EditableTextBox 
                             Padding="4" 
                             IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    </Border>
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Composition}" ItemsSource="{Binding Components}">
-                    <Border 
-                        Background="Transparent"
-                        Height="30" 
-                        VerticalAlignment="Center">
-                        <DockPanel>
-                            <Border DockPanel.Dock="Left" Padding="8">
-                                <Image Opacity="0.75" Source="{StaticResource Composition}"/>
-                            </Border>
-                            <Controls:EditableTextBox 
+                    <DockPanel>
+                        <Image Margin="8" Opacity="0.75" Source="{StaticResource Composition}"/>
+                        <Controls:EditableTextBox 
                                 Padding="0, 4" 
                                 VerticalAlignment="Center" 
                                 IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DockPanel>
-                    </Border>
+                    </DockPanel>
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Scene}" ItemsSource="{Binding Components}">
-                    <Border 
-                        Background="Transparent"
-                        Height="30" 
-                        VerticalAlignment="Center">
-                        <DockPanel>
-                            <Border DockPanel.Dock="Left" Padding="8">
-                                <Image Opacity="0.75">
-                                    <Image.Style>
-                                        <Style TargetType="{x:Type Image}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Mask.IsMask}" Value="False">
-                                                    <Setter Property="Source" Value="{DynamicResource Scene}"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Mask.IsMask}" Value="True">
-                                                    <Setter Property="Source" Value="{DynamicResource Mask}"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Image.Style>
-                                </Image>
-                            </Border>
-                            <Controls:EditableTextBox 
+                    <DockPanel>
+                        <Image Margin="8" Opacity="0.75">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Mask.IsMask}" Value="False">
+                                            <Setter Property="Source" Value="{DynamicResource Scene}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Mask.IsMask}" Value="True">
+                                            <Setter Property="Source" Value="{DynamicResource Mask}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Controls:EditableTextBox 
                                 DockPanel.Dock="Left"
                                 Padding="0, 4" 
                                 VerticalAlignment="Center" 
                                 IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DockPanel>
-                    </Border>
+                    </DockPanel>
                 </HierarchicalDataTemplate>
-
-                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Mask}" ItemsSource="{Binding Components}">
-                    <Border 
-                        Background="Transparent"
-                        Height="30" 
-                        VerticalAlignment="Center">
-                        <DockPanel>
-                            <Border DockPanel.Dock="Left" Padding="8">
-                                <Image Opacity="0.75" Source="{StaticResource Mask}"/>
-                            </Border>
-                            <Controls:EditableTextBox 
-                                DockPanel.Dock="Left"
-                                Padding="0, 4" 
-                                VerticalAlignment="Center" 
-                                Text="{Binding Name}"/>
-                        </DockPanel>
-                    </Border>
-                </HierarchicalDataTemplate>
-
+                
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Layer}" ItemsSource="{Binding Components}">
-                    <Border 
-                        Background="Transparent"
-                        Height="30" 
-                        VerticalAlignment="Center">
-                        <DockPanel>
-                            <DockPanel DockPanel.Dock="Top">
-                                <Border Margin="4">
-                                    <Image Margin="4" Opacity="0.75" Source="{StaticResource Copy}"/>
-                                </Border>
-                                <Controls:EditableTextBox 
+                    <DockPanel DockPanel.Dock="Top">
+                        <Image Margin="8" Opacity="0.75" Source="{StaticResource Copy}"/>
+                        <Controls:EditableTextBox 
                                     DockPanel.Dock="Left"
                                     Padding="0, 4" 
                                     VerticalAlignment="Center" 
                                     IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </DockPanel>
-                        </DockPanel>
-                    </Border>
+                    </DockPanel>
                 </HierarchicalDataTemplate>
 
                 <DataTemplate DataType="{x:Type ViewModels:Entity}">
-                    <Border 
-                        Height="30"
-                        Background="Transparent"
-                        VerticalAlignment="Center">
-                        <DockPanel>
-                            <Border Padding="8">
-                                <Image DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Entity}"/>
-                            </Border>
-                            <Controls:EditableTextBox 
+                    <DockPanel>
+                        <Image Margin="8" DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Entity}"/>
+                        <Controls:EditableTextBox 
                                 Padding="4" 
                                 VerticalAlignment="Center" 
                                 IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DockPanel>
-                    </Border>
+                    </DockPanel>
                 </DataTemplate>
 
             </Controls:TreeViewSelect.Resources>
