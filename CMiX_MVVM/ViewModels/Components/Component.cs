@@ -5,7 +5,6 @@ using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -15,18 +14,11 @@ namespace CMiX.MVVM.ViewModels
         {
             ID = id;
             IsExpanded = false;
-
             Name = $"{this.GetType().Name}{ID}";
-
-            MessageDispatcher = new MessageDispatcher(MessageTerminal);
-            MessageDispatcher.RegisterColleague(this);
-
+            MessageDispatcher = new MessageDispatcher(MessageTerminal, this);
             Components = new ObservableCollection<Component>();
-
-            SetVisibilityCommand = new RelayCommand(p => SetVisibility());
         }
 
-        public ICommand SetVisibilityCommand { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
         public IComponentFactory ComponentFactory { get; set; }
 
@@ -59,36 +51,14 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-        private bool _parentIsVisible = true;
-        public bool ParentIsVisible
-        {
-            get { return _parentIsVisible; }
-            set 
-            { 
-                _parentIsVisible = value;
-                if (!value)
-                    IsVisible = false;
-
-                Console.WriteLine(this.GetType() + " ParentIsVisible " + ParentIsVisible);
-            }
-        }
-
-
         private bool _isVisible = true;
         public bool IsVisible
         {
-            get
-            {
-                if (!ParentIsVisible)
-                    return false;
-                else
-                    return _isVisible;
-            }
+            get => _isVisible;
             set
             {
                 SetAndNotify(ref _isVisible, value);
-                SetVisibility();
-                Console.WriteLine(this.GetType() + " IsVisible " + IsVisible);
+                Console.WriteLine(this.GetAddress() + " IsVisible " + IsVisible);
             }
         }
 
@@ -106,24 +76,13 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _components, value);
         }
 
-        private void SetVisibility()
-        {
-            foreach (var item in Components)
-            {
-                item.ParentIsVisible = this.IsVisible;
-                item.SetVisibility();
-                Notify(nameof(IsVisible));
-            }
-        }
-
         public string GetAddress() => $"{this.GetType().Name}/{ID}/";
 
         public void AddComponent(Component component)
         {
             Components.Add(component);
             IsExpanded = true;
-            IComponentModel model = component.GetModel() as IComponentModel;
-            MessageDispatcher.NotifyOut(new MessageAddComponent(this.GetAddress(), model));
+            MessageDispatcher.NotifyOut(new MessageAddComponent(this.GetAddress(), component.GetModel() as IComponentModel));
         }
 
         public void RemoveComponent(Component component)
@@ -137,8 +96,7 @@ namespace CMiX.MVVM.ViewModels
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
-            var model = component.GetModel() as IComponentModel;
-            MessageDispatcher.NotifyOut(new MessageInsertComponent(GetAddress(), model, index));
+            MessageDispatcher.NotifyOut(new MessageInsertComponent(GetAddress(), component.GetModel() as IComponentModel, index));
         }
 
         public void MoveComponent(int oldIndex, int newIndex)

@@ -14,6 +14,14 @@ namespace CMiX.MVVM.ViewModels.Mediator
             Colleagues = new Dictionary<string, IMessageProcessor>();
         }
 
+        public MessageDispatcher(MessageTerminal messageTerminal, IMessageProcessor messageProcessor)
+        {
+            MessageTerminal = messageTerminal;
+            MessageTerminal.MessageReceived += MessageTerminal_MessageReceived;
+            Colleagues = new Dictionary<string, IMessageProcessor>();
+            RegisterColleague(messageProcessor);
+        }
+
         private MessageTerminal MessageTerminal { get; set; }
         private Dictionary<string, IMessageProcessor> Colleagues { get; set; }
 

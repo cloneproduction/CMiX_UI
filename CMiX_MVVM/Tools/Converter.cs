@@ -1088,21 +1088,21 @@ namespace CMiX.MVVM.Tools.Converters
 
     public class ComponentVisibilityConverter : IMultiValueConverter
     {
+        bool parentIsVisible;
+        bool isVisible;
+
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            bool isParentVisible = true;
-            bool isVisible = true;
-
             if (values[0] is bool)
-                isParentVisible = (bool)values[0];
-
+                parentIsVisible = (bool)values[0];
+                
             if (values[1] is bool)
                 isVisible = (bool)values[1];
-
-            if (!isParentVisible || !isVisible)
+               
+            if (!parentIsVisible)
                 return false;
             else
-                return true;
+                return isVisible;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

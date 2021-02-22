@@ -41,10 +41,10 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TextBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Expander.xaml"/>
 
-        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TreeView.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TreeViewMultiSelect.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Window.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/MainWindow.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TreeViews/TreeView.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TreeViews/TreeViewMultiSelect.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Windows/Window.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Windows/MainWindow.xaml"/>
 
     </ResourceDictionary.MergedDictionaries>
 

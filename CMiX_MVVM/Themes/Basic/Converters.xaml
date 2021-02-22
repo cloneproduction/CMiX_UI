@@ -46,4 +46,5 @@
     <Converters:ColorToHSVControledConverter x:Key="ColorToHSVControled"/>
 
     <Converters:LeftMarginMultiplierConverter x:Key="LeftMarginMultiplier"/>
+    <!--<Converters:ComponentVisibilityConverter x:Key="ComponentVisibility"/>-->
 </ResourceDictionary>

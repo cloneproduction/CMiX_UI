@@ -6,6 +6,8 @@
                     xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters"
                     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
+    <Converters:ComponentVisibilityConverter x:Key="ComponentVisibility"/>
+    
     <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
 
     <Style x:Key="TreeViewItemFocusVisual">
@@ -130,18 +132,26 @@
                             </i:Interaction.Triggers>
 
                             <DockPanel>
+                                
                                 <Border 
                                     DockPanel.Dock="Left" 
                                     Height="30" 
                                     Width="30" 
                                     BorderBrush="{DynamicResource SuperHighDarkerColor}" 
                                     BorderThickness="0, 0, 1, 0">
+                                    <!--IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"-->
                                     <ToggleButton 
-                                        IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
                                         Style="{DynamicResource ToggleVisibility}"
                                         VerticalAlignment="Center">
+                                        <ToggleButton.IsChecked>
+                                            <MultiBinding Converter="{StaticResource ComponentVisibility}">
+                                                <Binding Path="DataContext.IsVisible" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" RelativeSource="{RelativeSource AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
+                                                <Binding Path="DataContext.IsVisible" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                            </MultiBinding>
+                                        </ToggleButton.IsChecked>
                                     </ToggleButton>
                                 </Border>
+                                
                                 <Grid Height="30" Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="19" />

@@ -266,6 +266,7 @@
                         <Image x:Name="ImageIcon" Opacity="0.75" Margin="4" Source="{DynamicResource NotVisible}"/>
                     </Border>
                     <ControlTemplate.Triggers>
+                        
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />
@@ -310,6 +311,9 @@
         </Setter>
     </Style>
 
+    
+    
+    
     <Style x:Key="ToggleTransformModifierMenu" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />

@@ -229,7 +229,7 @@
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\Component\EntityModel.cs" />
     <Compile Include="Controls\ControlPositionEnum.cs" />
-    <Compile Include="Themes\Styles\MainWindow.xaml.cs" />
+    <Compile Include="Themes\Styles\Windows\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Assets\Asset.cs" />
     <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
     <Compile Include="ViewModels\Assets\AssetDragDrop.cs" />
@@ -371,6 +371,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Diagrams\MessageDiagram.cd" />
     <None Include="Diagrams\ComponentDiagram.cd" />
     <None Include="Diagrams\BeatDiagram.cd" />
     <None Include="packages.config" />
@@ -436,7 +437,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Styles\TreeViewMultiSelect.xaml">
+    <Page Include="Themes\Styles\TreeViews\TreeViewMultiSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -464,7 +465,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Styles\Window.xaml">
+    <Page Include="Themes\Styles\Windows\Window.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -476,7 +477,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Styles\TreeView.xaml">
+    <Page Include="Themes\Styles\TreeViews\TreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -568,7 +569,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Styles\MainWindow.xaml">
+    <Page Include="Themes\Styles\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
