@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Camera : Sender
+    public class Camera : MessageCommunicator
     {
         public Camera(string name, IMessageProcessor parentSender, MasterBeat beat) :base (name, parentSender)
         {

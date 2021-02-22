@@ -74,7 +74,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        private bool _isVisible;
+        private bool _isVisible = true;
         public bool IsVisible
         {
             get
@@ -112,6 +112,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 item.ParentIsVisible = this.IsVisible;
                 item.SetVisibility();
+                Notify(nameof(IsVisible));
             }
         }
 

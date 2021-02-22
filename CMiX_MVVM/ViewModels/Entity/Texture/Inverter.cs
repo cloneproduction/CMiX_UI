@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Inverter : Sender
+    public class Inverter : MessageCommunicator
     {
         public Inverter(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

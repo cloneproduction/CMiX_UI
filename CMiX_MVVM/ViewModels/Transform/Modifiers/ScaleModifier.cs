@@ -5,9 +5,9 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ScaleModifier : Sender, IModifier
+    public class ScaleModifier : MessageCommunicator, IModifier
     {
-        public ScaleModifier(string name, Sender parentSender, Scale scale, MasterBeat beat) : base(name, parentSender)
+        public ScaleModifier(string name, MessageCommunicator parentSender, Scale scale, MasterBeat beat) : base(name, parentSender)
         {
             IsUniform = false;
             //X = new AnimParameter(nameof(X), this, scale.X.Amount, beat);

@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Translate : Sender, IObserver
+    public class Translate : MessageCommunicator, IObserver
     {
         public Translate(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

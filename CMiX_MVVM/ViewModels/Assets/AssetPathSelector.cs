@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetPathSelector : Sender, IDropTarget
+    public class AssetPathSelector : MessageCommunicator, IDropTarget
     {
         public AssetPathSelector(string name, IMessageProcessor parentSender, Asset defaultAsset) : base (name, parentSender)
         {

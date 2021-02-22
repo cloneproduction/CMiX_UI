@@ -8,7 +8,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Easing : Sender
+    public class Easing : MessageCommunicator
     {
         public Easing(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

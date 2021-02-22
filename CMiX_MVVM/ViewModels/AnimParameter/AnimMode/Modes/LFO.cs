@@ -7,9 +7,9 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : Sender, IAnimMode
+    public class LFO : MessageCommunicator, IAnimMode
     {
-        public LFO(string name, Sender parentSender) : base(name, parentSender)
+        public LFO(string name, MessageCommunicator parentSender) : base(name, parentSender)
         {
 
         }

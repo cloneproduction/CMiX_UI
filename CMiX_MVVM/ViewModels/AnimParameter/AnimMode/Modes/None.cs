@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : Sender, IAnimMode
+    public class None : MessageCommunicator, IAnimMode
     {
         public None(string name, AnimParameter parentSender) : base (name, parentSender)
         {

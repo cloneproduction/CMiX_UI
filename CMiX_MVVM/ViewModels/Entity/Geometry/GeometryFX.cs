@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryFX : Sender
+    public class GeometryFX : MessageCommunicator
     {
         public GeometryFX(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

@@ -5,9 +5,9 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RotationModifier : Sender, IModifier
+    public class RotationModifier : MessageCommunicator, IModifier
     {
-        public RotationModifier(string name, Sender parentSender, Rotation rotation, MasterBeat beat) : base(name, parentSender)
+        public RotationModifier(string name, MessageCommunicator parentSender, Rotation rotation, MasterBeat beat) : base(name, parentSender)
         {
             //X = new AnimParameter(nameof(X), this, rotation.X.Amount, beat);
             //Y = new AnimParameter(nameof(Y), this, rotation.X.Amount, beat);

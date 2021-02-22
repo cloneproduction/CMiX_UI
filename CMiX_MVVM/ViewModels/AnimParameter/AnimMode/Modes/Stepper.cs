@@ -7,7 +7,7 @@ using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Stepper : Sender, IAnimMode
+    public class Stepper : MessageCommunicator, IAnimMode
     {
         public Stepper(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

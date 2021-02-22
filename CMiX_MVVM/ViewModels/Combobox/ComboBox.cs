@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ComboBox<T> : Sender
+    public class ComboBox<T> : MessageCommunicator
     {
         public ComboBox(string name, IMessageProcessor parentSender) : base(name, parentSender)
         {

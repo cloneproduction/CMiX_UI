@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BlendMode : Sender
+    public class BlendMode : MessageCommunicator
     {
         public BlendMode(string name, IMessageProcessor parentSender)  : base(name, parentSender)
         {

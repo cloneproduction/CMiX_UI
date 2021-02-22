@@ -10,7 +10,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RandomXYZ : Sender, ITransformModifier, IMessageProcessor
+    public class RandomXYZ : MessageCommunicator, ITransformModifier, IMessageProcessor
     {
         public RandomXYZ(string name, IMessageProcessor parentSender, int id, MasterBeat masterBeat) : base (name, parentSender)
         {

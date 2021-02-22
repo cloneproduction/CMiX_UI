@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Transform : Sender, IObserver
+    public class Transform : MessageCommunicator, IObserver
     {
         public Transform(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

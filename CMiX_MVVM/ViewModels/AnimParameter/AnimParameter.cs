@@ -1,14 +1,12 @@
-﻿using System;
-using CMiX.MVVM.Interfaces;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AnimParameter : Sender, IObserver
+    public class AnimParameter : MessageCommunicator, IObserver
     {
         public AnimParameter(string name, IMessageProcessor parentSender, double[] defaultParameter, MasterBeat beat) : base (name, parentSender)
         {
@@ -17,7 +15,6 @@ namespace CMiX.MVVM.ViewModels
             Easing = new Easing(nameof(Easing), this);
             Width = new Slider(nameof(Width), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
-            //DefaultValue = defaultValue;
             Parameters = defaultParameter;
             Name = name;
             SelectedModeType = ModeType.None;

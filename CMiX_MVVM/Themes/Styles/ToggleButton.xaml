@@ -270,7 +270,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
+                            <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
                         </MultiTrigger>
                         
                         <MultiTrigger>
@@ -278,7 +278,7 @@
                                 <Condition Property="IsChecked" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -288,7 +288,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
@@ -299,7 +299,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>

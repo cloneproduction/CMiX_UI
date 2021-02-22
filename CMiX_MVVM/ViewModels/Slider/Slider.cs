@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Sender
+    public class Slider : MessageCommunicator
     {
         public Slider(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

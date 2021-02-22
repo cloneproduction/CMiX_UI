@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : Sender
+    public class Instancer : MessageCommunicator
     {
         public Instancer(string name, IMessageProcessor parentSender, MasterBeat beat) : base (name, parentSender)
         {

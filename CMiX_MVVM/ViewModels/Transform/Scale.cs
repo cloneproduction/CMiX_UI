@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scale : Sender
+    public class Scale : MessageCommunicator
     {
         public Scale(string name, IMessageProcessor parentSender) :base(name, parentSender)
         {

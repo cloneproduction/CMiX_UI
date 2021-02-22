@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class PostFX : Sender
+    public class PostFX : MessageCommunicator
     {
         public PostFX(string name, IMessageProcessor parentSender) : base (name, parentSender) 
         {

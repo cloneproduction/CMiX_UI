@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Rotation : Sender
+    public class Rotation : MessageCommunicator
     {
         public Rotation(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Mask : Sender
+    public class Mask : MessageCommunicator
     {
         public Mask(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

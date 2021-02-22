@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Beat : Sender
+    public abstract class Beat : MessageCommunicator
     {
         public Beat(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

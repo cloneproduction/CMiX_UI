@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
 
         public MasterBeat MasterBeat { get; set; }
 
-        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, Sender parentSender)
+        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, MessageCommunicator parentSender)
         {
             ITransformModifier transformModifier = null;
 
@@ -30,7 +30,7 @@ namespace CMiX.MVVM.ViewModels
             return transformModifier;
         }
 
-        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel, Sender parentSender)
+        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel, MessageCommunicator parentSender)
         {
             ITransformModifier transformModifier = null;
 
@@ -44,7 +44,7 @@ namespace CMiX.MVVM.ViewModels
             return transformModifier;
         }
 
-        private RandomXYZ CreateRandomized(Sender parentSender)
+        private RandomXYZ CreateRandomized(MessageCommunicator parentSender)
         {
             ID++;
             return new RandomXYZ(nameof(TranslateModifier), parentSender, ID, this.MasterBeat);

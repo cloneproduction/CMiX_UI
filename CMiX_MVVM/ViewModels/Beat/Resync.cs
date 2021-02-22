@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Resync : Sender, IMessageProcessor
+    public class Resync : MessageCommunicator, IMessageProcessor
     {
         public Resync(string name, IMessageProcessor parentSender, BeatAnimations beatAnimations) : base (name, parentSender)
         {

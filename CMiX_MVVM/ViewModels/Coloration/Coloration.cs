@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Coloration : Sender
+    public class Coloration : MessageCommunicator
     {
         public Coloration(string name, IMessageProcessor parentSender, MasterBeat masterBeat) : base (name, parentSender)
         {

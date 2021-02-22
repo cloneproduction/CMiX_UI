@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Texture : Sender
+    public class Texture : MessageCommunicator
     {
         public Texture(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {

@@ -35,7 +35,7 @@ namespace CMiXPlayer.ViewModels
         //public FileSelector CompoSelector { get; set; }
         public string MessageAddress { get; set; }
         //public MessageService MessageService { get; set; }
-        //public Sender Sender { get; set; }
+        //public MessageCommunicator MessageCommunicator { get; set; }
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist

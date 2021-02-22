@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Counter : Sender
+    public class Counter : MessageCommunicator
     {
         public Counter(string name, IMessageProcessor parentSender) : base(name, parentSender) 
         {

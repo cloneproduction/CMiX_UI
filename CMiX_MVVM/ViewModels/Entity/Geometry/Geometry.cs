@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : Sender, ITransform
+    public class Geometry : MessageCommunicator, ITransform
     {
         public Geometry(string name, IMessageProcessor parentSender, MasterBeat beat) : base (name, parentSender)
         {
