@@ -1100,7 +1100,7 @@ namespace CMiX.MVVM.Tools.Converters
                 isVisible = (bool)values[1];
                
             if (!parentIsVisible)
-                return false;
+                return parentIsVisible;
             else
                 return isVisible;
         }
@@ -1110,8 +1110,17 @@ namespace CMiX.MVVM.Tools.Converters
             bool visibility = (bool)value;
             object[] ret = new object[2];
 
-            ret[0] = visibility;
-            ret[1] = visibility;
+            if (!parentIsVisible)
+            {
+                ret[0] = false;
+                ret[1] = false;
+            }
+            else
+            {
+                ret[0] = visibility;
+                ret[1] = visibility;
+            }
+
             return ret;
         }
     }

@@ -142,13 +142,14 @@
                                     <!--IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"-->
                                     <ToggleButton 
                                         Style="{DynamicResource ToggleVisibility}"
+                                        IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
                                         VerticalAlignment="Center">
-                                        <ToggleButton.IsChecked>
+                                        <!--<ToggleButton.IsChecked>
                                             <MultiBinding Converter="{StaticResource ComponentVisibility}">
                                                 <Binding Path="DataContext.IsVisible" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" RelativeSource="{RelativeSource AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
                                                 <Binding Path="DataContext.IsVisible" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" RelativeSource="{RelativeSource TemplatedParent}"/>
                                             </MultiBinding>
-                                        </ToggleButton.IsChecked>
+                                        </ToggleButton.IsChecked>-->
                                     </ToggleButton>
                                 </Border>
                                 

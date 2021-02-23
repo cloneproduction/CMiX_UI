@@ -51,16 +51,82 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
+
+
+
+
+
+        //public bool IsVisible => LayerIsVisible && Parent?.IsVisible ?? true;
+
+
+        //bool _LayerIsVisible;
+        //public bool LayerIsVisible 
+        //{ 
+        //    get => _LayerIsVisible;
+        //    set => SetIsVisible(value);
+        //}
+
+        //void SetIsVisible(bool value)
+        //{
+        //    if (value == _LayerIsVisible) 
+        //        return;
+
+        //    _LayerIsVisible = value;
+        //    //PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(LayerIsVisible));
+        //    //PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible));
+        //}
+
+
+        public void SetVisibility(bool visibility)
+        {
+            foreach (var component in this.Components)
+            {
+                component.ParentIsVisible = visibility;
+                component.IsVisible = visibility;
+
+                component.Notify(nameof(IsVisible));
+            }
+        }
+
         private bool _isVisible = true;
         public bool IsVisible
         {
             get => _isVisible;
             set
             {
-                SetAndNotify(ref _isVisible, value);
+                if(ParentIsVisible)
+                    SetAndNotify(ref _isVisible, value);
+                SetVisibility(this.IsVisible);
                 Console.WriteLine(this.GetAddress() + " IsVisible " + IsVisible);
             }
         }
+
+        private bool _parentIsVisible = true;
+        public bool ParentIsVisible
+        {
+            get { return _parentIsVisible; }
+            set
+            {
+                _parentIsVisible = value;
+                if(value == false)
+                    SetAndNotify(ref _isVisible, value);
+                Console.WriteLine(this.GetAddress() + " ParentIsVisible " + ParentIsVisible);
+            }
+        }
+
+        //private bool _componentVisibility;
+
+        //public bool ComponentVisibility
+        //{
+        //    get { return _componentVisibility; }
+        //    set 
+        //    { 
+        //        _componentVisibility = value; 
+        //    }
+        //}
+
+
+
 
         private bool _isExpanded;
         public bool IsExpanded
@@ -81,6 +147,7 @@ namespace CMiX.MVVM.ViewModels
         public void AddComponent(Component component)
         {
             Components.Add(component);
+            SetVisibility(this.IsVisible);
             IsExpanded = true;
             MessageDispatcher.NotifyOut(new MessageAddComponent(this.GetAddress(), component.GetModel() as IComponentModel));
         }
