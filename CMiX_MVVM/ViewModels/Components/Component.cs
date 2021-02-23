@@ -56,24 +56,41 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        //public bool IsVisible => LayerIsVisible && Parent?.IsVisible ?? true;
-
-
-        //bool _LayerIsVisible;
-        //public bool LayerIsVisible 
-        //{ 
-        //    get => _LayerIsVisible;
-        //    set => SetIsVisible(value);
-        //}
-
-        //void SetIsVisible(bool value)
+        //public class LayerViewModel : INotifyPropertyChanged
         //{
-        //    if (value == _LayerIsVisible) 
-        //        return;
+        //    LayerViewModel _parent;
 
-        //    _LayerIsVisible = value;
-        //    //PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(LayerIsVisible));
-        //    //PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible));
+        //    // used to hide the layer
+        //    public bool IsVisible => LayerIsVisible && Parent?.IsVisible ?? true;
+
+        //    // Used for the toggle
+        //    bool _LayerIsVisible;
+        //    public bool LayerIsVisible { get => _LayerIsVisible; set => SetIsVisible(value) }
+
+        //    public event PropertyChangedEventHandler PropertyChanged;
+
+        //    public LayerViewModel(LayerViewModel parent)
+        //    {
+        //        _parent = parent;
+        //        // If parent's LayerIsVisible changes ours will too.
+        //        _parent.PropertyChanged += OnParentPropertyChanged;
+        //    }
+
+        //    void OnParentPropertyChanged(Object sender, PropertyChangedEventArgs e)
+        //    {
+        //        if (e.PropertyName == nameof(IsVisible))
+        //        {
+        //            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible));
+        //        }
+        //    }
+
+        //    void SetIsVisible(bool value)
+        //    {
+        //        if (value == _LayerIsVisible) return;
+        //        _LayerIsVisible = value;
+        //        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(LayerIsVisible));
+        //        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible));
+        //    }
         //}
 
 
