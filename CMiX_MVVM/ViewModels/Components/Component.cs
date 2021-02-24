@@ -94,6 +94,8 @@ namespace CMiX.MVVM.ViewModels
         //}
 
 
+
+
         public void SetVisibility(bool visibility)
         {
             foreach (var component in this.Components)
@@ -105,13 +107,21 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        private bool _componentIsVisible;
+        public bool ComponentIsVisible
+        {
+            get { return _componentIsVisible; }
+            set { _componentIsVisible = value; }
+        }
+
+
         private bool _isVisible = true;
         public bool IsVisible
         {
             get => _isVisible;
             set
             {
-                if(ParentIsVisible)
+                if (ParentIsVisible)
                     SetAndNotify(ref _isVisible, value);
                 SetVisibility(this.IsVisible);
                 Console.WriteLine(this.GetAddress() + " IsVisible " + IsVisible);
@@ -125,7 +135,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 _parentIsVisible = value;
-                if(value == false)
+                if (value == false)
                     SetAndNotify(ref _isVisible, value);
                 Console.WriteLine(this.GetAddress() + " ParentIsVisible " + ParentIsVisible);
             }
@@ -164,7 +174,7 @@ namespace CMiX.MVVM.ViewModels
         public void AddComponent(Component component)
         {
             Components.Add(component);
-            SetVisibility(this.IsVisible);
+            //SetVisibility(this.IsVisible);
             IsExpanded = true;
             MessageDispatcher.NotifyOut(new MessageAddComponent(this.GetAddress(), component.GetModel() as IComponentModel));
         }
