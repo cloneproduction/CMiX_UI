@@ -30,8 +30,7 @@
     <BitmapImage x:Key="Sub" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Sub.png"/>
     
     <BitmapImage x:Key="Rename" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Rename.png"/>
-    <BitmapImage x:Key="Visible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Visible.png"/>
-    <BitmapImage x:Key="NotVisible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/NotVisible.png"/>
+
     <BitmapImage x:Key="Close" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Close.png"/>
     <BitmapImage x:Key="Mask" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Mask.png"/>
     <BitmapImage x:Key="Entity" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Entity.png"/>
@@ -45,4 +44,7 @@
     <BitmapImage x:Key="Menu" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Menu.png"/>
     <BitmapImage x:Key="Play" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Play.png"/>
     <BitmapImage x:Key="Stop" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Stop.png"/>
+
+    <BitmapImage x:Key="Visible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Visible.png"/>
+    <BitmapImage x:Key="NotVisible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/NotVisible.png"/>
 </ResourceDictionary>

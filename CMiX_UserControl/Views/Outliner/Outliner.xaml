@@ -29,11 +29,16 @@
                         Width="30" 
                         BorderBrush="{DynamicResource SuperHighDarkerColor}" 
                         BorderThickness="0, 0, 1, 0">
-                        <ToggleButton 
+                        <!--<Button>
+                            <Button.Content>
+                                <Image Source="{StaticResource Visible}"/>
+                            </Button.Content>
+                        </Button>-->
+                        <!--<ToggleButton 
                             IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
                             Style="{DynamicResource ToggleVisibility}"
                             VerticalAlignment="Center">
-                        </ToggleButton>
+                        </ToggleButton>-->
                     </Border>
                     <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource LeftMarginMultiplier}, RelativeSource={RelativeSource TemplatedParent}}">
                         <Grid.ColumnDefinitions>

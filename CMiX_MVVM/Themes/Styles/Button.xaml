@@ -56,8 +56,6 @@
         </Setter>
     </Style>
 
-
-
     <Style x:Key="ButtonImage" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Template">
             <Setter.Value>

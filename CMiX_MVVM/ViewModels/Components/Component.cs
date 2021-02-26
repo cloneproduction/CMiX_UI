@@ -5,6 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -17,11 +18,13 @@ namespace CMiX.MVVM.ViewModels
             Name = $"{this.GetType().Name}{ID}";
             MessageDispatcher = new MessageDispatcher(MessageTerminal, this);
             Components = new ObservableCollection<Component>();
+
+            VisibilityCommand = new RelayCommand(p => SetVisibility((bool)p));
         }
 
         public MessageDispatcher MessageDispatcher { get; set; }
         public IComponentFactory ComponentFactory { get; set; }
-
+        public ICommand VisibilityCommand { get; set; }
 
         private int _id;
         public int ID
@@ -94,64 +97,44 @@ namespace CMiX.MVVM.ViewModels
         //}
 
 
-
-
-        public void SetVisibility(bool visibility)
+        public void SetVisibility(bool parentVisibility)
         {
+            if (ComponentIsVisible)
+                ComponentIsVisible = false;
+            else
+                ComponentIsVisible = true;
+
             foreach (var component in this.Components)
             {
-                component.ParentIsVisible = visibility;
-                component.IsVisible = visibility;
-
-                component.Notify(nameof(IsVisible));
+                component.SetVisibility();
+                component.ParentIsVisible = this.ComponentIsVisible;
             }
+
+            Notify(nameof(IsVisible));
         }
 
-        private bool _componentIsVisible;
+
+
+        private bool _componentIsVisible = true;
         public bool ComponentIsVisible
         {
             get { return _componentIsVisible; }
-            set { _componentIsVisible = value; }
+            set { SetVisibility(value) }
         }
-
 
         private bool _isVisible = true;
         public bool IsVisible
         {
-            get => _isVisible;
-            set
-            {
-                if (ParentIsVisible)
-                    SetAndNotify(ref _isVisible, value);
-                SetVisibility(this.IsVisible);
-                Console.WriteLine(this.GetAddress() + " IsVisible " + IsVisible);
-            }
+            get => ComponentIsVisible && ParentIsVisible;
+            set => SetAndNotify(ref _isVisible, value);
         }
 
         private bool _parentIsVisible = true;
         public bool ParentIsVisible
         {
-            get { return _parentIsVisible; }
-            set
-            {
-                _parentIsVisible = value;
-                if (value == false)
-                    SetAndNotify(ref _isVisible, value);
-                Console.WriteLine(this.GetAddress() + " ParentIsVisible " + ParentIsVisible);
-            }
+            get => _parentIsVisible;
+            set { _parentIsVisible = value; }
         }
-
-        //private bool _componentVisibility;
-
-        //public bool ComponentVisibility
-        //{
-        //    get { return _componentVisibility; }
-        //    set 
-        //    { 
-        //        _componentVisibility = value; 
-        //    }
-        //}
-
 
 
 

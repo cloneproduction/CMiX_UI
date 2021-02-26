@@ -6,8 +6,5 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Basic.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Style.xaml"/>
-
-
-
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

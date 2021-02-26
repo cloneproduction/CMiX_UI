@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <ResourceDictionary.MergedDictionaries>
+
+        
+        
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Border.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TextBlock.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/GridSplitter.xaml"/>
@@ -40,9 +43,10 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/DataGrid.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TextBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Expander.xaml"/>
-
+        
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TreeViews/TreeView.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TreeViews/TreeViewMultiSelect.xaml"/>
+
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Windows/Window.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Windows/MainWindow.xaml"/>
 

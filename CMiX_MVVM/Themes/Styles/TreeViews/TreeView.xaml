@@ -7,7 +7,6 @@
                     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
     <Converters:ComponentVisibilityConverter x:Key="ComponentVisibility"/>
-    
     <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
 
     <Style x:Key="TreeViewItemFocusVisual">
@@ -138,19 +137,69 @@
                                     Height="30" 
                                     Width="30" 
                                     BorderBrush="{DynamicResource SuperHighDarkerColor}" 
+                                    
                                     BorderThickness="0, 0, 1, 0">
                                     <!--IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"-->
-                                    <ToggleButton 
+                                    <Button 
+                                        Padding="4" 
+                                        Margin="4"
+                                        Command="{Binding VisibilityCommand}"
+                                        CommandParameter="{Binding DataContext.IsVisible,  RelativeSource={RelativeSource  AncestorLevel=2, Mode=FindAncestor,AncestorType={x:Type TreeViewItem}}}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border
+                                                                x:Name="border"
+                                                                Margin="0"
+                                                                Opacity="0.6"
+                                                                Padding="1"
+                                                                Background="Transparent"
+                                                                SnapsToDevicePixels="True">
+                                                                <Image x:Name="image" Source="{DynamicResource Visible}"/>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <DataTrigger Binding="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                                                    <Setter TargetName="image" Property="Source" Value="{DynamicResource Visible}"/>
+                                                                </DataTrigger>
+
+                                                                <DataTrigger Binding="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                                    <Setter TargetName="image" Property="Source" Value="{DynamicResource NotVisible}"/>
+                                                                </DataTrigger>
+                                                                
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter TargetName="border" Property="Opacity" Value="0.9"/>
+                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+                                                                </Trigger>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter TargetName="border" Property="Opacity" Value="1.0"/>
+                                                                </Trigger>
+                                                                <Trigger Property="IsEnabled" Value="False">
+                                                                    <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                        <!--<Button.Content>
+                                            <Image Source="{DynamicResource Visible}"/>
+                                        </Button.Content>-->
+                                    </Button>
+
+                                    <!--<ToggleButton 
                                         Style="{DynamicResource ToggleVisibility}"
                                         IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
                                         VerticalAlignment="Center">
-                                        <!--<ToggleButton.IsChecked>
+                                        --><!--<ToggleButton.IsChecked>
                                             <MultiBinding Converter="{StaticResource ComponentVisibility}">
                                                 <Binding Path="DataContext.IsVisible" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" RelativeSource="{RelativeSource AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
                                                 <Binding Path="DataContext.IsVisible" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" RelativeSource="{RelativeSource TemplatedParent}"/>
                                             </MultiBinding>
-                                        </ToggleButton.IsChecked>-->
-                                    </ToggleButton>
+                                        </ToggleButton.IsChecked>--><!--
+                                    </ToggleButton>-->
                                 </Border>
                                 
                                 <Grid Height="30" Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
