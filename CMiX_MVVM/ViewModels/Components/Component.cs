@@ -55,10 +55,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-
-
-
-
         //public class LayerViewModel : INotifyPropertyChanged
         //{
         //    LayerViewModel _parent;
@@ -99,15 +95,18 @@ namespace CMiX.MVVM.ViewModels
 
         public void SetVisibility(bool parentVisibility)
         {
-            if (ComponentIsVisible)
-                ComponentIsVisible = false;
-            else
+            if (ComponentIsVisible && parentVisibility)
                 ComponentIsVisible = true;
+            else
+                ComponentIsVisible = false;
+
+            this.ParentIsVisible = parentVisibility;
+
+            Console.WriteLine(this.GetAddress() + " ParentIsVisible " + ParentIsVisible + " ComponentIsVisible " + ComponentIsVisible + " IsVisible " + IsVisible);
 
             foreach (var component in this.Components)
             {
-                component.SetVisibility();
-                component.ParentIsVisible = this.ComponentIsVisible;
+                component.SetVisibility(this.IsVisible);
             }
 
             Notify(nameof(IsVisible));
@@ -119,7 +118,7 @@ namespace CMiX.MVVM.ViewModels
         public bool ComponentIsVisible
         {
             get { return _componentIsVisible; }
-            set { SetVisibility(value) }
+            set { _componentIsVisible = value; }
         }
 
         private bool _isVisible = true;
