@@ -55,74 +55,27 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        //public class LayerViewModel : INotifyPropertyChanged
-        //{
-        //    LayerViewModel _parent;
-
-        //    // used to hide the layer
-        //    public bool IsVisible => LayerIsVisible && Parent?.IsVisible ?? true;
-
-        //    // Used for the toggle
-        //    bool _LayerIsVisible;
-        //    public bool LayerIsVisible { get => _LayerIsVisible; set => SetIsVisible(value) }
-
-        //    public event PropertyChangedEventHandler PropertyChanged;
-
-        //    public LayerViewModel(LayerViewModel parent)
-        //    {
-        //        _parent = parent;
-        //        // If parent's LayerIsVisible changes ours will too.
-        //        _parent.PropertyChanged += OnParentPropertyChanged;
-        //    }
-
-        //    void OnParentPropertyChanged(Object sender, PropertyChangedEventArgs e)
-        //    {
-        //        if (e.PropertyName == nameof(IsVisible))
-        //        {
-        //            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible));
-        //        }
-        //    }
-
-        //    void SetIsVisible(bool value)
-        //    {
-        //        if (value == _LayerIsVisible) return;
-        //        _LayerIsVisible = value;
-        //        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(LayerIsVisible));
-        //        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible));
-        //    }
-        //}
-
         public void Visibility()
         {
-            
-
             if (!ComponentIsVisible)
                 ComponentIsVisible = true;
             else
                 ComponentIsVisible = false;
 
-
-            if(!ParentIsVisible)
-                SetVisibility(this.ParentIsVisible);
-            else if(ParentIsVisible)
-                SetVisibility(this.ComponentIsVisible);
-
-            if (ComponentIsVisible)
-                SetVisibility(this.ComponentIsVisible);
+            if (ParentIsVisible)
+                this.SetChild(this.ComponentIsVisible);
         }
 
-        public void SetVisibility(bool parentVisibility)
+        public void SetChild(bool parentVisibility)
         {
-
-            this.ParentIsVisible = parentVisibility;
             foreach (var component in this.Components)
             {
-                component.SetVisibility(parentVisibility);
+                if (component.ComponentIsVisible)
+                {
+                    component.SetChild(parentVisibility);
+                }
+                component.ParentIsVisible = parentVisibility;
             }
-
-
-            Console.WriteLine(this.GetAddress() + " ParentIsVisible " + ParentIsVisible + " ComponentIsVisible " + ComponentIsVisible);
-
         }
 
 

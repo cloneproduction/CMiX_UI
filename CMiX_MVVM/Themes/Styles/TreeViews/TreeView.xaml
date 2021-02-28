@@ -188,6 +188,7 @@
                                                                     </MultiDataTrigger.Conditions>
                                                                     <MultiDataTrigger.Setters>
                                                                         <Setter TargetName="image" Property="Source" Value="{DynamicResource NotVisible}"/>
+                                                                        <Setter TargetName="image" Property="Opacity" Value="0.5"/>
                                                                     </MultiDataTrigger.Setters>
                                                                 </MultiDataTrigger>
                                                                 
