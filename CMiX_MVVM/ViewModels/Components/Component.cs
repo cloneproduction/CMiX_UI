@@ -104,7 +104,7 @@ namespace CMiX.MVVM.ViewModels
 
             if(!ParentIsVisible)
                 SetVisibility(this.ParentIsVisible);
-            else
+            else if(ParentIsVisible)
                 SetVisibility(this.ComponentIsVisible);
 
             if (ComponentIsVisible)
