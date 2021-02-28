@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels
             MessageDispatcher = new MessageDispatcher(MessageTerminal, this);
             Components = new ObservableCollection<Component>();
 
-            VisibilityCommand = new RelayCommand(p => SetVisibility((bool)p));
+            VisibilityCommand = new RelayCommand(p => Visibility());
         }
 
         public MessageDispatcher MessageDispatcher { get; set; }
@@ -92,24 +92,37 @@ namespace CMiX.MVVM.ViewModels
         //    }
         //}
 
-
-        public void SetVisibility(bool parentVisibility)
+        public void Visibility()
         {
-            if (ComponentIsVisible && parentVisibility)
+            
+
+            if (!ComponentIsVisible)
                 ComponentIsVisible = true;
             else
                 ComponentIsVisible = false;
 
+
+            if(!ParentIsVisible)
+                SetVisibility(this.ParentIsVisible);
+            else
+                SetVisibility(this.ComponentIsVisible);
+
+            if (ComponentIsVisible)
+                SetVisibility(this.ComponentIsVisible);
+        }
+
+        public void SetVisibility(bool parentVisibility)
+        {
+
             this.ParentIsVisible = parentVisibility;
-
-            Console.WriteLine(this.GetAddress() + " ParentIsVisible " + ParentIsVisible + " ComponentIsVisible " + ComponentIsVisible + " IsVisible " + IsVisible);
-
             foreach (var component in this.Components)
             {
-                component.SetVisibility(this.IsVisible);
+                component.SetVisibility(parentVisibility);
             }
 
-            Notify(nameof(IsVisible));
+
+            Console.WriteLine(this.GetAddress() + " ParentIsVisible " + ParentIsVisible + " ComponentIsVisible " + ComponentIsVisible);
+
         }
 
 
@@ -117,22 +130,15 @@ namespace CMiX.MVVM.ViewModels
         private bool _componentIsVisible = true;
         public bool ComponentIsVisible
         {
-            get { return _componentIsVisible; }
-            set { _componentIsVisible = value; }
-        }
-
-        private bool _isVisible = true;
-        public bool IsVisible
-        {
-            get => ComponentIsVisible && ParentIsVisible;
-            set => SetAndNotify(ref _isVisible, value);
+            get => _componentIsVisible;
+            set => SetAndNotify(ref _componentIsVisible, value);
         }
 
         private bool _parentIsVisible = true;
         public bool ParentIsVisible
         {
             get => _parentIsVisible;
-            set { _parentIsVisible = value; }
+            set => SetAndNotify(ref _parentIsVisible, value);
         }
 
 

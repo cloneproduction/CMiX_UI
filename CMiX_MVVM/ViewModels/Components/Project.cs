@@ -32,7 +32,7 @@ namespace CMiX.MVVM.ViewModels
             model.Enabled = this.Enabled;
             model.ID = this.ID;
             model.Name = this.Name;
-            model.IsVisible = this.IsVisible;
+            //model.IsVisible = this.IsVisible;
 
             GetComponents(this, model);
 

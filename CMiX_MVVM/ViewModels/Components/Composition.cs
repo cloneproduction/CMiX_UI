@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels
             CompositionModel model = new CompositionModel();
 
             model.Name = this.Name;
-            model.IsVisible = this.IsVisible;
+            //model.IsVisible = this.IsVisible;
             model.ID = this.ID;
             model.MasterBeatModel = (MasterBeatModel)this.MasterBeat.GetModel();
             model.CameraModel = (CameraModel)this.Camera.GetModel();
