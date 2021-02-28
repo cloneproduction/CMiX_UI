@@ -115,7 +115,6 @@ namespace CMiX.MVVM.ViewModels
         public void AddComponent(Component component)
         {
             Components.Add(component);
-            //SetVisibility(this.IsVisible);
             IsExpanded = true;
             MessageDispatcher.NotifyOut(new MessageAddComponent(this.GetAddress(), component.GetModel() as IComponentModel));
         }
