@@ -7,10 +7,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Scene : Component
     {
-        public Scene(int id, MessageTerminal MessageTerminal, MasterBeat masterBeat) : base (id, MessageTerminal)
+        public Scene(int id, MessageTerminal MessageTerminal, Layer layer) : base (id, MessageTerminal)
         {
-            MasterBeat = masterBeat;
-            BeatModifier = new BeatModifier(nameof(BeatModifier), this, masterBeat);
+            MasterBeat = layer.MasterBeat;
+            this.ParentIsVisible = layer.ParentIsVisible;
+            BeatModifier = new BeatModifier(nameof(BeatModifier), this, layer.MasterBeat);
             PostFX = new PostFX(nameof(PostFX), this);
             Mask = new Mask(nameof(Mask), this);
             Transform = new Transform(nameof(Transform), this);

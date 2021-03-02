@@ -22,9 +22,11 @@ namespace CMiX.MVVM.ViewModels
             VisibilityCommand = new RelayCommand(p => Visibility());
         }
 
+
         public MessageDispatcher MessageDispatcher { get; set; }
         public IComponentFactory ComponentFactory { get; set; }
         public ICommand VisibilityCommand { get; set; }
+
 
         private int _id;
         public int ID
@@ -57,20 +59,21 @@ namespace CMiX.MVVM.ViewModels
 
         public void Visibility()
         {
-            if (!ComponentIsVisible)
-                ComponentIsVisible = true;
+            if (!IsVisible)
+                IsVisible = true;
             else
-                ComponentIsVisible = false;
+                IsVisible = false;
 
             if (ParentIsVisible)
-                this.SetChild(this.ComponentIsVisible);
+                this.SetChild(this.IsVisible);
         }
 
-        public void SetChild(bool parentVisibility)
+
+        private void SetChild(bool parentVisibility)
         {
             foreach (var component in this.Components)
             {
-                if (component.ComponentIsVisible)
+                if (component.IsVisible)
                 {
                     component.SetChild(parentVisibility);
                 }
@@ -79,22 +82,19 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-
         private bool _componentIsVisible = true;
-        public bool ComponentIsVisible
+        public bool IsVisible
         {
             get => _componentIsVisible;
             set => SetAndNotify(ref _componentIsVisible, value);
         }
 
-        private bool _parentIsVisible = true;
+        private bool _parentIsVisible;
         public bool ParentIsVisible
         {
             get => _parentIsVisible;
             set => SetAndNotify(ref _parentIsVisible, value);
         }
-
-
 
         private bool _isExpanded;
         public bool IsExpanded

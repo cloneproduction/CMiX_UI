@@ -1,10 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
@@ -30,17 +25,17 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         }
 
 
-        private Layer CreateLayer(Composition parentComponent)
+        private Layer CreateLayer(Composition composition)
         {
-            var component = new Layer(ID, MessageTerminal, parentComponent.MasterBeat);
+            var component = new Layer(ID, MessageTerminal, composition);
             ID++;
             return component;
         }
 
 
-        private Layer CreateLayer(Composition parentComponent, IComponentModel componentModel)
+        private Layer CreateLayer(Composition composition, IComponentModel componentModel)
         {
-            var component = new Layer(componentModel.ID, MessageTerminal, parentComponent.MasterBeat);
+            var component = new Layer(componentModel.ID, MessageTerminal, composition);
             component.SetViewModel(componentModel);
             return component;
         }

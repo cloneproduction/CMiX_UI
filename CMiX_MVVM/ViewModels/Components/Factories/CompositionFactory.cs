@@ -26,14 +26,14 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Composition CreateComposition(Project parentComponent)
         {
-            var component = new Composition(ID, MessageTerminal);
+            var component = new Composition(ID, MessageTerminal, parentComponent);
             ID++;
             return component;
         }
 
         private Composition CreateComposition(Project parentComponent, IComponentModel componentModel)
         {
-            var component = new Composition(componentModel.ID, MessageTerminal);
+            var component = new Composition(componentModel.ID, MessageTerminal, parentComponent);
             component.SetViewModel(componentModel);
             return component;
         }

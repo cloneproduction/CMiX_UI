@@ -24,16 +24,16 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
             return (parentComponent is Scene) ? CreateEntity((Scene)parentComponent, model) : null;
         }
 
-        private Entity CreateEntity(Scene parentComponent)
+        private Entity CreateEntity(Scene parentScene)
         {
-            var component = new Entity(ID, MessageTerminal, parentComponent.MasterBeat);
+            var component = new Entity(ID, MessageTerminal, parentScene);
             ID++;
             return component;
         }
 
-        private Entity CreateEntity(Scene parentComponent, IComponentModel componentModel)
+        private Entity CreateEntity(Scene parentScene, IComponentModel componentModel)
         {
-            var component = new Entity(componentModel.ID, MessageTerminal, parentComponent.MasterBeat);
+            var component = new Entity(componentModel.ID, MessageTerminal, parentScene);
             component.SetViewModel(componentModel);
             return component;
         }

@@ -8,9 +8,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Composition : Component
     {
-        public Composition(int id, MessageTerminal MessageTerminal) : base (id, MessageTerminal)
+        public Composition(int id, MessageTerminal MessageTerminal, Project project) : base (id, MessageTerminal)
         {
             MasterBeat = new MasterBeat(nameof(MasterBeat), this);
+            this.ParentIsVisible = project.IsVisible;
             Transition = new Slider(nameof(Transition), this);
             Camera = new Camera(nameof(Camera), this, MasterBeat);
             ComponentFactory = new LayerFactory(MessageTerminal);

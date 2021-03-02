@@ -24,17 +24,17 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
             return CreateScene((Layer)parentComponent, model);
         }
 
-        private Scene CreateScene(Layer parentComponent)
+        private Scene CreateScene(Layer parentLayer)
         {
-            var component = new Scene(ID, MessageTerminal, parentComponent.MasterBeat);
+            var component = new Scene(ID, MessageTerminal, parentLayer);
             ID++;
             return component;
         }
 
 
-        private Scene CreateScene(Layer parentComponent, IComponentModel componentModel)
+        private Scene CreateScene(Layer parentLayer, IComponentModel componentModel)
         {
-            var component = new Scene(componentModel.ID, MessageTerminal, parentComponent.MasterBeat);
+            var component = new Scene(componentModel.ID, MessageTerminal, parentLayer);
             component.SetViewModel(componentModel);
             return component;
         }
