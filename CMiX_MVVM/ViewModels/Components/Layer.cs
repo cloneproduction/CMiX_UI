@@ -10,7 +10,11 @@ namespace CMiX.MVVM.ViewModels
         public Layer(int id, MessageTerminal MessageTerminal, Composition composition) : base (id, MessageTerminal)
         {
             MasterBeat = composition.MasterBeat;
-            this.ParentIsVisible = composition.ParentIsVisible;
+
+            IsVisible = true;
+            ParentIsVisible = composition.ParentIsVisible && composition.IsVisible;
+
+
             PostFX = new PostFX(nameof(PostFX), this);
             BlendMode = new BlendMode(nameof(BlendMode), this);
             Fade = new Slider(nameof(Fade), this);

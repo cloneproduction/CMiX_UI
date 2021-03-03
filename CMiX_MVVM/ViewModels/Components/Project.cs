@@ -12,6 +12,8 @@ namespace CMiX.MVVM.ViewModels
         public Project(int id, MessageTerminal MessageTerminal) : base (id, MessageTerminal)
         {
             ParentIsVisible = true;
+            IsVisible = true;
+
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
             ComponentFactory = new CompositionFactory(MessageTerminal);

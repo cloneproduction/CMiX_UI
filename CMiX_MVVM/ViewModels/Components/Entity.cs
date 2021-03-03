@@ -9,7 +9,8 @@ namespace CMiX.MVVM.ViewModels
         public Entity(int id, MessageTerminal MessageTerminal, Scene scene) : base (id, MessageTerminal)
         {
             MasterBeat = scene.MasterBeat;
-            this.ParentIsVisible = scene.ParentIsVisible;
+            ParentIsVisible = scene.ParentIsVisible && scene.IsVisible;
+
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, scene.MasterBeat);
             Geometry = new Geometry(nameof(Geometry), this, scene.MasterBeat);
             Texture = new Texture(nameof(Texture), this);

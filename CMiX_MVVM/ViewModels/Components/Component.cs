@@ -15,6 +15,7 @@ namespace CMiX.MVVM.ViewModels
         {
             ID = id;
             IsExpanded = false;
+            IsVisible = true;
             Name = $"{this.GetType().Name}{ID}";
             MessageDispatcher = new MessageDispatcher(MessageTerminal, this);
             Components = new ObservableCollection<Component>();
@@ -65,28 +66,28 @@ namespace CMiX.MVVM.ViewModels
                 IsVisible = false;
 
             if (ParentIsVisible)
-                this.SetChild(this.IsVisible);
+                this.SetChildVisibility(this.IsVisible);
         }
 
 
-        private void SetChild(bool parentVisibility)
+        public void SetChildVisibility(bool parentVisibility)
         {
             foreach (var component in this.Components)
             {
                 if (component.IsVisible)
                 {
-                    component.SetChild(parentVisibility);
+                    component.SetChildVisibility(parentVisibility);
                 }
                 component.ParentIsVisible = parentVisibility;
             }
         }
 
 
-        private bool _componentIsVisible = true;
+        private bool _isVisible;
         public bool IsVisible
         {
-            get => _componentIsVisible;
-            set => SetAndNotify(ref _componentIsVisible, value);
+            get => _isVisible;
+            set => SetAndNotify(ref _isVisible, value);
         }
 
         private bool _parentIsVisible;
