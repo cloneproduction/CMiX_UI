@@ -143,8 +143,8 @@
                                     <Button 
                                         Padding="4" 
                                         Margin="4"
-                                        Command="{Binding VisibilityCommand}"
-                                        CommandParameter="{Binding DataContext.IsVisible,  RelativeSource={RelativeSource  AncestorLevel=2, Mode=FindAncestor,AncestorType={x:Type TreeViewItem}}}">
+                                        Command="{Binding Path=Visibility.SetVisibilityCommand}"
+                                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource TemplatedParent}}">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                                 <Setter Property="Template">
@@ -163,8 +163,8 @@
 
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding Path=DataContext.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
-                                                                        <Condition Binding="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <MultiDataTrigger.Setters>
                                                                         <Setter TargetName="image" Property="Source" Value="{DynamicResource Visible}"/>
@@ -173,8 +173,8 @@
 
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding Path=DataContext.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
-                                                                        <Condition Binding="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <MultiDataTrigger.Setters>
                                                                         <Setter TargetName="image" Property="Opacity" Value="0.0"/>
@@ -183,8 +183,8 @@
 
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding Path=DataContext.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
-                                                                        <Condition Binding="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <MultiDataTrigger.Setters>
                                                                         <Setter TargetName="image" Property="Source" Value="{DynamicResource NotVisible}"/>
@@ -194,8 +194,8 @@
                                                                 
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding Path=DataContext.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
-                                                                        <Condition Binding="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.ParentIsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                                        <Condition Binding="{Binding Path=DataContext.Visibility.IsVisible, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <MultiDataTrigger.Setters>
                                                                         <Setter TargetName="image" Property="Opacity" Value="0.0"/>

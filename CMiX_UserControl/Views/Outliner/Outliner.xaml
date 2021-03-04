@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
+           
+             xmlns:Components="clr-namespace:CMiX.MVVM.ViewModels.Components;assembly=CMiX.MVVM"
              xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters;assembly=CMiX.MVVM"
              xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
@@ -21,7 +23,7 @@
             <Tools:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Tools:BindingProxy x:Key="OutlinerProxy" Data="{Binding Path=DataContext}"/>
 
-            <DataTemplate x:Key="projectComponent" DataType="{x:Type ViewModels:Project}">
+            <DataTemplate x:Key="projectComponent" DataType="{x:Type Components:Project}">
                 <DockPanel>
                     <Border 
                         DockPanel.Dock="Left" 
@@ -60,11 +62,11 @@
                 </DockPanel>
             </DataTemplate>
 
-            <DataTemplate x:Key="componentTemplate" DataType="{x:Type ViewModels:Component}">
+            <DataTemplate x:Key="componentTemplate" DataType="{x:Type Components:Component}">
                 
             </DataTemplate>
 
-            <ViewModels:ComponentTemplateSelector
+            <Components:ComponentTemplateSelector
                 x:Key="componentTemplateSelector"
                 ProjectTemplate="{StaticResource projectComponent}"
                 CompositionTemplate="{StaticResource componentTemplate}"
@@ -83,19 +85,19 @@
                             <Setter Property="IsEnabled" Value="True"/>
                             <Setter Property="Header" Value="Add"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Project}">
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type Components:Project}">
                                     <Setter Property="Header" Value="Add Composition"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Composition}">
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type Components:Composition}">
                                     <Setter Property="Header" Value="Add Layer"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Layer}">
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type Components:Layer}">
                                     <Setter Property="Header" Value="Add Scene"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Scene}">
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type Components:Scene}">
                                     <Setter Property="Header" Value="Add Entity"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Entity}">
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type Components:Entity}">
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -123,7 +125,7 @@
                         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ContextMenuSubItem}">
                             <Setter Property="IsEnabled" Value="True"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Project}">
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type Components:Project}">
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -142,7 +144,7 @@
                         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ContextMenuSubItem}">
                             <Setter Property="IsEnabled" Value="True"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy}, Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Project}">
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy}, Converter={StaticResource DataTypeConverter}}" Value="{x:Type Components:Project}">
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -181,14 +183,14 @@
             ItemsSource="{Binding Components}">
             <Controls:TreeViewSelect.Resources>
 
-                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Project}" ItemsSource="{Binding Components}">
+                <HierarchicalDataTemplate DataType="{x:Type Components:Project}" ItemsSource="{Binding Components}">
                     <Controls:EditableTextBox 
                             Padding="4" 
                             IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Composition}" ItemsSource="{Binding Components}">
+                <HierarchicalDataTemplate DataType="{x:Type Components:Composition}" ItemsSource="{Binding Components}">
                     <DockPanel>
                         <Image Margin="8" Opacity="0.75" Source="{StaticResource Composition}"/>
                         <Controls:EditableTextBox 
@@ -199,7 +201,7 @@
                     </DockPanel>
                 </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Scene}" ItemsSource="{Binding Components}">
+                <HierarchicalDataTemplate DataType="{x:Type Components:Scene}" ItemsSource="{Binding Components}">
                     <DockPanel>
                         <Image Margin="8" Opacity="0.75">
                             <Image.Style>
@@ -223,8 +225,8 @@
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </DockPanel>
                 </HierarchicalDataTemplate>
-                
-                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Layer}" ItemsSource="{Binding Components}">
+
+                <HierarchicalDataTemplate DataType="{x:Type Components:Layer}" ItemsSource="{Binding Components}">
                     <DockPanel DockPanel.Dock="Top">
                         <Image Margin="8" Opacity="0.75" Source="{StaticResource Copy}"/>
                         <Controls:EditableTextBox 
@@ -236,7 +238,7 @@
                     </DockPanel>
                 </HierarchicalDataTemplate>
 
-                <DataTemplate DataType="{x:Type ViewModels:Entity}">
+                <DataTemplate DataType="{x:Type Components:Entity}">
                     <DockPanel>
                         <Image Margin="8" DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Entity}"/>
                         <Controls:EditableTextBox 

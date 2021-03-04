@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using GongSolutions.Wpf.DragDrop;
 using CMiX.MVVM.Tools;
 using System.Windows;
+using CMiX.MVVM.ViewModels.Components;
 
 namespace CMiX.MVVM.ViewModels
 {

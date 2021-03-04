@@ -5,18 +5,17 @@ using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 using MvvmDialogs;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components
 {
     public class Project : Component
     {
         public Project(int id, MessageTerminal MessageTerminal) : base (id, MessageTerminal)
         {
-            ParentIsVisible = true;
-            IsVisible = true;
-
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
             ComponentFactory = new CompositionFactory(MessageTerminal);
+            
+            Visibility = new Visibility(nameof(Visibility), this);
         }
 
         public IDialogService DialogService { get; set; }

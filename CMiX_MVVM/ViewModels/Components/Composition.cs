@@ -4,19 +4,19 @@ using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
         public Composition(int id, MessageTerminal MessageTerminal, Project project) : base (id, MessageTerminal)
         {
-            ParentIsVisible = project.IsVisible;
-
             MasterBeat = new MasterBeat(nameof(MasterBeat), this);
             Transition = new Slider(nameof(Transition), this);
             Camera = new Camera(nameof(Camera), this, MasterBeat);
             ComponentFactory = new LayerFactory(MessageTerminal);
+            Visibility = new Visibility(nameof(Visibility), project, project.Visibility);
         }
+
 
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }

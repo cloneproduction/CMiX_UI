@@ -3,14 +3,14 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
         public Scene(int id, MessageTerminal MessageTerminal, Layer layer) : base (id, MessageTerminal)
         {
             MasterBeat = layer.MasterBeat;
-            ParentIsVisible = layer.ParentIsVisible && layer.IsVisible;
+            Visibility = new Visibility(nameof(Visibility), layer, layer.Visibility);
 
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, layer.MasterBeat);
             PostFX = new PostFX(nameof(PostFX), this);

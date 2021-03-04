@@ -7,7 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IMessageProcessor, IDisposable
     {
@@ -15,15 +15,14 @@ namespace CMiX.MVVM.ViewModels
         {
             ID = id;
             IsExpanded = false;
-            IsVisible = true;
             Name = $"{this.GetType().Name}{ID}";
+
             MessageDispatcher = new MessageDispatcher(MessageTerminal, this);
             Components = new ObservableCollection<Component>();
-
-            VisibilityCommand = new RelayCommand(p => Visibility());
+            Console.WriteLine("ComponentConstructor");
         }
 
-
+        public Visibility Visibility { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
         public IComponentFactory ComponentFactory { get; set; }
         public ICommand VisibilityCommand { get; set; }
@@ -57,45 +56,6 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-
-        public void Visibility()
-        {
-            if (!IsVisible)
-                IsVisible = true;
-            else
-                IsVisible = false;
-
-            if (ParentIsVisible)
-                this.SetChildVisibility(this.IsVisible);
-        }
-
-
-        public void SetChildVisibility(bool parentVisibility)
-        {
-            foreach (var component in this.Components)
-            {
-                if (component.IsVisible)
-                {
-                    component.SetChildVisibility(parentVisibility);
-                }
-                component.ParentIsVisible = parentVisibility;
-            }
-        }
-
-
-        private bool _isVisible;
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
-        }
-
-        private bool _parentIsVisible;
-        public bool ParentIsVisible
-        {
-            get => _parentIsVisible;
-            set => SetAndNotify(ref _parentIsVisible, value);
-        }
 
         private bool _isExpanded;
         public bool IsExpanded

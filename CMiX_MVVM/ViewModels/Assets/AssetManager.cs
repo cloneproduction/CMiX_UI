@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using CMiX.MVVM.ViewModels.Components;
 
 namespace CMiX.MVVM.ViewModels
 {

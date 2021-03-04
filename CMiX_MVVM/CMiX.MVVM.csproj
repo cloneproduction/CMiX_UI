@@ -139,6 +139,7 @@
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
     <Compile Include="ViewModels\Components\Messages\MessageRemoveComponent - Copy.cs" />
+    <Compile Include="ViewModels\Components\Visibility.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageRemoveTransformModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageAddTransformModifier.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IMessage.cs" />

@@ -3,17 +3,14 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components
 {
     public class Layer : Component
     {
         public Layer(int id, MessageTerminal MessageTerminal, Composition composition) : base (id, MessageTerminal)
         {
             MasterBeat = composition.MasterBeat;
-
-            IsVisible = true;
-            ParentIsVisible = composition.ParentIsVisible && composition.IsVisible;
-
+            Visibility = new Visibility(nameof(Visibility), composition, composition.Visibility);
 
             PostFX = new PostFX(nameof(PostFX), this);
             BlendMode = new BlendMode(nameof(BlendMode), this);

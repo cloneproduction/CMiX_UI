@@ -2,6 +2,7 @@
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.Components;
 
 namespace CMiX.Engine.Testing
 {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components
 {
     public class ComponentManager : ViewModel
     {

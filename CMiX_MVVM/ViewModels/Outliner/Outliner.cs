@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CMiX.MVVM.ViewModels.Components;
 
 namespace CMiX.MVVM.ViewModels
 {

@@ -2,14 +2,14 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components
 {
     public class Entity : Component
     {
         public Entity(int id, MessageTerminal MessageTerminal, Scene scene) : base (id, MessageTerminal)
         {
             MasterBeat = scene.MasterBeat;
-            ParentIsVisible = scene.ParentIsVisible && scene.IsVisible;
+            Visibility = new Visibility(nameof(Visibility), scene, scene.Visibility);
 
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, scene.MasterBeat);
             Geometry = new Geometry(nameof(Geometry), this, scene.MasterBeat);

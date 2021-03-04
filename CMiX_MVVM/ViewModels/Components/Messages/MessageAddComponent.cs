@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.Mediator;
 using System;
 
