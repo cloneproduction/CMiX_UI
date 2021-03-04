@@ -5,7 +5,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class Beat : MessageCommunicator
     {
-        public Beat(string name, IMessageProcessor parentSender) : base (name, parentSender)
+        public Beat(IMessageProcessor parentSender) : base (parentSender)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());

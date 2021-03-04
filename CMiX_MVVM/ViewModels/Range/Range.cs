@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Range : MessageCommunicator, IRange
     {
-        public Range(string name, IMessageProcessor parentSender, double minimum = 0.0, double maximum = 1.0) : base (name, parentSender)
+        public Range(IMessageProcessor parentSender, double minimum = 0.0, double maximum = 1.0) : base (parentSender)
         {
             Minimum = minimum;
             Maximum = maximum;

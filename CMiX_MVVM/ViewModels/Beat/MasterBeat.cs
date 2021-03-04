@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat, IMessageProcessor, IBeatSubject
     {
-        public MasterBeat(string name, IMessageProcessor parentSender) : base (name, parentSender)
+        public MasterBeat(IMessageProcessor parentSender) : base (parentSender)
         {
             BeatObservers = new List<IBeatObserver>();
             Index = 0;
@@ -21,7 +21,7 @@ namespace CMiX.MVVM.ViewModels
             Periods = new double[15];
             
             BeatAnimations = new BeatAnimations();
-            Resync = new Resync(nameof(Resync), this, BeatAnimations);
+            Resync = new Resync(this, BeatAnimations);
 
             UpdatePeriods(Period);
             SetAnimatedDouble();

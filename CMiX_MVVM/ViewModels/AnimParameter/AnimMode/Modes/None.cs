@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class None : MessageCommunicator, IAnimMode
     {
-        public None(string name, AnimParameter parentSender) : base (name, parentSender)
+        public None(AnimParameter parentSender) : base (parentSender)
         {
 
         }

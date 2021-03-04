@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Assets = new ObservableCollection<Asset>();
             ComponentFactory = new CompositionFactory(MessageTerminal);
             
-            Visibility = new Visibility(nameof(Visibility), this);
+            Visibility = new Visibility(this);
         }
 
         public IDialogService DialogService { get; set; }

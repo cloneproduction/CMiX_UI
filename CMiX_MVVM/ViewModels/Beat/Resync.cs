@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Resync : MessageCommunicator, IMessageProcessor
     {
-        public Resync(string name, IMessageProcessor parentSender, BeatAnimations beatAnimations) : base (name, parentSender)
+        public Resync(IMessageProcessor parentSender, BeatAnimations beatAnimations) : base (parentSender)
         {
             BeatAnimations = beatAnimations;
             ResyncCommand = new RelayCommand(p => DoResync());

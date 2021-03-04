@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class LFO : MessageCommunicator, IAnimMode
     {
-        public LFO(string name, MessageCommunicator parentSender) : base(name, parentSender)
+        public LFO(MessageCommunicator parentSender) : base (parentSender)
         {
 
         }

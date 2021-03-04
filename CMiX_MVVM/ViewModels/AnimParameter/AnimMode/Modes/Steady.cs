@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Steady : MessageCommunicator, IAnimMode
     {
-        public Steady(string name, IMessageProcessor parentSender) : base (name, parentSender)
+        public Steady(IMessageProcessor parentSender) : base (parentSender)
         {
             SteadyType = SteadyType.Linear;
             LinearType = LinearType.Center;

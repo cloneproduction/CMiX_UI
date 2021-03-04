@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
         public Instancer(string name, IMessageProcessor parentSender, MasterBeat beat) : base (name, parentSender)
         {
             Factory = new TransformModifierFactory(beat);
-            Transform = new Transform(nameof(Transform), this);
+            Transform = new Transform(this);
 
             NoAspectRatio = false;
             TransformModifiers = new ObservableCollection<ITransformModifier>();

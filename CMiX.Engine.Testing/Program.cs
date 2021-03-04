@@ -1,8 +1,7 @@
-﻿using System;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.Components;
+using System;
 
 namespace CMiX.Engine.Testing
 {

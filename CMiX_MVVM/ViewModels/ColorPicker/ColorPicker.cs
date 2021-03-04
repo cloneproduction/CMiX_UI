@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorPicker : MessageCommunicator
     {
-        public ColorPicker(string name, IMessageProcessor parentSender) : base (name, parentSender)
+        public ColorPicker(IMessageProcessor parentSender) : base (parentSender)
         {
             SelectedColor = Color.FromArgb(255, 0, 255, 0);
             Red = SelectedColor.R;

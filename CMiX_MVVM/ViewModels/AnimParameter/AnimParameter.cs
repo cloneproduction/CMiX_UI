@@ -11,10 +11,10 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter(string name, IMessageProcessor parentSender, double[] defaultParameter, MasterBeat beat) : base (name, parentSender)
         {
             Period = new double[0];
-            Range = new Range(nameof(Range), this, 0.0, 1.0);
-            Easing = new Easing(nameof(Easing), this);
+            Range = new Range(this, 0.0, 1.0);
+            Easing = new Easing(this);
             Width = new Slider(nameof(Width), this);
-            BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
+            BeatModifier = new BeatModifier(this, beat);
             Parameters = defaultParameter;
             Name = name;
             SelectedModeType = ModeType.None;

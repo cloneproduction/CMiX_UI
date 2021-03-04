@@ -7,14 +7,14 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Visibility : MessageCommunicator, IMessageProcessor
     {
-        public Visibility(string name, IMessageProcessor parentSender) : base (name, parentSender)
+        public Visibility(IMessageProcessor parentSender) : base (parentSender)
         {
             IsVisible = true;
             ParentIsVisible = true;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public Visibility(string name, IMessageProcessor parentSender, Visibility parentVisibility) : base(name, parentSender)
+        public Visibility(IMessageProcessor parentSender, Visibility parentVisibility) : base (parentSender)
         {
             IsVisible = true;
             ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;

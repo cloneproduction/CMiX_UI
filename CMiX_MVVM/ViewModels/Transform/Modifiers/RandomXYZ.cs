@@ -1,12 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Media.Media3D;
-using CMiX.MVVM.Tools;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
-using CMiX.MVVM.Interfaces;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
+using CMiX.MVVM.Tools;
+using CMiX.MVVM.ViewModels.Mediator;
+using System.Collections.ObjectModel;
+using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -17,8 +15,8 @@ namespace CMiX.MVVM.ViewModels
             Counter = new Counter(nameof(Counter), this);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
 
-            Easing = new Easing(nameof(Easing), this); 
-            BeatModifier = new BeatModifier(nameof(BeatModifier), this, masterBeat);
+            Easing = new Easing(this); 
+            BeatModifier = new BeatModifier(this, masterBeat);
             Transforms = new ObservableCollection<Transform>();
 
             SelectedModifierType = ModifierType.OBJECT;
@@ -45,7 +43,7 @@ namespace CMiX.MVVM.ViewModels
             Transforms.Clear();
             for (int i = 0; i < e.Value; i++)
             {
-                Transforms.Add(new Transform("Transform" + i, this));
+                //Transforms.Add(new Transform("Transform" + i, this));
             }
         }
 
@@ -79,8 +77,6 @@ namespace CMiX.MVVM.ViewModels
             get => _randomizeLocationIsExpanded;
             set => SetAndNotify(ref _randomizeLocationIsExpanded, value);
         }
-
-
 
         private bool _randomizeScale;
         public bool RandomizeScale
