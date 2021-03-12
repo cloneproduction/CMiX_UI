@@ -30,8 +30,8 @@ namespace CMiX.MVVM.Controls
         }
 
 
-        private bool IsUpdatingRGB = false;
-        private bool IsUpdatingHSV = false;
+        //private bool IsUpdatingRGB = false;
+        //private bool IsUpdatingHSV = false;
 
 
         public static readonly DependencyProperty RedProperty =
