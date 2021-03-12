@@ -1,5 +1,6 @@
 ﻿using Ceras;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService;
 using Memento;

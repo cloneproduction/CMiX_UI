@@ -15,7 +15,7 @@ namespace CMiX.MVVM.Controls
             OnApplyTemplate();
         }
 
-        TextBox TextInput { get; set; }
+        TextBox InputValue { get; set; }
         Border Border { get; set; }
 
         private int ScreenHeight;
@@ -23,13 +23,13 @@ namespace CMiX.MVVM.Controls
 
         public override void OnApplyTemplate()
         {
-            TextInput = GetTemplateChild("textInput") as TextBox;
+            InputValue = GetTemplateChild("textInput") as TextBox;
             Border = GetTemplateChild("sliderBorder") as Border;
 
-            if(TextInput != null)
+            if(InputValue != null)
             {
-                TextInput.MouseLeave += View_OnMouseLeave;
-                TextInput.MouseEnter += View_OnMouseEnter;
+                InputValue.MouseLeave += View_OnMouseLeave;
+                InputValue.MouseEnter += View_OnMouseEnter;
             }
             ScreenHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
@@ -76,14 +76,14 @@ namespace CMiX.MVVM.Controls
 
         private void TextInput_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextInput.MouseLeave += View_OnMouseLeave;
-            TextInput.MouseEnter += View_OnMouseEnter;
+            InputValue.MouseLeave += View_OnMouseLeave;
+            InputValue.MouseEnter += View_OnMouseEnter;
         }
 
         private void Text_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            TextInput.MouseLeave -= View_OnMouseLeave;
-            TextInput.MouseEnter -= View_OnMouseEnter;
+            InputValue.MouseLeave -= View_OnMouseLeave;
+            InputValue.MouseEnter -= View_OnMouseEnter;
         }
 
 
@@ -200,20 +200,20 @@ namespace CMiX.MVVM.Controls
                 CancelUpdateValue();
                 OnSwitchToNormalMode();
             }
-            e.Handled = !IsTextAllowed(TextInput.Text);
+            e.Handled = !IsTextAllowed(InputValue.Text);
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            e.Handled = !IsTextAllowed(TextInput.Text);
+            e.Handled = !IsTextAllowed(InputValue.Text);
         }
         #endregion
 
         private void OnSwitchToEditingMode()
         {
             IsEditing = true;
-            TextInput.Focus();
-            TextInput.SelectAll();
+            InputValue.Focus();
+            InputValue.SelectAll();
         }
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
@@ -231,7 +231,7 @@ namespace CMiX.MVVM.Controls
 
         private void TextInput_LostFocus(object sender, RoutedEventArgs e)
         {
-            e.Handled = !IsTextAllowed(TextInput.Text);
+            e.Handled = !IsTextAllowed(InputValue.Text);
         }
 
         private void TextInput_KeyDown(object sender, KeyEventArgs e)
@@ -241,24 +241,24 @@ namespace CMiX.MVVM.Controls
             else if (e.Key == Key.Escape)
                 CancelUpdateValue();
 
-            e.Handled = !IsTextAllowed(TextInput.Text);
+            e.Handled = !IsTextAllowed(InputValue.Text);
         }
 
 
         public void UpdateValue()
         {
-            var result = IsTextAllowed(TextInput.Text);
-            if (IsTextAllowed(TextInput.Text))
-                this.Value = Double.Parse(TextInput.Text);
+            var result = IsTextAllowed(InputValue.Text);
+            if (IsTextAllowed(InputValue.Text))
+                this.Value = Double.Parse(InputValue.Text);
         }
 
         public void CancelUpdateValue()
         {
             double oldValue = this.Value;
-            var result = IsTextAllowed(TextInput.Text);
-            if (IsTextAllowed(TextInput.Text))
+            var result = IsTextAllowed(InputValue.Text);
+            if (IsTextAllowed(InputValue.Text))
                 this.Value = oldValue;
-            TextInput.Text = oldValue.ToString();
+            InputValue.Text = oldValue.ToString();
         }
 
 

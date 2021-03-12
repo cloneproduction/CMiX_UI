@@ -1,9 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using CMiX.MVVM.Interfaces;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 using MvvmDialogs;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels.Components
 {

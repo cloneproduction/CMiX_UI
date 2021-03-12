@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetDragDrop
     {

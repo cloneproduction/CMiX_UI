@@ -15,7 +15,7 @@ namespace CMiX.MVVM.Controls
         public EditableValue()
         {
             InitializeComponent();
-            TextInput.Visibility = Visibility.Hidden;
+            InputValue.Visibility = Visibility.Hidden;
             TextDisplay.Visibility = Visibility.Visible;
         }
 
@@ -63,7 +63,7 @@ namespace CMiX.MVVM.Controls
             EditableValue textbox = obj as EditableValue;
             var newtext = (string)e.NewValue;
             textbox.TextDisplay.Text = newtext;
-            textbox.TextInput.Text = newtext;
+            textbox.InputValue.Text = newtext;
         }
 
 
@@ -107,19 +107,19 @@ namespace CMiX.MVVM.Controls
             AddHandler();
 
             TextDisplay.Visibility = Visibility.Hidden;
-            TextInput.Visibility = Visibility.Visible;
-            TextInput.Focus();
-            TextInput.SelectAll();
+            InputValue.Visibility = Visibility.Visible;
+            InputValue.Focus();
+            InputValue.SelectAll();
             HookItemsControlEvents();
-            Text = TextInput.Text;
+            Text = InputValue.Text;
         }
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
         {
             IsEditing = false;
-            TextDisplay.Text = TextInput.Text;
+            TextDisplay.Text = InputValue.Text;
             TextDisplay.Visibility = Visibility.Visible;
-            TextInput.Visibility = Visibility.Hidden;
+            InputValue.Visibility = Visibility.Hidden;
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
             this.ReleaseMouseCapture();
             Keyboard.ClearFocus();

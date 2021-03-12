@@ -14,7 +14,7 @@
             HorizontalAlignment="Center"
             Text="{Binding Path=Text,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableValue}}}" />
         <TextBox
-            x:Name="TextInput" 
+            x:Name="InputValue" 
             SelectionBrush="{StaticResource SuperHighLightColor}"
             CaretBrush="{StaticResource SuperHighLightColor}"
             Padding="5"

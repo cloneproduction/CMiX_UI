@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Tools;
-using CMiX.MVVM.ViewModels.Assets;
+using CMiX.MVVM.ViewModels.Components;
 using GongSolutions.Wpf.DragDrop;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
@@ -14,9 +14,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using CMiX.MVVM.ViewModels.Components;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetManager : ViewModel, IDropTarget, IDragSource
     {

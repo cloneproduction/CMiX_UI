@@ -63,7 +63,7 @@ namespace CMiX.MVVM.Tools
 
     }
 
-    public /*internal*/ static class ColorUtils
+    public static class ColorUtils
     {
         public static String[] GetColorNames()
         {

@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Assets
 {
     public abstract class Asset : ViewModel
     {
@@ -26,8 +26,6 @@ namespace CMiX.MVVM.ViewModels
             get => _isRenaming;
             set => SetAndNotify(ref _isRenaming, value);
         }
-
-
 
         private bool _isSelected = false;
         public bool IsSelected

@@ -51,7 +51,7 @@
 
             <HierarchicalDataTemplate 
                 x:Key="AssetDirectoryTemplate"
-                DataType="{x:Type ViewModels:AssetDirectory}"
+                DataType="{x:Type Assets:AssetDirectory}"
                 ItemsSource="{Binding Assets}">
                 <Border x:Name="border" Visibility="Visible" Height="30" HorizontalAlignment="Stretch">
                     <DockPanel >
@@ -80,7 +80,7 @@
             </HierarchicalDataTemplate>
 
             
-            <DataTemplate x:Key="AssetTextureTemplate" DataType="{x:Type ViewModels:AssetTexture}">
+            <DataTemplate x:Key="AssetTextureTemplate" DataType="{x:Type Assets:AssetTexture}">
                 <Border Style="{StaticResource BaseBorderStyle}">
                     <DockPanel Margin="0, 1">
                         <Image Margin="8" Opacity="0.9" DockPanel.Dock="Left" Source="{StaticResource Texture}"/>
@@ -89,7 +89,7 @@
                 </Border>
             </DataTemplate>
 
-            <DataTemplate x:Key="AssetGeometryTemplate"  DataType="{x:Type ViewModels:AssetGeometry}">
+            <DataTemplate x:Key="AssetGeometryTemplate"  DataType="{x:Type Assets:AssetGeometry}">
                 <Border Style="{StaticResource BaseBorderStyle}">
                     <DockPanel Margin="0, 1">
                         <Image Margin="8" Opacity="0.9" DockPanel.Dock="Left" Source="{StaticResource Geometry}"/>

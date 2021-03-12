@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetPathSelector : MessageCommunicator, IDropTarget
     {

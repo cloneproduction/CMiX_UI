@@ -5,7 +5,7 @@ using CMiX.MVVM.Models;
 using System;
 using CMiX.MVVM.Interfaces;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetDirectory : Asset, IDisposable
     {
