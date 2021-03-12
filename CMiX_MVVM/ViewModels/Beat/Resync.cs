@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Beat
 {
     public class Resync : MessageCommunicator, IMessageProcessor
     {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CMiX.MVVM.ViewModels.Beat;
+using CMiX.MVVM.ViewModels.Observer;
 using System.Linq;
 using System.Windows.Media.Media3D;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {

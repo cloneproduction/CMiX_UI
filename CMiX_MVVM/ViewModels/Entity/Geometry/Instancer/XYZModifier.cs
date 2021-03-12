@@ -1,6 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Observer;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;

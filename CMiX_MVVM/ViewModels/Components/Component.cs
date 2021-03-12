@@ -19,7 +19,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
             MessageDispatcher = new MessageDispatcher(MessageTerminal, this);
             Components = new ObservableCollection<Component>();
-            Console.WriteLine("ComponentConstructor");
         }
 
         public Visibility Visibility { get; set; }

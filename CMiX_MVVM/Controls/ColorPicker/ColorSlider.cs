@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -13,7 +12,6 @@ namespace CMiX.MVVM.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorSlider), new FrameworkPropertyMetadata(typeof(ColorSlider)));
         }
 
-        #region Dependency Properties
 
         public Color LeftColor
         {
@@ -23,6 +21,7 @@ namespace CMiX.MVVM.Controls
         public static readonly DependencyProperty LeftColorProperty =
         DependencyProperty.Register("LeftColor", typeof(Color), typeof(ColorSlider), new UIPropertyMetadata(Colors.Black));
 
+
         public Color RightColor
         {
             get { return (Color)GetValue(RightColorProperty); }
@@ -31,9 +30,9 @@ namespace CMiX.MVVM.Controls
         public static readonly DependencyProperty RightColorProperty =
         DependencyProperty.Register("RightColor", typeof(Color), typeof(ColorSlider), new UIPropertyMetadata(Colors.White));
 
-        #endregion
 
         private bool _isPressed = false;
+
 
         protected override void OnMouseLeave(MouseEventArgs e)
         {
@@ -105,4 +104,3 @@ namespace CMiX.MVVM.Controls
         }
     }
 }
-

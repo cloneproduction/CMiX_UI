@@ -32,7 +32,7 @@
             Background="Transparent"
             Padding="4, 0"
             DockPanel.Dock="Top">
-            <Border.ContextMenu>
+            <!--<Border.ContextMenu>
                 <ContextMenu>
                     <MenuItem
                             Padding="8, 4"
@@ -71,7 +71,7 @@
                         </MenuItem.Header>
                     </MenuItem>
                 </ContextMenu>
-            </Border.ContextMenu>
+            </Border.ContextMenu>-->
             <DockPanel>
                 <Label
                     Content="POST FX"

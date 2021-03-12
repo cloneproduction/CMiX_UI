@@ -1,4 +1,4 @@
-﻿namespace CMiX.MVVM.ViewModels
+﻿namespace CMiX.MVVM.ViewModels.Beat
 {
     public interface IBeatObserver
     {

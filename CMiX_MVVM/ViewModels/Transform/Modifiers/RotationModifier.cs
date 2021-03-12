@@ -1,7 +1,6 @@
-﻿using System;
-using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Beat;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {

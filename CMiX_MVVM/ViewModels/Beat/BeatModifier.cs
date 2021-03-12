@@ -5,7 +5,7 @@ using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Beat
 {
     public class BeatModifier : Beat, IMessageProcessor, IBeatObserver
     {

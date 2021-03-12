@@ -1,7 +1,7 @@
 ﻿using CMiX.MVVM.ViewModels.Mediator;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Beat
 {
     public abstract class Beat : MessageCommunicator
     {
