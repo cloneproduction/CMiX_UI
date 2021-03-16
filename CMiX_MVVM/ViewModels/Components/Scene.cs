@@ -18,6 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Mask = new Mask(this);
             Transform = new Transform(this);
             ComponentFactory = new EntityFactory(MessageTerminal);
+
         }
 
         public Scene(int id, MessageTerminal MessageTerminal, Layer layer, SceneModel sceneModel) : this (id, MessageTerminal, layer)

@@ -11,16 +11,25 @@ namespace CMiX.MVVM.ViewModels.Beat
     {
         public BeatModifier(IMessageProcessor parentSender, MasterBeat masterBeat) : base (parentSender)
         {
-            Index = 0;
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Minimum = 0, Maximum = 100, Amount = 100.0 };
             MasterBeat = masterBeat;
             MasterBeat.Attach(this);
-
-            Multiplier = 1.0;
             Period = masterBeat.Period;
             
             SetAnimatedDouble();
         }
+
+
+        public BeatModifier(IMessageProcessor parentSender, MasterBeat masterBeat, BeatModifierModel beatModifierModel) : this (parentSender, masterBeat)
+        {
+            ChanceToHit = new Slider(nameof(ChanceToHit), this, beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
+            MasterBeat = masterBeat;
+            MasterBeat.Attach(this);
+            Period = masterBeat.Period;
+
+            SetAnimatedDouble();
+        }
+
 
         public MasterBeat MasterBeat { get; set; }
         public Slider ChanceToHit { get; set; }
@@ -28,7 +37,7 @@ namespace CMiX.MVVM.ViewModels.Beat
         private int maxIndex = 4;
         private int minIndex = -4;
 
-        private int _index;
+        private int _index = 0;
         public int Index
         {
             get => _index;

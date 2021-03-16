@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             }
         }
 
-        private double _multiplier;
+        private double _multiplier = 1.0;
         public virtual double Multiplier
         {
             get => _multiplier;

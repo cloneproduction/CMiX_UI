@@ -17,6 +17,12 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
+        public Slider(string name, IMessageProcessor parentProcessor, SliderModel sliderModel) : this (name, parentProcessor)
+        {
+            this.Amount = sliderModel.Amount;
+        }
+
+
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
         public ICommand ResetCommand { get; }
