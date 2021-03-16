@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
@@ -7,6 +6,5 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
     {
         Component CreateComponent(Component parentComponent);
         Component CreateComponent(Component parentComponent, IComponentModel model);
-        MessageTerminal MessageTerminal { get; set; }
     }
 }

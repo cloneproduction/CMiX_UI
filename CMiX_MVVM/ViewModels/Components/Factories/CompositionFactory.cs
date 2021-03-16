@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private static int ID = 0;
 
-        public MessageTerminal MessageTerminal { get; set; }
+        private MessageTerminal MessageTerminal { get; set; }
 
         public Component CreateComponent(Component parentComponent)
         {

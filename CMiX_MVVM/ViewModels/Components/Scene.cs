@@ -20,7 +20,12 @@ namespace CMiX.MVVM.ViewModels.Components
             ComponentFactory = new EntityFactory(MessageTerminal);
         }
 
-        
+        public Scene(int id, MessageTerminal MessageTerminal, Layer layer, SceneModel sceneModel) : this (id, MessageTerminal, layer)
+        {
+            this.SetViewModel(sceneModel);
+        }
+
+
         public Transform Transform { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
