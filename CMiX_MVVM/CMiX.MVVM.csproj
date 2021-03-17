@@ -128,6 +128,7 @@
     <Compile Include="Models\Beat\ResyncModel.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\AnimParameter\AnimModeModel.cs" />
+    <Compile Include="Models\Component\VisibilityModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ITransformModifierModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\Geometry\Modifier\RandomXYZModel.cs" />

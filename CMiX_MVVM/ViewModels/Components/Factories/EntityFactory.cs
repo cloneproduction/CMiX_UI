@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
@@ -26,15 +27,16 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Entity CreateEntity(Scene parentScene)
         {
-            var component = new Entity(ID, MessageTerminal, parentScene);
+            EntityModel entityModel = new EntityModel();
+            var component = new Entity(ID, MessageTerminal, parentScene, entityModel);
             ID++;
             return component;
         }
 
         private Entity CreateEntity(Scene parentScene, IComponentModel componentModel)
         {
-            var component = new Entity(componentModel.ID, MessageTerminal, parentScene);
-            component.SetViewModel(componentModel);
+            var component = new Entity(componentModel.ID, MessageTerminal, parentScene, componentModel as EntityModel);
+            //component.SetViewModel(componentModel);
             return component;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System.Windows.Input;
@@ -17,6 +18,13 @@ namespace CMiX.MVVM.ViewModels.Components
         public Visibility(IMessageProcessor parentSender, Visibility parentVisibility) : base (parentSender)
         {
             IsVisible = true;
+            ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
+            SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
+        }
+
+        public Visibility(IMessageProcessor parentSender, Visibility parentVisibility, VisibilityModel visibilityModel) : base(parentSender)
+        {
+            IsVisible = visibilityModel.IsVisible;
             ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }

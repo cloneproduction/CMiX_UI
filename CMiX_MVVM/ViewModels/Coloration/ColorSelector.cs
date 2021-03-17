@@ -14,6 +14,12 @@ namespace CMiX.MVVM.ViewModels
             this.SelectedColor = Colors.Red;
         }
 
+        public ColorSelector(IMessageProcessor parentSender, ColorSelectorModel colorSelectorModel) : base(parentSender)
+        {
+
+        }
+
+
         public ColorPicker ColorPicker { get; set; }
 
         private Color _selectedColor;

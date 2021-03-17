@@ -13,6 +13,12 @@ namespace CMiX.MVVM.ViewModels
             InvertMode = ((TextureInvertMode)0).ToString();
         }
 
+        public Inverter(string name, IMessageProcessor parentSender, InverterModel inverterModel) : base (name, parentSender)
+        {
+            Invert = new Slider(nameof(Invert), this, inverterModel.Invert);
+            InvertMode = inverterModel.InvertMode;
+        }
+
         public Slider Invert { get; set; }
 
         private string _invertMode;
