@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components
         //    Visibility = new Visibility(scene, scene.Visibility);
         //}
 
-        public Entity(int id, MessageTerminal MessageTerminal, Scene scene, EntityModel entityModel) : base(id, MessageTerminal)
+        public Entity(int id, MessageTerminal MessageTerminal, Scene scene, EntityModel entityModel) : base (id, MessageTerminal)
         {
             MasterBeat = scene.MasterBeat;
 
@@ -35,6 +35,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
         public MasterBeat MasterBeat { get; set; }
+
 
         public override void Dispose()
         {

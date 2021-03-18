@@ -139,6 +139,7 @@
     <Compile Include="Tools\HighResolutionTimer.cs" />
     <Compile Include="ViewModels\Assets\AssetFactory.cs" />
     <Compile Include="ViewModels\Assets\AssetTemplateSelector.cs" />
+    <Compile Include="ViewModels\Beat\IBeat.cs" />
     <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
