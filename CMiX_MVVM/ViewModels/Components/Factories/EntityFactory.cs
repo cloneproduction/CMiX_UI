@@ -36,7 +36,6 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         private Entity CreateEntity(Scene parentScene, IComponentModel componentModel)
         {
             var component = new Entity(componentModel.ID, MessageTerminal, parentScene, componentModel as EntityModel);
-            //component.SetViewModel(componentModel);
             return component;
         }
     }

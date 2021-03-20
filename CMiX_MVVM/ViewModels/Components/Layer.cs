@@ -8,15 +8,15 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(int id, MessageTerminal MessageTerminal, Composition composition) : base (id, MessageTerminal)
+        public Layer(int id, MessageTerminal MessageTerminal, Composition composition, LayerModel layerModel) : base (id, MessageTerminal)
         {
             MasterBeat = composition.MasterBeat;
             Visibility = new Visibility(composition, composition.Visibility);
 
-            PostFX = new PostFX(this);
-            BlendMode = new BlendMode(this);
+            PostFX = new PostFX(this, layerModel.PostFXModel);
+            BlendMode = new BlendMode(this, layerModel.BlendMode);
             Fade = new Slider(nameof(Fade), this);
-            Mask = new Mask(this);
+            Mask = new Mask(this, layerModel.MaskModel);
             ComponentFactory = new SceneFactory(MessageTerminal);
         }
 

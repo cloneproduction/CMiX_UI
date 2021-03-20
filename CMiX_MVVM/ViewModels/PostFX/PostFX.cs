@@ -7,13 +7,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : MessageCommunicator
     {
-        public PostFX(IMessageProcessor parentSender) : base (parentSender) 
+        public PostFX(IMessageProcessor parentSender, PostFXModel postFXModel) : base (parentSender) 
         {
-            Feedback = new Slider(nameof(Feedback), this);
-            Blur = new Slider(nameof(Blur), this);
+            Feedback = new Slider(nameof(Feedback), this, postFXModel.Feedback);
+            Blur = new Slider(nameof(Blur), this, postFXModel.Blur);
 
-            Transforms = ((PostFXTransforms)0).ToString();
-            View = ((PostFXView)0).ToString();
+            Transforms = postFXModel.Transforms;// ((PostFXTransforms)0).ToString();
+            View = postFXModel.View;// ((PostFXView)0).ToString();
         }
 
         public Slider Feedback { get; set; }

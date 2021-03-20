@@ -8,23 +8,23 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(int id, MessageTerminal MessageTerminal, Layer layer) : base (id, MessageTerminal)
+        public Scene(int id, MessageTerminal MessageTerminal, Layer layer, SceneModel sceneModel) : base (id, MessageTerminal)
         {
             MasterBeat = layer.MasterBeat;
             Visibility = new Visibility(layer, layer.Visibility);
 
-            BeatModifier = new BeatModifier(this, layer.MasterBeat);
-            PostFX = new PostFX(this);
-            Mask = new Mask(this);
+            BeatModifier = new BeatModifier(this, layer.MasterBeat, new BeatModifierModel());
+            PostFX = new PostFX(this, sceneModel.PostFXModel);
+            Mask = new Mask(this, sceneModel.MaskModel);
             Transform = new Transform(this);
             ComponentFactory = new EntityFactory(MessageTerminal);
 
         }
 
-        public Scene(int id, MessageTerminal MessageTerminal, Layer layer, SceneModel sceneModel) : this (id, MessageTerminal, layer)
-        {
-            this.SetViewModel(sceneModel);
-        }
+        //public Scene(int id, MessageTerminal MessageTerminal, Layer layer, SceneModel sceneModel) : this (id, MessageTerminal, layer)
+        //{
+        //    this.SetViewModel(sceneModel);
+        //}
 
 
         public Transform Transform { get; set; }

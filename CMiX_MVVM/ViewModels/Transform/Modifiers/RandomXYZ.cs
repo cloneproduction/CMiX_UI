@@ -11,13 +11,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class RandomXYZ : MessageCommunicator, ITransformModifier, IMessageProcessor
     {
-        public RandomXYZ(string name, IMessageProcessor parentSender, int id, MasterBeat masterBeat) : base (name, parentSender)
+        public RandomXYZ(string name, IMessageProcessor parentSender, int id, MasterBeat masterBeat, RandomXYZModel randomXYZModel) : base (name, parentSender)
         {
             Counter = new Counter(nameof(Counter), this);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
 
             Easing = new Easing(this); 
-            BeatModifier = new BeatModifier(this, masterBeat);
+            BeatModifier = new BeatModifier(this, masterBeat, randomXYZModel.BeatModifierModel);
             Transforms = new ObservableCollection<Transform>();
 
             SelectedModifierType = ModifierType.OBJECT;

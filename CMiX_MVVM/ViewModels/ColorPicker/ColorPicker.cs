@@ -11,9 +11,22 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorPicker : MessageCommunicator
     {
-        public ColorPicker(IMessageProcessor parentSender) : base (parentSender)
+        //public ColorPicker(IMessageProcessor parentSender) : base (parentSender)
+        //{
+        //    SelectedColor = Color.FromArgb(255, 0, 255, 0);
+        //    Red = SelectedColor.R;
+        //    Green = SelectedColor.G;
+        //    Blue = SelectedColor.B;
+        //    MouseDown = false;
+
+        //    PreviewMouseDownCommand = new RelayCommand(p => PreviewMouseDown());
+        //    PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());
+        //    PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
+        //}
+
+        public ColorPicker(IMessageProcessor parentSender, ColorPickerModel colorPickerModel) : base (parentSender)
         {
-            SelectedColor = Color.FromArgb(255, 0, 255, 0);
+            SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
             Blue = SelectedColor.B;

@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
@@ -21,21 +22,21 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public Component CreateComponent(Component parentComponent, IComponentModel model)
         {
-            return CreateLayer((Composition)parentComponent, model);
+            return CreateLayer((Composition)parentComponent, (LayerModel)model);
         }
 
 
         private Layer CreateLayer(Composition composition)
         {
-            var component = new Layer(ID, MessageTerminal, composition);
+            var component = new Layer(ID, MessageTerminal, composition, new LayerModel());
             ID++;
             return component;
         }
 
 
-        private Layer CreateLayer(Composition composition, IComponentModel componentModel)
+        private Layer CreateLayer(Composition composition, LayerModel componentModel)
         {
-            var component = new Layer(componentModel.ID, MessageTerminal, composition);
+            var component = new Layer(componentModel.ID, MessageTerminal, composition, componentModel);
             component.SetViewModel(componentModel);
             return component;
         }

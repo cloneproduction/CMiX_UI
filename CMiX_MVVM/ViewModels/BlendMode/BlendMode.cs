@@ -8,9 +8,9 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BlendMode : MessageCommunicator
     {
-        public BlendMode(IMessageProcessor parentSender)  : base (parentSender)
+        public BlendMode(IMessageProcessor parentSender, BlendModeModel blendModeModel)  : base (parentSender)
         {
-            Mode = ((BlendModeEnum)0).ToString();
+            Mode = blendModeModel.Mode;
         }
 
         private string _mode;

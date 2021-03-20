@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(this, beat);
+            BeatModifier = new BeatModifier(this, beat, new BeatModifierModel());
             FOV = new Slider(nameof(FOV), this);
             Zoom = new Slider(nameof(Zoom), this);
         }

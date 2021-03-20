@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Scene CreateScene(Layer parentLayer)
         {
-            var component = new Scene(ID, this.MessageTerminal, parentLayer);
+            var component = new Scene(ID, this.MessageTerminal, parentLayer, new SceneModel());
             ID++;
             return component;
         }

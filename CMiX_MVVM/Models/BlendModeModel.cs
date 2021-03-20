@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels;
 using System;
 
 namespace CMiX.MVVM.Models
@@ -8,7 +9,7 @@ namespace CMiX.MVVM.Models
     {
         public BlendModeModel()
         {
-
+            Mode = ((BlendModeEnum)0).ToString();
         }
 
         public string Mode { get; set; }

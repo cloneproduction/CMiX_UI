@@ -7,11 +7,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Mask : MessageCommunicator
     {
-        public Mask(IMessageProcessor parentSender) : base (parentSender)
+        public Mask(IMessageProcessor parentSender, MaskModel maskModel) : base (parentSender)
         {
-            MaskType = ((MaskType)2).ToString();
-            MaskControlType = ((MaskControlType)1).ToString();
-            Enabled = false;
+            MaskType = maskModel.MaskType;// ((MaskType)2).ToString();
+            MaskControlType = maskModel.MaskControlType;// ((MaskControlType)1).ToString();
+            Enabled = maskModel.Enabled;
         }
 
         private bool _IsMask;

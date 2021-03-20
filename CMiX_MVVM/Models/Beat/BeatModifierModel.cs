@@ -8,7 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public BeatModifierModel()
         {
-            ChanceToHit = new SliderModel { Amount = 1.0 };
+            ChanceToHit = new SliderModel { Amount = 100.0 };
         }
 
         public double Period { get; set; }

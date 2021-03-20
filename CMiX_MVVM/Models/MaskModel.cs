@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using CMiX.MVVM.ViewModels;
+using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -8,7 +8,10 @@ namespace CMiX.MVVM.Models
     {
         public MaskModel()
         {
-
+            KeepOriginal = true;
+            MaskType = ((MaskType)2).ToString();
+            MaskControlType = ((MaskControlType)1).ToString();
+            Enabled = false;
         }
         public bool IsMask { get; set; }
         public bool KeepOriginal { get; set; }
