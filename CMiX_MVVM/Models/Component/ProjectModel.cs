@@ -5,8 +5,9 @@ namespace CMiX.MVVM.Models
 {
     public class ProjectModel : IComponentModel
     {
-        public ProjectModel()
+        public ProjectModel(int id)
         {
+            ID = id;
             ComponentModels = new ObservableCollection<IComponentModel>();
             AssetModels = new ObservableCollection<IAssetModel>();
             AssetModelsFlatten = new ObservableCollection<IAssetModel>();

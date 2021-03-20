@@ -225,7 +225,6 @@
     <Compile Include="Models\Component\ComponentModel.cs" />
     <Compile Include="Models\Interfaces\IComponentModel.cs" />
     <Compile Include="Models\TextureFileModel.cs" />
-    <Compile Include="Models\LayerEditorModel.cs" />
     <Compile Include="Resources\SortableObservableCollection.cs" />
     <Compile Include="ViewModels\Network\Client.cs" />
     <Compile Include="ViewModels\MessageService\MessageEventArgs.cs" />

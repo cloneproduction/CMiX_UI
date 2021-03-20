@@ -114,9 +114,9 @@ namespace CMiXPlayer.ViewModels
         {
             if (SelectedComposition != null)
             {
-                CompositionModel compo = new CompositionModel();
-                compo = SelectedComposition;
-                SelectedPlaylist.Compositions.Add(compo);
+                //CompositionModel compo = new CompositionModel();
+                //compo = SelectedComposition;
+                //SelectedPlaylist.Compositions.Add(compo);
             }
         }
 

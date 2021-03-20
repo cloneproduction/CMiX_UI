@@ -7,8 +7,9 @@ namespace CMiX.MVVM.Models
     [Serializable]
     public class SceneModel : IComponentModel
     {
-        public SceneModel()
+        public SceneModel(int id)
         {
+            ID = id;
             ComponentModels = new ObservableCollection<IComponentModel>();
 
             TransformModel = new TransformModel();

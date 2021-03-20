@@ -22,20 +22,20 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public Component CreateComponent(Component parentComponent, IComponentModel model)
         {
-            return (parentComponent is Scene) ? CreateEntity((Scene)parentComponent, model) : null;
+            return (parentComponent is Scene) ? CreateEntity((Scene)parentComponent, model as EntityModel) : null;
         }
 
         private Entity CreateEntity(Scene parentScene)
         {
             EntityModel entityModel = new EntityModel();
-            var component = new Entity(ID, MessageTerminal, parentScene, entityModel);
+            var component = new Entity(MessageTerminal, parentScene, entityModel);
             ID++;
             return component;
         }
 
-        private Entity CreateEntity(Scene parentScene, IComponentModel componentModel)
+        private Entity CreateEntity(Scene parentScene, EntityModel entityModel)
         {
-            var component = new Entity(componentModel.ID, MessageTerminal, parentScene, componentModel as EntityModel);
+            var component = new Entity(MessageTerminal, parentScene, entityModel as EntityModel);
             return component;
         }
     }

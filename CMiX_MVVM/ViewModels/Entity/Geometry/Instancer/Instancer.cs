@@ -10,10 +10,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Instancer : MessageCommunicator
     {
-        public Instancer(string name, IMessageProcessor parentSender, MasterBeat beat) : base (name, parentSender)
+        public Instancer(string name, IMessageProcessor parentSender, MasterBeat beat, InstancerModel instancerModel) : base (name, parentSender)
         {
             Factory = new TransformModifierFactory(beat);
-            Transform = new Transform(this);
+            Transform = new Transform(this, instancerModel.Transform);
 
             NoAspectRatio = false;
             TransformModifiers = new ObservableCollection<ITransformModifier>();

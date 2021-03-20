@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Project : Component
     {
-        public Project(int id, MessageTerminal MessageTerminal) : base (id, MessageTerminal)
+        public Project(MessageTerminal MessageTerminal, ProjectModel projectModel) : base (MessageTerminal, projectModel)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
@@ -30,10 +30,9 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override IModel GetModel()
         {
-            ProjectModel model = new ProjectModel();
+            ProjectModel model = new ProjectModel(this.ID);
 
             model.Enabled = this.Enabled;
-            model.ID = this.ID;
             model.Name = this.Name;
             //model.IsVisible = this.IsVisible;
 

@@ -8,18 +8,18 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Scale : MessageCommunicator
     {
-        public Scale(string name, IMessageProcessor parentSender) :base(name, parentSender)
+        public Scale(string name, IMessageProcessor parentSender, ScaleModel scaleModel) :base(name, parentSender)
         {
-            Uniform = new Slider(nameof(Uniform), this);
+            Uniform = new Slider(nameof(Uniform), this, scaleModel.Uniform);
             Uniform.Amount = 1.0;
 
-            X = new Slider(nameof(X), this);
+            X = new Slider(nameof(X), this, scaleModel.X);
             X.Amount = 1.0;
 
-            Y = new Slider(nameof(Y), this);
+            Y = new Slider(nameof(Y), this, scaleModel.Y);
             Y.Amount = 1.0;
 
-            Z = new Slider(nameof(Z), this);
+            Z = new Slider(nameof(Z), this, scaleModel.Z);
             Z.Amount = 1.0;
 
             IsUniform = true;

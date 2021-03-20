@@ -8,19 +8,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Geometry : MessageCommunicator, ITransform
     {
-        public Geometry(IMessageProcessor parentSender, MasterBeat beat) : base (parentSender)
-        {
-            Instancer = new Instancer(nameof(Instancer), this, beat);
-            Transform = new Transform(this);
-            GeometryFX = new GeometryFX(this);
-            AssetPathSelector = new AssetPathSelector(nameof(AssetPathSelector), this, new AssetGeometry());
-        }
-
         public Geometry(IMessageProcessor parentSender, MasterBeat beat, GeometryModel geometryModel) : base (parentSender)
         {
-            Instancer = new Instancer(nameof(Instancer), this, beat);
-            Transform = new Transform(this);
-            GeometryFX = new GeometryFX(this);
+            Instancer = new Instancer(nameof(Instancer), this, beat, geometryModel.InstancerModel);
+            Transform = new Transform(this, geometryModel.TransformModel);
+            GeometryFX = new GeometryFX(this, geometryModel.GeometryFXModel);
             AssetPathSelector = new AssetPathSelector(nameof(AssetPathSelector), this, new AssetGeometry());
         }
 

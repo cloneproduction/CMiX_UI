@@ -1,8 +1,7 @@
-﻿using CMiX.MVVM.Services;
+﻿using Ceras;
+using CMiX.MVVM.Services;
 using CMiX.Studio.ViewModels.MessageService;
 using System;
-using Ceras;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {

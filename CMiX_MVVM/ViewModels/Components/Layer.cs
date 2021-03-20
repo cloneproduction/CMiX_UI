@@ -8,16 +8,17 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(int id, MessageTerminal MessageTerminal, Composition composition, LayerModel layerModel) : base (id, MessageTerminal)
+        public Layer(MessageTerminal messageTerminal, Composition composition, LayerModel layerModel) 
+            : base (messageTerminal, layerModel)
         {
             MasterBeat = composition.MasterBeat;
             Visibility = new Visibility(composition, composition.Visibility);
 
             PostFX = new PostFX(this, layerModel.PostFXModel);
             BlendMode = new BlendMode(this, layerModel.BlendMode);
-            Fade = new Slider(nameof(Fade), this);
+            Fade = new Slider(nameof(Fade), this, layerModel.Fade);
             Mask = new Mask(this, layerModel.MaskModel);
-            ComponentFactory = new SceneFactory(MessageTerminal);
+            ComponentFactory = new SceneFactory(messageTerminal);
         }
 
         private bool _out;
@@ -55,11 +56,10 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override IModel GetModel()
         {
-            LayerModel model = new LayerModel();
+            LayerModel model = new LayerModel(this.ID);
 
             model.Enabled = this.Enabled;
             model.Name = this.Name;
-            model.ID = this.ID;
             model.Out = this.Out;
 
             model.Fade = (SliderModel)this.Fade.GetModel();

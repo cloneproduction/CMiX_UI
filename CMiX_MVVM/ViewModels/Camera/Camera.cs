@@ -7,15 +7,15 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Camera : MessageCommunicator
     {
-        public Camera(IMessageProcessor parentSender, MasterBeat beat) : base (parentSender)
+        public Camera(IMessageProcessor parentSender, MasterBeat beat, CameraModel cameraModel) : base (parentSender)
         {
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
             BeatModifier = new BeatModifier(this, beat, new BeatModifierModel());
-            FOV = new Slider(nameof(FOV), this);
-            Zoom = new Slider(nameof(Zoom), this);
+            FOV = new Slider(nameof(FOV), this, cameraModel.FOV);
+            Zoom = new Slider(nameof(Zoom), this, cameraModel.Zoom);
         }
 
         public BeatModifier BeatModifier { get; set; }

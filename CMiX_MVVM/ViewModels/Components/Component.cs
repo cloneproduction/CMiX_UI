@@ -11,9 +11,10 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IMessageProcessor, IDisposable
     {
-        public Component(int id, MessageTerminal messageTerminal)
+        public Component(MessageTerminal messageTerminal, IComponentModel componentModel)
         {
-            ID = id;
+            ID = componentModel.ID;
+            //ID = id;
             IsExpanded = false;
             Name = $"{this.GetType().Name}{ID}";
 

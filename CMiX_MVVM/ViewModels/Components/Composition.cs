@@ -9,11 +9,11 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(int id, MessageTerminal MessageTerminal, Project project) : base (id, MessageTerminal)
+        public Composition(MessageTerminal MessageTerminal, Project project, CompositionModel compositionModel) : base (MessageTerminal, compositionModel)
         {
             MasterBeat = new MasterBeat(this);
-            Transition = new Slider(nameof(Transition), this);
-            Camera = new Camera(this, MasterBeat);
+            Transition = new Slider(nameof(Transition), this, compositionModel.TransitionModel);
+            Camera = new Camera(this, MasterBeat, compositionModel.CameraModel);
             ComponentFactory = new LayerFactory(MessageTerminal);
             Visibility = new Visibility(project, project.Visibility);
         }
@@ -26,11 +26,10 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override IModel GetModel()
         {
-            CompositionModel model = new CompositionModel();
+            CompositionModel model = new CompositionModel(this.ID);
 
             model.Name = this.Name;
             //model.IsVisible = this.IsVisible;
-            model.ID = this.ID;
             model.MasterBeatModel = (MasterBeatModel)this.MasterBeat.GetModel();
             model.CameraModel = (CameraModel)this.Camera.GetModel();
             model.TransitionModel = (SliderModel)this.Transition.GetModel();

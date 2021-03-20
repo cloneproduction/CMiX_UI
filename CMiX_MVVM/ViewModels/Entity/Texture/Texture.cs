@@ -8,23 +8,6 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Texture : MessageCommunicator
     {
-        public Texture(IMessageProcessor parentSender, MasterBeat beat) : base (parentSender)
-        {
-            AssetPathSelector = new AssetPathSelector(nameof(AssetPathSelector), this, new AssetTexture());
-            Inverter = new Inverter(nameof(Inverter), this);
-
-            Brightness = new Slider(nameof(Brightness), this) { Minimum = -1.0, Maximum = 1.0 };
-            Contrast = new Slider(nameof(Contrast), this) { Minimum = -1.0, Maximum = 1.0 };
-            Hue = new Slider(nameof(Hue), this) { Minimum = -1.0, Maximum = 1.0 };
-            Saturation = new Slider(nameof(Saturation), this) { Minimum = -1.0, Maximum = 1.0 };
-            Luminosity = new Slider(nameof(Luminosity), this) { Minimum = -1.0, Maximum = 1.0 };
-            Keying = new Slider(nameof(Keying), this);
-            Scale = new Slider(nameof(Scale), this) { Minimum = -1.0, Maximum = 1.0 };
-            Rotate = new Slider(nameof(Rotate), this) { Minimum = -1.0, Maximum = 1.0 };
-            Pan = new Slider(nameof(Pan), this) { Minimum = -1.0, Maximum = 1.0 };
-            Tilt = new Slider(nameof(Tilt), this) { Minimum = -1.0, Maximum = 1.0 };
-        }
-
         public Texture(IMessageProcessor parentSender, MasterBeat beat, TextureModel textureModel) : base (parentSender)
         {
             AssetPathSelector = new AssetPathSelector(nameof(AssetPathSelector), this, new AssetTexture());

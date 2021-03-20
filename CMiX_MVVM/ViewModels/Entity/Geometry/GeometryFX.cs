@@ -6,9 +6,9 @@ namespace CMiX.MVVM.ViewModels
 {
     public class GeometryFX : MessageCommunicator
     {
-        public GeometryFX(IMessageProcessor parentSender) : base (parentSender)
+        public GeometryFX(IMessageProcessor parentSender, GeometryFXModel geometryFXModel) : base (parentSender)
         {
-            Explode = new Slider(nameof(Explode), this);
+            Explode = new Slider(nameof(Explode), this, geometryFXModel.Explode);
         }
 
         public Slider Explode { get; set; }

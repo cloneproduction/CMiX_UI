@@ -8,11 +8,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Transform : MessageCommunicator, IObserver
     {
-        public Transform(IMessageProcessor parentSender) : base (parentSender)
+        public Transform(IMessageProcessor parentSender, TransformModel transformModel) : base (parentSender)
         {
-            Translate = new Translate(nameof(Translate), this);
-            Scale = new Scale(nameof(Scale), this);
-            Rotation = new Rotation(nameof(Rotation), this);
+            Translate = new Translate(nameof(Translate), this, transformModel.TranslateModel);
+            Scale = new Scale(nameof(Scale), this, transformModel.ScaleModel);
+            Rotation = new Rotation(nameof(Rotation), this, transformModel.RotationModel);
             Is3D = false;
         }
 

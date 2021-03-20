@@ -8,18 +8,19 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Slider : MessageCommunicator
     {
-        public Slider(string name, IMessageProcessor parentSender) : base (name, parentSender)
+        //public Slider(string name, IMessageProcessor parentSender) : base (name, parentSender)
+        //{
+
+        //}
+
+        public Slider(string name, IMessageProcessor parentProcessor, SliderModel sliderModel) : base (name, parentProcessor)
         {
+            this.Amount = sliderModel.Amount;
             Name = name;
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             ResetCommand = new RelayCommand(p => Reset());
-        }
-
-        public Slider(string name, IMessageProcessor parentProcessor, SliderModel sliderModel) : this (name, parentProcessor)
-        {
-            this.Amount = sliderModel.Amount;
         }
 
 

@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Entity : Component
     {
-        public Entity(int id, MessageTerminal MessageTerminal, Scene scene, EntityModel entityModel) : base (id, MessageTerminal)
+        public Entity(MessageTerminal messageTerminal, Scene scene, EntityModel entityModel) : base (messageTerminal, entityModel)
         {
             MasterBeat = scene.MasterBeat;
 

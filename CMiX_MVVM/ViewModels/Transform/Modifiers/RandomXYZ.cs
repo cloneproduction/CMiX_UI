@@ -22,17 +22,17 @@ namespace CMiX.MVVM.ViewModels
 
             SelectedModifierType = ModifierType.OBJECT;
 
-            LocationX = new Slider(nameof(LocationX), this);
-            LocationY = new Slider(nameof(LocationY), this);
-            LocationZ = new Slider(nameof(LocationZ), this);
+            LocationX = new Slider(nameof(LocationX), this, randomXYZModel.LocationX );
+            LocationY = new Slider(nameof(LocationY), this, randomXYZModel.LocationY);
+            LocationZ = new Slider(nameof(LocationZ), this, randomXYZModel.LocationZ);
 
-            ScaleX = new Slider(nameof(ScaleX), this);
-            ScaleY = new Slider(nameof(ScaleY), this);
-            ScaleZ = new Slider(nameof(ScaleZ), this);
+            ScaleX = new Slider(nameof(ScaleX), this, randomXYZModel.ScaleX);
+            ScaleY = new Slider(nameof(ScaleY), this, randomXYZModel.ScaleY);
+            ScaleZ = new Slider(nameof(ScaleZ), this, randomXYZModel.ScaleZ);
 
-            RotationX = new Slider(nameof(RotationX), this);
-            RotationY = new Slider(nameof(RotationY), this);
-            RotationZ = new Slider(nameof(RotationZ), this);
+            RotationX = new Slider(nameof(RotationX), this, randomXYZModel.RotationX);
+            RotationY = new Slider(nameof(RotationY), this, randomXYZModel.RotationY);
+            RotationZ = new Slider(nameof(RotationZ), this, randomXYZModel.RotationZ);
 
             RandomizeLocation = true;
             RandomizeScale = true;

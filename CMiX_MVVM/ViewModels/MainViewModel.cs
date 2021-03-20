@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
 
             MessageTerminal = new MessageTerminal();
 
-            CurrentProject = new Project(0, MessageTerminal);
+            CurrentProject = new Project(MessageTerminal, new ProjectModel(0));
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
@@ -166,7 +166,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(0, this.MessageTerminal);
+            Project project = new Project(this.MessageTerminal, new ProjectModel(0));
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

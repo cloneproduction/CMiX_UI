@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
@@ -21,21 +22,21 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public Component CreateComponent(Component parentComponent, IComponentModel model)
         {
-            return CreateComposition((Project)parentComponent, model);
+            return CreateComposition((Project)parentComponent, model as CompositionModel);
         }
+
+
 
         private Composition CreateComposition(Project parentComponent)
         {
-            var component = new Composition(ID, MessageTerminal, parentComponent);
+            var component = new Composition(MessageTerminal, parentComponent, new CompositionModel(ID));
             ID++;
             return component;
         }
 
-        private Composition CreateComposition(Project parentComponent, IComponentModel componentModel)
+        private Composition CreateComposition(Project parentComponent, CompositionModel compositionModel)
         {
-            var component = new Composition(componentModel.ID, MessageTerminal, parentComponent);
-            component.SetViewModel(componentModel);
-            return component;
+            return new Composition(MessageTerminal, parentComponent, compositionModel);
         }
     }
 }

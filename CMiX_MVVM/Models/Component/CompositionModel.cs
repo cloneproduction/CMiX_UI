@@ -9,8 +9,9 @@ namespace CMiX.MVVM.Models
     [Serializable]
     public class CompositionModel : IComponentModel
     {
-        public CompositionModel()
+        public CompositionModel(int id)
         {
+            ID = id;
             ComponentModels = new ObservableCollection<IComponentModel>();
             MasterBeatModel = new MasterBeatModel();
             CameraModel = new CameraModel();

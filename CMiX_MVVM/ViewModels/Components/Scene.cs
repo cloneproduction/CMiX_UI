@@ -8,23 +8,19 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(int id, MessageTerminal MessageTerminal, Layer layer, SceneModel sceneModel) : base (id, MessageTerminal)
+        public Scene(MessageTerminal messageTerminal, Layer layer, SceneModel sceneModel) : base (messageTerminal, sceneModel)
         {
+
             MasterBeat = layer.MasterBeat;
             Visibility = new Visibility(layer, layer.Visibility);
 
-            BeatModifier = new BeatModifier(this, layer.MasterBeat, new BeatModifierModel());
+            BeatModifier = new BeatModifier(this, layer.MasterBeat, sceneModel.BeatModifierModel);
             PostFX = new PostFX(this, sceneModel.PostFXModel);
             Mask = new Mask(this, sceneModel.MaskModel);
-            Transform = new Transform(this);
-            ComponentFactory = new EntityFactory(MessageTerminal);
+            Transform = new Transform(this, sceneModel.TransformModel);
 
+            ComponentFactory = new EntityFactory(messageTerminal);
         }
-
-        //public Scene(int id, MessageTerminal MessageTerminal, Layer layer, SceneModel sceneModel) : this (id, MessageTerminal, layer)
-        //{
-        //    this.SetViewModel(sceneModel);
-        //}
 
 
         public Transform Transform { get; set; }
@@ -36,10 +32,9 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override IModel GetModel()
         {
-            SceneModel model = new SceneModel();
+            SceneModel model = new SceneModel(this.ID);
 
             model.Enabled = this.Enabled;
-            model.ID = this.ID;
             model.Name = this.Name;
 
             model.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
