@@ -14,7 +14,6 @@ namespace CMiX.MVVM.ViewModels.Components
         public Component(MessageTerminal messageTerminal, IComponentModel componentModel)
         {
             ID = componentModel.ID;
-            //ID = id;
             IsExpanded = false;
             Name = $"{this.GetType().Name}{ID}";
 
