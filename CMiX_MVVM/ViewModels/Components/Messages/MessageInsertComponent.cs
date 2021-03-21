@@ -1,10 +1,9 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.Components;
 
-namespace CMiX.MVVM.ViewModels.MessageService.Messages
+namespace CMiX.MVVM.ViewModels.Components.Messages
 {
-    public class MessageInsertComponent : IMessage
+    public class MessageInsertComponent : IComponentMessage
     {
         public MessageInsertComponent()
         {
@@ -17,7 +16,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         }
 
         private int Index { get; set; }
-        private IComponentModel ComponentModel { get; set; }
+        public IComponentModel ComponentModel { get; set; }
         public object Obj { get; set; }
         public string Address { get; set; }
 

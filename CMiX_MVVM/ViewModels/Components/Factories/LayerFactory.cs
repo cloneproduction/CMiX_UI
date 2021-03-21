@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public Component CreateComponent(Component parentComponent, IComponentModel model)
         {
-            return CreateLayer((Composition)parentComponent, (LayerModel)model);
+            return CreateLayer((Composition)parentComponent, model as LayerModel);
         }
 
 

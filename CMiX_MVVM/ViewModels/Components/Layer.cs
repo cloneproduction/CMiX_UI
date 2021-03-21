@@ -43,16 +43,6 @@ namespace CMiX.MVVM.ViewModels.Components
             base.Dispose();
         }
 
-        public override void SetViewModel(IModel model)
-        {
-            LayerModel layerModel = model as LayerModel;
-
-            this.Out = layerModel.Out;
-            this.Fade.SetViewModel(layerModel.Fade);
-            this.BlendMode.SetViewModel(layerModel.BlendMode);
-
-            SetComponents(this, layerModel);
-        }
 
         public override IModel GetModel()
         {
@@ -68,6 +58,18 @@ namespace CMiX.MVVM.ViewModels.Components
             GetComponents(this, model);
 
             return model;
+        }
+
+
+        public override void SetViewModel(IModel model)
+        {
+            LayerModel layerModel = model as LayerModel;
+
+            this.Out = layerModel.Out;
+            this.Fade.SetViewModel(layerModel.Fade);
+            this.BlendMode.SetViewModel(layerModel.BlendMode);
+
+            SetComponents(this, layerModel);
         }
     }
 }

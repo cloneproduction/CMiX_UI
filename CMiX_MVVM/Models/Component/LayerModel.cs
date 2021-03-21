@@ -7,6 +7,11 @@ namespace CMiX.MVVM.Models
     [Serializable]
     public class LayerModel : IComponentModel
     {
+        public LayerModel()
+        {
+
+        }
+
         public LayerModel(int id)
         {
             ID = id;

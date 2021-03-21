@@ -1,12 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.Mediator;
 using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService.Messages
+namespace CMiX.MVVM.ViewModels.Components.Messages
 {
     [Serializable]
-    public class MessageAddComponent : IMessage
+    public class MessageAddComponent : IComponentMessage
     {
         public MessageAddComponent()
         {
@@ -17,7 +16,6 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         {
             Address = address;
             ComponentModel = componentModel;
-
         }
 
         public string Address { get; set; }

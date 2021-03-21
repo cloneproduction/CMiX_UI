@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using MvvmDialogs;
 using CMiX.MVVM.Views;
 using CMiX.Studio.ViewModels.MessageService;
+using System.Linq;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
@@ -27,6 +28,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public ICommand DeleteMessengerCommand { get; set; }
         public ICommand RenameMessengerCommand { get; set; }
 
+
+        public bool HasMessengerRunning { get => Messengers.Any(x => x.ServerIsRunning); }
 
         private ObservableCollection<Messenger> _messengers;
         public ObservableCollection<Messenger> Messengers

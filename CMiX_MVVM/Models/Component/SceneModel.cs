@@ -7,17 +7,21 @@ namespace CMiX.MVVM.Models
     [Serializable]
     public class SceneModel : IComponentModel
     {
-        public SceneModel(int id)
+        public SceneModel()
         {
-            ID = id;
-            ComponentModels = new ObservableCollection<IComponentModel>();
-
             TransformModel = new TransformModel();
             TextureModel = new TextureModel();
             GeometryModel = new GeometryModel();
             PostFXModel = new PostFXModel();
             MaskModel = new MaskModel();
             BeatModifierModel = new BeatModifierModel();
+
+            ComponentModels = new ObservableCollection<IComponentModel>();
+        }
+
+        public SceneModel(int id) : this()
+        {
+            ID = id;
         }
 
         public bool Enabled { get; set; }

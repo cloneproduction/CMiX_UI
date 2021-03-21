@@ -9,13 +9,15 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(MessageTerminal MessageTerminal, Project project, CompositionModel compositionModel) : base (MessageTerminal, compositionModel)
+        public Composition(MessageTerminal MessageTerminal, Project project, CompositionModel compositionModel) 
+            : base (MessageTerminal, compositionModel)
         {
             MasterBeat = new MasterBeat(this);
             Transition = new Slider(nameof(Transition), this, compositionModel.TransitionModel);
             Camera = new Camera(this, MasterBeat, compositionModel.CameraModel);
-            ComponentFactory = new LayerFactory(MessageTerminal);
+            
             Visibility = new Visibility(project, project.Visibility);
+            ComponentFactory = new LayerFactory(MessageTerminal);
         }
 
 

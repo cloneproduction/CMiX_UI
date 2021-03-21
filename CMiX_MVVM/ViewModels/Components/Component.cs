@@ -1,8 +1,9 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -13,16 +14,29 @@ namespace CMiX.MVVM.ViewModels.Components
     {
         public Component(MessageTerminal messageTerminal, IComponentModel componentModel)
         {
-            ID = componentModel.ID;
             IsExpanded = false;
             Name = $"{this.GetType().Name}{ID}";
+            ID = componentModel.ID;
 
-            MessageDispatcher = new MessageDispatcher(messageTerminal, this);
+            MessageTerminal = messageTerminal;
+            MessageTerminal.MessageReceived += MessageTerminal_MessageReceived;
+
+            MessageDispatcher = new MessageDispatcher(MessageTerminal);
             Components = new ObservableCollection<Component>();
         }
 
+        private void MessageTerminal_MessageReceived(object sender, MessageEventArgs e)
+        {
+            var message = e.Message;
+
+            if(message is IComponentMessage)
+                message.Process(this);
+            else
+                MessageDispatcher.NotifyIn(message);
+        }
 
 
+        public MessageTerminal MessageTerminal { get; set; }
         public Visibility Visibility { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
         public IComponentFactory ComponentFactory { get; set; }
@@ -110,7 +124,8 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual void Dispose()
         {
-            MessageDispatcher.Dispose();
+            MessageTerminal.MessageReceived -= MessageTerminal_MessageReceived;
+            //MessageDispatcher.Dispose();
             foreach (var component in Components)
             {
                 component.Dispose();

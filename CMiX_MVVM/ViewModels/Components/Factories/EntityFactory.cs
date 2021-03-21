@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Entity CreateEntity(Scene parentScene)
         {
-            EntityModel entityModel = new EntityModel();
+            EntityModel entityModel = new EntityModel(ID);
             var component = new Entity(MessageTerminal, parentScene, entityModel);
             ID++;
             return component;

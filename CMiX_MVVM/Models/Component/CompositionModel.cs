@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.Interfaces;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Beat;
+using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
     public class CompositionModel : IComponentModel
     {
+        public CompositionModel()
+        {
+
+        }
+
         public CompositionModel(int id)
         {
             ID = id;

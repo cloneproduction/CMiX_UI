@@ -1,9 +1,8 @@
 ﻿using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.Components;
 
-namespace CMiX.MVVM.ViewModels.MessageService.Messages
+namespace CMiX.MVVM.ViewModels.Components.Messages
 {
-    public class MessageMoveComponent : IMessage
+    public class MessageMoveComponent : IComponentMessage
     {
         public MessageMoveComponent()
         {
@@ -19,6 +18,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public int OldIndex { get; set; }
         public int NewIndex { get; set; }
         public string Address { get; set; }
+        
 
         public void Process(IMessageProcessor messageProcessor)
         {

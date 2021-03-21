@@ -34,6 +34,8 @@ namespace CMiX.Studio.ViewModels.MessageService
             this.Server.Send(address, data);
         }
 
+        public bool ServerIsRunning { get => Server.IsRunning; }
+
         public Settings GetSettings()
         {
             return new Settings(Name, Server.Topic, Server.IP, Server.Port);

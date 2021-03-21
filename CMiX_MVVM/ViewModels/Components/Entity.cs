@@ -37,11 +37,10 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override IModel GetModel()
         {
-            EntityModel model = new EntityModel();
+            EntityModel model = new EntityModel(this.ID);
 
             model.Enabled = this.Enabled;
             model.Name = this.Name;
-            model.ID = this.ID;
 
             model.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
             model.TextureModel = (TextureModel)this.Texture.GetModel();

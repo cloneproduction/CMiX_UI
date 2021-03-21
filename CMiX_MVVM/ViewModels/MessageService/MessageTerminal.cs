@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         private CerasSerializer Serializer { get; set; }
         public MessageSender MessageSender { get; set; }
-        private MessageReceiver MessageReceiver { get; set; }
+        public MessageReceiver MessageReceiver { get; set; }
 
         public void StartReceiver(Settings settings)
         {
@@ -40,8 +40,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void SendMessage(string address, IMessage message)
         {
-            byte[] data = Serializer.Serialize(message);
-            MessageSender.SendMessage(address, data);
+            if (MessageSender.HasMessengerRunning)
+            {
+                byte[] data = Serializer.Serialize(message);
+                MessageSender.SendMessage(address, data);
+            }
         }
     }
 }

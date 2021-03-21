@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.MVVM.ViewModels.MessageService;
 using System;
 using System.Collections.Generic;
 
@@ -7,29 +6,15 @@ namespace CMiX.MVVM.ViewModels.Mediator
 {
     public class MessageDispatcher : IDisposable
     {
+
         public MessageDispatcher(MessageTerminal messageTerminal)
         {
             MessageTerminal = messageTerminal;
-            MessageTerminal.MessageReceived += MessageTerminal_MessageReceived;
             Colleagues = new Dictionary<string, IMessageProcessor>();
-        }
-
-        public MessageDispatcher(MessageTerminal messageTerminal, IMessageProcessor messageProcessor)
-        {
-            MessageTerminal = messageTerminal;
-            MessageTerminal.MessageReceived += MessageTerminal_MessageReceived;
-            Colleagues = new Dictionary<string, IMessageProcessor>();
-            RegisterColleague(messageProcessor);
         }
 
         private MessageTerminal MessageTerminal { get; set; }
         private Dictionary<string, IMessageProcessor> Colleagues { get; set; }
-
-
-        private void MessageTerminal_MessageReceived(object sender, MessageEventArgs e)
-        {
-            this.NotifyIn(e.Message);
-        }
 
 
         public void NotifyOut(IMessage message)
@@ -46,6 +31,7 @@ namespace CMiX.MVVM.ViewModels.Mediator
 
         public void RegisterColleague(IMessageProcessor colleague)
         {
+            Console.WriteLine("RegisterColleague " + colleague.GetAddress());
             if (Colleagues.ContainsKey(colleague.GetAddress()))
                 Colleagues[colleague.GetAddress()] = colleague;
             else
@@ -59,7 +45,7 @@ namespace CMiX.MVVM.ViewModels.Mediator
 
         public void Dispose()
         {
-            MessageTerminal.MessageReceived -= MessageTerminal_MessageReceived;
+            Colleagues.Clear();
         }
     }
 }

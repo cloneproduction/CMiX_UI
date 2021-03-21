@@ -15,6 +15,11 @@ namespace CMiX.MVVM.Models
             VisibilityModel = new VisibilityModel();
         }
 
+        public EntityModel(int id) : this ()
+        {
+            ID = id;
+        }
+
         public bool Enabled { get; set; }
         public string Name { get; set; }
         public int ID { get; set; }
