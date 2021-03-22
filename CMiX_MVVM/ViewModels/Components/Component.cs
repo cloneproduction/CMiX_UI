@@ -14,6 +14,7 @@ namespace CMiX.MVVM.ViewModels.Components
     {
         public Component(MessageTerminal messageTerminal, IComponentModel componentModel)
         {
+            Console.WriteLine("Component Created " + this.GetType() + "ID is " + ID);
             IsExpanded = false;
             Name = $"{this.GetType().Name}{ID}";
             ID = componentModel.ID;
@@ -29,7 +30,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             var message = e.Message;
 
-            if(message is IComponentMessage)
+            if(message is IComponentMessage && message.Address == this.GetAddress())
                 message.Process(this);
             else
                 MessageDispatcher.NotifyIn(message);
@@ -125,7 +126,6 @@ namespace CMiX.MVVM.ViewModels.Components
         public virtual void Dispose()
         {
             MessageTerminal.MessageReceived -= MessageTerminal_MessageReceived;
-            //MessageDispatcher.Dispose();
             foreach (var component in Components)
             {
                 component.Dispose();

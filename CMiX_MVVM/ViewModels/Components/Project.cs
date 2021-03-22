@@ -14,9 +14,10 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
-            ComponentFactory = new CompositionFactory(MessageTerminal);
+            
             
             Visibility = new Visibility(this);
+            ComponentFactory = new CompositionFactory(MessageTerminal);
         }
 
         public IDialogService DialogService { get; set; }

@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         private void Receiver_MessageReceived(object sender, MessageEventArgs e)
         {
             OnMessageReceived(sender, e);
-            Console.WriteLine("MessageReceived " + e.Message.Address);
+            //Console.WriteLine("MessageReceived " + e.Message.Address);
         }
 
         private CerasSerializer Serializer { get; set; }

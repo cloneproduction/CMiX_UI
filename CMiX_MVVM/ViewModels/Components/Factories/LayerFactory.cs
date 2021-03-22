@@ -28,7 +28,8 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Layer CreateLayer(Composition composition)
         {
-            var component = new Layer(MessageTerminal, composition, new LayerModel(ID));
+            var model = new LayerModel(ID);
+            var component = new Layer(MessageTerminal, composition, model);
             ID++;
             return component;
         }
