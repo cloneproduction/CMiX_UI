@@ -24,7 +24,8 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public void Process(IMessageProcessor messageProcessor)
         {
             Component component = messageProcessor as Component;
-            var newComponent = component.ComponentFactory.CreateComponent(component, ComponentModel);
+            var messageDispatcher = component.MessageDispatcher.CreateMessageDispatcher();
+            var newComponent = component.ComponentFactory.CreateComponent(component, messageDispatcher, ComponentModel);
             component.Components.Add(newComponent);
         }
     }

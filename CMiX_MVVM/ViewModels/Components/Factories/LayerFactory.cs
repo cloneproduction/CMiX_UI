@@ -1,45 +1,41 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class LayerFactory : IComponentFactory
     {
-        public LayerFactory(MessageTerminal MessageTerminal)
+        public LayerFactory()
         {
-            this.MessageTerminal = MessageTerminal;
+
         }
 
         private static int ID = 0;
 
-        private MessageTerminal MessageTerminal { get; set; }
-
-        public Component CreateComponent(Component parentComponent)
+        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher)
         {
-            return CreateLayer((Composition)parentComponent);
+            return CreateLayer((Composition)parentComponent, messageDispatcher);
         }
 
-        public Component CreateComponent(Component parentComponent, IComponentModel model)
+        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher, IComponentModel model)
         {
-            return CreateLayer((Composition)parentComponent, model as LayerModel);
+            return CreateLayer((Composition)parentComponent, messageDispatcher, model as LayerModel);
         }
 
 
-        private Layer CreateLayer(Composition composition)
+        private Layer CreateLayer(Composition composition, MessageDispatcher messageDispatcher)
         {
             var model = new LayerModel(ID);
-            var component = new Layer(MessageTerminal, composition, model);
+            var component = new Layer(messageDispatcher, composition, model);
             ID++;
             return component;
         }
 
 
-        private Layer CreateLayer(Composition composition, LayerModel componentModel)
+        private Layer CreateLayer(Composition composition, MessageDispatcher messageDispatcher, LayerModel componentModel)
         {
-            var component = new Layer(MessageTerminal, composition, componentModel);
-            component.SetViewModel(componentModel);
-            return component;
+            return new Layer(messageDispatcher, composition, componentModel);
         }
     }
 }

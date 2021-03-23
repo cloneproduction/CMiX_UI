@@ -1,43 +1,42 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class CompositionFactory : IComponentFactory
     {
-        public CompositionFactory(MessageTerminal MessageTerminal)
+        public CompositionFactory()
         {
-            this.MessageTerminal = MessageTerminal;
+
         }
 
         private static int ID = 0;
 
-        private MessageTerminal MessageTerminal { get; set; }
-
-        public Component CreateComponent(Component parentComponent)
+        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher)
         {
-            return CreateComposition((Project)parentComponent);
+            return CreateComposition((Project)parentComponent, messageDispatcher);
         }
 
-        public Component CreateComponent(Component parentComponent, IComponentModel model)
+        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher, IComponentModel model)
         {
-            return CreateComposition((Project)parentComponent, model as CompositionModel);
+            return CreateComposition((Project)parentComponent, messageDispatcher, model as CompositionModel);
         }
 
 
 
-        private Composition CreateComposition(Project parentComponent)
+        private Composition CreateComposition(Project parentProject, MessageDispatcher messageDispatcher)
         {
             var model = new CompositionModel(ID);
-            var component = new Composition(MessageTerminal, parentComponent, model);
+            var component = new Composition(messageDispatcher, parentProject, model);
             ID++;
             return component;
         }
 
-        private Composition CreateComposition(Project parentComponent, CompositionModel compositionModel)
+        private Composition CreateComposition(Project parentProject, MessageDispatcher messageDispatcher, CompositionModel compositionModel)
         {
-            return new Composition(MessageTerminal, parentComponent, compositionModel);
+            return new Composition(messageDispatcher, parentProject, compositionModel);
         }
     }
 }

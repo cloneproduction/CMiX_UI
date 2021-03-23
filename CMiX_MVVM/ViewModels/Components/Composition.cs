@@ -3,21 +3,21 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(MessageTerminal MessageTerminal, Project project, CompositionModel compositionModel) 
-            : base (MessageTerminal, compositionModel)
+        public Composition(MessageDispatcher messageDispatcher, Project project, CompositionModel compositionModel) 
+            : base (messageDispatcher, compositionModel)
         {
             MasterBeat = new MasterBeat(this);
             Transition = new Slider(nameof(Transition), this, compositionModel.TransitionModel);
             Camera = new Camera(this, MasterBeat, compositionModel.CameraModel);
             
             Visibility = new Visibility(project, project.Visibility);
-            ComponentFactory = new LayerFactory(MessageTerminal);
+            ComponentFactory = new LayerFactory();
         }
 
 

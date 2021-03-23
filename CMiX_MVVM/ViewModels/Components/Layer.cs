@@ -2,14 +2,15 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(MessageTerminal messageTerminal, Composition composition, LayerModel layerModel) 
-            : base (messageTerminal, layerModel)
+        public Layer(MessageDispatcher messageDispatcher, Composition composition, LayerModel layerModel) 
+            : base (messageDispatcher, layerModel)
         {
             MasterBeat = composition.MasterBeat;
             Visibility = new Visibility(composition, composition.Visibility);
@@ -18,7 +19,7 @@ namespace CMiX.MVVM.ViewModels.Components
             BlendMode = new BlendMode(this, layerModel.BlendMode);
             Fade = new Slider(nameof(Fade), this, layerModel.Fade);
             Mask = new Mask(this, layerModel.MaskModel);
-            ComponentFactory = new SceneFactory(messageTerminal);
+            ComponentFactory = new SceneFactory();
         }
 
         private bool _out;

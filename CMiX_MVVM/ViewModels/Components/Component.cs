@@ -12,21 +12,18 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IMessageProcessor, IDisposable
     {
-        public Component(MessageTerminal messageTerminal, IComponentModel componentModel)
+        public Component(MessageDispatcher messageDispatcher, IComponentModel componentModel)
         {
-            Console.WriteLine("Component Created " + this.GetType() + "ID is " + ID);
+            MessageDispatcher = messageDispatcher;
             IsExpanded = false;
-            Name = $"{this.GetType().Name}{ID}";
+
+            Name = $"{this.GetType().Name}{componentModel.ID}";
             ID = componentModel.ID;
 
-            MessageTerminal = messageTerminal;
-            MessageTerminal.MessageReceived += MessageTerminal_MessageReceived;
-
-            MessageDispatcher = new MessageDispatcher(MessageTerminal);
             Components = new ObservableCollection<Component>();
         }
 
-        private void MessageTerminal_MessageReceived(object sender, MessageEventArgs e)
+        public void MessageTerminal_MessageReceived(object sender, MessageEventArgs e)
         {
             var message = e.Message;
 
@@ -37,7 +34,6 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public MessageTerminal MessageTerminal { get; set; }
         public Visibility Visibility { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
         public IComponentFactory ComponentFactory { get; set; }
@@ -118,14 +114,13 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public Component CreateAndAddComponent()
         {
-            Component component = ComponentFactory.CreateComponent(this);
+            Component component = ComponentFactory.CreateComponent(this, this.MessageDispatcher.CreateMessageDispatcher());
             this.AddComponent(component);
             return component;
         }
 
         public virtual void Dispose()
         {
-            MessageTerminal.MessageReceived -= MessageTerminal_MessageReceived;
             foreach (var component in Components)
             {
                 component.Dispose();

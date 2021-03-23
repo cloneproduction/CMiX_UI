@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components;
+using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 using Memento;
 using MvvmDialogs;
@@ -22,14 +23,18 @@ namespace CMiX.MVVM.ViewModels
 
             MessageTerminal = new MessageTerminal();
 
-            CurrentProject = new Project(MessageTerminal, new ProjectModel(0));
+            CurrentProject = new Project(new MessageDispatcher(MessageTerminal), new ProjectModel(0));
+            MessageTerminal.MessageReceived += CurrentProject.MessageTerminal_MessageReceived;
+
+
+
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
 
             AssetManager = new AssetManager(CurrentProject);
 
-            ComponentManager = new ComponentManager(Projects);
+            ComponentManager = new ComponentManager(Projects, MessageTerminal);
             Outliner = new Outliner(Projects);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
@@ -166,7 +171,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(this.MessageTerminal, new ProjectModel(0));
+            Project project = new Project(new MessageDispatcher(this.MessageTerminal), new ProjectModel(0));
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

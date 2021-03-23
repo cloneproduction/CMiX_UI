@@ -1,42 +1,37 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class SceneFactory : IComponentFactory
     {
-        public SceneFactory(MessageTerminal messageTerminal)
+        public SceneFactory()
         {
-            this.MessageTerminal = messageTerminal;
         }
 
         private static int ID = 0;
 
-        private MessageTerminal MessageTerminal { get; set; }
-
-        public Component CreateComponent(Component parentComponent)
+        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher)
         {
-            return CreateScene((Layer)parentComponent);
+            return CreateScene((Layer)parentComponent, messageDispatcher);
         }
 
-        public Component CreateComponent(Component parentComponent, IComponentModel model)
+        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher, IComponentModel model)
         {
-            return CreateScene(parentComponent as Layer, model as SceneModel);
+            return CreateScene(parentComponent as Layer, messageDispatcher, model as SceneModel);
         }
 
-        private Scene CreateScene(Layer parentLayer)
+        private Scene CreateScene(Layer parentLayer, MessageDispatcher messageDispatcher)
         {
-            var component = new Scene(this.MessageTerminal, parentLayer, new SceneModel(ID));
+            var component = new Scene(messageDispatcher, parentLayer, new SceneModel(ID));
             ID++;
             return component;
         }
 
-        private Scene CreateScene(Layer parentLayer, SceneModel componentModel)
+        private Scene CreateScene(Layer parentLayer, MessageDispatcher messageDispatcher, SceneModel componentModel)
         {
-            var component = new Scene(MessageTerminal, parentLayer, componentModel);
-            component.SetViewModel(componentModel);
-            return component;
+            return new Scene(messageDispatcher, parentLayer, componentModel);
         }
     }
 }
