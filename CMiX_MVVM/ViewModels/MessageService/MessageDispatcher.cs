@@ -1,30 +1,28 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.MessageService;
 using System;
 using System.Collections.Generic;
 
-namespace CMiX.MVVM.ViewModels.Mediator
+namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class MessageDispatcher : IDisposable
     {
-
-        public MessageDispatcher(MessageTerminal messageTerminal)
+        public MessageDispatcher()
         {
-            MessageTerminal = messageTerminal;
             Colleagues = new Dictionary<string, IMessageProcessor>();
         }
 
         public MessageTerminal MessageTerminal { get; set; }
         private Dictionary<string, IMessageProcessor> Colleagues { get; set; }
 
-        public MessageDispatcher CreateMessageDispatcher()
-        {
-            return new MessageDispatcher(MessageTerminal);
-        }
 
+        public event EventHandler<MessageEventArgs> SendMessageOut;
+        private void OnSendMessageOut(object sender, MessageEventArgs e) => SendMessageOut?.Invoke(sender, e);
 
         public void NotifyOut(IMessage message)
         {
-            MessageTerminal.SendMessage(message.Address, message);
+            //SendMessageOut(this, new MessageEventArgs(message));
+            //MessageTerminal.SendMessage(message.Address, message);
         }
 
         public void NotifyIn(IMessage message)

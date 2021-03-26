@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
 {

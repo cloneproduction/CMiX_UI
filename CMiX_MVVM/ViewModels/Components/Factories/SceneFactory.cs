@@ -1,37 +1,33 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class SceneFactory : IComponentFactory
     {
-        public SceneFactory()
+        public SceneFactory(Layer parentLayer, IMessageTerminal messageTerminal)
         {
+            ParentLayer = parentLayer;
+            MessageTerminal = messageTerminal;
         }
+
 
         private static int ID = 0;
+        private Layer ParentLayer { get; set; }
+        private IMessageTerminal MessageTerminal { get; set; }
 
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher)
-        {
-            return CreateScene((Layer)parentComponent, messageDispatcher);
-        }
 
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher, IComponentModel model)
+        public Component CreateComponent()
         {
-            return CreateScene(parentComponent as Layer, messageDispatcher, model as SceneModel);
-        }
-
-        private Scene CreateScene(Layer parentLayer, MessageDispatcher messageDispatcher)
-        {
-            var component = new Scene(messageDispatcher, parentLayer, new SceneModel(ID));
+            var component = new Scene(MessageTerminal, ParentLayer, new SceneModel(ID));
             ID++;
             return component;
         }
 
-        private Scene CreateScene(Layer parentLayer, MessageDispatcher messageDispatcher, SceneModel componentModel)
+        public Component CreateComponent(IComponentModel model)
         {
-            return new Scene(messageDispatcher, parentLayer, componentModel);
+            return new Scene(MessageTerminal, ParentLayer, model as SceneModel);
         }
     }
 }

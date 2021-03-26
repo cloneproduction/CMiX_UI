@@ -1,39 +1,34 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class EntityFactory : IComponentFactory
     {
-        public EntityFactory()
+        public EntityFactory(Scene parentScene, IMessageTerminal messageTerminal)
         {
-
+            ParentScene = parentScene;
+            MessageTerminal = messageTerminal;
         }
+
 
         private static int ID = 0;
+        private Scene ParentScene { get; set; }
+        private IMessageTerminal MessageTerminal { get; set; }
 
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher)
-        {
-            return (parentComponent is Scene) ? CreateEntity((Scene)parentComponent, messageDispatcher) : null;
-        }
 
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher, IComponentModel model)
-        {
-            return (parentComponent is Scene) ? CreateEntity((Scene)parentComponent, messageDispatcher, model as EntityModel) : null;
-        }
-
-        private Entity CreateEntity(Scene parentScene, MessageDispatcher messageDispatcher)
+        public Component CreateComponent()
         {
             EntityModel entityModel = new EntityModel(ID);
-            var component = new Entity(messageDispatcher, parentScene, entityModel);
+            var component = new Entity(MessageTerminal, ParentScene, entityModel);
             ID++;
             return component;
         }
 
-        private Entity CreateEntity(Scene parentScene, MessageDispatcher messageDispatcher, EntityModel entityModel)
+        public Component CreateComponent(IComponentModel model)
         {
-            return new Entity(messageDispatcher, parentScene, entityModel as EntityModel);
+            return new Entity(MessageTerminal, ParentScene, model as EntityModel);
         }
     }
 }

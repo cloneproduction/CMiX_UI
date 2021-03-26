@@ -1,15 +1,13 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.MessageService;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components, MessageTerminal messageTerminal)
+        public ComponentManager(ObservableCollection<Component> components, IMessageTerminal messageTerminal)
         {
             MessageTerminal = messageTerminal;
             Components = components;
@@ -25,7 +23,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
 
-        public MessageTerminal MessageTerminal { get; set; }
+        public IMessageTerminal MessageTerminal { get; set; }
         public ObservableCollection<Component> Components { get; set; }
 
         private Component _selectedComponent;
@@ -40,14 +38,23 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void CreateComponent(Component component)
         {
-            component.CreateAndAddComponent();
-            MessageTerminal.MessageReceived += component.MessageTerminal_MessageReceived;
+            var newComponent = component.CreateChild();
+            component.AddComponent(newComponent);
         }
+
+
+        //public void CreateChild()
+        //{
+        //    Component component = ComponentFactory.CreateComponent();
+        //    this.AddComponent(component);
+        //}
+
+
 
         public void DeleteComponent(Component component)
         {
             GetSelectedParent(Components).RemoveComponent(component);
-            MessageTerminal.MessageReceived -= component.MessageTerminal_MessageReceived;
+            MessageTerminal.UnregisterMessageProcessor(component);
         }
 
 

@@ -1,42 +1,33 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class CompositionFactory : IComponentFactory
     {
-        public CompositionFactory()
+        public CompositionFactory(Project parentProject, IMessageTerminal messageTerminal)
         {
-
+            ParentProject = parentProject;
+            MessageTerminal = messageTerminal;
         }
+
+        private Project ParentProject { get; set; }
+        private IMessageTerminal MessageTerminal { get; set; }
 
         private static int ID = 0;
 
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher)
-        {
-            return CreateComposition((Project)parentComponent, messageDispatcher);
-        }
-
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher, IComponentModel model)
-        {
-            return CreateComposition((Project)parentComponent, messageDispatcher, model as CompositionModel);
-        }
-
-
-
-        private Composition CreateComposition(Project parentProject, MessageDispatcher messageDispatcher)
+        public Component CreateComponent()
         {
             var model = new CompositionModel(ID);
-            var component = new Composition(messageDispatcher, parentProject, model);
+            var component = new Composition(MessageTerminal, ParentProject, model);
             ID++;
             return component;
         }
 
-        private Composition CreateComposition(Project parentProject, MessageDispatcher messageDispatcher, CompositionModel compositionModel)
+        public Component CreateComponent(IComponentModel model)
         {
-            return new Composition(messageDispatcher, parentProject, compositionModel);
+            return new Composition(MessageTerminal, ParentProject, model as CompositionModel);
         }
     }
 }

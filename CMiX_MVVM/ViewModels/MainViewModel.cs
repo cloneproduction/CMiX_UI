@@ -2,7 +2,6 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components;
-using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 using Memento;
 using MvvmDialogs;
@@ -22,9 +21,10 @@ namespace CMiX.MVVM.ViewModels
             Mementor = new Mementor();
 
             MessageTerminal = new MessageTerminal();
+            IMessageTerminal = new MessageSender();
 
-            CurrentProject = new Project(new MessageDispatcher(MessageTerminal), new ProjectModel(0));
-            MessageTerminal.MessageReceived += CurrentProject.MessageTerminal_MessageReceived;
+            CurrentProject = new Project(IMessageTerminal, new ProjectModel(0));
+            //MessageTerminal.MessageReceived += CurrentProject.MessageTerminal_MessageReceived;
 
 
 
@@ -34,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
 
             AssetManager = new AssetManager(CurrentProject);
 
-            ComponentManager = new ComponentManager(Projects, MessageTerminal);
+            ComponentManager = new ComponentManager(Projects, IMessageTerminal);
             Outliner = new Outliner(Projects);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
@@ -83,6 +83,15 @@ namespace CMiX.MVVM.ViewModels
             get => _animatedDouble; 
             set => SetAndNotify(ref _animatedDouble, value);
         }
+
+
+        private IMessageTerminal _IMessageTerminal;
+        public IMessageTerminal IMessageTerminal
+        {
+            get => _IMessageTerminal;
+            set => SetAndNotify(ref _IMessageTerminal, value);
+        }
+
 
         private MessageTerminal _MessageTerminal;
         public MessageTerminal MessageTerminal
@@ -171,7 +180,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(new MessageDispatcher(this.MessageTerminal), new ProjectModel(0));
+            Project project = new Project(IMessageTerminal, new ProjectModel(0));
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

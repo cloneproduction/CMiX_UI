@@ -1,41 +1,35 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class LayerFactory : IComponentFactory
     {
-        public LayerFactory()
+        public LayerFactory(Composition parentComposition, IMessageTerminal messageTerminal)
         {
-
+            ParentComposition = parentComposition;
+            MessageTerminal = messageTerminal;
         }
+
 
         private static int ID = 0;
-
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher)
-        {
-            return CreateLayer((Composition)parentComponent, messageDispatcher);
-        }
-
-        public Component CreateComponent(Component parentComponent, MessageDispatcher messageDispatcher, IComponentModel model)
-        {
-            return CreateLayer((Composition)parentComponent, messageDispatcher, model as LayerModel);
-        }
+        public Composition ParentComposition { get; set; }
+        public IMessageTerminal MessageTerminal { get; set; }
 
 
-        private Layer CreateLayer(Composition composition, MessageDispatcher messageDispatcher)
+        public Component CreateComponent()
         {
             var model = new LayerModel(ID);
-            var component = new Layer(messageDispatcher, composition, model);
+            var component = new Layer(MessageTerminal, ParentComposition, model);
             ID++;
             return component;
         }
 
-
-        private Layer CreateLayer(Composition composition, MessageDispatcher messageDispatcher, LayerModel componentModel)
+        public Component CreateComponent(IComponentModel model)
         {
-            return new Layer(messageDispatcher, composition, componentModel);
+            return new Layer(MessageTerminal, ParentComposition, model as LayerModel);
         }
+
     }
 }

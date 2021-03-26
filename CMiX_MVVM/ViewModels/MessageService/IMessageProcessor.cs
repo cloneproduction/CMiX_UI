@@ -1,6 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 
-namespace CMiX.MVVM.ViewModels.Mediator
+namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IMessageProcessor
     {

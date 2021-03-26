@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.ViewModels.Mediator;
+﻿using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {

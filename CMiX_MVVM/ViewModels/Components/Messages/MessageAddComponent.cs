@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
@@ -24,8 +24,7 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public void Process(IMessageProcessor messageProcessor)
         {
             Component component = messageProcessor as Component;
-            var messageDispatcher = component.MessageDispatcher.CreateMessageDispatcher();
-            var newComponent = component.ComponentFactory.CreateComponent(component, messageDispatcher, ComponentModel);
+            var newComponent = component.ComponentFactory.CreateComponent(ComponentModel);
             component.Components.Add(newComponent);
         }
     }

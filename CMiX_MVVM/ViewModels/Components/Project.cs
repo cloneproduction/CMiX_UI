@@ -2,7 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 using MvvmDialogs;
 using System.Collections.ObjectModel;
 
@@ -10,15 +10,17 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Project : Component
     {
-        public Project(MessageDispatcher messageDispatcher, ProjectModel projectModel) : base (messageDispatcher, projectModel)
+        public Project(IMessageTerminal messageTerminal, ProjectModel projectModel) 
+            : base (projectModel)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
             
             
             Visibility = new Visibility(this);
-            ComponentFactory = new CompositionFactory();
+            ComponentFactory = new CompositionFactory(this, messageTerminal);
         }
+
 
         public IDialogService DialogService { get; set; }
 
@@ -37,7 +39,8 @@ namespace CMiX.MVVM.ViewModels.Components
             model.Name = this.Name;
             //model.IsVisible = this.IsVisible;
 
-            GetComponents(this, model);
+            foreach (Component item in this.Components)
+                model.ComponentModels.Add(item.GetModel() as IComponentModel);
 
             foreach (Asset asset in this.Assets)
                 model.AssetModels.Add((IAssetModel)asset.GetModel());
@@ -52,7 +55,8 @@ namespace CMiX.MVVM.ViewModels.Components
             this.Components.Clear();
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)
             {
-                this.CreateAndAddComponent().SetViewModel(compositionModel);
+                var newComponent = this.ComponentFactory.CreateComponent(componentModel as IComponentModel);
+                this.AddComponent(newComponent);
             }
 
             this.Assets.Clear();

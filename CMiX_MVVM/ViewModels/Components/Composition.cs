@@ -3,21 +3,21 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(MessageDispatcher messageDispatcher, Project project, CompositionModel compositionModel) 
-            : base (messageDispatcher, compositionModel)
+        public Composition(IMessageTerminal messageTerminal, Project project, CompositionModel compositionModel)
+            : base(compositionModel)
         {
             MasterBeat = new MasterBeat(this);
             Transition = new Slider(nameof(Transition), this, compositionModel.TransitionModel);
             Camera = new Camera(this, MasterBeat, compositionModel.CameraModel);
-            
+
             Visibility = new Visibility(project, project.Visibility);
-            ComponentFactory = new LayerFactory();
+            ComponentFactory = new LayerFactory(this, messageTerminal);
         }
 
 
@@ -36,7 +36,8 @@ namespace CMiX.MVVM.ViewModels.Components
             model.CameraModel = (CameraModel)this.Camera.GetModel();
             model.TransitionModel = (SliderModel)this.Transition.GetModel();
 
-            GetComponents(this, model);
+            foreach (Component item in this.Components)
+                model.ComponentModels.Add(item.GetModel() as IComponentModel);
 
             return model;
         }
@@ -49,7 +50,11 @@ namespace CMiX.MVVM.ViewModels.Components
             this.Camera.SetViewModel(compositionModel.CameraModel);
             this.Transition.SetViewModel(compositionModel.TransitionModel);
 
-            SetComponents(this, compositionModel);
+            this.Components.Clear();
+            foreach (var componentModel in compositionModel.ComponentModels)
+            {
+                this.ComponentFactory.CreateComponent(componentModel);
+            }
         }
     }
 }

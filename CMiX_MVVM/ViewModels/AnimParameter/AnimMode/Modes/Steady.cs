@@ -2,7 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
-using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 

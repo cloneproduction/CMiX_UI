@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.ViewModels.MessageService;
-using Ceras;
+using System;
+using System.Collections.Generic;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class MessageReceiver : ViewModel
+    public class MessageReceiver : ViewModel, IMessageTerminal
     {
         public MessageReceiver()
         {
@@ -15,19 +16,47 @@ namespace CMiX.Studio.ViewModels.MessageService
             Serializer = new CerasSerializer();
         }
 
-        public event EventHandler<MessageEventArgs> MessageReceived;
-        private void OnMessageReceived(object sender, MessageEventArgs e)
-        {
-            MessageReceived?.Invoke(sender, e);
-        }
+
+        //public event EventHandler<MessageEventArgs> MessageReceived;
+        //private void OnMessageReceived(object sender, MessageEventArgs e)
+        //{
+        //    MessageReceived?.Invoke(sender, e);
+        //}
+
 
         private CerasSerializer Serializer { get; set; }
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
             IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-            OnMessageReceived(sender, new MessageEventArgs(message));
+            this.ProcessMessage(message);
+            //OnMessageReceived(sender, new MessageEventArgs(message));
         }
+
+
+
+        public List<IMessageProcessor> MessageProcessors { get; set; }
+
+        public void ProcessMessage(IMessage message)
+        {
+            foreach (IMessageProcessor component in MessageProcessors)
+            {
+                message.Process(component);
+            }
+        }
+
+        public void RegisterMessageProcessor(IMessageProcessor component)
+        {
+            this.MessageProcessors.Add(component);
+        }
+
+        public void UnregisterMessageProcessor(IMessageProcessor component)
+        {
+            this.MessageProcessors.Remove(component);
+        }
+
+
+
 
         public string Address
         {

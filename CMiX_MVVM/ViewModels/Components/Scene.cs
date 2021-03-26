@@ -2,14 +2,14 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(MessageDispatcher messageDispatcher, Layer layer, SceneModel sceneModel) : base (messageDispatcher, sceneModel)
+        public Scene(IMessageTerminal messageTerminal, Layer layer, SceneModel sceneModel) 
+            : base (sceneModel)
         {
 
             MasterBeat = layer.MasterBeat;
@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Mask = new Mask(this, sceneModel.MaskModel);
             Transform = new Transform(this, sceneModel.TransformModel);
 
-            ComponentFactory = new EntityFactory();
+            ComponentFactory = new EntityFactory(this, messageTerminal);
         }
 
 
@@ -29,6 +29,13 @@ namespace CMiX.MVVM.ViewModels.Components
         public PostFX PostFX { get; set; }
         public BeatModifier BeatModifier { get; set; }
         public MasterBeat MasterBeat { get; set; }
+
+
+        //public override void CreateChild()
+        //{
+        //    var component = ComponentFactory.CreateComponent();
+        //    this.AddComponent(component);
+        //}
 
 
         public override IModel GetModel()
@@ -43,8 +50,8 @@ namespace CMiX.MVVM.ViewModels.Components
             model.MaskModel = (MaskModel)this.Mask.GetModel();
             model.TransformModel = (TransformModel)this.Transform.GetModel();
 
-            
-            GetComponents(this, model);
+            foreach (Component item in this.Components)
+                model.ComponentModels.Add(item.GetModel() as IComponentModel);
 
             return model;
         }
@@ -58,7 +65,9 @@ namespace CMiX.MVVM.ViewModels.Components
             this.Mask.SetViewModel(sceneModel.MaskModel);
             this.Transform.SetViewModel(sceneModel.TransformModel);
 
-            SetComponents(this, sceneModel);
+            this.Components.Clear();
+            foreach (var componentModel in sceneModel.ComponentModels)
+                this.ComponentFactory.CreateComponent(sceneModel);
         }
     }
 }

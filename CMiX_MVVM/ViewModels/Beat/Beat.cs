@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.ViewModels.Mediator;
+﻿using CMiX.MVVM.ViewModels.MessageService;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Beat

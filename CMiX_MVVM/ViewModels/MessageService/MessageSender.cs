@@ -1,13 +1,14 @@
-﻿using System.Windows.Input;
-using System.Collections.ObjectModel;
-using MvvmDialogs;
-using CMiX.MVVM.Views;
+﻿using CMiX.MVVM.Views;
 using CMiX.Studio.ViewModels.MessageService;
+using MvvmDialogs;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageSender : ViewModel
+    public class MessageSender : ViewModel, IMessageTerminal
     {
         public MessageSender()
         {
@@ -73,6 +74,24 @@ namespace CMiX.MVVM.ViewModels.MessageService
             {
                 messenger.SendMessage(address, data);
             }
+        }
+
+        List<IMessageProcessor> MessageProcessors { get; set; }
+
+        public void ProcessMessage(IMessage message)
+        {
+            //this.SendMessage()
+            System.Console.WriteLine("MessageSender ProcessMessage with Address " + message.Address);
+        }
+
+        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
+        {
+            this.MessageProcessors.Add(messageProcessor);
+        }
+
+        public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
+        {
+            this.MessageProcessors.Remove(messageProcessor);
         }
     }
 }

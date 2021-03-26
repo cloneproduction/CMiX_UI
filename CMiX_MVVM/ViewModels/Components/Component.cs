@@ -2,7 +2,6 @@
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Components.Messages;
-using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 using System;
 using System.Collections.ObjectModel;
@@ -12,9 +11,9 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IMessageProcessor, IDisposable
     {
-        public Component(MessageDispatcher messageDispatcher, IComponentModel componentModel)
+        public Component(IComponentModel componentModel)
         {
-            MessageDispatcher = messageDispatcher;
+            MessageDispatcher = new MessageDispatcher();
             IsExpanded = false;
 
             Name = $"{this.GetType().Name}{componentModel.ID}";
@@ -36,8 +35,8 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public Visibility Visibility { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
-        public IComponentFactory ComponentFactory { get; set; }
         public ICommand VisibilityCommand { get; set; }
+        public IMessageTerminal MessageTerminal { get; set; }
 
 
         private int _id;
@@ -45,6 +44,11 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             get => _id;
             set => SetAndNotify(ref _id, value);
+        }
+
+        internal void DispatchMessage(IMessage message)
+        {
+            this.MessageDispatcher.NotifyIn(message);
         }
 
         private string _name;
@@ -85,6 +89,8 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public string GetAddress() => $"{this.GetType().Name}/{ID}/";
 
+
+
         public void AddComponent(Component component)
         {
             Components.Add(component);
@@ -112,12 +118,26 @@ namespace CMiX.MVVM.ViewModels.Components
             MessageDispatcher.NotifyOut(new MessageMoveComponent(this.GetAddress(), oldIndex, newIndex));
         }
 
-        public Component CreateAndAddComponent()
+
+
+        internal IComponentFactory ComponentFactory { get; set; }
+        //public abstract void CreateChild();
+        //public abstract void CreateChild(IComponentModel componentModel);
+
+
+        public Component CreateChild()
         {
-            Component component = ComponentFactory.CreateComponent(this, this.MessageDispatcher.CreateMessageDispatcher());
-            this.AddComponent(component);
-            return component;
+            return ComponentFactory.CreateComponent();
+            //this.AddComponent(component);
         }
+
+        //public void CreateChild(IComponentModel componentModel)
+        //{
+        //    Component component = ComponentFactory.CreateComponent(componentModel);
+        //    this.AddComponent(component);
+        //}
+
+
 
         public virtual void Dispose()
         {
@@ -125,19 +145,6 @@ namespace CMiX.MVVM.ViewModels.Components
             {
                 component.Dispose();
             }
-        }
-
-        public void SetComponents(Component component, IComponentModel componentModel)
-        {
-            component.Components.Clear();
-            foreach (var model in componentModel.ComponentModels)
-                component.CreateAndAddComponent().SetViewModel(model);
-        }
-
-        public void GetComponents(Component component, IComponentModel componentModel)
-        {
-            foreach (Component item in component.Components)
-                componentModel.ComponentModels.Add(item.GetModel() as IComponentModel);
         }
 
         public abstract void SetViewModel(IModel model);

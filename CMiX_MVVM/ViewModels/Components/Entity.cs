@@ -1,14 +1,14 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
-using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Entity : Component
     {
-        public Entity(MessageDispatcher messageDispatcher, Scene scene, EntityModel entityModel) : base (messageDispatcher, entityModel)
+        public Entity(IMessageTerminal messageTerminal, Scene scene, EntityModel entityModel) 
+            : base (entityModel)
         {
             MasterBeat = scene.MasterBeat;
 
