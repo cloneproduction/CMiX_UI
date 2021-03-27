@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
@@ -11,9 +10,9 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IMessageProcessor, IDisposable
     {
-        public Component(IMessageTerminal messageTerminal, IComponentModel componentModel)
+        public Component(IComponentModel componentModel)
         {
-            MessageDispatcher = new MessageDispatcher(messageTerminal);
+            //MessageDispatcher = new MessageDispatcher(messageTerminal);
 
             IsExpanded = false;
 
@@ -27,7 +26,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public Visibility Visibility { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
         public ICommand VisibilityCommand { get; set; }
-        public IMessageTerminal MessageTerminal { get; set; }
+        internal IComponentFactory ComponentFactory { get; set; }
+
 
 
         private int _id;
@@ -72,6 +72,20 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
         private ObservableCollection<Component> _components;
+
+
+        public event Action<IMessageProcessor, IMessage> MessageNotification;
+        //protected void RaiseMessageNotification(IMessage message)
+        //{
+        //    var handler = MessageNotification;
+        //    if (handler != null)
+        //    {
+        //        handler(this, message);
+        //        Console.WriteLine("MessageNotification Raised by " + this.GetAddress());
+        //    }
+        //}
+
+
         public ObservableCollection<Component> Components
         {
             get => _components;
@@ -86,7 +100,15 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Components.Add(component);
             IsExpanded = true;
-            MessageDispatcher.NotifyOut(new MessageAddComponent(this.GetAddress(), component.GetModel() as IComponentModel));
+
+            var handler = MessageNotification;
+            if (MessageNotification != null)
+            {
+                handler(this, new MessageAddComponent(this.GetAddress(), component.GetModel() as IComponentModel));
+                Console.WriteLine("MessageNotification Raised by " + this.GetAddress());
+            }
+            //MessageTerminal.RegisterMessageProcessor(component);
+            //MessageTerminal.ProcessMessage(new MessageAddComponent(this.GetAddress(), component.GetModel() as IComponentModel));
         }
 
         public void RemoveComponent(Component component)
@@ -94,24 +116,29 @@ namespace CMiX.MVVM.ViewModels.Components
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
-            MessageDispatcher.NotifyOut(new MessageRemoveComponent(this.GetAddress(), index));
+
+            var handler = MessageNotification;
+            if (MessageNotification != null)
+            {
+                handler(this, new MessageRemoveComponent(this.GetAddress(), index));
+            }
         }
 
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
-            MessageDispatcher.NotifyOut(new MessageInsertComponent(GetAddress(), component.GetModel() as IComponentModel, index));
+            //MessageTerminal.ProcessMessage(new MessageInsertComponent(GetAddress(), component.GetModel() as IComponentModel, index));
         }
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
-            MessageDispatcher.NotifyOut(new MessageMoveComponent(this.GetAddress(), oldIndex, newIndex));
+            //MessageTerminal.ProcessMessage(new MessageMoveComponent(this.GetAddress(), oldIndex, newIndex));
         }
 
 
 
-        internal IComponentFactory ComponentFactory { get; set; }
+
 
 
         public Component CreateChild()

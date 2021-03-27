@@ -2,13 +2,12 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(IMessageTerminal messageTerminal, Layer layer, SceneModel sceneModel) 
+        public Scene(Layer layer, SceneModel sceneModel) 
             : base (sceneModel)
         {
             MasterBeat = layer.MasterBeat;
@@ -19,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Mask = new Mask(this, sceneModel.MaskModel);
             Transform = new Transform(this, sceneModel.TransformModel);
 
-            ComponentFactory = new EntityFactory(this, messageTerminal);
+            ComponentFactory = new EntityFactory(this);
         }
 
 
@@ -28,13 +27,6 @@ namespace CMiX.MVVM.ViewModels.Components
         public PostFX PostFX { get; set; }
         public BeatModifier BeatModifier { get; set; }
         public MasterBeat MasterBeat { get; set; }
-
-
-        //public override void CreateChild()
-        //{
-        //    var component = ComponentFactory.CreateComponent();
-        //    this.AddComponent(component);
-        //}
 
 
         public override IModel GetModel()

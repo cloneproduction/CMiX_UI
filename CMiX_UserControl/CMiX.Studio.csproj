@@ -214,9 +214,6 @@
     <Compile Include="Views\Component\Layer\LayerPanel.xaml.cs">
       <DependentUpon>LayerPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Messenger\MessageService.xaml.cs">
-      <DependentUpon>MessageService.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Messenger\Messenger.xaml.cs">
       <DependentUpon>Messenger.xaml</DependentUpon>
     </Compile>
@@ -378,10 +375,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\Layer\LayerPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Messenger\MessageService.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,6 +1,7 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using System;
 using System.Collections.Generic;
@@ -11,48 +12,54 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         public MessageReceiver()
         {
+            MessageProcessors = new Dictionary<string, IMessageProcessor>();
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
             Serializer = new CerasSerializer();
         }
-
-
-        //public event EventHandler<MessageEventArgs> MessageReceived;
-        //private void OnMessageReceived(object sender, MessageEventArgs e)
-        //{
-        //    MessageReceived?.Invoke(sender, e);
-        //}
-
 
         private CerasSerializer Serializer { get; set; }
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
             IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-            this.ProcessMessage(message);
-            //OnMessageReceived(sender, new MessageEventArgs(message));
+            this.ProcessMessage(message);  
         }
 
 
 
-        public List<IMessageProcessor> MessageProcessors { get; set; }
+        //public List<IMessageProcessor> MessageProcessors { get; set; }
+
+        private Dictionary<string, IMessageProcessor> MessageProcessors { get; set; }
 
         public void ProcessMessage(IMessage message)
         {
-            foreach (IMessageProcessor component in MessageProcessors)
+            if(message is IComponentMessage)
             {
-                message.Process(component);
+                var componentMessage = message as IComponentMessage;
+                IMessageProcessor col;
+                if (MessageProcessors.TryGetValue(message.Address, out col))
+                    componentMessage.Process(col, this);
             }
+            
+
+            Console.WriteLine("MessageReceiver ProcessMessage " + message.Address +"  " + message.GetType());
+
         }
 
-        public void RegisterMessageProcessor(IMessageProcessor component)
+
+        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            this.MessageProcessors.Add(component);
+            var address = messageProcessor.GetAddress();
+            if (MessageProcessors.ContainsKey(address))
+                MessageProcessors[address] = messageProcessor;
+            else
+                MessageProcessors.Add(address, messageProcessor);
         }
 
         public void UnregisterMessageProcessor(IMessageProcessor component)
         {
-            this.MessageProcessors.Remove(component);
+            MessageProcessors.Remove(component.GetAddress());
         }
 
 

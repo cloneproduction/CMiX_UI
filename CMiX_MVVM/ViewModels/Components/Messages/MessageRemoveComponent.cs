@@ -25,5 +25,10 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
             component.Components[Index].Dispose();
             component.Components.RemoveAt(Index);
         }
+
+        public void Process(IMessageProcessor viewModel, IMessageTerminal messageTerminal)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -3,13 +3,12 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(IMessageTerminal messageTerminal, Project project, CompositionModel compositionModel)
+        public Composition(Project project, CompositionModel compositionModel)
             : base(compositionModel)
         {
             MasterBeat = new MasterBeat(this);
@@ -17,7 +16,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Camera = new Camera(this, MasterBeat, compositionModel.CameraModel);
 
             Visibility = new Visibility(project, project.Visibility);
-            ComponentFactory = new LayerFactory(this, messageTerminal);
+            ComponentFactory = new LayerFactory(this);
         }
 
 

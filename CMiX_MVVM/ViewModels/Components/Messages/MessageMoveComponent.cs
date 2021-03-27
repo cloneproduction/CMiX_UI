@@ -25,5 +25,10 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
             Component component = messageProcessor as Component;
             component.Components.Move(OldIndex, NewIndex);
         }
+
+        public void Process(IMessageProcessor viewModel, IMessageTerminal messageTerminal)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _isVisible, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             } 
         }
 
@@ -50,7 +50,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _parentIsVisible, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 

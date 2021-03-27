@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Views;
+﻿using Ceras;
+using CMiX.MVVM.Views;
 using CMiX.Studio.ViewModels.MessageService;
 using MvvmDialogs;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -12,6 +12,9 @@ namespace CMiX.MVVM.ViewModels.MessageService
     {
         public MessageSender()
         {
+            Serializer = new CerasSerializer();
+            //MessageProcessors = new List<IMessageProcessor>();
+
             MessengerFactory = new MessengerFactory();
             Messengers = new ObservableCollection<Messenger>();
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
@@ -21,6 +24,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
             RenameMessengerCommand = new RelayCommand(p => RenameServer(p as Server));
             EditMessengerSettingsCommand = new RelayCommand(p => EditMessengerSettings(p as Messenger));
         }
+
+        public CerasSerializer Serializer { get; set; }
 
         MessengerFactory MessengerFactory { get; set; }
         public IDialogService DialogService { get; set; }
@@ -68,30 +73,34 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 obj.IsRenaming = true;
         }
 
-        public void SendMessage(string address, byte[] data)
+
+        public void ProcessMessage(IMessage message)
         {
+            var address = message.Address;
+            var data = Serializer.Serialize(message);
+
             foreach (var messenger in Messengers)
             {
                 messenger.SendMessage(address, data);
             }
+            System.Console.WriteLine("MessageSender send message to : " + address);
         }
 
-        List<IMessageProcessor> MessageProcessors { get; set; }
-
-        public void ProcessMessage(IMessage message)
+        private void MessageProcessor_MessageNotification(IMessageProcessor arg1, IMessage arg2)
         {
-            //this.SendMessage()
-            System.Console.WriteLine("MessageSender ProcessMessage with Address " + message.Address);
+            ProcessMessage(arg2);
         }
+
 
         public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            this.MessageProcessors.Add(messageProcessor);
+            messageProcessor.MessageNotification += MessageProcessor_MessageNotification;
         }
+
 
         public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            this.MessageProcessors.Remove(messageProcessor);
+            messageProcessor.MessageNotification -= MessageProcessor_MessageNotification;
         }
     }
 }

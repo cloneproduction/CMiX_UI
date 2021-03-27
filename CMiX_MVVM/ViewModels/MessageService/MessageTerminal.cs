@@ -74,7 +74,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             if (MessageSender.HasMessengerRunning)
             {
                 byte[] data = Serializer.Serialize(message);
-                MessageSender.SendMessage(address, data);
+                //MessageSender.SendMessage(address, data);
             }
         }
     }

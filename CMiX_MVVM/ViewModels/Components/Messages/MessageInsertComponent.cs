@@ -26,5 +26,10 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
             var newComponent = component.CreateChild();// ComponentFactory.CreateComponent(ComponentModel);
             component.Components.Insert(Index, newComponent);
         }
+
+        public void Process(IMessageProcessor viewModel, IMessageTerminal messageTerminal)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

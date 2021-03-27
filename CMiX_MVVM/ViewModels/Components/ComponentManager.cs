@@ -18,12 +18,12 @@ namespace CMiX.MVVM.ViewModels.Components
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
 
+        public IMessageTerminal MessageTerminal { get; set; }
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
 
-        public IMessageTerminal MessageTerminal { get; set; }
         public ObservableCollection<Component> Components { get; set; }
 
         private Component _selectedComponent;
@@ -40,6 +40,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             var newComponent = component.CreateChild();
             component.AddComponent(newComponent);
+            MessageTerminal.RegisterMessageProcessor(newComponent);
         }
 
 
@@ -55,6 +56,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             GetSelectedParent(Components).RemoveComponent(component);
             MessageTerminal.UnregisterMessageProcessor(component);
+
         }
 
 

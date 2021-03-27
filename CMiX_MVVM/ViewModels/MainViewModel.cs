@@ -20,11 +20,12 @@ namespace CMiX.MVVM.ViewModels
         {
             Mementor = new Mementor();
 
-            MessageTerminal = new MessageTerminal();
-            IMessageTerminal = new MessageSender();
+            
+            
+            CurrentProject = new Project(new ProjectModel(0));
 
-            CurrentProject = new Project(IMessageTerminal, new ProjectModel(0));
-            //MessageTerminal.MessageReceived += CurrentProject.MessageTerminal_MessageReceived;
+            MessageTerminal = new MessageSender();
+            MessageTerminal.RegisterMessageProcessor(CurrentProject);
 
 
 
@@ -34,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
 
             AssetManager = new AssetManager(CurrentProject);
 
-            ComponentManager = new ComponentManager(Projects, IMessageTerminal);
+            ComponentManager = new ComponentManager(Projects, MessageTerminal);
             Outliner = new Outliner(Projects);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
@@ -85,20 +86,13 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        private IMessageTerminal _IMessageTerminal;
-        public IMessageTerminal IMessageTerminal
-        {
-            get => _IMessageTerminal;
-            set => SetAndNotify(ref _IMessageTerminal, value);
-        }
-
-
-        private MessageTerminal _MessageTerminal;
-        public MessageTerminal MessageTerminal
+        private MessageSender _MessageTerminal;
+        public MessageSender MessageTerminal
         {
             get => _MessageTerminal;
             set => SetAndNotify(ref _MessageTerminal, value);
         }
+
 
         private AssetManager assetManager;
         public AssetManager AssetManager
@@ -180,7 +174,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(IMessageTerminal, new ProjectModel(0));
+            Project project = new Project(new ProjectModel(0));
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;
