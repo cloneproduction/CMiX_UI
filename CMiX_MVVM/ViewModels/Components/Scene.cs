@@ -11,7 +11,6 @@ namespace CMiX.MVVM.ViewModels.Components
         public Scene(IMessageTerminal messageTerminal, Layer layer, SceneModel sceneModel) 
             : base (sceneModel)
         {
-
             MasterBeat = layer.MasterBeat;
             Visibility = new Visibility(layer, layer.Visibility);
 

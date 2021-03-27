@@ -11,25 +11,16 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IMessageProcessor, IDisposable
     {
-        public Component(IComponentModel componentModel)
+        public Component(IMessageTerminal messageTerminal, IComponentModel componentModel)
         {
-            MessageDispatcher = new MessageDispatcher();
+            MessageDispatcher = new MessageDispatcher(messageTerminal);
+
             IsExpanded = false;
 
             Name = $"{this.GetType().Name}{componentModel.ID}";
             ID = componentModel.ID;
 
             Components = new ObservableCollection<Component>();
-        }
-
-        public void MessageTerminal_MessageReceived(object sender, MessageEventArgs e)
-        {
-            var message = e.Message;
-
-            if(message is IComponentMessage && message.Address == this.GetAddress())
-                message.Process(this);
-            else
-                MessageDispatcher.NotifyIn(message);
         }
 
 
@@ -121,22 +112,12 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         internal IComponentFactory ComponentFactory { get; set; }
-        //public abstract void CreateChild();
-        //public abstract void CreateChild(IComponentModel componentModel);
 
 
         public Component CreateChild()
         {
             return ComponentFactory.CreateComponent();
-            //this.AddComponent(component);
         }
-
-        //public void CreateChild(IComponentModel componentModel)
-        //{
-        //    Component component = ComponentFactory.CreateComponent(componentModel);
-        //    this.AddComponent(component);
-        //}
-
 
 
         public virtual void Dispose()

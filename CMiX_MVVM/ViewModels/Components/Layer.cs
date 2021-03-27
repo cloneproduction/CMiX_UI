@@ -30,11 +30,13 @@ namespace CMiX.MVVM.ViewModels.Components
             set => SetAndNotify(ref _out, value);
         }
 
+
         public MasterBeat MasterBeat { get; set; }
         public Slider Fade { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
+
 
         public override void Dispose()
         {

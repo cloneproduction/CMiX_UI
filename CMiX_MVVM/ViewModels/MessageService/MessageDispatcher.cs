@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class MessageDispatcher : IDisposable
     {
-        public MessageDispatcher()
+        public MessageDispatcher(IMessageTerminal messageTerminal)
         {
             Colleagues = new Dictionary<string, IMessageProcessor>();
         }
