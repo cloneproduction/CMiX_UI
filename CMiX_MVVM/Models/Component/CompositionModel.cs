@@ -13,7 +13,7 @@ namespace CMiX.MVVM.Models
 
         }
 
-        public CompositionModel(int id)
+        public CompositionModel(Guid id)
         {
             ID = id;
             ComponentModels = new ObservableCollection<IComponentModel>();
@@ -29,7 +29,7 @@ namespace CMiX.MVVM.Models
 
         public bool Enabled { get; set; }
         public string Name { get; set; }
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         public bool IsVisible { get; set; }
         public string Address { get; set; }
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }

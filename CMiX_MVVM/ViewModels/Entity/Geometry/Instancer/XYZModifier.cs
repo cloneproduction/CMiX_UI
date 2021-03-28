@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
+using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.Observer;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
@@ -9,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : MessageCommunicator, IModifier, ISubject, IObserver
     {
-        public XYZModifier(string name, MessageCommunicator parentSender, Vector3D vector3D, MasterBeat beat) : base (name, parentSender)
+        public XYZModifier(string name, MessageDispatcher messageDispatcher, Vector3D vector3D, MasterBeat beat) : base (messageDispatcher)
         {
             Name = name;
             Observers = new List<IObserver>();

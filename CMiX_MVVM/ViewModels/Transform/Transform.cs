@@ -1,18 +1,17 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Transform : MessageCommunicator, IObserver
     {
-        public Transform(IMessageProcessor parentSender, TransformModel transformModel) : base (parentSender)
+        public Transform(MessageDispatcher messageDispatcher, TransformModel transformModel) : base (messageDispatcher)
         {
-            Translate = new Translate(nameof(Translate), this, transformModel.TranslateModel);
-            Scale = new Scale(nameof(Scale), this, transformModel.ScaleModel);
-            Rotation = new Rotation(nameof(Rotation), this, transformModel.RotationModel);
+            Translate = new Translate(nameof(Translate), messageDispatcher, transformModel.TranslateModel);
+            Scale = new Scale(nameof(Scale), messageDispatcher, transformModel.ScaleModel);
+            Rotation = new Rotation(nameof(Rotation), messageDispatcher, transformModel.RotationModel);
             Is3D = false;
         }
 
@@ -28,7 +27,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _is3D, value);
-                this.MessageDispatcher?.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

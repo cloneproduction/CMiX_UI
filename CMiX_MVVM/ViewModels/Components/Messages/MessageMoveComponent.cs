@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
@@ -8,16 +9,16 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         {
 
         }
-        public MessageMoveComponent(string address, int oldIndex, int newIndex)
+        public MessageMoveComponent(Guid id, int oldIndex, int newIndex)
         {
-            Address = address;
+            ID = id;
             OldIndex = oldIndex;
             NewIndex = newIndex;
         }
 
         public int OldIndex { get; set; }
         public int NewIndex { get; set; }
-        public string Address { get; set; }
+        public Guid ID { get; set; }
         
 
         public void Process(IMessageProcessor messageProcessor)

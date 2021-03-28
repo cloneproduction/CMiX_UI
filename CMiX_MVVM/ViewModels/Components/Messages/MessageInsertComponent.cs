@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
@@ -9,16 +10,16 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         {
 
         }
-        public MessageInsertComponent(string address, IComponentModel componentModel, int index)
+        public MessageInsertComponent(Guid id, IComponentModel componentModel, int index)
         {
-            this.Address = address;
+            this.ID = id;
             this.ComponentModel = componentModel;
         }
 
         private int Index { get; set; }
         public IComponentModel ComponentModel { get; set; }
         public object Obj { get; set; }
-        public string Address { get; set; }
+        public Guid ID { get; set; }
 
         public void Process(IMessageProcessor messageProcessor)
         {

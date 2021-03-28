@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Windows.Input;
 
@@ -9,7 +8,7 @@ namespace CMiX.MVVM.ViewModels.Beat
 {
     public class Resync : MessageCommunicator, IMessageProcessor
     {
-        public Resync(IMessageProcessor parentSender, BeatAnimations beatAnimations) : base (parentSender)
+        public Resync(MessageDispatcher messageDispatcher, BeatAnimations beatAnimations) : base (messageDispatcher)
         {
             BeatAnimations = beatAnimations;
             ResyncCommand = new RelayCommand(p => DoResync());
@@ -28,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.Beat
         {
             BeatAnimations.ResetAnimation();
             OnBeatResync();
-            this.MessageDispatcher?.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+            RaiseMessageNotification();
         }
 
         public ICommand ResyncCommand { get; }

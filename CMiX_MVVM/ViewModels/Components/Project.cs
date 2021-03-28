@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Assets = new ObservableCollection<Asset>();
             
             
-            Visibility = new Visibility(this);
+            Visibility = new Visibility(this.MessageDispatcher);
             ComponentFactory = new CompositionFactory(this);
         }
 

@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Stepper : MessageCommunicator, IAnimMode
     {
-        public Stepper(IMessageProcessor parentSender) : base (parentSender)
+        public Stepper(MessageDispatcher messageDispatcher) : base (messageDispatcher)
         {
             StepCount = 2;
             nextStep = 0.0;
@@ -25,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _width, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
@@ -38,7 +38,7 @@ namespace CMiX.MVVM.ViewModels
                 if (value <= 1)
                     value = 1;
                 SetAndNotify(ref _stepCount, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

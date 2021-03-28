@@ -11,9 +11,7 @@ namespace CMiX.MVVM.ViewModels
             this.MasterBeat = masterBeat;
         }
 
-
         private static int ID = 0;
-        private MessageTerminal MessageTerminal { get; set; }
 
         public MasterBeat MasterBeat { get; set; }
 
@@ -48,7 +46,7 @@ namespace CMiX.MVVM.ViewModels
         private RandomXYZ CreateRandomized(MessageCommunicator parentSender)
         {
             ID++;
-            return new RandomXYZ(nameof(TranslateModifier), parentSender, ID, this.MasterBeat, new RandomXYZModel());
+            return null; //return new RandomXYZ(nameof(TranslateModifier), parentSender.me, ID, this.MasterBeat, new RandomXYZModel());
         }
     }
 }

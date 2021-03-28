@@ -1,11 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
+using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IMessageProcessor
     {
-        MessageDispatcher MessageDispatcher { get; set; }
-        string GetAddress();
+        Guid ID { get; set; }
         void SetViewModel(IModel model);
         IModel GetModel();
     }

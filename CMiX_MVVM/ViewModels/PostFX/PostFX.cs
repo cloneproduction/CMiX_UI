@@ -7,10 +7,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : MessageCommunicator
     {
-        public PostFX(IMessageProcessor parentSender, PostFXModel postFXModel) : base (parentSender) 
+        public PostFX(MessageDispatcher messageDispatcher, PostFXModel postFXModel) : base (messageDispatcher) 
         {
-            Feedback = new Slider(nameof(Feedback), this, postFXModel.Feedback);
-            Blur = new Slider(nameof(Blur), this, postFXModel.Blur);
+            Feedback = new Slider(nameof(Feedback), messageDispatcher, postFXModel.Feedback);
+            Blur = new Slider(nameof(Blur), messageDispatcher, postFXModel.Blur);
 
             Transforms = postFXModel.Transforms;// ((PostFXTransforms)0).ToString();
             View = postFXModel.View;// ((PostFXView)0).ToString();
@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

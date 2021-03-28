@@ -10,10 +10,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Instancer : MessageCommunicator
     {
-        public Instancer(string name, IMessageProcessor parentSender, MasterBeat beat, InstancerModel instancerModel) : base (name, parentSender)
+        public Instancer(MessageDispatcher messageDispatcher, MasterBeat beat, InstancerModel instancerModel) : base (messageDispatcher)
         {
             Factory = new TransformModifierFactory(beat);
-            Transform = new Transform(this, instancerModel.Transform);
+            Transform = new Transform(messageDispatcher, instancerModel.Transform);
 
             NoAspectRatio = false;
             TransformModifiers = new ObservableCollection<ITransformModifier>();
@@ -48,8 +48,8 @@ namespace CMiX.MVVM.ViewModels
         {
             var transformModifier = Factory.CreateTransformModifier(transformModifierNames, this);
             TransformModifiers.Add(transformModifier);
-            var message = new MessageAddTransformModifier(this.GetAddress(), transformModifierNames, transformModifier.GetModel() as ITransformModifierModel);
-            this.MessageDispatcher.NotifyOut(message);
+            var message = new MessageAddTransformModifier(this.ID, transformModifierNames, transformModifier.GetModel() as ITransformModifierModel);
+            //this.MessageDispatcher.NotifyOut(message);
         }
 
 

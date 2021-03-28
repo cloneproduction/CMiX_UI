@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
 {
     public class ProjectModel : IComponentModel
     {
-        public ProjectModel(int id)
+        public ProjectModel(Guid id)
         {
             ID = id;
             ComponentModels = new ObservableCollection<IComponentModel>();
@@ -15,7 +16,7 @@ namespace CMiX.MVVM.Models
 
         public bool Enabled { get; set; }
         public string Address { get; set; }
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         public string Name { get; set; }
         public bool IsVisible { get; set; }
 

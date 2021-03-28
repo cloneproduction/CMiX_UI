@@ -11,12 +11,12 @@ namespace CMiX.MVVM.ViewModels.Components
             : base (sceneModel)
         {
             MasterBeat = layer.MasterBeat;
-            Visibility = new Visibility(layer, layer.Visibility);
+            Visibility = new Visibility(layer.MessageDispatcher, layer.Visibility);
 
-            BeatModifier = new BeatModifier(this, layer.MasterBeat, sceneModel.BeatModifierModel);
-            PostFX = new PostFX(this, sceneModel.PostFXModel);
-            Mask = new Mask(this, sceneModel.MaskModel);
-            Transform = new Transform(this, sceneModel.TransformModel);
+            BeatModifier = new BeatModifier(this.MessageDispatcher, layer.MasterBeat, sceneModel.BeatModifierModel);
+            PostFX = new PostFX(this.MessageDispatcher, sceneModel.PostFXModel);
+            Mask = new Mask(this.MessageDispatcher, sceneModel.MaskModel);
+            Transform = new Transform(this.MessageDispatcher, sceneModel.TransformModel);
 
             ComponentFactory = new EntityFactory(this);
         }

@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
@@ -8,15 +9,15 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         {
 
         }
-        public MessageRemoveComponent(string address, int index)
+        public MessageRemoveComponent(Guid id, int index)
         {
-            Address = address;
+            ID = id;
             Index = index;
         }
 
         public int Index { get; set; }
         public object Obj { get; set; }
-        public string Address { get; set; }
+        public Guid ID { get; set; }
 
 
         public void Process(IMessageProcessor viewModel, IMessageTerminal messageTerminal)

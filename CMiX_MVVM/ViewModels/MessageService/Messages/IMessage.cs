@@ -1,10 +1,10 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IMessage
     {
-        string Address { get; set; }
-        
+        Guid ID { get; set; }
     }
 }

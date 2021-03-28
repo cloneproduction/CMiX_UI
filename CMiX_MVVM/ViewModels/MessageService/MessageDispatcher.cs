@@ -6,43 +6,59 @@ namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class MessageDispatcher : IDisposable
     {
-        public MessageDispatcher(string parentID)
+        public MessageDispatcher(Guid parentID)
         {
             ParentID = parentID;
-            Colleagues = new Dictionary<string, IMessageProcessor>();
+            Colleagues = new Dictionary<Guid, IMessageProcessor>();
         }
 
-        private string ParentID { get; set; }
-        private Dictionary<string, IMessageProcessor> Colleagues { get; set; }
+        private Guid ParentID { get; set; }
+        private Dictionary<Guid, IMessageProcessor> Colleagues { get; set; }
 
 
-        public event Action<IMessageProcessor, IMessage> MessageNotification;
+        public event Action<IMessage> MessageNotification;
 
         public void NotifyOut(IViewModelMessage message)
         {
             //SendMessageOut(this, new MessageEventArgs(message));
             //MessageTerminal.SendMessage(message.Address, message);
+
         }
 
         public void NotifyIn(IViewModelMessage message)
         {
             IMessageProcessor col;
-            if (Colleagues.TryGetValue(message.Address, out col))
+            if (Colleagues.TryGetValue(message.ID, out col))
                 message.Process(col);
         }
 
-        public void RegisterColleague(IMessageProcessor colleague)
+        private void Colleague_MessageNotification(IMessage arg2)
         {
-            Console.WriteLine("RegisterColleague " + colleague.GetAddress());
-            if (Colleagues.ContainsKey(colleague.GetAddress()))
-                Colleagues[colleague.GetAddress()] = colleague;
-            else
-                Colleagues.Add(colleague.GetAddress(), colleague);
+            var handler = MessageNotification;
+            if (handler != null)
+            {
+                handler(arg2);
+                Console.WriteLine("MessageNotification Raised by ");
+            }
         }
 
-        public void UnregisterColleague(string address)
+
+        public void RegisterColleague(MessageCommunicator colleague)
         {
-            Colleagues.Remove(address);
+            colleague.MessageNotification += Colleague_MessageNotification;
+
+            Console.WriteLine("RegisterColleague " + colleague.GetType());
+            if (Colleagues.ContainsKey(colleague.ID))
+                Colleagues[colleague.ID] = colleague;
+            else
+                Colleagues.Add(colleague.ID, colleague);
+        }
+
+
+        public void UnregisterColleague(MessageCommunicator colleague)
+        {
+            colleague.MessageNotification -= Colleague_MessageNotification;
+            Colleagues.Remove(colleague.ID);
         }
 
         public void Dispose()

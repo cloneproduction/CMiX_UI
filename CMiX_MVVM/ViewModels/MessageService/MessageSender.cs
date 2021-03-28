@@ -76,7 +76,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void ProcessMessage(IMessage message)
         {
-            var address = message.Address;
+            var address = message.ID;
             var data = Serializer.Serialize(message);
 
             foreach (var messenger in Messengers)

@@ -1,13 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Mask : MessageCommunicator
     {
-        public Mask(IMessageProcessor parentSender, MaskModel maskModel) : base (parentSender)
+        public Mask(MessageDispatcher messageDispatcher, MaskModel maskModel) : base (messageDispatcher)
         {
             MaskType = maskModel.MaskType;// ((MaskType)2).ToString();
             MaskControlType = maskModel.MaskControlType;// ((MaskControlType)1).ToString();
@@ -21,7 +20,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _IsMask, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
@@ -33,7 +32,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _masktype, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
@@ -44,7 +43,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _maskcontroltype, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

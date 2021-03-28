@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetPathSelector : MessageCommunicator, IDropTarget
     {
-        public AssetPathSelector(string name, IMessageProcessor parentSender, Asset defaultAsset) : base (name, parentSender)
+        public AssetPathSelector(MessageDispatcher messageDispatcher, Asset defaultAsset) : base (messageDispatcher)
         {
             SelectedAsset = defaultAsset;
         }
@@ -21,7 +21,7 @@ namespace CMiX.MVVM.ViewModels.Assets
             set
             {
                 SetAndNotify(ref _selectedAsset, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

@@ -14,7 +14,7 @@ namespace CMiX.Engine.Testing
             var messageReceiver = new MessageReceiver();
             messageReceiver.Start(settings);
 
-            var projectModel = new ProjectModel(0);
+            var projectModel = new ProjectModel(Guid.Empty);
             
             Project Project = new Project(projectModel);
             messageReceiver.RegisterMessageProcessor(Project);

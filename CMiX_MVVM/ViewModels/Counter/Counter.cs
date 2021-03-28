@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
@@ -10,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Counter : MessageCommunicator
     {
-        public Counter(string name, IMessageProcessor parentSender) : base(name, parentSender) 
+        public Counter(MessageDispatcher messageDispatcher) : base (messageDispatcher) 
         {
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
@@ -41,7 +40,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

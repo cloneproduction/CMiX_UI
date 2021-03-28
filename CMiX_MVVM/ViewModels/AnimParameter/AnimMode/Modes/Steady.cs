@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Steady : MessageCommunicator, IAnimMode
     {
-        public Steady(IMessageProcessor parentSender) : base (parentSender)
+        public Steady(MessageDispatcher messageDispatcher) : base (messageDispatcher)
         {
             SteadyType = SteadyType.Linear;
             LinearType = LinearType.Center;
@@ -75,7 +75,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _seed, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
@@ -86,7 +86,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _steadyType, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
@@ -97,7 +97,7 @@ namespace CMiX.MVVM.ViewModels
             set 
             {
                 SetAndNotify(ref _linearType, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

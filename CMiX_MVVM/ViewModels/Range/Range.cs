@@ -1,14 +1,13 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Range : MessageCommunicator, IRange
     {
-        public Range(IMessageProcessor parentSender, double minimum = 0.0, double maximum = 1.0) : base (parentSender)
+        public Range(MessageDispatcher messageDispatcher, double minimum = 0.0, double maximum = 1.0) : base (messageDispatcher)
         {
             Minimum = minimum;
             Maximum = maximum;
@@ -29,7 +28,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _minimum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
@@ -41,7 +40,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _maximum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

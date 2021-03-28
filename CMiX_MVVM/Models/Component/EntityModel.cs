@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Component;
+using System;
 using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
@@ -15,14 +16,14 @@ namespace CMiX.MVVM.Models
             VisibilityModel = new VisibilityModel();
         }
 
-        public EntityModel(int id) : this ()
+        public EntityModel(Guid id) : this ()
         {
             ID = id;
         }
 
         public bool Enabled { get; set; }
         public string Name { get; set; }
-        public int ID { get; set; }
+        public Guid ID { get; set; }
 
         public BeatModifierModel BeatModifierModel { get; set; }
         public GeometryModel GeometryModel { get; set; }

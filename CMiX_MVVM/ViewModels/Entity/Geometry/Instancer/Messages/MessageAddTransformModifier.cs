@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
 {
@@ -9,16 +10,16 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
 
         }
 
-        public MessageAddTransformModifier(string address, TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel)
+        public MessageAddTransformModifier(Guid id, TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel)
         {
-            Address = address;
+            ID = id;
             TransformModifierNames = transformModifierNames;
             TransformModifierModel = transformModifierModel;
         }
 
         public TransformModifierNames TransformModifierNames { get; set; }
         public ITransformModifierModel TransformModifierModel { get; set; }
-        public string Address { get; set; }
+        public Guid ID { get; set; }
 
         public void Process(IMessageProcessor messageProcessor)
         {

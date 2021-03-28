@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Beat;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class None : MessageCommunicator, IAnimMode
     {
-        public None(AnimParameter parentSender) : base (parentSender)
+        public None(AnimParameter animParameter, MessageDispatcher messageDispatcher) : base (messageDispatcher)
         {
 
         }

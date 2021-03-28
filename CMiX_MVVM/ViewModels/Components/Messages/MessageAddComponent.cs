@@ -12,13 +12,13 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         }
 
-        public MessageAddComponent(string address, IComponentModel componentModel)
+        public MessageAddComponent(Guid id, IComponentModel componentModel)
         {
-            Address = address;
+            ID = id;
             ComponentModel = componentModel;
         }
 
-        public string Address { get; set; }
+        public Guid ID { get; set; }
         public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...
 
         public void Process(IMessageProcessor messageProcessor, IMessageTerminal messageTerminal)

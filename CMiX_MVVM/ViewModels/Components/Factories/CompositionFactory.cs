@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
@@ -16,7 +17,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public Component CreateComponent()
         {
-            var model = new CompositionModel(ID);
+            var model = new CompositionModel(Guid.NewGuid());
             var component = new Composition(ParentProject, model);
             ID++;
             return component;

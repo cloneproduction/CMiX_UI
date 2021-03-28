@@ -1,14 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class BlendMode : MessageCommunicator
     {
-        public BlendMode(IMessageProcessor parentSender, BlendModeModel blendModeModel)  : base (parentSender)
+        public BlendMode(MessageDispatcher messageDispatcher, BlendModeModel blendModeModel)  : base (messageDispatcher)
         {
             Mode = blendModeModel.Mode;
         }
@@ -20,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _mode, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

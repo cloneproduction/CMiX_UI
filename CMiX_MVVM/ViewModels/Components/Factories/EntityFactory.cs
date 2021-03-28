@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
@@ -17,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public Component CreateComponent()
         {
-            EntityModel entityModel = new EntityModel(ID);
+            EntityModel entityModel = new EntityModel(Guid.NewGuid());
             var component = new Entity(ParentScene, entityModel);
             ID++;
             return component;

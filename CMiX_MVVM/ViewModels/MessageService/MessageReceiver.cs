@@ -12,7 +12,7 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         public MessageReceiver()
         {
-            MessageProcessors = new Dictionary<string, IComponentMessageProcessor>();
+            MessageProcessors = new Dictionary<Guid, IComponentMessageProcessor>();
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
             Serializer = new CerasSerializer();
@@ -30,7 +30,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         //public List<IMessageProcessor> MessageProcessors { get; set; }
 
-        private Dictionary<string, IComponentMessageProcessor> MessageProcessors { get; set; }
+        private Dictionary<Guid, IComponentMessageProcessor> MessageProcessors { get; set; }
 
         public void ProcessMessage(IMessage message)
         {
@@ -38,19 +38,19 @@ namespace CMiX.Studio.ViewModels.MessageService
             {
                 var componentMessage = message as IComponentMessage;
                 IComponentMessageProcessor messageProcessor;
-                if (MessageProcessors.TryGetValue(message.Address, out messageProcessor))
+                if (MessageProcessors.TryGetValue(message.ID, out messageProcessor))
                     componentMessage.Process(messageProcessor, this);
             }
             
 
-            Console.WriteLine("MessageReceiver ProcessMessage " + message.Address +"  " + message.GetType());
+            Console.WriteLine("MessageReceiver ProcessMessage " + message.ID +"  " + message.GetType());
 
         }
 
 
         public void RegisterMessageProcessor(IComponentMessageProcessor messageProcessor)
         {
-            var address = messageProcessor.GetAddress();
+            var address = messageProcessor.ID;
             if (MessageProcessors.ContainsKey(address))
                 MessageProcessors[address] = messageProcessor;
             else
@@ -59,7 +59,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void UnregisterMessageProcessor(IComponentMessageProcessor component)
         {
-            MessageProcessors.Remove(component.GetAddress());
+            MessageProcessors.Remove(component.ID);
         }
 
 

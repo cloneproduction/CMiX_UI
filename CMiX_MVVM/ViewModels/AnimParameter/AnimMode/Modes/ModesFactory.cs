@@ -22,27 +22,27 @@
 
         private static None CreateNone(AnimParameter animParameter)
         {
-            return new None(animParameter);
+            return null; // new None(animParameter);
         }
 
         private static LFO CreateLFO(AnimParameter animParameter)
         {
-            return new LFO(animParameter);
+            return null; //return new LFO(animParameter);
         }
 
         private static Steady CreateSteady(AnimParameter animParameter)
         {
-            return new Steady(animParameter);
+            return null; //return new Steady(animParameter);
         }
 
         private static Stepper CreateStepper(AnimParameter animParameter)
         {
-            return new Stepper(animParameter);
+            return null; //return new Stepper(animParameter);
         }
 
         private static Randomized CreateRandomized(AnimParameter animParameter)
         {
-            return new Randomized(animParameter);
+            return null; //return new Randomized(animParameter);
         }
     }
 }

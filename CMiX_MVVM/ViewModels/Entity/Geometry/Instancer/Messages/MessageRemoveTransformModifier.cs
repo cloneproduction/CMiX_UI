@@ -1,17 +1,18 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class MessageRemoveTransformModifier : IMessage
     {
-        public MessageRemoveTransformModifier(string address, int index)
+        public MessageRemoveTransformModifier(Guid id, int index)
         {
             Index = index;
-            Address = address;
+            ID = id;
         }
 
         public int Index { get; set; }
-        public string Address { get; set; }
+        public Guid ID { get; set; }
 
         public void Process(IMessageProcessor messageProcessor)
         {

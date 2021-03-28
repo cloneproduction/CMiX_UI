@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
+using CMiX.MVVM.ViewModels.MessageService;
 using System;
 using System.Windows.Media.Media3D;
 
@@ -10,11 +11,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Randomized : MessageCommunicator, IAnimMode
     {
-        public Randomized(MessageCommunicator parentSender) : base (parentSender)
-        {
+        //public Randomized(MessageDispatcher messageDispatcher) : base (messageDispatcher)
+        //{
 
-        }
-        public Randomized(AnimParameter parentSender) : base (parentSender)
+        //}
+        public Randomized(AnimParameter parentSender, MessageDispatcher messageDispatcher) : base (messageDispatcher)
         {
             Random = new Random();
             oldRandom = GetNewRandoms(parentSender.Parameters.Length);

@@ -15,9 +15,9 @@ namespace CMiX.MVVM.ViewModels
         //    this.SelectedColor = Colors.Red;
         //}
 
-        public ColorSelector(IMessageProcessor parentSender, ColorSelectorModel colorSelectorModel) : base (parentSender)
+        public ColorSelector(MessageDispatcher messageDispatcher, ColorSelectorModel colorSelectorModel) : base (messageDispatcher)
         {
-            ColorPicker = new ColorPicker(this, colorSelectorModel.ColorPickerModel);
+            ColorPicker = new ColorPicker(messageDispatcher, colorSelectorModel.ColorPickerModel);
             //this.SelectedColor = Utils.HexStringToColor(colorSelectorModel.ColorPickerModel.SelectedColor);
         }
 
@@ -31,7 +31,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                this.MessageDispatcher?.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+
+                RaiseMessageNotification();
             }
         }
 

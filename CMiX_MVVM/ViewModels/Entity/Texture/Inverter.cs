@@ -7,9 +7,9 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Inverter : MessageCommunicator
     {
-        public Inverter(string name, IMessageProcessor parentSender, InverterModel inverterModel) : base (name, parentSender)
+        public Inverter(string name, MessageDispatcher messageDispatcher, InverterModel inverterModel) : base (messageDispatcher)
         {
-            Invert = new Slider(nameof(Invert), this, inverterModel.Invert);
+            Invert = new Slider(nameof(Invert), messageDispatcher, inverterModel.Invert);
             InvertMode = inverterModel.InvertMode;
         }
 
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _invertMode, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
@@ -17,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public Component CreateComponent()
         {
-            var model = new LayerModel(ID);
+            var model = new LayerModel(Guid.NewGuid());
             var component = new Layer(ParentComposition, model);
             ID++;
             return component;

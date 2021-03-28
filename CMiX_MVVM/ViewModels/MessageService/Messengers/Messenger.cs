@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels;
+using System;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels.MessageService
@@ -29,9 +30,9 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         private Server Server { get; set; }
 
-        public void SendMessage(string address, byte[] data)
+        public void SendMessage(Guid id, byte[] data)
         {
-            this.Server.Send(address, data);
+            this.Server.Send(id.ToString(), data);
         }
 
         public bool ServerIsRunning { get => Server.IsRunning; }

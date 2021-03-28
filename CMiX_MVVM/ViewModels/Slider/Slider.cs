@@ -1,14 +1,13 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Slider : MessageCommunicator
     {
-        public Slider(string name, IMessageProcessor parentProcessor, SliderModel sliderModel) : base (name, parentProcessor)
+        public Slider(string name, MessageDispatcher messageDispatcher, SliderModel sliderModel) : base (messageDispatcher)
         {
             this.Amount = sliderModel.Amount;
             Name = name;
@@ -39,8 +38,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                //MessageDispatcher.MessageNotification
-                //MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

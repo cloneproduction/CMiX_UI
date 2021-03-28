@@ -1,34 +1,48 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public abstract class MessageCommunicator : ViewModel, IMessageProcessor//, IDisposable
     {
-        public MessageCommunicator(IMessageProcessor parentSender)
+        public MessageCommunicator(MessageDispatcher messageDispatcher)
         {
-            this.Name = this.GetType().Name;
-            this.parentAddress = parentSender.GetAddress();
-            this.MessageDispatcher = parentSender.MessageDispatcher;
-            this.MessageDispatcher.RegisterColleague(this);
+            ID = Guid.NewGuid();
+            //this.Name = this.GetType().Name;
+            //this.parentAddress = parentSender.GetAddress();
+            //this.MessageDispatcher = parentSender.MessageDispatcher;
+            messageDispatcher.RegisterColleague(this);
         }
 
-        public MessageCommunicator(string name, IMessageProcessor parentSender)
+        public MessageCommunicator(Guid id, MessageDispatcher messageDispatcher)
         {
-            this.Name = name;
-            this.parentAddress = parentSender.GetAddress();
-            this.MessageDispatcher = parentSender.MessageDispatcher;
-            this.MessageDispatcher.RegisterColleague(this);
+            this.ID = id;
+
+            //this.MessageDispatcher = parentSender.MessageDispatcher;
+            messageDispatcher.RegisterColleague(this);
         }
 
 
-        private string parentAddress {get; set;}
-        private string Name { get; set; }
-        public MessageDispatcher MessageDispatcher { get; set; }
+        public event Action<IMessage> MessageNotification;
+
+        protected void RaiseMessageNotification()
+        {
+            var handler = MessageNotification;
+            if (handler != null)
+            {
+                handler(new MessageUpdateViewModel(this.ID, this.GetModel()));
+                Console.WriteLine("MessageNotification Raised by " + this.GetType() + " ID is " + this.ID);
+            }
+        }
 
 
-        public string GetAddress() => $"{parentAddress}{Name}/";
+        public Guid ID { get; set; }
+        //public MessageDispatcher MessageDispatcher { get; set; }
+
+
+        //public string GetAddress() => $"{parentAddress}{Name}/";
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();
     }

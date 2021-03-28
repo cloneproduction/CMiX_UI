@@ -1,28 +1,27 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Visibility : MessageCommunicator, IMessageProcessor
     {
-        public Visibility(IMessageProcessor parentSender) : base (parentSender)
+        public Visibility(MessageDispatcher messageDispatcher) : base (messageDispatcher)
         {
             IsVisible = true;
             ParentIsVisible = true;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public Visibility(IMessageProcessor parentSender, Visibility parentVisibility) : base (parentSender)
+        public Visibility(MessageDispatcher messageDispatcher, Visibility parentVisibility) : base (messageDispatcher)
         {
             IsVisible = true;
             ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public Visibility(IMessageProcessor parentSender, Visibility parentVisibility, VisibilityModel visibilityModel) : base(parentSender)
+        public Visibility(MessageDispatcher messageDispatcher, Visibility parentVisibility, VisibilityModel visibilityModel) : base (messageDispatcher)
         {
             IsVisible = visibilityModel.IsVisible;
             ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
@@ -39,7 +38,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _isVisible, value);
-                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             } 
         }
 
@@ -50,7 +49,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _parentIsVisible, value);
-                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

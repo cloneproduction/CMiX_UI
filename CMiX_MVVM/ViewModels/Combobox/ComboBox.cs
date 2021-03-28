@@ -1,13 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class ComboBox<T> : MessageCommunicator
     {
-        public ComboBox(string name, IMessageProcessor parentSender) : base(name, parentSender)
+        public ComboBox(MessageDispatcher messageDispatcher) : base(messageDispatcher)
         {
 
         }
@@ -19,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selection, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 

@@ -7,6 +7,7 @@ using Memento;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using MvvmDialogs.FrameworkDialogs.SaveFile;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -22,7 +23,7 @@ namespace CMiX.MVVM.ViewModels
 
             
             
-            CurrentProject = new Project(new ProjectModel(0));
+            CurrentProject = new Project(new ProjectModel(Guid.Empty));
 
             MessageTerminal = new MessageSender();
             MessageTerminal.RegisterMessageProcessor(CurrentProject);
@@ -174,7 +175,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(new ProjectModel(0));
+            Project project = new Project(new ProjectModel(Guid.Empty));
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

@@ -9,13 +9,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : MessageCommunicator, IObserver
     {
-        public AnimParameter(string name, IMessageProcessor parentSender, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) : base (name, parentSender)
+        public AnimParameter(string name, MessageDispatcher messageDispatcher, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) : base (messageDispatcher)
         {
             Period = new double[0];
-            Range = new Range(this, 0.0, 1.0);
-            Easing = new Easing(this);
-            Width = new Slider(nameof(Width), this, animParameterModel.Width);
-            BeatModifier = new BeatModifier(this, beat, animParameterModel.BeatModifierModel);
+            Range = new Range(messageDispatcher, 0.0, 1.0);
+            Easing = new Easing(messageDispatcher);
+            Width = new Slider(nameof(Width), messageDispatcher, animParameterModel.Width);
+            BeatModifier = new BeatModifier(messageDispatcher, beat, animParameterModel.BeatModifierModel);
             Parameters = defaultParameter;
             Name = name;
             SelectedModeType = ModeType.None;
@@ -62,7 +62,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _animMode, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                RaiseMessageNotification();
             }
         }
 
