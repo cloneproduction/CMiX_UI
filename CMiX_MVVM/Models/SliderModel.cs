@@ -8,6 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public SliderModel()
         {
+            ID = Guid.NewGuid();
             Amount = 0.0;
             Enabled = true;
         }

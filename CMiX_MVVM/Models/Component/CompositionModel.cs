@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Beat;
+using CMiX.MVVM.Models.Component;
 using System;
 using System.Collections.ObjectModel;
 
@@ -20,9 +21,10 @@ namespace CMiX.MVVM.Models
             MasterBeatModel = new MasterBeatModel();
             CameraModel = new CameraModel();
             TransitionModel = new SliderModel();
+            VisibilityModel = new VisibilityModel();
         }
 
-
+        public VisibilityModel VisibilityModel { get; set; }
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
         public SliderModel TransitionModel { get; set; }

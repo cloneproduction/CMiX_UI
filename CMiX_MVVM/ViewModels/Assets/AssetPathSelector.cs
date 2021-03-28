@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 
@@ -9,7 +8,8 @@ namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetPathSelector : MessageCommunicator, IDropTarget
     {
-        public AssetPathSelector(MessageDispatcher messageDispatcher, Asset defaultAsset) : base (messageDispatcher)
+        public AssetPathSelector(MessageDispatcher messageDispatcher, Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel) 
+            : base (messageDispatcher, assetPathSelectorModel)
         {
             SelectedAsset = defaultAsset;
         }

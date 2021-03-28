@@ -10,7 +10,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Instancer : MessageCommunicator
     {
-        public Instancer(MessageDispatcher messageDispatcher, MasterBeat beat, InstancerModel instancerModel) : base (messageDispatcher)
+        public Instancer(MessageDispatcher messageDispatcher, MasterBeat beat, InstancerModel instancerModel) 
+            : base (messageDispatcher, instancerModel)
         {
             Factory = new TransformModifierFactory(beat);
             Transform = new Transform(messageDispatcher, instancerModel.Transform);
@@ -21,6 +22,7 @@ namespace CMiX.MVVM.ViewModels
             AddTransformModifierCommand = new RelayCommand(p => AddTransformModifier((TransformModifierNames)p));
             RemoveTransformModifierCommand = new RelayCommand(p => RemoveTransformModifier(p as ITransformModifier));
         }
+
 
         public ICommand AddTransformModifierCommand { get; set; }
         public ICommand RemoveTransformModifierCommand { get; set; }

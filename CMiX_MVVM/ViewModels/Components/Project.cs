@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using MvvmDialogs;
@@ -16,7 +17,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Assets = new ObservableCollection<Asset>();
             
             
-            Visibility = new Visibility(this.MessageDispatcher);
+            Visibility = new Visibility(this.MessageDispatcher, new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
         }
 

@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models.Beat
 {
-    public class MasterBeatModel : Model, IModel
+    public class MasterBeatModel : BeatModel, IModel
     {
         public MasterBeatModel()
         {
-
+            ResyncModel = new ResyncModel();
         }
 
-        public double[] Periods { get; set; }
-        public double Period { get; set; }
-        public double Multiplier { get; set; }
+        public ResyncModel ResyncModel { get; set; }
     }
 }

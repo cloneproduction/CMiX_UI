@@ -2,12 +2,17 @@
 
 namespace CMiX.MVVM.Models
 {
-    public class RandomXYZModel : ITransformModifierModel
+    public class RandomXYZModel : Model, ITransformModifierModel
     {
         public RandomXYZModel()
         {
             BeatModifierModel = new BeatModifierModel();
+            CounterModel = new CounterModel();
+            EasingModel = new EasingModel();
         }
+
+        public EasingModel EasingModel { get; set; }
+        public CounterModel CounterModel { get; set; }
 
         public SliderModel LocationX { get; set; }
         public SliderModel LocationY { get; set; }
@@ -24,8 +29,6 @@ namespace CMiX.MVVM.Models
 
         public BeatModifierModel BeatModifierModel { get; set; }
         public string Name { get; set; }
-        public int ID { get; set; }
         public int Count { get; set; }
-        public bool Enabled { get; set; }
     }
 }

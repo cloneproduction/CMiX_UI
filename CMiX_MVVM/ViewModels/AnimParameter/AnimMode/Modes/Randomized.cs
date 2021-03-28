@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
         //{
 
         //}
-        public Randomized(AnimParameter parentSender, MessageDispatcher messageDispatcher) : base (messageDispatcher)
+        public Randomized(AnimParameter parentSender, MessageDispatcher messageDispatcher, RandomizedModel randomizedModel) : base (messageDispatcher, randomizedModel)
         {
             Random = new Random();
             oldRandom = GetNewRandoms(parentSender.Parameters.Length);

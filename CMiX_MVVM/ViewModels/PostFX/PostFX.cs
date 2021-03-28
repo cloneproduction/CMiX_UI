@@ -1,13 +1,13 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : MessageCommunicator
     {
-        public PostFX(MessageDispatcher messageDispatcher, PostFXModel postFXModel) : base (messageDispatcher) 
+        public PostFX(MessageDispatcher messageDispatcher, PostFXModel postFXModel) 
+            : base (messageDispatcher, postFXModel) 
         {
             Feedback = new Slider(nameof(Feedback), messageDispatcher, postFXModel.Feedback);
             Blur = new Slider(nameof(Blur), messageDispatcher, postFXModel.Blur);

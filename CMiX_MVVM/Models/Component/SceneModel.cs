@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models.Component;
 
 namespace CMiX.MVVM.Models
 {
@@ -27,6 +28,7 @@ namespace CMiX.MVVM.Models
         public bool Enabled { get; set; }
         public bool IsVisible { get; set; }
 
+        public VisibilityModel VisibilityModel { get; set; }
         public TransformModel TransformModel { get; set; }
         public MaskModel MaskModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }

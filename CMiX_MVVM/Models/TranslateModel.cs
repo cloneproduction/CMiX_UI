@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TranslateModel : IModel
+    public class TranslateModel : Model, IModel
     {
         public TranslateModel()
         {
@@ -16,6 +16,5 @@ namespace CMiX.MVVM.Models
         public SliderModel X { get; set; }
         public SliderModel Y { get; set; }
         public SliderModel Z { get; set; }
-        public bool Enabled { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Stepper : MessageCommunicator, IAnimMode
     {
-        public Stepper(MessageDispatcher messageDispatcher) : base (messageDispatcher)
+        public Stepper(MessageDispatcher messageDispatcher, StepperModel stepperModel) : base (messageDispatcher, stepperModel)
         {
             StepCount = 2;
             nextStep = 0.0;

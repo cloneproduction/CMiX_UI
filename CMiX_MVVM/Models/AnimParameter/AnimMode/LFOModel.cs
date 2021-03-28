@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public class LFOModel : IAnimModeModel
+    public class LFOModel : Model, IAnimModeModel
     {
         public LFOModel()
         {
@@ -14,6 +14,5 @@ namespace CMiX.MVVM.Models
         }
 
         public bool Invert { get; set; }
-        public bool Enabled { get; set; }
     }
 }

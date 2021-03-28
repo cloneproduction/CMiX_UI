@@ -1,13 +1,13 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Inverter : MessageCommunicator
     {
-        public Inverter(string name, MessageDispatcher messageDispatcher, InverterModel inverterModel) : base (messageDispatcher)
+        public Inverter(string name, MessageDispatcher messageDispatcher, InverterModel inverterModel) 
+            : base (messageDispatcher, inverterModel)
         {
             Invert = new Slider(nameof(Invert), messageDispatcher, inverterModel.Invert);
             InvertMode = inverterModel.InvertMode;

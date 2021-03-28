@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models.Component;
 using System;
 using System.Collections.ObjectModel;
 
@@ -29,6 +30,8 @@ namespace CMiX.MVVM.Models
         public string Address { get; set; }
         public bool IsVisible { get; set; }
 
+
+        public VisibilityModel VisibilityModel { get; set; }
         public BlendModeModel BlendMode { get; set; }
         public SliderModel Fade { get; set; }
         public MaskModel MaskModel { get; set; }

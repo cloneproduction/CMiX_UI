@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
 using System;
@@ -7,7 +8,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ScaleModifier : MessageCommunicator, IModifier
     {
-        public ScaleModifier(string name, MessageDispatcher messageDispatcher, Scale scale, MasterBeat beat) : base (messageDispatcher)
+        public ScaleModifier(string name, MessageDispatcher messageDispatcher, Scale scale, MasterBeat beat, ScaleModifierModel scaleModifierModel) 
+            : base (messageDispatcher, scaleModifierModel)
         {
             IsUniform = false;
             //X = new AnimParameter(nameof(X), this, scale.X.Amount, beat);

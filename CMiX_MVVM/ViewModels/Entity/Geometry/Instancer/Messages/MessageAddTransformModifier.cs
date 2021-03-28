@@ -20,6 +20,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public TransformModifierNames TransformModifierNames { get; set; }
         public ITransformModifierModel TransformModifierModel { get; set; }
         public Guid ID { get; set; }
+        public Guid ComponentID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void Process(IMessageProcessor messageProcessor)
         {

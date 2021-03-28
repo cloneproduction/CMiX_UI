@@ -3,13 +3,13 @@ using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
     public class BeatModifier : Beat, IMessageProcessor, IBeatObserver
     {
-        public BeatModifier(MessageDispatcher messageDispatcher, MasterBeat masterBeat, BeatModifierModel beatModifierModel) : base (messageDispatcher)
+        public BeatModifier(MessageDispatcher messageDispatcher, MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
+            : base (messageDispatcher, beatModifierModel)
         {
             ChanceToHit = new Slider(nameof(ChanceToHit), messageDispatcher, beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
             Multiplier = beatModifierModel.Multiplier;

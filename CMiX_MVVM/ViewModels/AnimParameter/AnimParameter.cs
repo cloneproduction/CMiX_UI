@@ -9,11 +9,12 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : MessageCommunicator, IObserver
     {
-        public AnimParameter(string name, MessageDispatcher messageDispatcher, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) : base (messageDispatcher)
+        public AnimParameter(string name, MessageDispatcher messageDispatcher, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) 
+            : base (messageDispatcher, animParameterModel)
         {
             Period = new double[0];
-            Range = new Range(messageDispatcher, 0.0, 1.0);
-            Easing = new Easing(messageDispatcher);
+            Range = new Range(messageDispatcher, animParameterModel.RangeModel);
+            Easing = new Easing(messageDispatcher, animParameterModel.EasingModel);
             Width = new Slider(nameof(Width), messageDispatcher, animParameterModel.Width);
             BeatModifier = new BeatModifier(messageDispatcher, beat, animParameterModel.BeatModifierModel);
             Parameters = defaultParameter;

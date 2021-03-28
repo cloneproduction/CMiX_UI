@@ -1,8 +1,10 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.Generic;
 
@@ -26,10 +28,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             this.ProcessMessage(message);  
         }
 
-
-
-        //public List<IMessageProcessor> MessageProcessors { get; set; }
-
         private Dictionary<Guid, IComponentMessageProcessor> MessageProcessors { get; set; }
 
         public void ProcessMessage(IMessage message)
@@ -41,7 +39,15 @@ namespace CMiX.Studio.ViewModels.MessageService
                 if (MessageProcessors.TryGetValue(message.ID, out messageProcessor))
                     componentMessage.Process(messageProcessor, this);
             }
-            
+            else if(message is IViewModelMessage)
+            {
+                var componentMessage = message as IViewModelMessage;
+                IComponentMessageProcessor messageProcessor;
+                if (MessageProcessors.TryGetValue(componentMessage.ComponentID, out messageProcessor))
+                {
+                    ((Component)messageProcessor).MessageDispatcher.NotifyIn(componentMessage);
+                }
+            }
 
             Console.WriteLine("MessageReceiver ProcessMessage " + message.ID +"  " + message.GetType());
 

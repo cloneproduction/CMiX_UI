@@ -11,11 +11,11 @@ namespace CMiX.MVVM.ViewModels.Components
         public Composition(Project project, CompositionModel compositionModel)
             : base(compositionModel)
         {
-            MasterBeat = new MasterBeat(this.MessageDispatcher);
+            MasterBeat = new MasterBeat(this.MessageDispatcher, new MasterBeatModel());
             Transition = new Slider(nameof(Transition), this.MessageDispatcher, compositionModel.TransitionModel);
             Camera = new Camera(this.MessageDispatcher, MasterBeat, compositionModel.CameraModel);
 
-            Visibility = new Visibility(this.MessageDispatcher, project.Visibility);
+            Visibility = new Visibility(this.MessageDispatcher, project.Visibility, compositionModel.VisibilityModel);
             ComponentFactory = new LayerFactory(this);
         }
 

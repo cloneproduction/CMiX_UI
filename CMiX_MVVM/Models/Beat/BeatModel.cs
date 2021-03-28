@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.Models
 {
-    public class BeatModel : IModel
+    public class BeatModel : Model, IModel
     {
         public BeatModel()
         {
@@ -12,6 +12,5 @@ namespace CMiX.MVVM.Models
         public double[] Periods { get; set; }
         public double Period { get; set; }
         public double Multiplier { get; set; }
-        public bool Enabled { get; set; }
     }
 }

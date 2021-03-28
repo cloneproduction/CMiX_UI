@@ -10,7 +10,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : MessageCommunicator, IModifier, ISubject, IObserver
     {
-        public XYZModifier(string name, MessageDispatcher messageDispatcher, Vector3D vector3D, MasterBeat beat) : base (messageDispatcher)
+        public XYZModifier(string name, MessageDispatcher messageDispatcher, Vector3D vector3D, MasterBeat beat, XYZModifierModel xYZModifierModel) 
+            : base (messageDispatcher, xYZModifierModel)
         {
             Name = name;
             Observers = new List<IObserver>();

@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.Models
 {
-    public class CameraModel : IModel
+    public class CameraModel : Model, IModel
     {
         public CameraModel()
         {
@@ -18,6 +18,5 @@ namespace CMiX.MVVM.Models
         public BeatModifierModel BeatModifierModel { get; set; }
         public SliderModel FOV { get; set; }
         public SliderModel Zoom { get; set; }
-        public bool Enabled { get; set; }
     }
 }

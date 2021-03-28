@@ -19,7 +19,17 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
             MessageDispatcher = new MessageDispatcher(componentModel.ID);
-            //MessageDispatcher.MessageNotification += MessageDispatcher_MessageNotification;
+            MessageDispatcher.MessageNotification += MessageDispatcher_MessageNotification1;
+        }
+
+        private void MessageDispatcher_MessageNotification1(IMessage message)
+        {
+            var handler = MessageNotification;
+            if (MessageNotification != null)
+            {
+                handler(this, message);
+                Console.WriteLine("MessageDispatcher_MessageNotification Raised by " + this.ID);
+            }
         }
 
 
@@ -68,15 +78,7 @@ namespace CMiX.MVVM.ViewModels.Components
         private ObservableCollection<Component> _components;
 
 
-        private void MessageDispatcher_MessageNotification(IMessageProcessor messageProcessor, IMessage message)
-        {
-            var handler = MessageNotification;
-            if (MessageNotification != null)
-            {
-                handler(this, message);
-                Console.WriteLine("MessageDispatcher_MessageNotification Raised by " + this.ID);
-            }
-        }
+
 
 
 

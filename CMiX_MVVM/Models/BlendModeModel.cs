@@ -5,7 +5,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class BlendModeModel : IModel
+    public class BlendModeModel : Model, IModel
     {
         public BlendModeModel()
         {
@@ -13,6 +13,5 @@ namespace CMiX.MVVM.Models
         }
 
         public string Mode { get; set; }
-        public bool Enabled { get; set; }
     }
 }

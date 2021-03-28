@@ -6,31 +6,29 @@ namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class MessageDispatcher : IDisposable
     {
-        public MessageDispatcher(Guid parentID)
+        public MessageDispatcher(Guid componentID)
         {
-            ParentID = parentID;
+            ComponentID = componentID;
             Colleagues = new Dictionary<Guid, IMessageProcessor>();
         }
 
-        private Guid ParentID { get; set; }
+        public Guid ComponentID { get; set; }
         private Dictionary<Guid, IMessageProcessor> Colleagues { get; set; }
 
 
         public event Action<IMessage> MessageNotification;
 
-        public void NotifyOut(IViewModelMessage message)
-        {
-            //SendMessageOut(this, new MessageEventArgs(message));
-            //MessageTerminal.SendMessage(message.Address, message);
-
-        }
 
         public void NotifyIn(IViewModelMessage message)
         {
             IMessageProcessor col;
             if (Colleagues.TryGetValue(message.ID, out col))
+            {
+                Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
                 message.Process(col);
+            }
         }
+
 
         private void Colleague_MessageNotification(IMessage arg2)
         {
@@ -60,6 +58,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             colleague.MessageNotification -= Colleague_MessageNotification;
             Colleagues.Remove(colleague.ID);
         }
+
 
         public void Dispose()
         {

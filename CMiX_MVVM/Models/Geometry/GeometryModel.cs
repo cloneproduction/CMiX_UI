@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class GeometryModel : IModel
+    public class GeometryModel : Model, IModel
     {
         public GeometryModel()
         {
@@ -18,6 +18,5 @@ namespace CMiX.MVVM.Models
         public InstancerModel InstancerModel { get; set; }
         public GeometryFXModel GeometryFXModel{ get; set; }
         public AssetPathSelectorModel AssetPathSelectorModel { get; set; }
-        public bool Enabled { get; set; }
     }
 }

@@ -7,10 +7,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Range : MessageCommunicator, IRange
     {
-        public Range(MessageDispatcher messageDispatcher, double minimum = 0.0, double maximum = 1.0) : base (messageDispatcher)
+        public Range(MessageDispatcher messageDispatcher, RangeModel rangeModel) 
+            : base (messageDispatcher, rangeModel)
         {
-            Minimum = minimum;
-            Maximum = maximum;
+            Minimum = rangeModel.Minimum;
+            Maximum = rangeModel.Maximum;
         }
 
         private double _width;

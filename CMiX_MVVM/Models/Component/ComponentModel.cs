@@ -18,7 +18,6 @@ namespace CMiX.MVVM.Models
         public bool IsExpanded { get; set; }
         public string Address { get; set; }
         public ComponentModel SelectedComponent { get; set; }
-        public Guid ID { get; set; }
         public string MessageAddress { get; set; }
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }
     }

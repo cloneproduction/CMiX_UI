@@ -9,13 +9,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorSelector : MessageCommunicator
     {
-        //public ColorSelector(IMessageProcessor parentSender) : base (parentSender)
-        //{
-        //    ColorPicker = new ColorPicker(this);
-        //    this.SelectedColor = Colors.Red;
-        //}
-
-        public ColorSelector(MessageDispatcher messageDispatcher, ColorSelectorModel colorSelectorModel) : base (messageDispatcher)
+        public ColorSelector(MessageDispatcher messageDispatcher, ColorSelectorModel colorSelectorModel) 
+            : base (messageDispatcher, colorSelectorModel)
         {
             ColorPicker = new ColorPicker(messageDispatcher, colorSelectorModel.ColorPickerModel);
             //this.SelectedColor = Utils.HexStringToColor(colorSelectorModel.ColorPickerModel.SelectedColor);

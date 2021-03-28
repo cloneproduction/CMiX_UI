@@ -2,13 +2,11 @@
 
 namespace CMiX.MVVM.Models
 {
-    public class NoneModel : IAnimModeModel
+    public class NoneModel : Model, IAnimModeModel
     {
         public NoneModel()
         {
 
         }
-
-        public bool Enabled { get; set; }
     }
 }

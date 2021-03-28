@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels.Components
             : base (layerModel)
         {
             MasterBeat = composition.MasterBeat;
-            Visibility = new Visibility(this.MessageDispatcher, composition.Visibility);
+            Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);
 
             PostFX = new PostFX(this.MessageDispatcher, layerModel.PostFXModel);
             BlendMode = new BlendMode(this.MessageDispatcher, layerModel.BlendMode);
@@ -35,16 +35,6 @@ namespace CMiX.MVVM.ViewModels.Components
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
-
-
-        //public override void Dispose()
-        //{
-        //    Fade.Dispose();
-        //    Mask.Dispose();
-        //    PostFX.Dispose();
-        //    BlendMode.Dispose();
-        //    base.Dispose();
-        //}
 
 
         public override IModel GetModel()

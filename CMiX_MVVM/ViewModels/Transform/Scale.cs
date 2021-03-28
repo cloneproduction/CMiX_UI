@@ -1,14 +1,13 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Scale : MessageCommunicator
     {
-        public Scale(string name, MessageDispatcher messageDispatcher, ScaleModel scaleModel) :base(messageDispatcher)
+        public Scale(string name, MessageDispatcher messageDispatcher, ScaleModel scaleModel) 
+            : base(messageDispatcher, scaleModel)
         {
             Uniform = new Slider(nameof(Uniform), messageDispatcher, scaleModel.Uniform);
             Uniform.Amount = 1.0;

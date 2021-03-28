@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
 using System;
@@ -7,7 +8,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public class RotationModifier : MessageCommunicator, IModifier
     {
-        public RotationModifier(string name, MessageDispatcher messageDispatcher, Rotation rotation, MasterBeat beat) : base (messageDispatcher)
+        public RotationModifier(string name, MessageDispatcher messageDispatcher, Rotation rotation, MasterBeat beat, RotationModifierModel rotationModifierModel) 
+            : base (messageDispatcher, rotationModifierModel)
         {
             //X = new AnimParameter(nameof(X), this, rotation.X.Amount, beat);
             //Y = new AnimParameter(nameof(Y), this, rotation.X.Amount, beat);

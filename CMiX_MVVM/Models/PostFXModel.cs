@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class PostFXModel : IModel
+    public class PostFXModel : Model, IModel
     {
         public PostFXModel()
         {
@@ -18,6 +18,5 @@ namespace CMiX.MVVM.Models
 
         public string Transforms { get; set; }
         public string View { get; set; }
-        public bool Enabled { get; set; }
     }
 }

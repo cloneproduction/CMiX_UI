@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ColorSelectorModel : IModel
+    public class ColorSelectorModel : Model, IModel
     {
         public ColorSelectorModel()
         {
@@ -12,6 +12,5 @@ namespace CMiX.MVVM.Models
         }
 
         public ColorPickerModel ColorPickerModel { get; set; }
-        public bool Enabled { get; set; }
     }
 }

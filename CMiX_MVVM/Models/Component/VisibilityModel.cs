@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.Models.Component
 {
-    public class VisibilityModel : IModel
+    public class VisibilityModel : Model, IModel
     {
         public VisibilityModel()
         {
@@ -10,6 +10,5 @@ namespace CMiX.MVVM.Models.Component
         }
 
         public bool IsVisible { get; set; }
-        public bool Enabled { get; set; }
     }
 }

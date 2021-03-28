@@ -6,7 +6,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Rotation : MessageCommunicator
     {
-        public Rotation(string name, MessageDispatcher messageDispatcher, RotationModel rotationModel) : base (messageDispatcher)
+        public Rotation(string name, MessageDispatcher messageDispatcher, RotationModel rotationModel) 
+            : base (messageDispatcher, rotationModel)
         {
             X = new Slider(nameof(X), messageDispatcher, rotationModel.X);
             Y = new Slider(nameof(Y), messageDispatcher, rotationModel.Y);

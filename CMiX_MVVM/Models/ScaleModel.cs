@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ScaleModel : IModel
+    public class ScaleModel : Model, IModel
     {
         public ScaleModel()
         {
@@ -18,6 +18,5 @@ namespace CMiX.MVVM.Models
         public SliderModel Y { get; set; }
         public SliderModel Z { get; set; }
         public SliderModel Uniform { get; set; }
-        public bool Enabled { get; set; }
     }
 }

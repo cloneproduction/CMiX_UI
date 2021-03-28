@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TransformModel : IModel
+    public class TransformModel : Model, IModel
     {
         public TransformModel()
         {
@@ -26,6 +26,5 @@ namespace CMiX.MVVM.Models
         public GeometryRotationModel GeometryRotationModel { get; set; }
 
         public bool Is3D { get; set; }
-        public bool Enabled { get; set; }
     }
 }

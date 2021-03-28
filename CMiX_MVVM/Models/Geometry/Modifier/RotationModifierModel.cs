@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class RotationModifierModel
+    public class RotationModifierModel : Model
     {
         public RotationModifierModel()
         {
