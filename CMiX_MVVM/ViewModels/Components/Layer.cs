@@ -37,14 +37,14 @@ namespace CMiX.MVVM.ViewModels.Components
         public BlendMode BlendMode { get; set; }
 
 
-        public override void Dispose()
-        {
-            Fade.Dispose();
-            Mask.Dispose();
-            PostFX.Dispose();
-            BlendMode.Dispose();
-            base.Dispose();
-        }
+        //public override void Dispose()
+        //{
+        //    Fade.Dispose();
+        //    Mask.Dispose();
+        //    PostFX.Dispose();
+        //    BlendMode.Dispose();
+        //    base.Dispose();
+        //}
 
 
         public override IModel GetModel()

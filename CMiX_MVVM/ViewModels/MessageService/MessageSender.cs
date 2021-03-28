@@ -92,13 +92,13 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
+        public void RegisterMessageProcessor(IComponentMessageProcessor messageProcessor)
         {
             messageProcessor.MessageNotification += MessageProcessor_MessageNotification;
         }
 
 
-        public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
+        public void UnregisterMessageProcessor(IComponentMessageProcessor messageProcessor)
         {
             messageProcessor.MessageNotification -= MessageProcessor_MessageNotification;
         }

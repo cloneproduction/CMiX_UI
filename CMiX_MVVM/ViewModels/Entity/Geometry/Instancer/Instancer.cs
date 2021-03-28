@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -47,14 +48,14 @@ namespace CMiX.MVVM.ViewModels
         {
             var transformModifier = Factory.CreateTransformModifier(transformModifierNames, this);
             TransformModifiers.Add(transformModifier);
-            IMessage message = new MessageAddTransformModifier(this.GetAddress(), transformModifierNames, transformModifier.GetModel() as ITransformModifierModel);
+            var message = new MessageAddTransformModifier(this.GetAddress(), transformModifierNames, transformModifier.GetModel() as ITransformModifierModel);
             this.MessageDispatcher.NotifyOut(message);
         }
 
 
         public void RemoveTransformModifier(ITransformModifier transformModifier)
         {
-            transformModifier.Dispose();
+            //transformModifier.Dispose();
             this.TransformModifiers.Remove(transformModifier);
         }
 

@@ -106,11 +106,11 @@ namespace CMiX.MVVM.ViewModels.Beat
             return model;
         }
 
-        public override void Dispose()
-        {
-            MasterBeat.Detach(this);
-            base.Dispose();
-        }
+        //public override void Dispose()
+        //{
+        //    MasterBeat.Detach(this);
+        //    base.Dispose();
+        //}
 
         public void UpdatePeriod(double period)
         {

@@ -33,11 +33,11 @@ namespace CMiX.MVVM.ViewModels
             return colorationModel;
         }
 
-        public override void Dispose()
-        {
-            BeatModifier.Dispose();
-            ColorSelector.Dispose();
-            base.Dispose();
-        }
+        //public override void Dispose()
+        //{
+        //    BeatModifier.Dispose();
+        //    ColorSelector.Dispose();
+        //    base.Dispose();
+        //}
     }
 }

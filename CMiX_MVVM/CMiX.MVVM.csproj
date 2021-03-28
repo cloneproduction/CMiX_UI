@@ -143,11 +143,13 @@
     <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
-    <Compile Include="ViewModels\Components\Messages\IComponentMessage.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\IViewModelMessage.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\IComponentMessage.cs" />
     <Compile Include="ViewModels\Components\Messages\MessageRemoveComponent.cs" />
     <Compile Include="ViewModels\Components\Visibility.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageRemoveTransformModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageAddTransformModifier.cs" />
+    <Compile Include="ViewModels\MessageService\IComponentMessageProcessor.cs" />
     <Compile Include="ViewModels\MessageService\IMessageTerminal.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IMessage.cs" />
     <Compile Include="Services\ClientShimHandler.cs" />

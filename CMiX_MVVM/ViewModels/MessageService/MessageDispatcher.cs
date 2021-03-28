@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.Generic;
 
@@ -7,25 +6,25 @@ namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class MessageDispatcher : IDisposable
     {
-        public MessageDispatcher(IMessageTerminal messageTerminal)
+        public MessageDispatcher(string parentID)
         {
+            ParentID = parentID;
             Colleagues = new Dictionary<string, IMessageProcessor>();
         }
 
-        public MessageTerminal MessageTerminal { get; set; }
+        private string ParentID { get; set; }
         private Dictionary<string, IMessageProcessor> Colleagues { get; set; }
 
 
-        public event EventHandler<MessageEventArgs> SendMessageOut;
-        private void OnSendMessageOut(object sender, MessageEventArgs e) => SendMessageOut?.Invoke(sender, e);
+        public event Action<IMessageProcessor, IMessage> MessageNotification;
 
-        public void NotifyOut(IMessage message)
+        public void NotifyOut(IViewModelMessage message)
         {
             //SendMessageOut(this, new MessageEventArgs(message));
             //MessageTerminal.SendMessage(message.Address, message);
         }
 
-        public void NotifyIn(IMessage message)
+        public void NotifyIn(IViewModelMessage message)
         {
             IMessageProcessor col;
             if (Colleagues.TryGetValue(message.Address, out col))

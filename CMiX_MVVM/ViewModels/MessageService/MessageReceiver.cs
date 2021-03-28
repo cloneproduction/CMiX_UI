@@ -12,7 +12,7 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         public MessageReceiver()
         {
-            MessageProcessors = new Dictionary<string, IMessageProcessor>();
+            MessageProcessors = new Dictionary<string, IComponentMessageProcessor>();
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
             Serializer = new CerasSerializer();
@@ -30,16 +30,16 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         //public List<IMessageProcessor> MessageProcessors { get; set; }
 
-        private Dictionary<string, IMessageProcessor> MessageProcessors { get; set; }
+        private Dictionary<string, IComponentMessageProcessor> MessageProcessors { get; set; }
 
         public void ProcessMessage(IMessage message)
         {
             if(message is IComponentMessage)
             {
                 var componentMessage = message as IComponentMessage;
-                IMessageProcessor col;
-                if (MessageProcessors.TryGetValue(message.Address, out col))
-                    componentMessage.Process(col, this);
+                IComponentMessageProcessor messageProcessor;
+                if (MessageProcessors.TryGetValue(message.Address, out messageProcessor))
+                    componentMessage.Process(messageProcessor, this);
             }
             
 
@@ -48,7 +48,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
+        public void RegisterMessageProcessor(IComponentMessageProcessor messageProcessor)
         {
             var address = messageProcessor.GetAddress();
             if (MessageProcessors.ContainsKey(address))
@@ -57,7 +57,7 @@ namespace CMiX.Studio.ViewModels.MessageService
                 MessageProcessors.Add(address, messageProcessor);
         }
 
-        public void UnregisterMessageProcessor(IMessageProcessor component)
+        public void UnregisterMessageProcessor(IComponentMessageProcessor component)
         {
             MessageProcessors.Remove(component.GetAddress());
         }

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public interface ITransformModifier : IMessageProcessor, IDisposable
+    public interface ITransformModifier : IMessageProcessor//, IDisposable
     {
         string Name { get; set; }
         int ID { get; set; }

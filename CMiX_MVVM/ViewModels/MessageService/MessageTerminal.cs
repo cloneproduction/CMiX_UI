@@ -47,12 +47,12 @@ namespace CMiX.MVVM.ViewModels.MessageService
             {
                 if (message is IComponentMessage && message.Address == component.GetAddress())
                 {
-                    message.Process(component);
+                    //message.Process(component);
                     Console.WriteLine("Message Processed");
                 }
                 else
                 {
-                    component.DispatchMessage(message);
+                    //component.DispatchMessage(message);
                     Console.WriteLine("Message Dispatched");
                 }
             }

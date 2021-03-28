@@ -19,16 +19,11 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public string Address { get; set; }
 
 
-        public void Process(IMessageProcessor messageProcessor)
-        {
-            Component component = messageProcessor as Component;
-            component.Components[Index].Dispose();
-            component.Components.RemoveAt(Index);
-        }
-
         public void Process(IMessageProcessor viewModel, IMessageTerminal messageTerminal)
         {
-            throw new System.NotImplementedException();
+            Component component = viewModel as Component;
+            component.Components[Index].Dispose();
+            component.Components.RemoveAt(Index);
         }
     }
 }

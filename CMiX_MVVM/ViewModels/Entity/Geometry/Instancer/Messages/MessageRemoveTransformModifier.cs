@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
         public void Process(IMessageProcessor messageProcessor)
         {
             Instancer instancer = messageProcessor as Instancer;
-            instancer.TransformModifiers[Index].Dispose();
+            //instancer.TransformModifiers[Index].Dispose();
             instancer.TransformModifiers.RemoveAt(Index);
         }
     }

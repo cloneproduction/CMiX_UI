@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+                //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 

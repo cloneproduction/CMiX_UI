@@ -26,14 +26,14 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void Dispose()
-        {
-            BeatModifier.Dispose();
-            Geometry.Dispose();
-            Texture.Dispose();
-            Coloration.Dispose();
-            base.Dispose();
-        }
+        //public override void Dispose()
+        //{
+        //    BeatModifier.Dispose();
+        //    Geometry.Dispose();
+        //    Texture.Dispose();
+        //    Coloration.Dispose();
+        //    base.Dispose();
+        //}
 
         public override IModel GetModel()
         {

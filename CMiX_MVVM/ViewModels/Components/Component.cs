@@ -8,18 +8,18 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IMessageProcessor, IDisposable
+    public abstract class Component : ViewModel, IComponentMessageProcessor, IDisposable
     {
         public Component(IComponentModel componentModel)
         {
-            //MessageDispatcher = new MessageDispatcher(messageTerminal);
-
             IsExpanded = false;
 
             Name = $"{this.GetType().Name}{componentModel.ID}";
             ID = componentModel.ID;
 
             Components = new ObservableCollection<Component>();
+            MessageDispatcher = new MessageDispatcher(this.GetAddress());
+            MessageDispatcher.MessageNotification += MessageDispatcher_MessageNotification;
         }
 
 
@@ -29,7 +29,6 @@ namespace CMiX.MVVM.ViewModels.Components
         internal IComponentFactory ComponentFactory { get; set; }
 
 
-
         private int _id;
         public int ID
         {
@@ -37,10 +36,12 @@ namespace CMiX.MVVM.ViewModels.Components
             set => SetAndNotify(ref _id, value);
         }
 
+
         internal void DispatchMessage(IMessage message)
         {
-            this.MessageDispatcher.NotifyIn(message);
+            //this.MessageDispatcher.NotifyIn(message);
         }
+
 
         private string _name;
         public string Name
@@ -72,6 +73,18 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
         private ObservableCollection<Component> _components;
+
+
+        private void MessageDispatcher_MessageNotification(IMessageProcessor messageProcessor, IMessage message)
+        {
+            var handler = MessageNotification;
+            if (MessageNotification != null)
+            {
+                handler(this, message);
+                Console.WriteLine("MessageDispatcher_MessageNotification Raised by " + this.GetAddress());
+            }
+        }
+
 
 
         public event Action<IMessageProcessor, IMessage> MessageNotification;

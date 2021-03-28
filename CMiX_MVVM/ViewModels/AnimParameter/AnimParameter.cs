@@ -69,8 +69,8 @@ namespace CMiX.MVVM.ViewModels
         private void SetAnimMode()
         {
             ParametersToDefault();
-            if (this.AnimMode != null)
-                this.AnimMode.Dispose();
+            //if (this.AnimMode != null)
+            //    this.AnimMode.Dispose();
             this.AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
         }
 

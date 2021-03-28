@@ -1,9 +1,8 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
 {
-    public class MessageUpdateViewModel : IMessage
+    public class MessageUpdateViewModel : IViewModelMessage
     {
         public MessageUpdateViewModel()
         {

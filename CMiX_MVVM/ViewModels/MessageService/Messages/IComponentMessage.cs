@@ -1,6 +1,6 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
 
-namespace CMiX.MVVM.ViewModels.Components.Messages
+namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IComponentMessage : IMessage
     {

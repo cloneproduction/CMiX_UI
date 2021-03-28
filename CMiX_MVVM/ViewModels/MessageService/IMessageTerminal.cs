@@ -3,7 +3,7 @@
     public interface IMessageTerminal
     {
         void ProcessMessage(IMessage message);
-        void RegisterMessageProcessor(IMessageProcessor messageProcessor);
-        void UnregisterMessageProcessor(IMessageProcessor messageProcessor);
+        void RegisterMessageProcessor(IComponentMessageProcessor messageProcessor);
+        void UnregisterMessageProcessor(IComponentMessageProcessor messageProcessor);
     }
 }

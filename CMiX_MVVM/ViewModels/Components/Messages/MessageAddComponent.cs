@@ -27,6 +27,7 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
             var newComponent = component.ComponentFactory.CreateComponent(ComponentModel);
             component.Components.Add(newComponent);
             messageTerminal.RegisterMessageProcessor(newComponent);
+
             Console.WriteLine("MessageAddComponentProcessed");
             Console.WriteLine("Component Count = " + component.Components.Count);
         }
