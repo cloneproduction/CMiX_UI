@@ -16,7 +16,16 @@ namespace CMiX.MVVM.ViewModels.MessageService
         private Dictionary<Guid, IMessageProcessor> Colleagues { get; set; }
 
 
-        public event Action<IMessage> MessageNotification;
+        public event Action<IViewModelMessage> MessageNotification;
+
+        private void Colleague_MessageNotification(IViewModelMessage message)
+        {
+            var handler = MessageNotification;
+            if (handler != null)
+            {
+                handler(message);
+            }
+        }
 
 
         public void NotifyIn(IViewModelMessage message)
@@ -24,19 +33,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
             IMessageProcessor col;
             if (Colleagues.TryGetValue(message.ID, out col))
             {
-                Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
+                //Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
                 message.Process(col);
-            }
-        }
-
-
-        private void Colleague_MessageNotification(IMessage arg2)
-        {
-            var handler = MessageNotification;
-            if (handler != null)
-            {
-                handler(arg2);
-                Console.WriteLine("MessageNotification Raised by ");
             }
         }
 

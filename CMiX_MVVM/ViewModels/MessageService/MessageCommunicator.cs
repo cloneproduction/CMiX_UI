@@ -17,15 +17,15 @@ namespace CMiX.MVVM.ViewModels
 
         public MessageDispatcher MessageDispatcher { get; set; }
 
-        public event Action<IMessage> MessageNotification;
+        public event Action<IViewModelMessage> MessageNotification;
 
         protected void RaiseMessageNotification()
         {
             var handler = MessageNotification;
             if (handler != null)
             {
-                handler(new MessageUpdateViewModel(this.MessageDispatcher.ComponentID, this.ID, this.GetModel()));
-                Console.WriteLine("MessageNotification Raised by " + this.GetType() + " ID is " + this.ID);
+                handler(new MessageUpdateViewModel(this.ID, this.GetModel()));
+                //Console.WriteLine("MessageNotification Raised by " + this.GetType() + " ID is " + this.ID);
             }
         }
 

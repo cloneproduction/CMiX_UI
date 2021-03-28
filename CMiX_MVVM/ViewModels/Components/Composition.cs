@@ -41,6 +41,7 @@ namespace CMiX.MVVM.ViewModels.Components
             return model;
         }
 
+
         public override void SetViewModel(IModel model)
         {
             CompositionModel compositionModel = model as CompositionModel;

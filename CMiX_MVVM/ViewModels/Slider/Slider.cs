@@ -74,6 +74,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             SliderModel model = new SliderModel();
+            model.ID = this.ID;
             model.Amount = this.Amount;
             return model;
         }

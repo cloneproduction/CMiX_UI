@@ -2,6 +2,7 @@
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -22,13 +23,14 @@ namespace CMiX.MVVM.ViewModels.Components
             MessageDispatcher.MessageNotification += MessageDispatcher_MessageNotification1;
         }
 
-        private void MessageDispatcher_MessageNotification1(IMessage message)
+        private void MessageDispatcher_MessageNotification1(IViewModelMessage message)
         {
             var handler = MessageNotification;
             if (MessageNotification != null)
             {
+                message.ComponentID = this.ID;
                 handler(this, message);
-                Console.WriteLine("MessageDispatcher_MessageNotification Raised by " + this.ID);
+                //Console.WriteLine("MessageDispatcher_MessageNotification Raised by " + this.ID);
             }
         }
 
