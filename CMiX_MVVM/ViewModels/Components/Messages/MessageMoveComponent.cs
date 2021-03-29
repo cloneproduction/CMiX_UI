@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
@@ -9,27 +10,22 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         {
 
         }
-        public MessageMoveComponent(Guid id, int oldIndex, int newIndex)
+        public MessageMoveComponent(Guid componentID, int oldIndex, int newIndex)
         {
-            ID = id;
+            ComponentID = componentID;
             OldIndex = oldIndex;
             NewIndex = newIndex;
         }
 
         public int OldIndex { get; set; }
         public int NewIndex { get; set; }
-        public Guid ID { get; set; }
+        public Guid ComponentID { get; set; }
         
 
-        public void Process(IMessageProcessor messageProcessor)
+        public void Process(MessageReceiver messageReceiver)
         {
-            Component component = messageProcessor as Component;
-            component.Components.Move(OldIndex, NewIndex);
-        }
-
-        public void Process(IMessageProcessor viewModel, IMessageTerminal messageTerminal)
-        {
-            throw new System.NotImplementedException();
+            //Component component = messageProcessor as Component;
+            //component.Components.Move(OldIndex, NewIndex);
         }
     }
 }

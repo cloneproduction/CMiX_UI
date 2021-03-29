@@ -15,6 +15,7 @@ namespace CMiX.MVVM.ViewModels
             messageDispatcher.RegisterColleague(this);
         }
 
+
         public MessageDispatcher MessageDispatcher { get; set; }
 
         public event Action<IViewModelMessage> MessageNotification;

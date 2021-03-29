@@ -74,9 +74,14 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void ProcessMessage(IMessage message)
+        //public void ProcessMessage(IMessage message)
+        //{
+
+        //}
+
+        private void MessageProcessor_MessageNotification(IMessageProcessor arg1, IMessage message)
         {
-            var address = message.ID;
+            var address = message.ComponentID;
             var data = Serializer.Serialize(message);
 
             foreach (var messenger in Messengers)
@@ -84,11 +89,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 messenger.SendMessage(address, data);
             }
             System.Console.WriteLine("MessageSender send message to : " + address);
-        }
-
-        private void MessageProcessor_MessageNotification(IMessageProcessor arg1, IMessage arg2)
-        {
-            ProcessMessage(arg2);
         }
 
 

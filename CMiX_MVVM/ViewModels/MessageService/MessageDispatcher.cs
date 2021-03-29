@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
         public Guid ComponentID { get; set; }
-        private Dictionary<Guid, IMessageProcessor> Colleagues { get; set; }
+        public Dictionary<Guid, IMessageProcessor> Colleagues { get; set; }
 
 
         public event Action<IViewModelMessage> MessageNotification;
@@ -31,10 +31,10 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public void NotifyIn(IViewModelMessage message)
         {
             IMessageProcessor col;
-            if (Colleagues.TryGetValue(message.ID, out col))
+            if (Colleagues.TryGetValue(message.ModuleID, out col))
             {
                 //Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
-                message.Process(col);
+                //message.Process(col);
             }
         }
 

@@ -1,10 +1,11 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IMessage
     {
-        Guid ID { get; set; }
+        Guid ComponentID { get; set; }
+        void Process(MessageReceiver messageReceiver);
     }
 }

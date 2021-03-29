@@ -1,4 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Components;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
@@ -10,19 +12,28 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
 
         }
 
-        public MessageUpdateViewModel(Guid id, IModel model)
+        public MessageUpdateViewModel(Guid moduleID, IModel model)
         {
             Model = model;
-            ID = id;
+            ModuleID = moduleID;
         }
 
         public IModel Model { get; set; }
-        public Guid ID { get; set; }
+        public Guid ModuleID { get; set; }
         public Guid ComponentID { get; set; }
 
-        public void Process(IMessageProcessor messageProcessor)
+        public void Process(MessageReceiver messageReceiver)
         {
-            messageProcessor.SetViewModel(Model);
+            IComponentMessageProcessor messageProcessor;
+            if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
+            {
+                Component component = messageProcessor as Component;
+                IMessageProcessor messageCommunicator;
+                if(component.MessageDispatcher.Colleagues.TryGetValue(ModuleID, out messageCommunicator))
+                {
+                    messageCommunicator.SetViewModel(Model);
+                }
+            }
         }
     }
 }

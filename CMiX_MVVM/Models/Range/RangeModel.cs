@@ -8,7 +8,6 @@
             Maximum = 1.0;
         }
 
-        public bool Enabled { get; set; }
         public double Minimum { get; set; }
         public double Maximum { get; set; }
     }

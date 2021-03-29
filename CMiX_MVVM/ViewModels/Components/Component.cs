@@ -20,10 +20,10 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
             MessageDispatcher = new MessageDispatcher(componentModel.ID);
-            MessageDispatcher.MessageNotification += MessageDispatcher_MessageNotification1;
+            MessageDispatcher.MessageNotification += MessageDispatcher_MessageNotification;
         }
 
-        private void MessageDispatcher_MessageNotification1(IViewModelMessage message)
+        private void MessageDispatcher_MessageNotification(IViewModelMessage message)
         {
             var handler = MessageNotification;
             if (MessageNotification != null)
@@ -77,11 +77,8 @@ namespace CMiX.MVVM.ViewModels.Components
             set => SetAndNotify(ref _isExpanded, value);
         }
 
+
         private ObservableCollection<Component> _components;
-
-
-
-
 
 
         public event Action<IMessageProcessor, IMessage> MessageNotification;
@@ -119,6 +116,7 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
+
         public void RemoveComponent(Component component)
         {
             int index = Components.IndexOf(component);
@@ -132,6 +130,7 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
+
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
@@ -143,10 +142,6 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Move(oldIndex, newIndex);
             //MessageTerminal.ProcessMessage(new MessageMoveComponent(this.GetAddress(), oldIndex, newIndex));
         }
-
-
-
-
 
 
         public Component CreateChild()
@@ -162,6 +157,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 component.Dispose();
             }
         }
+
 
         public abstract void SetViewModel(IModel model);
 

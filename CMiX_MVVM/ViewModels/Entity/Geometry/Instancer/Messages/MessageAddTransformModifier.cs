@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Models;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
@@ -10,23 +11,23 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
 
         }
 
-        public MessageAddTransformModifier(Guid id, TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel)
+        public MessageAddTransformModifier(Guid componentID, TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel)
         {
-            ID = id;
+            ComponentID = componentID;
             TransformModifierNames = transformModifierNames;
             TransformModifierModel = transformModifierModel;
         }
 
         public TransformModifierNames TransformModifierNames { get; set; }
         public ITransformModifierModel TransformModifierModel { get; set; }
-        public Guid ID { get; set; }
-        public Guid ComponentID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Guid ComponentID { get; set; }
+        public Guid ModuleID { get; set; }
 
-        public void Process(IMessageProcessor messageProcessor)
+        public void Process(MessageReceiver messageReceiver)
         {
-            Instancer instancer = messageProcessor as Instancer;
-            var transformModifier = instancer.Factory.CreateTransformModifier(TransformModifierNames, TransformModifierModel, instancer);
-            instancer.TransformModifiers.Add(transformModifier);
+            //Instancer instancer = messageProcessor as Instancer;
+            //var transformModifier = instancer.Factory.CreateTransformModifier(TransformModifierNames, TransformModifierModel, instancer);
+            //instancer.TransformModifiers.Add(transformModifier);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
@@ -12,29 +13,30 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         }
 
-        public MessageAddComponent(Guid id, IComponentModel componentModel)
+        public MessageAddComponent(Guid componentID, IComponentModel componentModel)
         {
-            ID = id;
+            ComponentID = componentID;
             ComponentModel = componentModel;
         }
 
-        public Guid ID { get; set; }
+        public Guid ComponentID { get; set; }
         public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...
 
-        public void Process(IMessageProcessor messageProcessor, IMessageTerminal messageTerminal)
+        public void Process(MessageReceiver messageReceiver)
         {
-            Component component = messageProcessor as Component;
-            var newComponent = component.ComponentFactory.CreateComponent(ComponentModel);
-            component.Components.Add(newComponent);
-            messageTerminal.RegisterMessageProcessor(newComponent);
+            IComponentMessageProcessor messageProcessor;
 
-            Console.WriteLine("MessageAddComponentProcessed");
-            Console.WriteLine("Component Count = " + component.Components.Count);
-        }
+            if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
+            {
+                Component component = messageProcessor as Component;
 
-        public void Process(IMessageProcessor viewModel)
-        {
-            throw new NotImplementedException();
+                var newComponent = component.ComponentFactory.CreateComponent(ComponentModel);
+                component.Components.Add(newComponent);
+
+                messageReceiver.RegisterMessageProcessor(newComponent);
+
+                Console.WriteLine("MessageAddComponentProcessed" + "Component Count = " + component.Components.Count);
+            }
         }
     }
 }

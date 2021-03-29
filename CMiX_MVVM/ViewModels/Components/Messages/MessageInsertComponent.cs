@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
@@ -10,27 +11,22 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         {
 
         }
-        public MessageInsertComponent(Guid id, IComponentModel componentModel, int index)
+        public MessageInsertComponent(Guid componentID, IComponentModel componentModel, int index)
         {
-            this.ID = id;
+            this.ComponentID = componentID;
             this.ComponentModel = componentModel;
         }
 
         private int Index { get; set; }
         public IComponentModel ComponentModel { get; set; }
         public object Obj { get; set; }
-        public Guid ID { get; set; }
+        public Guid ComponentID { get; set; }
 
-        public void Process(IMessageProcessor messageProcessor)
+        public void Process(MessageReceiver messageReceiver)
         {
-            Component component = messageProcessor as Component;
-            var newComponent = component.CreateChild();// ComponentFactory.CreateComponent(ComponentModel);
-            component.Components.Insert(Index, newComponent);
-        }
-
-        public void Process(IMessageProcessor viewModel, IMessageTerminal messageTerminal)
-        {
-            throw new System.NotImplementedException();
+            //Component component = messageProcessor as Component;
+            //var newComponent = component.CreateChild();// ComponentFactory.CreateComponent(ComponentModel);
+            //component.Components.Insert(Index, newComponent);
         }
     }
 }
