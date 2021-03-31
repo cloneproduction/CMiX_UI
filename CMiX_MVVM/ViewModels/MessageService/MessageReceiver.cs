@@ -9,20 +9,26 @@ namespace CMiX.Studio.ViewModels.MessageService
 {
     public class MessageReceiver : ViewModel, IMessageTerminal
     {
-        public MessageReceiver()
+        public MessageReceiver(IMessageDispatcher messageDispatcher)
         {
+            MessageDispatcher = messageDispatcher;
             MessageProcessors = new Dictionary<Guid, IComponentMessageProcessor>();
+
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
             Serializer = new CerasSerializer();
         }
 
+
+        public IMessageDispatcher MessageDispatcher { get; set; }
         private CerasSerializer Serializer { get; set; }
+
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
             IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-            message.Process(this);
+            MessageDispatcher.DispatchMessage(message);
+            //message.Process(this);
         }
 
 

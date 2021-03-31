@@ -4,19 +4,24 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageDispatcher : IDisposable
+    public class MessageDispatcher : IDisposable, IMessageDispatcher
     {
+        public MessageDispatcher()
+        {
+            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
+        }
+
         public MessageDispatcher(Guid componentID)
         {
             ComponentID = componentID;
-            Colleagues = new Dictionary<Guid, IMessageProcessor>();
+            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
 
         public Guid ComponentID { get; set; }
-        public Dictionary<Guid, IMessageProcessor> Colleagues { get; set; }
+        public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
 
-        public event Action<IViewModelMessage> MessageNotification;
+        public event Action<IMessage> MessageNotification;
 
         private void Colleague_MessageNotification(IViewModelMessage message)
         {
@@ -28,10 +33,21 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
+        public void DispatchMessage(IMessage message)
+        {
+            message.Process(this);
+            //IMessageProcessor col;
+            //if (Colleagues.TryGetValue(message.ModuleID, out col))
+            //{
+            //    //Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
+            //    //message.Process(col);
+            //}
+        }
+
         public void NotifyIn(IViewModelMessage message)
         {
             IMessageProcessor col;
-            if (Colleagues.TryGetValue(message.ModuleID, out col))
+            if (MessageProcessors.TryGetValue(message.ModuleID, out col))
             {
                 //Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
                 //message.Process(col);
@@ -39,28 +55,28 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void RegisterColleague(MessageCommunicator colleague)
+        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            colleague.MessageNotification += Colleague_MessageNotification;
+            messageProcessor.MessageNotification += Colleague_MessageNotification;
 
-            Console.WriteLine("RegisterColleague " + colleague.GetType());
-            if (Colleagues.ContainsKey(colleague.ID))
-                Colleagues[colleague.ID] = colleague;
+            Console.WriteLine("RegisterColleague " + messageProcessor.GetType());
+            if (MessageProcessors.ContainsKey(messageProcessor.ID))
+                MessageProcessors[messageProcessor.ID] = messageProcessor;
             else
-                Colleagues.Add(colleague.ID, colleague);
+                MessageProcessors.Add(messageProcessor.ID, messageProcessor);
         }
 
 
-        public void UnregisterColleague(MessageCommunicator colleague)
+        public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            colleague.MessageNotification -= Colleague_MessageNotification;
-            Colleagues.Remove(colleague.ID);
+            messageProcessor.MessageNotification -= Colleague_MessageNotification;
+            MessageProcessors.Remove(messageProcessor.ID);
         }
 
 
         public void Dispose()
         {
-            Colleagues.Clear();
+            MessageProcessors.Clear();
         }
     }
 }

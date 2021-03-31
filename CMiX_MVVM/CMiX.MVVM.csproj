@@ -143,6 +143,7 @@
     <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
+    <Compile Include="ViewModels\MessageService\IMessageDispatcher.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IViewModelMessage.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IComponentMessage.cs" />
     <Compile Include="ViewModels\Components\Messages\MessageRemoveComponent.cs" />

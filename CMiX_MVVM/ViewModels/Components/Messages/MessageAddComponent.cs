@@ -22,18 +22,18 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public Guid ComponentID { get; set; }
         public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...
 
-        public void Process(MessageReceiver messageReceiver)
+        public void Process(IMessageDispatcher messageDispatcher)
         {
-            IComponentMessageProcessor messageProcessor;
+            IMessageProcessor messageProcessor;
 
-            if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
+            if (messageDispatcher.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
             {
                 Component component = messageProcessor as Component;
 
                 var newComponent = component.ComponentFactory.CreateComponent(ComponentModel);
                 component.Components.Add(newComponent);
 
-                messageReceiver.RegisterMessageProcessor(newComponent);
+                messageDispatcher.RegisterMessageProcessor(newComponent);
 
                 Console.WriteLine("MessageAddComponentProcessed" + "Component Count = " + component.Components.Count);
             }

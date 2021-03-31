@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Components;
+using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
 using System;
 
@@ -11,7 +12,8 @@ namespace CMiX.Engine.Testing
         {
             Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
 
-            var messageReceiver = new MessageReceiver();
+            MessageDispatcher messageDispatcher = new MessageDispatcher();
+            var messageReceiver = new MessageReceiver(messageDispatcher);
             messageReceiver.Start(settings);
 
             var projectModel = new ProjectModel(Guid.Empty);
