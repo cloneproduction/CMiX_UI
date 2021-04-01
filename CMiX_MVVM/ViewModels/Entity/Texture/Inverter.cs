@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Inverter : MessageCommunicator
     {
-        public Inverter(string name, MessageDispatcher messageDispatcher, InverterModel inverterModel) 
+        public Inverter(string name, IMessageDispatcher messageDispatcher, InverterModel inverterModel) 
             : base (messageDispatcher, inverterModel)
         {
             Invert = new Slider(nameof(Invert), messageDispatcher, inverterModel.Invert);

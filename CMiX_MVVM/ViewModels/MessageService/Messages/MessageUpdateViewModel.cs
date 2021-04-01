@@ -22,14 +22,15 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public Guid ModuleID { get; set; }
         public Guid ComponentID { get; set; }
 
-        public void Process(MessageReceiver messageReceiver)
+        public void Process(IMessageDispatcher messageDispatcher)
         {
-            IComponentMessageProcessor messageProcessor;
-            if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
+            IMessageProcessor messageProcessor;
+            
+            if (messageDispatcher.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
             {
                 Component component = messageProcessor as Component;
                 IMessageProcessor messageCommunicator;
-                if(component.MessageDispatcher.Colleagues.TryGetValue(ModuleID, out messageCommunicator))
+                if(component.MessageDispatcher.MessageProcessors.TryGetValue(ModuleID, out messageCommunicator))
                 {
                     messageCommunicator.SetViewModel(Model);
                 }

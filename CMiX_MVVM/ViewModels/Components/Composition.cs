@@ -3,13 +3,14 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(Project project, CompositionModel compositionModel)
-            : base(compositionModel)
+        public Composition(Project project, CompositionModel compositionModel, IMessageDispatcher messageDispatcher)
+            : base(compositionModel, messageDispatcher)
         {
             MasterBeat = new MasterBeat(this.MessageDispatcher, new MasterBeatModel());
             Transition = new Slider(nameof(Transition), this.MessageDispatcher, compositionModel.TransitionModel);

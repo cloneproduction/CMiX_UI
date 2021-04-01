@@ -10,16 +10,16 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
             MessageDispatcher messageDispatcher = new MessageDispatcher();
             var messageReceiver = new MessageReceiver(messageDispatcher);
             messageReceiver.Start(settings);
 
             var projectModel = new ProjectModel(Guid.Empty);
-            
-            Project Project = new Project(projectModel);
-            messageReceiver.RegisterMessageProcessor(Project);
+
+            Project Project = new Project(projectModel, messageDispatcher);
+            messageReceiver.MessageDispatcher.RegisterMessageProcessor(Project);
             Console.ReadLine();
         }
     }

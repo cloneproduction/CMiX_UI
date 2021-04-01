@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Instancer : MessageCommunicator
     {
-        public Instancer(MessageDispatcher messageDispatcher, MasterBeat beat, InstancerModel instancerModel) 
+        public Instancer(IMessageDispatcher messageDispatcher, MasterBeat beat, InstancerModel instancerModel) 
             : base (messageDispatcher, instancerModel)
         {
             Factory = new TransformModifierFactory(beat);

@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Translate : MessageCommunicator, IObserver
     {
-        public Translate(string name, MessageDispatcher messageDispatcher, TranslateModel translateModel) 
+        public Translate(string name, IMessageDispatcher messageDispatcher, TranslateModel translateModel) 
             : base (messageDispatcher, translateModel)
         {
             X = new Slider(nameof(X), messageDispatcher, translateModel.X);

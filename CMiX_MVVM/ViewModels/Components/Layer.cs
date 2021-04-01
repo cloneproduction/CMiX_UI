@@ -2,13 +2,14 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(Composition composition, LayerModel layerModel) 
-            : base (layerModel)
+        public Layer(Composition composition, LayerModel layerModel, IMessageDispatcher messageDispatcher) 
+            : base (layerModel, messageDispatcher)
         {
             MasterBeat = composition.MasterBeat;
             Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);

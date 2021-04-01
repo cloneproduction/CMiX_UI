@@ -8,5 +8,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         Guid ID { get; set; }
         void SetViewModel(IModel model);
         IModel GetModel();
+
+        event Action<IMessage> MessageNotification;
     }
 }

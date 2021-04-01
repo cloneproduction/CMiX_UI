@@ -6,6 +6,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IComponentMessageProcessor : IMessageProcessor
     {
-        event Action<IMessageProcessor, IMessage> MessageNotification;
+
     }
 }

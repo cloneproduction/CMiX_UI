@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : MessageCommunicator
     {
-        public PostFX(MessageDispatcher messageDispatcher, PostFXModel postFXModel) 
+        public PostFX(IMessageDispatcher messageDispatcher, PostFXModel postFXModel) 
             : base (messageDispatcher, postFXModel) 
         {
             Feedback = new Slider(nameof(Feedback), messageDispatcher, postFXModel.Feedback);

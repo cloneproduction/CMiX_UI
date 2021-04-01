@@ -12,7 +12,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         public MessageReceiver(IMessageDispatcher messageDispatcher)
         {
             MessageDispatcher = messageDispatcher;
-            MessageProcessors = new Dictionary<Guid, IComponentMessageProcessor>();
+            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
 
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
@@ -32,21 +32,21 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        public Dictionary<Guid, IComponentMessageProcessor> MessageProcessors { get; set; }
+        public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-        public void RegisterMessageProcessor(IComponentMessageProcessor messageProcessor)
-        {
-            var address = messageProcessor.ID;
-            if (MessageProcessors.ContainsKey(address))
-                MessageProcessors[address] = messageProcessor;
-            else
-                MessageProcessors.Add(address, messageProcessor);
-        }
+        //public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
+        //{
+        //    var address = messageProcessor.ID;
+        //    if (MessageProcessors.ContainsKey(address))
+        //        MessageProcessors[address] = messageProcessor;
+        //    else
+        //        MessageProcessors.Add(address, messageProcessor);
+        //}
 
-        public void UnregisterMessageProcessor(IComponentMessageProcessor component)
-        {
-            MessageProcessors.Remove(component.ID);
-        }
+        //public void UnregisterMessageProcessor(IMessageProcessor component)
+        //{
+        //    MessageProcessors.Remove(component.ID);
+        //}
 
 
         public string Address

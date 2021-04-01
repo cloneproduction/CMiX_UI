@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Camera : MessageCommunicator
     {
-        public Camera(MessageDispatcher messageDispatcher, MasterBeat beat, CameraModel cameraModel) 
+        public Camera(IMessageDispatcher messageDispatcher, MasterBeat beat, CameraModel cameraModel) 
             : base (messageDispatcher, cameraModel)
         {
             Rotation = ((CameraRotation)0).ToString();

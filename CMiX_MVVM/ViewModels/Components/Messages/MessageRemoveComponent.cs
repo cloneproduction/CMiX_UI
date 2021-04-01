@@ -21,15 +21,15 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public Guid ComponentID { get; set; }
 
 
-        public void Process(MessageReceiver messageReceiver)
+        public void Process(IMessageDispatcher messageDispatcher)
         {
-            IComponentMessageProcessor messageProcessor;
-            if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
-            {
-                Component component = messageProcessor as Component;
-                component.Components[Index].Dispose();
-                component.Components.RemoveAt(Index);
-            }
+            //IComponentMessageProcessor messageProcessor;
+            //if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
+            //{
+            //    Component component = messageProcessor as Component;
+            //    component.Components[Index].Dispose();
+            //    component.Components.RemoveAt(Index);
+            //}
         }
     }
 }

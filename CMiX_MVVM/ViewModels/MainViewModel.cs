@@ -20,12 +20,11 @@ namespace CMiX.MVVM.ViewModels
         public MainViewModel()
         {
             Mementor = new Mementor();
+            MessageDispatcher = new MessageDispatcher();
 
-            
-            
-            CurrentProject = new Project(new ProjectModel(Guid.Empty));
+            CurrentProject = new Project(new ProjectModel(Guid.Empty), MessageDispatcher);
 
-            MessageTerminal = new MessageSender();
+            MessageTerminal = new MessageSender(MessageDispatcher);
             MessageTerminal.RegisterMessageProcessor(CurrentProject);
 
 
@@ -36,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
 
             AssetManager = new AssetManager(CurrentProject);
 
-            ComponentManager = new ComponentManager(Projects, MessageTerminal);
+            ComponentManager = new ComponentManager(Projects, MessageDispatcher);
             Outliner = new Outliner(Projects);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
@@ -72,7 +71,10 @@ namespace CMiX.MVVM.ViewModels
 
         public Mementor Mementor { get; set; }
         public CerasSerializer Serializer { get; set; }
-        
+
+
+
+        public IMessageDispatcher MessageDispatcher { get; set; }
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
         public ObservableCollection<Component> Projects { get; set; }
@@ -175,7 +177,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(new ProjectModel(Guid.Empty));
+            Project project = new Project(new ProjectModel(Guid.Empty), MessageDispatcher);
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

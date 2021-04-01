@@ -1,15 +1,13 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class ColorSelector : MessageCommunicator
     {
-        public ColorSelector(MessageDispatcher messageDispatcher, ColorSelectorModel colorSelectorModel) 
+        public ColorSelector(IMessageDispatcher messageDispatcher, ColorSelectorModel colorSelectorModel) 
             : base (messageDispatcher, colorSelectorModel)
         {
             ColorPicker = new ColorPicker(messageDispatcher, colorSelectorModel.ColorPickerModel);

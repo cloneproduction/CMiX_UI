@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels
@@ -15,7 +14,7 @@ namespace CMiX.MVVM.ViewModels
         public int Index { get; set; }
         public Guid ComponentID { get; set; }
 
-        public void Process(MessageReceiver messageReceiver)
+        public void Process(IMessageDispatcher messageDispatcher)
         {
             //Instancer instancer = messageProcessor as Instancer;
             ////instancer.TransformModifiers[Index].Dispose();

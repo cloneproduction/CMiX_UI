@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Texture : MessageCommunicator
     {
-        public Texture(MessageDispatcher messageDispatcher, MasterBeat beat, TextureModel textureModel) 
+        public Texture(IMessageDispatcher messageDispatcher, MasterBeat beat, TextureModel textureModel) 
             : base (messageDispatcher, textureModel)
         {
             AssetPathSelector = new AssetPathSelector(messageDispatcher, new AssetTexture(), textureModel.AssetPathSelectorModel);

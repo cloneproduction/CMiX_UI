@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels.Beat
 {
     public class MasterBeat : Beat, IMessageProcessor, IBeatSubject
     {
-        public MasterBeat(MessageDispatcher messageDispatcher, MasterBeatModel masterBeatModel) 
+        public MasterBeat(IMessageDispatcher messageDispatcher, MasterBeatModel masterBeatModel) 
             : base (messageDispatcher, masterBeatModel)
         {
             BeatObservers = new List<IBeatObserver>();

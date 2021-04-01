@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Transform : MessageCommunicator, IObserver
     {
-        public Transform(MessageDispatcher messageDispatcher, TransformModel transformModel) 
+        public Transform(IMessageDispatcher messageDispatcher, TransformModel transformModel) 
             : base (messageDispatcher, transformModel)
         {
             Translate = new Translate(nameof(Translate), messageDispatcher, transformModel.TranslateModel);

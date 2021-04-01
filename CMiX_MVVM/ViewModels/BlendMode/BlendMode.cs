@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BlendMode : MessageCommunicator
     {
-        public BlendMode(MessageDispatcher messageDispatcher, BlendModeModel blendModeModel)  
+        public BlendMode(IMessageDispatcher messageDispatcher, BlendModeModel blendModeModel)  
             : base (messageDispatcher, blendModeModel)
         {
             Mode = blendModeModel.Mode;

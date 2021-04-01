@@ -10,5 +10,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
         void UnregisterMessageProcessor(IMessageProcessor messageProcessor);
         Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
         event Action<IMessage> MessageNotification;
+
+        void NotifyMessage(IMessage message);
+        bool HasHandler();
     }
 }

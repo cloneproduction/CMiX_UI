@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels.Beat
 {
     public class Resync : MessageCommunicator, IMessageProcessor
     {
-        public Resync(MessageDispatcher messageDispatcher, BeatAnimations beatAnimations, ResyncModel resyncModel) 
+        public Resync(IMessageDispatcher messageDispatcher, BeatAnimations beatAnimations, ResyncModel resyncModel) 
             : base (messageDispatcher, resyncModel)
         {
             BeatAnimations = beatAnimations;

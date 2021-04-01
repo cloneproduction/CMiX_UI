@@ -8,17 +8,17 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class MessageCommunicator : ViewModel, IMessageProcessor
     {
-        public MessageCommunicator(MessageDispatcher messageDispatcher, Model model)
+        public MessageCommunicator(IMessageDispatcher messageDispatcher, Model model)
         {
             ID = model.ID;
             MessageDispatcher = messageDispatcher;
-            messageDispatcher.RegisterColleague(this);
+            messageDispatcher.RegisterMessageProcessor(this);
         }
+         
 
+        public IMessageDispatcher MessageDispatcher { get; set; }
 
-        public MessageDispatcher MessageDispatcher { get; set; }
-
-        public event Action<IViewModelMessage> MessageNotification;
+        public event Action<IMessage> MessageNotification;
 
         protected void RaiseMessageNotification()
         {

@@ -11,19 +11,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
             MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
 
-        public MessageDispatcher(Guid componentID)
-        {
-            ComponentID = componentID;
-            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
-        }
-
-        public Guid ComponentID { get; set; }
         public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
 
         public event Action<IMessage> MessageNotification;
-
-        private void Colleague_MessageNotification(IViewModelMessage message)
+        public void NotifyMessage(IMessage message)
         {
             var handler = MessageNotification;
             if (handler != null)
@@ -32,6 +24,10 @@ namespace CMiX.MVVM.ViewModels.MessageService
             }
         }
 
+        public bool HasHandler()
+        {
+            return MessageNotification != null;
+        }
 
         public void DispatchMessage(IMessage message)
         {
@@ -49,7 +45,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             IMessageProcessor col;
             if (MessageProcessors.TryGetValue(message.ModuleID, out col))
             {
-                //Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
+                Console.WriteLine("MessageDispatcher NotifyIn " + message.ComponentID);
                 //message.Process(col);
             }
         }
@@ -57,7 +53,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            messageProcessor.MessageNotification += Colleague_MessageNotification;
+            messageProcessor.MessageNotification += NotifyMessage;
 
             Console.WriteLine("RegisterColleague " + messageProcessor.GetType());
             if (MessageProcessors.ContainsKey(messageProcessor.ID))
@@ -69,7 +65,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            messageProcessor.MessageNotification -= Colleague_MessageNotification;
+            //messageProcessor.MessageNotification -= NotifyMessage;
             MessageProcessors.Remove(messageProcessor.ID);
         }
 
