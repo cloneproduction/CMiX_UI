@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels
         public int Index { get; set; }
         public Guid ComponentID { get; set; }
 
-        public void Process(IMessageDispatcher messageDispatcher)
+        public void Process(IMessageProcessor messageProcessor)
         {
             //Instancer instancer = messageProcessor as Instancer;
             ////instancer.TransformModifiers[Index].Dispose();

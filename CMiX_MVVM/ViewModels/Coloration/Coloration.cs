@@ -8,7 +8,6 @@ namespace CMiX.MVVM.ViewModels
     public class Coloration : MessageCommunicator
     {
         public Coloration(IMessageDispatcher messageDispatcher, MasterBeat masterBeat, ColorationModel colorationModel) 
-            : base (messageDispatcher, colorationModel)
         {
             BeatModifier = new BeatModifier(messageDispatcher, masterBeat, colorationModel.BeatModifierModel);
             ColorSelector = new ColorSelector(messageDispatcher, colorationModel.ColorSelectorModel);

@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels.Components
             
             
             Visibility = new Visibility(this.MessageDispatcher, new VisibilityModel());
-            ComponentFactory = new CompositionFactory(this);
+            ComponentFactory = new CompositionFactory(this, messageDispatcher);
         }
 
 

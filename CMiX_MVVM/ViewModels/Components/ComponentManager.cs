@@ -7,9 +7,8 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components, IMessageDispatcher messageDispatcher)
+        public ComponentManager(ObservableCollection<Component> components)
         {
-            MessageDispatcher = messageDispatcher;
             Components = components;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
@@ -18,8 +17,6 @@ namespace CMiX.MVVM.ViewModels.Components
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
 
-
-        public IMessageDispatcher MessageDispatcher { get; set; }
 
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
@@ -43,16 +40,14 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void CreateComponent(Component component)
         {
-            var newComponent = component.CreateChild();
+            var newComponent = component.ComponentFactory.CreateComponent();
             component.AddComponent(newComponent);
-            MessageDispatcher.RegisterMessageProcessor(newComponent);
         }
 
 
         public void DeleteComponent(Component component)
         {
             GetSelectedParent(Components).RemoveComponent(component);
-            MessageDispatcher.UnregisterMessageProcessor(component);
         }
 
 

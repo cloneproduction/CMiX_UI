@@ -12,11 +12,13 @@ namespace CMiX.Engine.Testing
         {
             Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
-            MessageDispatcher messageDispatcher = new MessageDispatcher();
-            var messageReceiver = new MessageReceiver(messageDispatcher);
-            messageReceiver.Start(settings);
+
 
             var projectModel = new ProjectModel(Guid.Empty);
+
+            var messageDispatcher = new MessageDispatcher();
+            var messageReceiver = new MessageReceiver(messageDispatcher);
+            messageReceiver.Start(settings);
 
             Project Project = new Project(projectModel, messageDispatcher);
             messageReceiver.MessageDispatcher.RegisterMessageProcessor(Project);

@@ -7,11 +7,13 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class CompositionFactory : IComponentFactory
     {
-        public CompositionFactory(Project parentProject)
+        public CompositionFactory(Project parentProject, IMessageDispatcher messageDispatcher)
         {
+            MessageDispatcher = messageDispatcher;
             ParentProject = parentProject;
         }
 
+        private IMessageDispatcher MessageDispatcher { get; set; }
         private Project ParentProject { get; set; }
 
         private static int ID = 0;
@@ -19,16 +21,14 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         public Component CreateComponent()
         {
             var model = new CompositionModel(Guid.NewGuid());
-            var messageDispatcher = new MessageDispatcher();
-            var component = new Composition(ParentProject, model, messageDispatcher);
+            var component = new Composition(ParentProject, model, MessageDispatcher);
             ID++;
             return component;
         }
 
         public Component CreateComponent(IComponentModel model)
         {
-            var messageDispatcher = new MessageDispatcher();
-            return new Composition(ParentProject, model as CompositionModel, messageDispatcher);
+            return new Composition(ParentProject, model as CompositionModel, MessageDispatcher);
         }
     }
 }

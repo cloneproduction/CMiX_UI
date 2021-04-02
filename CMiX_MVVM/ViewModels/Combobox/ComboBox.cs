@@ -7,7 +7,6 @@ namespace CMiX.MVVM.ViewModels
     public class ComboBox<T> : MessageCommunicator
     {
         public ComboBox(MessageDispatcher messageDispatcher, ComboBoxModel<T> comboBoxModel) 
-            : base (messageDispatcher, comboBoxModel)
         {
 
         }

@@ -10,7 +10,6 @@ namespace CMiX.MVVM.ViewModels
     public class AnimParameter : MessageCommunicator, IObserver
     {
         public AnimParameter(string name, MessageDispatcher messageDispatcher, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) 
-            : base (messageDispatcher, animParameterModel)
         {
             Period = new double[0];
             Range = new Range(messageDispatcher, animParameterModel.RangeModel);

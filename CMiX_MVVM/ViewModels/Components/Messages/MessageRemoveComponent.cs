@@ -21,7 +21,7 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public Guid ComponentID { get; set; }
 
 
-        public void Process(IMessageDispatcher messageDispatcher)
+        public void Process(IMessageProcessor messageProcessor)
         {
             //IComponentMessageProcessor messageProcessor;
             //if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))

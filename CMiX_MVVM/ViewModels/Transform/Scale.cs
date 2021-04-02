@@ -6,8 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Scale : MessageCommunicator
     {
-        public Scale(string name, IMessageDispatcher messageDispatcher, ScaleModel scaleModel) 
-            : base(messageDispatcher, scaleModel)
+        public Scale(string name, IMessageDispatcher messageDispatcher, ScaleModel scaleModel)
         {
             Uniform = new Slider(nameof(Uniform), messageDispatcher, scaleModel.Uniform);
             Uniform.Amount = 1.0;

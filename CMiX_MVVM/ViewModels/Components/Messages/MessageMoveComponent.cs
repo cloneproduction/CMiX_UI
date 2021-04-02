@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public Guid ComponentID { get; set; }
         
 
-        public void Process(IMessageDispatcher messageDispatcher)
+        public void Process(IMessageProcessor messageProcessor)
         {
             //Component component = messageProcessor as Component;
             //component.Components.Move(OldIndex, NewIndex);

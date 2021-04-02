@@ -7,12 +7,13 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class LayerFactory : IComponentFactory
     {
-        public LayerFactory(Composition parentComposition)
+        public LayerFactory(Composition parentComposition, IMessageDispatcher messageDispatcher)
         {
+            MessageDispatcher = messageDispatcher;
             ParentComposition = parentComposition;
         }
 
-
+        private IMessageDispatcher MessageDispatcher { get; set; }
         private static int ID = 0;
         public Composition ParentComposition { get; set; }
 
@@ -20,16 +21,14 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         public Component CreateComponent()
         {
             var model = new LayerModel(Guid.NewGuid());
-            var messageDispatcher = new MessageDispatcher();
-            var component = new Layer(ParentComposition, model, messageDispatcher);
+            var component = new Layer(ParentComposition, model, MessageDispatcher);
             ID++;
             return component;
         }
 
         public Component CreateComponent(IComponentModel model)
         {
-            var messageDispatcher = new MessageDispatcher();
-            return new Layer(ParentComposition, model as LayerModel, messageDispatcher);
+            return new Layer(ParentComposition, model as LayerModel, MessageDispatcher);
         }
 
     }

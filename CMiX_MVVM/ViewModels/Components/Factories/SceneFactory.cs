@@ -7,28 +7,28 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class SceneFactory : IComponentFactory
     {
-        public SceneFactory(Layer parentLayer)
+        public SceneFactory(Layer parentLayer, IMessageDispatcher messageDispatcher)
         {
+            MessageDispatcher = messageDispatcher;
             ParentLayer = parentLayer;
         }
 
-
+        private IMessageDispatcher MessageDispatcher { get; set; }
         private static int ID = 0;
         private Layer ParentLayer { get; set; }
 
 
         public Component CreateComponent()
         {
-            var messageDispatcher = new MessageDispatcher();
-            var component = new Scene(ParentLayer, new SceneModel(Guid.NewGuid()), messageDispatcher);
+            var model = new SceneModel(Guid.NewGuid());
+            var component = new Scene(ParentLayer, model, MessageDispatcher);
             ID++;
             return component;
         }
 
         public Component CreateComponent(IComponentModel model)
         {
-            var messageDispatcher = new MessageDispatcher();
-            return new Scene(ParentLayer, model as SceneModel, messageDispatcher);
+            return new Scene(ParentLayer, model as SceneModel, MessageDispatcher);
         }
     }
 }

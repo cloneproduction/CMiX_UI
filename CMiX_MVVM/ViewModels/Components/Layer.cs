@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Fade = new Slider(nameof(Fade), this.MessageDispatcher, layerModel.Fade);
             Mask = new Mask(this.MessageDispatcher, layerModel.MaskModel);
 
-            ComponentFactory = new SceneFactory(this);
+            ComponentFactory = new SceneFactory(this, messageDispatcher);
         }
 
 

@@ -13,6 +13,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public MessageSender(IMessageDispatcher messageDispatcher)
         {
             MessageDispatcher = messageDispatcher;
+            messageDispatcher.MessageOutNotification += MessageDispatcher_MessageOutNotification;
             Serializer = new CerasSerializer();
             //MessageProcessors = new List<IMessageProcessor>();
 
@@ -25,6 +26,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             RenameMessengerCommand = new RelayCommand(p => RenameServer(p as Server));
             EditMessengerSettingsCommand = new RelayCommand(p => EditMessengerSettings(p as Messenger));
         }
+
 
 
         public IMessageDispatcher MessageDispatcher { get; set; }
@@ -77,12 +79,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        //public void ProcessMessage(IMessage message)
-        //{
-
-        //}
-
-        private void MessageProcessor_MessageNotification(IMessage message)
+        private void MessageDispatcher_MessageOutNotification(IMessage message)
         {
             var address = message.ComponentID;
             var data = Serializer.Serialize(message);
@@ -92,18 +89,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 messenger.SendMessage(address, data);
             }
             System.Console.WriteLine("MessageSender send message to : " + address);
-        }
-
-
-        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
-        {
-            messageProcessor.MessageNotification += MessageProcessor_MessageNotification;
-        }
-
-
-        public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
-        {
-            messageProcessor.MessageNotification -= MessageProcessor_MessageNotification;
         }
     }
 }

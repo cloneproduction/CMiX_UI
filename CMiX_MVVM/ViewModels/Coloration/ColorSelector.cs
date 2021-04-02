@@ -8,7 +8,6 @@ namespace CMiX.MVVM.ViewModels
     public class ColorSelector : MessageCommunicator
     {
         public ColorSelector(IMessageDispatcher messageDispatcher, ColorSelectorModel colorSelectorModel) 
-            : base (messageDispatcher, colorSelectorModel)
         {
             ColorPicker = new ColorPicker(messageDispatcher, colorSelectorModel.ColorPickerModel);
             //this.SelectedColor = Utils.HexStringToColor(colorSelectorModel.ColorPickerModel.SelectedColor);

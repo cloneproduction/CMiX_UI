@@ -8,7 +8,6 @@ namespace CMiX.MVVM.ViewModels
     public class Range : MessageCommunicator, IRange
     {
         public Range(MessageDispatcher messageDispatcher, RangeModel rangeModel) 
-            : base (messageDispatcher, rangeModel)
         {
             Minimum = rangeModel.Minimum;
             Maximum = rangeModel.Maximum;

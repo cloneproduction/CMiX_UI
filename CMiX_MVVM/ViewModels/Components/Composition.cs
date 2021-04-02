@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Camera = new Camera(this.MessageDispatcher, MasterBeat, compositionModel.CameraModel);
 
             Visibility = new Visibility(this.MessageDispatcher, project.Visibility, compositionModel.VisibilityModel);
-            ComponentFactory = new LayerFactory(this);
+            ComponentFactory = new LayerFactory(this, messageDispatcher);
         }
 
 

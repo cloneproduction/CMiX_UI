@@ -24,8 +24,7 @@ namespace CMiX.MVVM.ViewModels
         //    PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         //}
 
-        public ColorPicker(IMessageDispatcher messageDispatcher, ColorPickerModel colorPickerModel) 
-            : base (messageDispatcher, colorPickerModel)
+        public ColorPicker(IMessageDispatcher messageDispatcher, ColorPickerModel colorPickerModel)
         {
             SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
             Red = SelectedColor.R;

@@ -9,7 +9,6 @@ namespace CMiX.MVVM.ViewModels
     public class Geometry : MessageCommunicator, ITransform
     {
         public Geometry(IMessageDispatcher messageDispatcher, MasterBeat beat, GeometryModel geometryModel) 
-            : base (messageDispatcher, geometryModel)
         {
             Instancer = new Instancer(messageDispatcher, beat, geometryModel.InstancerModel);
             Transform = new Transform(messageDispatcher, geometryModel.TransformModel);

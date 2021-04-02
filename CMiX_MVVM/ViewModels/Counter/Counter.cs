@@ -10,7 +10,6 @@ namespace CMiX.MVVM.ViewModels
     public class Counter : MessageCommunicator
     {
         public Counter(MessageDispatcher messageDispatcher, CounterModel counterModel) 
-            : base (messageDispatcher, counterModel) 
         {
             Count = 1;
             AddCommand = new RelayCommand(p => Add());

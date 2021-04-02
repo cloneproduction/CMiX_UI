@@ -22,19 +22,21 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public Guid ModuleID { get; set; }
         public Guid ComponentID { get; set; }
 
-        public void Process(IMessageDispatcher messageDispatcher)
+        public void Process(IMessageProcessor messageProcessor)
         {
-            IMessageProcessor messageProcessor;
-            
-            if (messageDispatcher.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
-            {
-                Component component = messageProcessor as Component;
-                IMessageProcessor messageCommunicator;
-                if(component.MessageDispatcher.MessageProcessors.TryGetValue(ModuleID, out messageCommunicator))
-                {
-                    messageCommunicator.SetViewModel(Model);
-                }
-            }
+            messageProcessor.SetViewModel(Model);
+            Console.WriteLine("UpdateViewModel");
+            //IMessageProcessor messageProcessor;
+
+            //if (messageDispatcher.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
+            //{
+            //    Component component = messageProcessor as Component;
+            //    IMessageProcessor messageCommunicator;
+            //    if (component.MessageDispatcher.MessageProcessors.TryGetValue(ModuleID, out messageCommunicator))
+            //    {
+            //        messageCommunicator.SetViewModel(Model);
+            //    }
+            //}
         }
     }
 }

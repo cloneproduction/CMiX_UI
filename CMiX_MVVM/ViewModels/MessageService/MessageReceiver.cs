@@ -3,7 +3,6 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.ViewModels.MessageService;
 using System;
-using System.Collections.Generic;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -12,7 +11,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         public MessageReceiver(IMessageDispatcher messageDispatcher)
         {
             MessageDispatcher = messageDispatcher;
-            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
 
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
@@ -28,31 +26,15 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             IMessage message = Serializer.Deserialize<IMessage>(e.Data);
             MessageDispatcher.DispatchMessage(message);
-            //message.Process(this);
+            Console.WriteLine("Client_DataReceived Message " + message.GetType());
         }
-
-
-        public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
-
-        //public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
-        //{
-        //    var address = messageProcessor.ID;
-        //    if (MessageProcessors.ContainsKey(address))
-        //        MessageProcessors[address] = messageProcessor;
-        //    else
-        //        MessageProcessors.Add(address, messageProcessor);
-        //}
-
-        //public void UnregisterMessageProcessor(IMessageProcessor component)
-        //{
-        //    MessageProcessors.Remove(component.ID);
-        //}
 
 
         public string Address
         {
             get { return String.Format("tcp://{0}:{1}", IP, Port); }
         }
+
 
         private string _ip;
         public string IP

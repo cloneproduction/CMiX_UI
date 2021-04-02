@@ -9,8 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Easing : MessageCommunicator
     {
-        public Easing(MessageDispatcher messageDispatcher, EasingModel easingModel) 
-            : base (messageDispatcher, easingModel)
+        public Easing(MessageDispatcher messageDispatcher, EasingModel easingModel)
         {
             EasingMode = EasingMode.EaseIn;
             EasingFunction = EasingFunction.None;

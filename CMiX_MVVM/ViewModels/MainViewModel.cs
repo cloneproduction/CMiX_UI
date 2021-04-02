@@ -20,12 +20,16 @@ namespace CMiX.MVVM.ViewModels
         public MainViewModel()
         {
             Mementor = new Mementor();
+
+            var model = new ProjectModel(Guid.Empty);
+
             MessageDispatcher = new MessageDispatcher();
 
-            CurrentProject = new Project(new ProjectModel(Guid.Empty), MessageDispatcher);
+            CurrentProject = new Project(model, MessageDispatcher);
 
+            MessageDispatcher.RegisterMessageProcessor(CurrentProject);
             MessageTerminal = new MessageSender(MessageDispatcher);
-            MessageTerminal.RegisterMessageProcessor(CurrentProject);
+            //MessageTerminal.RegisterMessageProcessor(CurrentProject);
 
 
 
@@ -35,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
 
             AssetManager = new AssetManager(CurrentProject);
 
-            ComponentManager = new ComponentManager(Projects, MessageDispatcher);
+            ComponentManager = new ComponentManager(Projects);
             Outliner = new Outliner(Projects);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));

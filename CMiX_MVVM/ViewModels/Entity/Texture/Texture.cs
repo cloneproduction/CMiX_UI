@@ -8,8 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Texture : MessageCommunicator
     {
-        public Texture(IMessageDispatcher messageDispatcher, MasterBeat beat, TextureModel textureModel) 
-            : base (messageDispatcher, textureModel)
+        public Texture(IMessageDispatcher messageDispatcher, MasterBeat beat, TextureModel textureModel)
         {
             AssetPathSelector = new AssetPathSelector(messageDispatcher, new AssetTexture(), textureModel.AssetPathSelectorModel);
             Inverter = new Inverter(nameof(Inverter), messageDispatcher, textureModel.InverterModel);

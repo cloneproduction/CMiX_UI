@@ -7,7 +7,6 @@ namespace CMiX.MVVM.ViewModels
     public class Mask : MessageCommunicator
     {
         public Mask(IMessageDispatcher messageDispatcher, MaskModel maskModel) 
-            : base (messageDispatcher, maskModel)
         {
             MaskType = maskModel.MaskType;// ((MaskType)2).ToString();
             MaskControlType = maskModel.MaskControlType;// ((MaskControlType)1).ToString();

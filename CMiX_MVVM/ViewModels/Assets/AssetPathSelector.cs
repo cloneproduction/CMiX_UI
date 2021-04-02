@@ -9,7 +9,6 @@ namespace CMiX.MVVM.ViewModels.Assets
     public class AssetPathSelector : MessageCommunicator, IDropTarget
     {
         public AssetPathSelector(IMessageDispatcher messageDispatcher, Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel) 
-            : base (messageDispatcher, assetPathSelectorModel)
         {
             SelectedAsset = defaultAsset;
         }

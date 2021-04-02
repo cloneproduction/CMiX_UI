@@ -11,11 +11,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Randomized : MessageCommunicator, IAnimMode
     {
-        //public Randomized(MessageDispatcher messageDispatcher) : base (messageDispatcher)
-        //{
-
-        //}
-        public Randomized(AnimParameter parentSender, MessageDispatcher messageDispatcher, RandomizedModel randomizedModel) : base (messageDispatcher, randomizedModel)
+        public Randomized(AnimParameter parentSender, MessageDispatcher messageDispatcher, RandomizedModel randomizedModel)
         {
             Random = new Random();
             oldRandom = GetNewRandoms(parentSender.Parameters.Length);

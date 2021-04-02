@@ -8,9 +8,10 @@ namespace CMiX.MVVM.ViewModels
     public class Slider : MessageCommunicator
     {
         public Slider(string name, IMessageDispatcher messageDispatcher, SliderModel sliderModel) 
-            : base (messageDispatcher, sliderModel)
         {
             this.ID = sliderModel.ID;
+            messageDispatcher.RegisterMessageProcessor(this);
+
             this.Amount = sliderModel.Amount;
             Name = name;
 

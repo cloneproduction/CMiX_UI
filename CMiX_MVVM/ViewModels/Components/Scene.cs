@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Mask = new Mask(this.MessageDispatcher, sceneModel.MaskModel);
             Transform = new Transform(this.MessageDispatcher, sceneModel.TransformModel);
 
-            ComponentFactory = new EntityFactory(this);
+            ComponentFactory = new EntityFactory(this, messageDispatcher);
         }
 
 

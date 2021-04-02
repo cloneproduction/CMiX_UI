@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.Generic;
 
@@ -11,51 +12,38 @@ namespace CMiX.MVVM.ViewModels.MessageService
             MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
 
+        public Guid ID { get; set; }
         public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
 
-        public event Action<IMessage> MessageNotification;
-        public void NotifyMessage(IMessage message)
+
+        public event Action<IMessage> MessageOutNotification;
+
+        public void OnMessageOutNotification(IMessage message)
         {
-            var handler = MessageNotification;
+            var handler = MessageOutNotification;
             if (handler != null)
             {
                 handler(message);
             }
         }
 
-        public bool HasHandler()
-        {
-            return MessageNotification != null;
-        }
-
         public void DispatchMessage(IMessage message)
         {
-            message.Process(this);
-            //IMessageProcessor col;
-            //if (Colleagues.TryGetValue(message.ModuleID, out col))
-            //{
-            //    //Console.WriteLine("MessageDispatcher NotifyIn " + message.ID);
-            //    //message.Process(col);
-            //}
-        }
+            IMessageProcessor messageProcessor;
 
-        public void NotifyIn(IViewModelMessage message)
-        {
-            IMessageProcessor col;
-            if (MessageProcessors.TryGetValue(message.ModuleID, out col))
+            if (MessageProcessors.TryGetValue(message.ComponentID, out messageProcessor))
             {
-                Console.WriteLine("MessageDispatcher NotifyIn " + message.ComponentID);
-                //message.Process(col);
+                messageProcessor.ProcessMessage(message);
             }
         }
 
 
+
         public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            messageProcessor.MessageNotification += NotifyMessage;
+            messageProcessor.MessageOutNotification += OnMessageOutNotification;
 
-            Console.WriteLine("RegisterColleague " + messageProcessor.GetType());
             if (MessageProcessors.ContainsKey(messageProcessor.ID))
                 MessageProcessors[messageProcessor.ID] = messageProcessor;
             else
@@ -65,7 +53,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            //messageProcessor.MessageNotification -= NotifyMessage;
             MessageProcessors.Remove(messageProcessor.ID);
         }
 
