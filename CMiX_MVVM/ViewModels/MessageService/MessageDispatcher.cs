@@ -1,6 +1,4 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
@@ -16,8 +14,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
 
-
         public event Action<IMessage> MessageOutNotification;
+        public event Action<IMessage> MessageInNotification;
 
         public void OnMessageOutNotification(IMessage message)
         {
@@ -29,13 +27,12 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void DispatchMessage(IMessage message)
+        public void OnMessageInNotification(IMessage message)
         {
-            IMessageProcessor messageProcessor;
-
-            if (MessageProcessors.TryGetValue(message.ComponentID, out messageProcessor))
+            var handler = MessageInNotification;
+            if (handler != null)
             {
-                messageProcessor.ProcessMessage(message);
+                handler(message);
             }
         }
 

@@ -25,7 +25,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
             IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-            MessageDispatcher.DispatchMessage(message);
+            MessageDispatcher.OnMessageInNotification(message);
             Console.WriteLine("Client_DataReceived Message " + message.GetType());
         }
 

@@ -2,14 +2,13 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(Layer layer, SceneModel sceneModel, IMessageDispatcher messageDispatcher) 
-            : base (sceneModel, messageDispatcher)
+        public Scene(Layer layer, SceneModel sceneModel) 
+            : base (sceneModel)
         {
             MasterBeat = layer.MasterBeat;
 
@@ -19,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Mask = new Mask(this.MessageDispatcher, sceneModel.MaskModel);
             Transform = new Transform(this.MessageDispatcher, sceneModel.TransformModel);
 
-            ComponentFactory = new EntityFactory(this, messageDispatcher);
+            ComponentFactory = new EntityFactory(this);
         }
 
 

@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.MessageService;
 using MvvmDialogs;
 using System.Collections.ObjectModel;
 
@@ -11,15 +10,14 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Project : Component
     {
-        public Project(ProjectModel projectModel, IMessageDispatcher messageDispatcher) 
-            : base (projectModel, messageDispatcher)
+        public Project(ProjectModel projectModel) 
+            : base (projectModel)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
-            
-            
+
             Visibility = new Visibility(this.MessageDispatcher, new VisibilityModel());
-            ComponentFactory = new CompositionFactory(this, messageDispatcher);
+            ComponentFactory = new CompositionFactory(this);
         }
 
 

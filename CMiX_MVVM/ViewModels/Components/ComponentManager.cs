@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using CMiX.MVVM.ViewModels.MessageService;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -6,9 +7,12 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components)
+        public ComponentManager(ObservableCollection<Component> components, IMessageDispatcher messageDispatcher)
         {
             Components = components;
+            MessageDispatcher = messageDispatcher;
+            messageDispatcher.MessageInNotification += MessageDispatcher_MessageInNotification;
+
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -16,6 +20,10 @@ namespace CMiX.MVVM.ViewModels.Components
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
 
+        private void MessageDispatcher_MessageInNotification(IMessage message)
+        {
+            System.Console.WriteLine("ComponentManagerReceiveMessage");
+        }
 
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
@@ -23,6 +31,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public ICommand RenameComponentCommand { get; }
 
 
+        private IMessageDispatcher MessageDispatcher { get; set; }
         public ObservableCollection<Component> Components { get; set; }
 
 
@@ -41,11 +50,13 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             var newComponent = component.ComponentFactory.CreateComponent();
             component.AddComponent(newComponent);
+            this.MessageDispatcher.RegisterMessageProcessor(newComponent);
         }
 
         public void DeleteComponent(Component component)
         {
             GetSelectedParent(Components).RemoveComponent(component);
+            this.MessageDispatcher.UnregisterMessageProcessor(component);
         }
 
 

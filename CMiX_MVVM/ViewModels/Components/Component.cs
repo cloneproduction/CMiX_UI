@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IComponentMessageProcessor, IDisposable
     {
-        public Component(IComponentModel componentModel, IMessageDispatcher messageDispatcher)
+        public Component(IComponentModel componentModel)
         {
             IsExpanded = false;
 
@@ -20,8 +20,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
 
-            messageDispatcher.RegisterMessageProcessor(this);
-            
             MessageDispatcher = new MessageDispatcher();
             MessageDispatcher.MessageOutNotification += MessageDispatcher_MessageOutNotification;
         }
@@ -41,20 +39,20 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public void ProcessMessage(IMessage message)
-        {
-            if(message.GetType() == typeof(IViewModelMessage))
-            {
-                this.MessageDispatcher.DispatchMessage(message);
-            }
-            else if(message.GetType() == typeof(IComponentMessage))
-            {
-                message.Process(this);
-            }
+        //public void ProcessMessage(IMessage message)
+        //{
+        //    if(message.GetType() == typeof(IViewModelMessage))
+        //    {
+        //        this.MessageDispatcher.DispatchMessage(message);
+        //    }
+        //    else if(message.GetType() == typeof(IComponentMessage))
+        //    {
+        //        message.Process(this);
+        //    }
             
-            Console.WriteLine(message.GetType());
-            Console.WriteLine("Component ProcessMessage");
-        }
+        //    Console.WriteLine(message.GetType());
+        //    Console.WriteLine("Component ProcessMessage");
+        //}
 
 
         public Visibility Visibility { get; set; }
@@ -105,8 +103,8 @@ namespace CMiX.MVVM.ViewModels.Components
             set => SetAndNotify(ref _components, value);
         }
 
-        public string GetAddress() => $"{this.GetType().Name}/{ID}/";
 
+        public string GetAddress() => $"{this.GetType().Name}/{ID}/";
 
 
         public void AddComponent(Component component)

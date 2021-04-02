@@ -23,15 +23,7 @@ namespace CMiX.MVVM.ViewModels
 
             var model = new ProjectModel(Guid.Empty);
 
-            MessageDispatcher = new MessageDispatcher();
-
-            CurrentProject = new Project(model, MessageDispatcher);
-
-            MessageDispatcher.RegisterMessageProcessor(CurrentProject);
-            MessageTerminal = new MessageSender(MessageDispatcher);
-            //MessageTerminal.RegisterMessageProcessor(CurrentProject);
-
-
+            CurrentProject = new Project(model);
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<Component>();
@@ -39,8 +31,16 @@ namespace CMiX.MVVM.ViewModels
 
             AssetManager = new AssetManager(CurrentProject);
 
-            ComponentManager = new ComponentManager(Projects);
+            MessageDispatcher = new MessageDispatcher();
+
+            MessageTerminal = new MessageSender(MessageDispatcher);
+            MessageDispatcher.RegisterMessageProcessor(CurrentProject);
+
+            ComponentManager = new ComponentManager(Projects, MessageDispatcher);
             Outliner = new Outliner(Projects);
+
+
+
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
@@ -181,7 +181,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(new ProjectModel(Guid.Empty), MessageDispatcher);
+            Project project = new Project(new ProjectModel(Guid.Empty));
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;
