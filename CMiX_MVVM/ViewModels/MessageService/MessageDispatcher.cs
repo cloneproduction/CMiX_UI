@@ -28,6 +28,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             }
         }
 
+
         public void DispatchMessage(IMessage message)
         {
             IMessageProcessor messageProcessor;
@@ -37,7 +38,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 messageProcessor.ProcessMessage(message);
             }
         }
-
 
 
         public void RegisterMessageProcessor(IMessageProcessor messageProcessor)

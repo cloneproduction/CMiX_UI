@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -44,12 +43,16 @@ namespace CMiX.MVVM.ViewModels.Components
             component.AddComponent(newComponent);
         }
 
-
         public void DeleteComponent(Component component)
         {
             GetSelectedParent(Components).RemoveComponent(component);
         }
 
+
+        public void InsertComponent(int index, Component parentComponent, Component componentToInsert)
+        {
+            parentComponent.InsertComponent(index, componentToInsert);
+        }
 
         public Component DuplicateComponent(Component component)
         {
