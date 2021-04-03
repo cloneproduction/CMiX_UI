@@ -15,5 +15,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
         void OnMessageOutNotification(IMessage message);
 
         void OnMessageInNotification(IMessage message);
+        IMessageProcessor GetMessageProcessor(Guid id);
     }
 }

@@ -1,10 +1,9 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.Studio.ViewModels.MessageService;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
-    public class MessageRemoveComponent : IComponentMessage
+    public class MessageRemoveComponent : IComponentManagerMessage
+
     {
         public MessageRemoveComponent()
         {
@@ -17,19 +16,15 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         }
 
         public int Index { get; set; }
-        public object Obj { get; set; }
         public Guid ComponentID { get; set; }
 
-
-        public void Process(IMessageProcessor messageProcessor)
+        public void Process(ComponentManager componentManager)
         {
-            //IComponentMessageProcessor messageProcessor;
-            //if (messageReceiver.MessageProcessors.TryGetValue(ComponentID, out messageProcessor))
-            //{
-            //    Component component = messageProcessor as Component;
-            //    component.Components[Index].Dispose();
-            //    component.Components.RemoveAt(Index);
-            //}
+            Component component = componentManager.MessageDispatcher.GetMessageProcessor(ComponentID) as Component;
+            var componentToDelete = component.Components[Index];
+            component.RemoveComponent(componentToDelete);
+            componentManager.MessageDispatcher.UnregisterMessageProcessor(componentToDelete);
+            Console.WriteLine("MessageRemoveComponentProcessed" + "Component Count = " + component.Components.Count);
         }
     }
 }

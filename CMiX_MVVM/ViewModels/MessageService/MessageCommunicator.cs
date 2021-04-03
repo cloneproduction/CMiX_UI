@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
     {
 
         public event Action<IMessage> MessageOutNotification;
-
+        
         public void RaiseMessageNotification()
         {
             var handler = MessageOutNotification;
@@ -24,10 +24,5 @@ namespace CMiX.MVVM.ViewModels
         public Guid ID { get; set; }
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();
-
-        public void ProcessMessage(IMessage message)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

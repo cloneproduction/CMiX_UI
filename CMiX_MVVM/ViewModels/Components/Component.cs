@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
@@ -11,7 +10,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IComponentMessageProcessor, IDisposable
     {
-        public Component(IComponentModel componentModel)
+        public Component(IComponentModel componentModel, IMessageDispatcher messageDispatcher)
         {
             IsExpanded = false;
 
@@ -20,7 +19,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
 
-            MessageDispatcher = new MessageDispatcher();
+            MessageDispatcher = messageDispatcher;
             MessageDispatcher.MessageOutNotification += MessageDispatcher_MessageOutNotification;
         }
 
@@ -37,22 +36,6 @@ namespace CMiX.MVVM.ViewModels.Components
                 handler(message);
             }
         }
-
-
-        //public void ProcessMessage(IMessage message)
-        //{
-        //    if(message.GetType() == typeof(IViewModelMessage))
-        //    {
-        //        this.MessageDispatcher.DispatchMessage(message);
-        //    }
-        //    else if(message.GetType() == typeof(IComponentMessage))
-        //    {
-        //        message.Process(this);
-        //    }
-            
-        //    Console.WriteLine(message.GetType());
-        //    Console.WriteLine("Component ProcessMessage");
-        //}
 
 
         public Visibility Visibility { get; set; }
@@ -111,15 +94,6 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Components.Add(component);
             IsExpanded = true;
-            AddComponentMessageNotification(component);
-        }
-
-
-        private void AddComponentMessageNotification(Component component)
-        {
-            var handler = MessageOutNotification;
-            if (handler != null)
-                handler(new MessageAddComponent(this.ID, component.GetModel() as IComponentModel));
         }
 
 
@@ -142,14 +116,6 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Move(oldIndex, newIndex);
         }
 
-
-        //public Component CreateChild()
-        //{
-        //    var component = ComponentFactory.CreateComponent();
-        //    return component;
-        //}
-
-
         public virtual void Dispose()
         {
             foreach (var component in Components)
@@ -157,7 +123,6 @@ namespace CMiX.MVVM.ViewModels.Components
                 component.Dispose();
             }
         }
-
 
         public abstract void SetViewModel(IModel model);
 

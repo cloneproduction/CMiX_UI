@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
 {
-    public class MessageAddTransformModifier : IViewModelMessage
+    public class MessageAddTransformModifier //: IViewModelMessage
     {
         public MessageAddTransformModifier()
         {

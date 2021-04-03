@@ -23,7 +23,8 @@ namespace CMiX.MVVM.ViewModels
 
             var model = new ProjectModel(Guid.Empty);
 
-            CurrentProject = new Project(model);
+            var messageDispatcher = new MessageDispatcher();
+            CurrentProject = new Project(model, messageDispatcher);
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<Component>();
@@ -181,7 +182,8 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(new ProjectModel(Guid.Empty));
+            var messageDispatcher = new MessageDispatcher();
+            Project project = new Project(new ProjectModel(Guid.Empty), messageDispatcher);
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

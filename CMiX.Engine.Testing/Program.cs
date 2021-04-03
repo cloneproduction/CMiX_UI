@@ -11,7 +11,7 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
 
 
@@ -21,7 +21,7 @@ namespace CMiX.Engine.Testing
             var messageReceiver = new MessageReceiver(messageDispatcher);
             messageReceiver.Start(settings);
 
-            Project Project = new Project(projectModel);
+            Project Project = new Project(projectModel, new MessageDispatcher());
             messageReceiver.MessageDispatcher.RegisterMessageProcessor(Project);
             
             var projects = new ObservableCollection<Component>();

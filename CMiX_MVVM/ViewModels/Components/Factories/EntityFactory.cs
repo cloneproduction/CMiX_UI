@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
@@ -18,14 +19,16 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         public Component CreateComponent()
         {
             EntityModel entityModel = new EntityModel(Guid.NewGuid());
-            var component = new Entity(ParentScene, entityModel);
+            var messageDispatcher = new MessageDispatcher();
+            var component = new Entity(ParentScene, entityModel, messageDispatcher);
             ID++;
             return component;
         }
 
         public Component CreateComponent(IComponentModel model)
         {
-            return new Entity(ParentScene, model as EntityModel);
+            var messageDispatcher = new MessageDispatcher();
+            return new Entity(ParentScene, model as EntityModel, messageDispatcher);
         }
     }
 }

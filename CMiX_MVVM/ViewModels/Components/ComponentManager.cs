@@ -1,4 +1,7 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Components.Messages;
+using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -13,17 +16,29 @@ namespace CMiX.MVVM.ViewModels.Components
             MessageDispatcher = messageDispatcher;
             messageDispatcher.MessageInNotification += MessageDispatcher_MessageInNotification;
 
-
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
             DeleteComponentCommand = new RelayCommand(p => DeleteComponent(p as Component));
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
 
+
         private void MessageDispatcher_MessageInNotification(IMessage message)
         {
-            System.Console.WriteLine("ComponentManagerReceiveMessage");
+            //var componentManagerMessage = message as IComponentManagerMessage;
+            if (message is IComponentManagerMessage)
+            {
+                ((IComponentManagerMessage)message).Process(this);
+            }
+            else if(message is IViewModelMessage)
+            {
+                var viewModelMessage = message as IViewModelMessage;
+                var component = MessageDispatcher.GetMessageProcessor(message.ComponentID) as Component;
+                var module = component.MessageDispatcher.GetMessageProcessor(viewModelMessage.ModuleID) as MessageCommunicator;
+                viewModelMessage.Process(module);
+            }
         }
+
 
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
@@ -31,7 +46,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public ICommand RenameComponentCommand { get; }
 
 
-        private IMessageDispatcher MessageDispatcher { get; set; }
+        public IMessageDispatcher MessageDispatcher { get; set; }
         public ObservableCollection<Component> Components { get; set; }
 
 
@@ -51,12 +66,16 @@ namespace CMiX.MVVM.ViewModels.Components
             var newComponent = component.ComponentFactory.CreateComponent();
             component.AddComponent(newComponent);
             this.MessageDispatcher.RegisterMessageProcessor(newComponent);
+            this.MessageDispatcher.OnMessageOutNotification(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
         }
 
         public void DeleteComponent(Component component)
         {
+            var selectedParent = GetSelectedParent(Components);
+            int index = selectedParent.Components.IndexOf(component);
             GetSelectedParent(Components).RemoveComponent(component);
             this.MessageDispatcher.UnregisterMessageProcessor(component);
+            this.MessageDispatcher.OnMessageOutNotification(new MessageRemoveComponent(selectedParent.ID, index));
         }
 
 

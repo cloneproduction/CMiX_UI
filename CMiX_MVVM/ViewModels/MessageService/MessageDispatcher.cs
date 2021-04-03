@@ -37,6 +37,14 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
+        public IMessageProcessor GetMessageProcessor(Guid id)
+        {
+            if (MessageProcessors.ContainsKey(id))
+                return MessageProcessors[id];
+            return null;
+        }
+
+
         public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
         {
             messageProcessor.MessageOutNotification += OnMessageOutNotification;
