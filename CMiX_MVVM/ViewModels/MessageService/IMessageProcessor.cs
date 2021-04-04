@@ -10,6 +10,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
         IModel GetModel();
 
         event Action<IMessage> MessageOutNotification;
-        //void ProcessMessage(IMessage message);
+
+        void ProcessMessage(IMessage message);
+        void SendMessage(IMessage message);
     }
 }

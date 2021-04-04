@@ -16,18 +16,16 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         private Scene ParentScene { get; set; }
 
 
-        public Component CreateComponent()
+        public Component CreateComponent(IMessageDispatcher messageDispatcher)
         {
             EntityModel entityModel = new EntityModel(Guid.NewGuid());
-            var messageDispatcher = new MessageDispatcher();
             var component = new Entity(ParentScene, entityModel, messageDispatcher);
             ID++;
             return component;
         }
 
-        public Component CreateComponent(IComponentModel model)
+        public Component CreateComponent(IMessageDispatcher messageDispatcher, IComponentModel model)
         {
-            var messageDispatcher = new MessageDispatcher();
             return new Entity(ParentScene, model as EntityModel, messageDispatcher);
         }
     }

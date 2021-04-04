@@ -16,18 +16,16 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private static int ID = 0;
 
-        public Component CreateComponent()
+        public Component CreateComponent(IMessageDispatcher messageDispatcher)
         {
             var model = new CompositionModel(Guid.NewGuid());
-            var messageDispatcher = new MessageDispatcher();
             var component = new Composition(ParentProject, model, messageDispatcher);
             ID++;
             return component;
         }
 
-        public Component CreateComponent(IComponentModel model)
+        public Component CreateComponent(IMessageDispatcher messageDispatcher, IComponentModel model)
         {
-            var messageDispatcher = new MessageDispatcher();
             return new Composition(ParentProject, model as CompositionModel, messageDispatcher);
         }
     }

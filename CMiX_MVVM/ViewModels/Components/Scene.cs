@@ -59,7 +59,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             this.Components.Clear();
             foreach (var componentModel in sceneModel.ComponentModels)
-                this.ComponentFactory.CreateComponent(sceneModel);
+                this.ComponentFactory.CreateComponent(this.MessageDispatcher, sceneModel);
         }
     }
 }

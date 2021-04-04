@@ -8,17 +8,17 @@ namespace CMiX.MVVM.ViewModels
     {
         public Scale(string name, IMessageDispatcher messageDispatcher, ScaleModel scaleModel)
         {
-            Uniform = new Slider(nameof(Uniform), messageDispatcher, scaleModel.Uniform);
-            Uniform.Amount = 1.0;
+            //Uniform = new Slider(nameof(Uniform), messageDispatcher, scaleModel.Uniform);
+            //Uniform.Amount = 1.0;
 
-            X = new Slider(nameof(X), messageDispatcher, scaleModel.X);
-            X.Amount = 1.0;
+            //X = new Slider(nameof(X), messageDispatcher, scaleModel.X);
+            //X.Amount = 1.0;
 
-            Y = new Slider(nameof(Y), messageDispatcher, scaleModel.Y);
-            Y.Amount = 1.0;
+            //Y = new Slider(nameof(Y), messageDispatcher, scaleModel.Y);
+            //Y.Amount = 1.0;
 
-            Z = new Slider(nameof(Z), messageDispatcher, scaleModel.Z);
-            Z.Amount = 1.0;
+            //Z = new Slider(nameof(Z), messageDispatcher, scaleModel.Z);
+            //Z.Amount = 1.0;
 
             IsUniform = true;
         }

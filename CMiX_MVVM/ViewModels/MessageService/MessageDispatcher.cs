@@ -1,22 +1,19 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.Components.Messages;
+using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageDispatcher : IDisposable, IMessageDispatcher
+    public class MessageDispatcher : IMessageDispatcher
     {
         public MessageDispatcher()
         {
             MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
 
-        public Guid ID { get; set; }
         public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-
         public event Action<IMessage> MessageOutNotification;
-        public event Action<IMessage> MessageInNotification;
-
         public void OnMessageOutNotification(IMessage message)
         {
             var handler = MessageOutNotification;
@@ -26,9 +23,23 @@ namespace CMiX.MVVM.ViewModels.MessageService
             }
         }
 
+        public bool CanSend()
+        {
+            var handler = MessageOutNotification;
+            if (handler != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
+
+
+
+        public event Action<IMessage> MessageInNotification;
         public void OnMessageInNotification(IMessage message)
         {
+            //this.ProcessMessage(message);
             var handler = MessageInNotification;
             if (handler != null)
             {
@@ -42,6 +53,34 @@ namespace CMiX.MVVM.ViewModels.MessageService
             if (MessageProcessors.ContainsKey(id))
                 return MessageProcessors[id];
             return null;
+        }
+
+        public IMessage SetMessageID(IMessage message )
+        {
+            return message;
+        }
+
+        public void SendMessage(IMessage message)
+        {
+            var handler = MessageOutNotification;
+            if (handler != null)
+            {
+                handler(message);
+            }
+        }
+
+        public void ProcessMessage(IMessage message)
+        {
+            if (message is IComponentManagerMessage)
+            {
+                OnMessageInNotification(message);
+            }
+            else
+            {
+                var messageProcessor = GetMessageProcessor(message.ComponentID);
+                if(messageProcessor != null)
+                    messageProcessor.ProcessMessage(message);
+            }
         }
 
 
@@ -61,10 +100,10 @@ namespace CMiX.MVVM.ViewModels.MessageService
             MessageProcessors.Remove(messageProcessor.ID);
         }
 
-
-        public void Dispose()
+        public void SendMessage(Func<IMessage> CreateMessage)
         {
-            MessageProcessors.Clear();
+            var message = CreateMessage();
+            OnMessageOutNotification(message);
         }
     }
 }

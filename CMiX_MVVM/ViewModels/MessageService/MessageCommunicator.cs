@@ -8,6 +8,7 @@ namespace CMiX.MVVM.ViewModels
     public abstract class MessageCommunicator : ViewModel, IMessageProcessor
     {
 
+
         public event Action<IMessage> MessageOutNotification;
         
         public void RaiseMessageNotification()
@@ -18,6 +19,17 @@ namespace CMiX.MVVM.ViewModels
                 handler(new MessageUpdateViewModel(this.ID, this.GetModel()));
                 Console.WriteLine("MessageNotification Raised by " + this.GetType() + " ID is " + this.ID);
             }
+        }
+
+        public void SendMessage(IMessage message)
+        {
+
+        }
+
+        public void ProcessMessage(IMessage message)
+        {
+            var vmMessage = message as IViewModelMessage;
+            vmMessage.Process(this);
         }
 
 

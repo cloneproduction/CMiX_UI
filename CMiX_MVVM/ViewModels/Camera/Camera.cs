@@ -14,8 +14,8 @@ namespace CMiX.MVVM.ViewModels
             View = ((CameraView)0).ToString();
 
             BeatModifier = new BeatModifier(messageDispatcher, beat, new BeatModifierModel());
-            FOV = new Slider(nameof(FOV), messageDispatcher, cameraModel.FOV);
-            Zoom = new Slider(nameof(Zoom), messageDispatcher, cameraModel.Zoom);
+            //FOV = new Slider(nameof(FOV), messageDispatcher, cameraModel.FOV);
+            //Zoom = new Slider(nameof(Zoom), messageDispatcher, cameraModel.Zoom);
         }
 
         public BeatModifier BeatModifier { get; set; }

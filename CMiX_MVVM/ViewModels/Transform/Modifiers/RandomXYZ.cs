@@ -22,17 +22,17 @@ namespace CMiX.MVVM.ViewModels
 
             SelectedModifierType = ModifierType.OBJECT;
 
-            LocationX = new Slider(nameof(LocationX), messageDispatcher, randomXYZModel.LocationX );
-            LocationY = new Slider(nameof(LocationY), messageDispatcher, randomXYZModel.LocationY);
-            LocationZ = new Slider(nameof(LocationZ), messageDispatcher, randomXYZModel.LocationZ);
+            //LocationX = new Slider(nameof(LocationX), messageDispatcher, randomXYZModel.LocationX );
+            //LocationY = new Slider(nameof(LocationY), messageDispatcher, randomXYZModel.LocationY);
+            //LocationZ = new Slider(nameof(LocationZ), messageDispatcher, randomXYZModel.LocationZ);
 
-            ScaleX = new Slider(nameof(ScaleX), messageDispatcher, randomXYZModel.ScaleX);
-            ScaleY = new Slider(nameof(ScaleY), messageDispatcher, randomXYZModel.ScaleY);
-            ScaleZ = new Slider(nameof(ScaleZ), messageDispatcher, randomXYZModel.ScaleZ);
+            //ScaleX = new Slider(nameof(ScaleX), messageDispatcher, randomXYZModel.ScaleX);
+            //ScaleY = new Slider(nameof(ScaleY), messageDispatcher, randomXYZModel.ScaleY);
+            //ScaleZ = new Slider(nameof(ScaleZ), messageDispatcher, randomXYZModel.ScaleZ);
 
-            RotationX = new Slider(nameof(RotationX), messageDispatcher, randomXYZModel.RotationX);
-            RotationY = new Slider(nameof(RotationY), messageDispatcher, randomXYZModel.RotationY);
-            RotationZ = new Slider(nameof(RotationZ), messageDispatcher, randomXYZModel.RotationZ);
+            //RotationX = new Slider(nameof(RotationX), messageDispatcher, randomXYZModel.RotationX);
+            //RotationY = new Slider(nameof(RotationY), messageDispatcher, randomXYZModel.RotationY);
+            //RotationZ = new Slider(nameof(RotationZ), messageDispatcher, randomXYZModel.RotationZ);
 
             RandomizeLocation = true;
             RandomizeScale = true;

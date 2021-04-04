@@ -2,6 +2,7 @@
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -13,7 +14,9 @@ namespace CMiX.MVVM.ViewModels.Components
         public ComponentManager(ObservableCollection<Component> components, IMessageDispatcher messageDispatcher)
         {
             Components = components;
+
             MessageDispatcher = messageDispatcher;
+
             messageDispatcher.MessageInNotification += MessageDispatcher_MessageInNotification;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
@@ -30,13 +33,13 @@ namespace CMiX.MVVM.ViewModels.Components
             {
                 ((IComponentManagerMessage)message).Process(this);
             }
-            else if(message is IViewModelMessage)
-            {
-                var viewModelMessage = message as IViewModelMessage;
-                var component = MessageDispatcher.GetMessageProcessor(message.ComponentID) as Component;
-                var module = component.MessageDispatcher.GetMessageProcessor(viewModelMessage.ModuleID) as MessageCommunicator;
-                viewModelMessage.Process(module);
-            }
+            //else if(message is IViewModelMessage)
+            //{
+            //    var viewModelMessage = message as IViewModelMessage;
+            //    var component = MessageDispatcher.GetMessageProcessor(message.ComponentID) as Component;
+            //    var module = component.MessageDispatcher.GetMessageProcessor(viewModelMessage.ModuleID) as MessageCommunicator;
+            //    viewModelMessage.Process(module);
+            //}
         }
 
 
@@ -63,11 +66,26 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void CreateComponent(Component component)
         {
-            var newComponent = component.ComponentFactory.CreateComponent();
+            var newComponent = component.ComponentFactory.CreateComponent(this.MessageDispatcher);
             component.AddComponent(newComponent);
             this.MessageDispatcher.RegisterMessageProcessor(newComponent);
-            this.MessageDispatcher.OnMessageOutNotification(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
+
+            SendMessageAddComponent(component, newComponent);
         }
+
+
+        public event Action<IMessage> MessageOutNotification;
+
+
+        public void SendMessageAddComponent(Component component, Component newComponent)
+        {
+            var handler = MessageOutNotification;
+            if (handler != null)
+            {
+                handler(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
+            }
+        }
+
 
         public void DeleteComponent(Component component)
         {
@@ -75,7 +93,7 @@ namespace CMiX.MVVM.ViewModels.Components
             int index = selectedParent.Components.IndexOf(component);
             GetSelectedParent(Components).RemoveComponent(component);
             this.MessageDispatcher.UnregisterMessageProcessor(component);
-            this.MessageDispatcher.OnMessageOutNotification(new MessageRemoveComponent(selectedParent.ID, index));
+            //this.MessageDispatcher.SendMessage(new MessageRemoveComponent(selectedParent.ID, index));
         }
 
 

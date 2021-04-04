@@ -1,15 +1,18 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Slider : MessageCommunicator
     {
-        public Slider(string name, IMessageDispatcher messageDispatcher, SliderModel sliderModel) 
+        public Slider(string name, ModuleMessageDispatcher messageDispatcher, SliderModel sliderModel) 
         {
             this.ID = sliderModel.ID;
+
+            ModuleMessageDispatcher = messageDispatcher;
             messageDispatcher.RegisterMessageProcessor(this);
 
             this.Amount = sliderModel.Amount;
@@ -20,7 +23,7 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
-
+        public ModuleMessageDispatcher ModuleMessageDispatcher { get; set; }
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
         public ICommand ResetCommand { get; }
@@ -41,9 +44,18 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
+                ModuleMessageDispatcher.SendChange(CreateMessageViewModelUpdate);
+                //ModuleMessageDispatcher.SendViewModelUpdate(this);
+                //ModuleMessageDispatcher.SendMessage(new MessageUpdateViewModel(this.ID, this.GetModel()));
                 RaiseMessageNotification();
             }
         }
+
+        public IMessage CreateMessageViewModelUpdate()
+        {
+            return new MessageUpdateViewModel(this.ID, this.GetModel());
+        }
+
 
         private double _minimum = 0.0;
         public double Minimum

@@ -10,9 +10,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public Translate(string name, IMessageDispatcher messageDispatcher, TranslateModel translateModel) 
         {
-            X = new Slider(nameof(X), messageDispatcher, translateModel.X);
-            Y = new Slider(nameof(Y), messageDispatcher, translateModel.Y);
-            Z = new Slider(nameof(Z), messageDispatcher, translateModel.Z);
+            //X = new Slider(nameof(X), messageDispatcher, translateModel.X);
+            //Y = new Slider(nameof(Y), messageDispatcher, translateModel.Y);
+            //Z = new Slider(nameof(Z), messageDispatcher, translateModel.Z);
         }
 
         public Slider X { get; set; }

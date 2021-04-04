@@ -172,6 +172,7 @@
     <Compile Include="ViewModels\Components\Factories\EntityFactory.cs" />
     <Compile Include="ViewModels\Components\Factories\LayerFactory.cs" />
     <Compile Include="ViewModels\Components\Factories\SceneFactory.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessageDispatcher.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />

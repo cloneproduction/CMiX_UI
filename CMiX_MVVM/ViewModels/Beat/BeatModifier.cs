@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels.Beat
         public BeatModifier(IMessageDispatcher messageDispatcher, MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
             : base (messageDispatcher, beatModifierModel)
         {
-            ChanceToHit = new Slider(nameof(ChanceToHit), messageDispatcher, beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
+            //ChanceToHit = new Slider(nameof(ChanceToHit), messageDispatcher, beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
             Multiplier = beatModifierModel.Multiplier;
 
             MasterBeat = masterBeat;

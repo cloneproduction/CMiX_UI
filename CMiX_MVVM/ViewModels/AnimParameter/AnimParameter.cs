@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels
             Period = new double[0];
             Range = new Range(messageDispatcher, animParameterModel.RangeModel);
             Easing = new Easing(messageDispatcher, animParameterModel.EasingModel);
-            Width = new Slider(nameof(Width), messageDispatcher, animParameterModel.Width);
+            //Width = new Slider(nameof(Width), messageDispatcher, animParameterModel.Width);
             BeatModifier = new BeatModifier(messageDispatcher, beat, animParameterModel.BeatModifierModel);
             Parameters = defaultParameter;
             Name = name;

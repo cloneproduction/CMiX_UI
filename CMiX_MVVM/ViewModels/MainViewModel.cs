@@ -37,7 +37,10 @@ namespace CMiX.MVVM.ViewModels
             MessageTerminal = new MessageSender(MessageDispatcher);
             MessageDispatcher.RegisterMessageProcessor(CurrentProject);
 
+            
             ComponentManager = new ComponentManager(Projects, MessageDispatcher);
+            ComponentManager.MessageOutNotification += MessageTerminal.SendMessage;
+
             Outliner = new Outliner(Projects);
 
 

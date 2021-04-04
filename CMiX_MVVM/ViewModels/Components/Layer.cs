@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             PostFX = new PostFX(this.MessageDispatcher, layerModel.PostFXModel);
             BlendMode = new BlendMode(this.MessageDispatcher, layerModel.BlendMode);
-            Fade = new Slider(nameof(Fade), this.MessageDispatcher, layerModel.Fade);
+            //Fade = new Slider(nameof(Fade), this.MessageDispatcher, layerModel.Fade);
             Mask = new Mask(this.MessageDispatcher, layerModel.MaskModel);
 
             ComponentFactory = new SceneFactory(this);
@@ -67,13 +67,8 @@ namespace CMiX.MVVM.ViewModels.Components
             this.Components.Clear();
             foreach (var componentModel in layerModel.ComponentModels)
             {
-                this.ComponentFactory.CreateComponent(layerModel);
+                this.ComponentFactory.CreateComponent(this.MessageDispatcher, layerModel);
             }
         }
-
-        //public override void CreateChild()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
     }
 }

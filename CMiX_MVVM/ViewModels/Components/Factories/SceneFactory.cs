@@ -16,18 +16,16 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         private Layer ParentLayer { get; set; }
 
 
-        public Component CreateComponent()
+        public Component CreateComponent(IMessageDispatcher messageDispatcher)
         {
             var model = new SceneModel(Guid.NewGuid());
-            var messageDispatcher = new MessageDispatcher();
             var component = new Scene(ParentLayer, model, messageDispatcher);
             ID++;
             return component;
         }
 
-        public Component CreateComponent(IComponentModel model)
+        public Component CreateComponent(IMessageDispatcher messageDispatcher, IComponentModel model)
         {
-            var messageDispatcher = new MessageDispatcher();
             return new Scene(ParentLayer, model as SceneModel, messageDispatcher);
         }
     }

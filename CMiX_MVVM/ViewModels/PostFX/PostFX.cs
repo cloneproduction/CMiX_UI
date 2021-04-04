@@ -8,8 +8,8 @@ namespace CMiX.MVVM.ViewModels
     {
         public PostFX(IMessageDispatcher messageDispatcher, PostFXModel postFXModel)
         {
-            Feedback = new Slider(nameof(Feedback), messageDispatcher, postFXModel.Feedback);
-            Blur = new Slider(nameof(Blur), messageDispatcher, postFXModel.Blur);
+            //Feedback = new Slider(nameof(Feedback), messageDispatcher, postFXModel.Feedback);
+            //Blur = new Slider(nameof(Blur), messageDispatcher, postFXModel.Blur);
 
             Transforms = postFXModel.Transforms;// ((PostFXTransforms)0).ToString();
             View = postFXModel.View;// ((PostFXView)0).ToString();

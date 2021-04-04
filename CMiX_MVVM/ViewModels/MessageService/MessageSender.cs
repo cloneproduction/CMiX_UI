@@ -13,7 +13,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public MessageSender(IMessageDispatcher messageDispatcher)
         {
             MessageDispatcher = messageDispatcher;
-            messageDispatcher.MessageOutNotification += SendMessage; ;
+            messageDispatcher.MessageOutNotification += SendMessage;
+
             Serializer = new CerasSerializer();
 
             MessengerFactory = new MessengerFactory();

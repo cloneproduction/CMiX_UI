@@ -12,11 +12,14 @@ namespace CMiX.MVVM.ViewModels.Components
         public Composition(Project project, CompositionModel compositionModel, IMessageDispatcher messageDispatcher)
             : base(compositionModel, messageDispatcher)
         {
-            MasterBeat = new MasterBeat(this.MessageDispatcher, new MasterBeatModel());
-            Transition = new Slider(nameof(Transition), this.MessageDispatcher, compositionModel.TransitionModel);
-            Camera = new Camera(this.MessageDispatcher, MasterBeat, compositionModel.CameraModel);
 
-            Visibility = new Visibility(this.MessageDispatcher, project.Visibility, compositionModel.VisibilityModel);
+            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher(this);
+
+            //MasterBeat = new MasterBeat(moduleMessageDispatcher, new MasterBeatModel());
+            Transition = new Slider(nameof(Transition), moduleMessageDispatcher, compositionModel.TransitionModel);
+            //Camera = new Camera(moduleMessageDispatcher, MasterBeat, compositionModel.CameraModel);
+
+            //Visibility = new Visibility(moduleMessageDispatcher, project.Visibility, compositionModel.VisibilityModel);
             ComponentFactory = new LayerFactory(this);
         }
 
@@ -32,8 +35,8 @@ namespace CMiX.MVVM.ViewModels.Components
 
             model.Name = this.Name;
             //model.IsVisible = this.IsVisible;
-            model.MasterBeatModel = (MasterBeatModel)this.MasterBeat.GetModel();
-            model.CameraModel = (CameraModel)this.Camera.GetModel();
+            //model.MasterBeatModel = (MasterBeatModel)this.MasterBeat.GetModel();
+            //model.CameraModel = (CameraModel)this.Camera.GetModel();
             model.TransitionModel = (SliderModel)this.Transition.GetModel();
 
             foreach (Component item in this.Components)
@@ -47,14 +50,14 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             CompositionModel compositionModel = model as CompositionModel;
 
-            this.MasterBeat.SetViewModel(compositionModel.MasterBeatModel);
-            this.Camera.SetViewModel(compositionModel.CameraModel);
+            //this.MasterBeat.SetViewModel(compositionModel.MasterBeatModel);
+            //this.Camera.SetViewModel(compositionModel.CameraModel);
             this.Transition.SetViewModel(compositionModel.TransitionModel);
 
             this.Components.Clear();
             foreach (var componentModel in compositionModel.ComponentModels)
             {
-                this.ComponentFactory.CreateComponent(componentModel);
+                this.ComponentFactory.CreateComponent(this.MessageDispatcher, componentModel);
             }
         }
     }

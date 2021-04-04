@@ -28,12 +28,29 @@ namespace CMiX.MVVM.ViewModels.Components
 
         private void MessageDispatcher_MessageOutNotification(IMessage message)
         {
-            Console.WriteLine("Component MessageDispatcher_MessageNotification ComponentID " + ((IViewModelMessage)message).ModuleID);
-            var handler = MessageOutNotification;
-            if (MessageOutNotification != null)
+            Console.WriteLine(this.ID + "MessageOutNotification  " + this.GetType());
+            //var handler = MessageOutNotification;
+            //if (MessageOutNotification != null)
+            //{
+            //    message.ComponentID = this.ID;
+            //    handler(message);
+            //}
+        }
+
+
+        public void SendMessage(IMessage message)
+        {
+            //MessageDispatcher.SendMessage(message);
+        }
+
+        public void ProcessMessage(IMessage message)
+        {
+            if(message is IViewModelMessage)
             {
-                message.ComponentID = this.ID;
-                handler(message);
+                var vmMessage = message as IViewModelMessage;
+                var module = MessageDispatcher.GetMessageProcessor(vmMessage.ModuleID);
+                if(module != null)
+                    module.ProcessMessage(vmMessage);
             }
         }
 
