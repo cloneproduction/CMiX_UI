@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels.Components
             MasterBeat = composition.MasterBeat;
             //Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);
 
-            PostFX = new PostFX(this.MessageDispatcher, layerModel.PostFXModel);
+            PostFX = new PostFX(layerModel.PostFXModel);
             PostFX.SetModuleDispatcher(moduleMessageDispatcher);
             BlendMode = new BlendMode(this.MessageDispatcher, layerModel.BlendMode);
             
