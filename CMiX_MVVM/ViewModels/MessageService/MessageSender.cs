@@ -1,4 +1,5 @@
 ﻿using Ceras;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using CMiX.MVVM.Views;
 using CMiX.Studio.ViewModels.MessageService;
 using MvvmDialogs;
@@ -8,13 +9,10 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageSender : ViewModel, IMessageTerminal
+    public class MessageSender : ViewModel, IHandler
     {
-        public MessageSender(IMessageDispatcher messageDispatcher)
+        public MessageSender()
         {
-            MessageDispatcher = messageDispatcher;
-            messageDispatcher.MessageOutNotification += SendMessage;
-
             Serializer = new CerasSerializer();
 
             MessengerFactory = new MessengerFactory();
@@ -87,6 +85,12 @@ namespace CMiX.MVVM.ViewModels.MessageService
             {
                 messenger.SendMessage(address, data);
             }
+        }
+
+
+        public IHandler SetNext(IHandler handler)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

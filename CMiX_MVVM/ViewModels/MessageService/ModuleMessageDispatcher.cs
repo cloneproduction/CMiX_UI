@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ModuleMessageDispatcher
+    public class ModuleMessageDispatcher : IHandler
     {
 
         public ModuleMessageDispatcher(Component parentComponent)
@@ -21,6 +22,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public event Action<IMessage> MessageOutNotification;
         public event Action<IMessage> MessageInNotification;
+
 
         public IMessageProcessor GetMessageProcessor(Guid id)
         {
@@ -54,15 +56,31 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public void SendChange(Func<IMessage> createMessage)
         {
             //var message = createMessage();
-            ParentComponent.MessageDispatcher.SendMessage(createMessage);
+            //ParentComponent.MessageDispatcher.SendMessage(createMessage);
         }
 
 
+        private IHandler _nextHandler;
+        public IHandler SetNext(IHandler handler)
+        {
+            _nextHandler = handler;
+            return handler;
+        }
+
         public void SendMessage(IMessage message)
-        { 
+        {
+            if(_nextHandler != null)
+            {
+                message.ComponentID = ParentComponent.ID;
+                _nextHandler.SendMessage(message);
+                Console.WriteLine("ModuleMessageDispatcher POUETPOUET");
+            }
+            
             //message.ComponentID = ParentComponent.ID;
             //ParentComponent.MessageDispatcher.SendMessage(message);
         }
+
+
 
 
         public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
@@ -77,5 +95,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         {
             MessageProcessors.Remove(messageProcessor.ID);
         }
+
+
     }
 }

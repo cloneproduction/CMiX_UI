@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class MessageCommunicator : ViewModel, IMessageProcessor
+    public abstract class MessageCommunicator : ViewModel, IHandler, IMessageProcessor
     {
 
 
@@ -21,10 +22,21 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+
+        private IHandler _nextHandler;
         public void SendMessage(IMessage message)
         {
-
+            if(_nextHandler != null)
+            {
+                _nextHandler.SendMessage(message);
+            }
         }
+        public IHandler SetNext(IHandler handler)
+        {
+            _nextHandler = handler;
+            return handler;
+        }
+
 
         public void ProcessMessage(IMessage message)
         {

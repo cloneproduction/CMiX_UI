@@ -1,15 +1,18 @@
 ﻿using CMiX.MVVM.ViewModels.Components.Messages;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageDispatcher : IMessageDispatcher
+    public class MessageDispatcher : IMessageDispatcher 
     {
         public MessageDispatcher()
         {
             MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
+
+
 
         public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
@@ -60,14 +63,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             return message;
         }
 
-        public void SendMessage(IMessage message)
-        {
-            var handler = MessageOutNotification;
-            if (handler != null)
-            {
-                handler(message);
-            }
-        }
+
 
         public void ProcessMessage(IMessage message)
         {
@@ -104,6 +100,23 @@ namespace CMiX.MVVM.ViewModels.MessageService
         {
             var message = CreateMessage();
             OnMessageOutNotification(message);
+        }
+
+
+
+        private IHandler _nextHandler;
+        public IHandler SetNext(IHandler handler)
+        {
+            _nextHandler = handler;
+            return handler;
+        }
+
+        public void SendMessage(IMessage message)
+        {
+            if(_nextHandler != null)
+            {
+                _nextHandler.SendMessage(message);
+            }
         }
     }
 }

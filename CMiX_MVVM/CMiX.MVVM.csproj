@@ -145,6 +145,7 @@
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
     <Compile Include="ViewModels\Components\Messages\IComponentManagerMessage.cs" />
     <Compile Include="ViewModels\MessageService\IMessageDispatcher.cs" />
+    <Compile Include="ViewModels\MessageService\MessageSendCOR\IHandler.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IViewModelMessage.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IComponentMessage.cs" />
     <Compile Include="ViewModels\Components\Messages\MessageRemoveComponent.cs" />

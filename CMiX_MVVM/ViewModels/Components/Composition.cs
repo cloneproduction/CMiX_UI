@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
@@ -14,11 +13,12 @@ namespace CMiX.MVVM.ViewModels.Components
         {
 
             ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher(this);
+            moduleMessageDispatcher.SetNext(messageDispatcher);
 
+            Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
+            Transition.SetModuleDispatcher(moduleMessageDispatcher);
             //MasterBeat = new MasterBeat(moduleMessageDispatcher, new MasterBeatModel());
-            Transition = new Slider(nameof(Transition), moduleMessageDispatcher, compositionModel.TransitionModel);
             //Camera = new Camera(moduleMessageDispatcher, MasterBeat, compositionModel.CameraModel);
-
             //Visibility = new Visibility(moduleMessageDispatcher, project.Visibility, compositionModel.VisibilityModel);
             ComponentFactory = new LayerFactory(this);
         }

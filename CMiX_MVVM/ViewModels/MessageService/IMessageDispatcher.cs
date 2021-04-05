@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public interface IMessageDispatcher
+    public interface IMessageDispatcher : IHandler
     {
         void RegisterMessageProcessor(IMessageProcessor messageProcessor);
         void UnregisterMessageProcessor(IMessageProcessor messageProcessor);

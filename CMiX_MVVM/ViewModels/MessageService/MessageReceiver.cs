@@ -8,26 +8,32 @@ namespace CMiX.Studio.ViewModels.MessageService
 {
     public class MessageReceiver : ViewModel, IMessageTerminal
     {
-        public MessageReceiver(IMessageDispatcher messageDispatcher)
+        public MessageReceiver()
         {
-            MessageDispatcher = messageDispatcher;
-
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
             Serializer = new CerasSerializer();
         }
 
 
-        public IMessageDispatcher MessageDispatcher { get; set; }
+        private IMessageDispatcher MessageDispatcher;// { get; set; }
         private CerasSerializer Serializer { get; set; }
+
+
+        public void SetMessageDispatcher(IMessageDispatcher messageDispatcher)
+        {
+            MessageDispatcher = messageDispatcher;
+        }
 
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
-            IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-            MessageDispatcher.ProcessMessage(message);
-            //MessageDispatcher.OnMessageInNotification(message);
-            Console.WriteLine("Client_DataReceived Message " + message.GetType());
+            if(MessageDispatcher != null)
+            {
+                IMessage message = Serializer.Deserialize<IMessage>(e.Data);
+                MessageDispatcher.ProcessMessage(message);
+                Console.WriteLine("Client_DataReceived Message " + message.GetType() + "  " + message.ComponentID);
+            }
         }
 
 

@@ -22,9 +22,9 @@ namespace CMiX.MVVM.ViewModels
             Mementor = new Mementor();
 
             var model = new ProjectModel(Guid.Empty);
+            MessageDispatcher = new MessageDispatcher();
 
-            var messageDispatcher = new MessageDispatcher();
-            CurrentProject = new Project(model, messageDispatcher);
+            CurrentProject = new Project(model, MessageDispatcher);
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<Component>();
@@ -32,12 +32,12 @@ namespace CMiX.MVVM.ViewModels
 
             AssetManager = new AssetManager(CurrentProject);
 
-            MessageDispatcher = new MessageDispatcher();
 
-            MessageTerminal = new MessageSender(MessageDispatcher);
+
+            MessageTerminal = new MessageSender();
             MessageDispatcher.RegisterMessageProcessor(CurrentProject);
+            MessageDispatcher.SetNext(MessageTerminal);
 
-            
             ComponentManager = new ComponentManager(Projects, MessageDispatcher);
             ComponentManager.MessageOutNotification += MessageTerminal.SendMessage;
 
@@ -82,7 +82,7 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        public IMessageDispatcher MessageDispatcher { get; set; }
+        public MessageDispatcher MessageDispatcher { get; set; }
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
         public ObservableCollection<Component> Projects { get; set; }

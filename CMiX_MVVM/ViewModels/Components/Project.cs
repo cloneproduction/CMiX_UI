@@ -7,6 +7,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 using MvvmDialogs;
 using System.Collections.ObjectModel;
 
+
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Project : Component

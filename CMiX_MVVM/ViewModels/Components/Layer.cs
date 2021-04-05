@@ -11,12 +11,19 @@ namespace CMiX.MVVM.ViewModels.Components
         public Layer(Composition composition, LayerModel layerModel, IMessageDispatcher messageDispatcher) 
             : base (layerModel, messageDispatcher)
         {
+            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher(this);
+            moduleMessageDispatcher.SetNext(messageDispatcher);
+
+            Fade = new Slider(nameof(Fade), layerModel.Fade);
+            Fade.SetModuleDispatcher(moduleMessageDispatcher);
+
             MasterBeat = composition.MasterBeat;
-            Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);
+            //Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);
 
             PostFX = new PostFX(this.MessageDispatcher, layerModel.PostFXModel);
+            PostFX.SetModuleDispatcher(moduleMessageDispatcher);
             BlendMode = new BlendMode(this.MessageDispatcher, layerModel.BlendMode);
-            //Fade = new Slider(nameof(Fade), this.MessageDispatcher, layerModel.Fade);
+            
             Mask = new Mask(this.MessageDispatcher, layerModel.MaskModel);
 
             ComponentFactory = new SceneFactory(this);

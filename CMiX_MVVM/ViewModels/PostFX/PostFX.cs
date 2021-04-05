@@ -6,14 +6,24 @@ namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : MessageCommunicator
     {
-        public PostFX(IMessageDispatcher messageDispatcher, PostFXModel postFXModel)
+        public PostFX(PostFXModel postFXModel)
         {
-            //Feedback = new Slider(nameof(Feedback), messageDispatcher, postFXModel.Feedback);
-            //Blur = new Slider(nameof(Blur), messageDispatcher, postFXModel.Blur);
+            Feedback = new Slider(nameof(Feedback), postFXModel.Feedback);
+            Blur = new Slider(nameof(Blur), postFXModel.Blur);
 
             Transforms = postFXModel.Transforms;// ((PostFXTransforms)0).ToString();
             View = postFXModel.View;// ((PostFXView)0).ToString();
         }
+
+        public void SetModuleDispatcher(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+            this.SetNext(messageDispatcher);
+
+            Feedback.SetModuleDispatcher(messageDispatcher);
+            Blur.SetModuleDispatcher(messageDispatcher);
+        }
+
 
         public Slider Feedback { get; set; }
         public Slider Blur { get; set; }

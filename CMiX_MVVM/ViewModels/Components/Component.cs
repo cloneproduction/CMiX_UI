@@ -2,13 +2,14 @@
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IComponentMessageProcessor, IDisposable
+    public abstract class Component : ViewModel, IHandler, IComponentMessageProcessor, IDisposable
     {
         public Component(IComponentModel componentModel, IMessageDispatcher messageDispatcher)
         {
@@ -19,6 +20,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
 
+            SetNext(messageDispatcher as IHandler);
             MessageDispatcher = messageDispatcher;
             MessageDispatcher.MessageOutNotification += MessageDispatcher_MessageOutNotification;
         }
@@ -37,9 +39,20 @@ namespace CMiX.MVVM.ViewModels.Components
             //}
         }
 
+        private IHandler _nextHandler;
+        public IHandler SetNext(IHandler handler)
+        {
+            _nextHandler = handler;
+            return handler;
+        }
+
 
         public void SendMessage(IMessage message)
         {
+            if(_nextHandler != null)
+            {
+                _nextHandler.SendMessage(message);
+            }
             //MessageDispatcher.SendMessage(message);
         }
 

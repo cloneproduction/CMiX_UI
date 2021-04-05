@@ -11,24 +11,21 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
-
-
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
             var projectModel = new ProjectModel(Guid.Empty);
 
             var messageDispatcher = new MessageDispatcher();
-            var messageReceiver = new MessageReceiver(messageDispatcher);
+            var messageReceiver = new MessageReceiver();
+            messageReceiver.SetMessageDispatcher(messageDispatcher);
             messageReceiver.Start(settings);
 
             Project Project = new Project(projectModel, new MessageDispatcher());
-            messageReceiver.MessageDispatcher.RegisterMessageProcessor(Project);
+            messageDispatcher.RegisterMessageProcessor(Project);
             
             var projects = new ObservableCollection<Component>();
             projects.Add(Project);
             ComponentManager componentManager = new ComponentManager(projects, messageDispatcher);
-
-
 
             Console.ReadLine();
         }

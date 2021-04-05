@@ -2,6 +2,7 @@
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class ComponentManager : ViewModel
+    public class ComponentManager : ViewModel, IHandler
     {
         public ComponentManager(ObservableCollection<Component> components, IMessageDispatcher messageDispatcher)
         {
@@ -19,11 +20,39 @@ namespace CMiX.MVVM.ViewModels.Components
 
             messageDispatcher.MessageInNotification += MessageDispatcher_MessageInNotification;
 
+            this.SetNext(MessageDispatcher as IHandler);
+
+
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
             DeleteComponentCommand = new RelayCommand(p => DeleteComponent(p as Component));
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
+
+
+
+        private IHandler _nextHandler;
+        public IHandler SetNext(IHandler handler)
+        {
+            _nextHandler = handler;
+            return handler;
+        }
+
+        public void SendMessage(IMessage message)
+        {
+            var handler = MessageOutNotification;
+            if (handler != null)
+            {
+                handler(message);
+            }
+            //if (this._nextHandler != null)
+            //{
+            //    this._nextHandler.SendMessage(message);
+            //}
+        }
+
+
+
 
 
         private void MessageDispatcher_MessageInNotification(IMessage message)
@@ -67,6 +96,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public void CreateComponent(Component component)
         {
             var newComponent = component.ComponentFactory.CreateComponent(this.MessageDispatcher);
+            newComponent.SetNext(MessageDispatcher as IHandler);
+
             component.AddComponent(newComponent);
             this.MessageDispatcher.RegisterMessageProcessor(newComponent);
 
