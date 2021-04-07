@@ -50,8 +50,8 @@ namespace CMiX.MVVM.ViewModels.Components
 
             model.Name = this.Name;
             //model.IsVisible = this.IsVisible;
-            //model.MasterBeatModel = (MasterBeatModel)this.MasterBeat.GetModel();
-            //model.CameraModel = (CameraModel)this.Camera.GetModel();
+            model.MasterBeatModel = (MasterBeatModel)this.MasterBeat.GetModel();
+            model.CameraModel = (CameraModel)this.Camera.GetModel();
             model.TransitionModel = (SliderModel)this.Transition.GetModel();
 
             foreach (Component item in this.Components)
@@ -65,8 +65,8 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             CompositionModel compositionModel = model as CompositionModel;
 
-            //this.MasterBeat.SetViewModel(compositionModel.MasterBeatModel);
-            //this.Camera.SetViewModel(compositionModel.CameraModel);
+            this.MasterBeat.SetViewModel(compositionModel.MasterBeatModel);
+            this.Camera.SetViewModel(compositionModel.CameraModel);
             this.Transition.SetViewModel(compositionModel.TransitionModel);
 
             this.Components.Clear();
