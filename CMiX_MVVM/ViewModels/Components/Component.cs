@@ -39,6 +39,10 @@ namespace CMiX.MVVM.ViewModels.Components
             //}
         }
 
+
+        public abstract void SetModuleSender(ModuleMessageDispatcher messageDispatcher);
+
+
         private IHandler _nextHandler;
         public IHandler SetNext(IHandler handler)
         {
@@ -157,5 +161,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract void SetViewModel(IModel model);
 
         public abstract IModel GetModel();
+
+        public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
     }
 }

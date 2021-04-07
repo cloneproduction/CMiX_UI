@@ -9,16 +9,22 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : MessageCommunicator, IObserver
     {
-        public AnimParameter(string name, MessageDispatcher messageDispatcher, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) 
+        public AnimParameter(string name, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) 
         {
             Period = new double[0];
-            Range = new Range(messageDispatcher, animParameterModel.RangeModel);
-            Easing = new Easing(messageDispatcher, animParameterModel.EasingModel);
-            //Width = new Slider(nameof(Width), messageDispatcher, animParameterModel.Width);
-            BeatModifier = new BeatModifier(messageDispatcher, beat, animParameterModel.BeatModifierModel);
+            Range = new Range(animParameterModel.RangeModel);
+            Easing = new Easing(animParameterModel.EasingModel);
+            Width = new Slider(nameof(Width), animParameterModel.Width);
+            BeatModifier = new BeatModifier(beat, animParameterModel.BeatModifierModel);
             Parameters = defaultParameter;
             Name = name;
             SelectedModeType = ModeType.None;
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+            Width.SetModuleReceiver(messageDispatcher);
         }
 
         public BeatModifier BeatModifier { get; set; }

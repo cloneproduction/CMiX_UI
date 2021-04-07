@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
 
-            Visibility = new Visibility(this.MessageDispatcher, new VisibilityModel());
+            Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
         }
 
@@ -74,6 +74,16 @@ namespace CMiX.MVVM.ViewModels.Components
                 asset.SetViewModel(assetModel);
                 this.Assets.Add(asset);
             }
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

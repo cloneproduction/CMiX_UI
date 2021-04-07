@@ -7,12 +7,18 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Coloration : MessageCommunicator
     {
-        public Coloration(IMessageDispatcher messageDispatcher, MasterBeat masterBeat, ColorationModel colorationModel) 
+        public Coloration(MasterBeat masterBeat, ColorationModel colorationModel) 
         {
-            BeatModifier = new BeatModifier(messageDispatcher, masterBeat, colorationModel.BeatModifierModel);
-            ColorSelector = new ColorSelector(messageDispatcher, colorationModel.ColorSelectorModel);
+            BeatModifier = new BeatModifier(masterBeat, colorationModel.BeatModifierModel);
+            ColorSelector = new ColorSelector(colorationModel.ColorSelectorModel);
         }
 
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+            BeatModifier.SetModuleReceiver(messageDispatcher);
+            ColorSelector.SetModuleReceiver(messageDispatcher);
+        }
 
         public ColorSelector ColorSelector { get; set; }
         public BeatModifier BeatModifier { get; set; }

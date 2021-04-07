@@ -13,11 +13,11 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             MasterBeat = layer.MasterBeat;
 
-            Visibility = new Visibility(layer.MessageDispatcher, layer.Visibility, sceneModel.VisibilityModel);
-            BeatModifier = new BeatModifier(this.MessageDispatcher, layer.MasterBeat, sceneModel.BeatModifierModel);
-            PostFX = new PostFX(this.MessageDispatcher, sceneModel.PostFXModel);
+            Visibility = new Visibility(layer.Visibility, sceneModel.VisibilityModel);
+            BeatModifier = new BeatModifier(layer.MasterBeat, sceneModel.BeatModifierModel);
+            PostFX = new PostFX(sceneModel.PostFXModel);
             Mask = new Mask(this.MessageDispatcher, sceneModel.MaskModel);
-            Transform = new Transform(this.MessageDispatcher, sceneModel.TransformModel);
+            Transform = new Transform(sceneModel.TransformModel);
 
             ComponentFactory = new EntityFactory(this);
         }
@@ -46,6 +46,16 @@ namespace CMiX.MVVM.ViewModels.Components
                 model.ComponentModels.Add(item.GetModel() as IComponentModel);
 
             return model;
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override void SetViewModel(IModel model)

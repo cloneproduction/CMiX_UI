@@ -17,6 +17,13 @@ namespace CMiX.MVVM.ViewModels
             Seed = 0;
         }
 
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+        }
+
+
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
 

@@ -7,13 +7,23 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Transform : MessageCommunicator, IObserver
     {
-        public Transform(IMessageDispatcher messageDispatcher, TransformModel transformModel)
+        public Transform(TransformModel transformModel)
         {
-            Translate = new Translate(nameof(Translate), messageDispatcher, transformModel.TranslateModel);
-            Scale = new Scale(nameof(Scale), messageDispatcher, transformModel.ScaleModel);
-            Rotation = new Rotation(nameof(Rotation), messageDispatcher, transformModel.RotationModel);
+            Translate = new Translate(nameof(Translate), transformModel.TranslateModel);
+            Scale = new Scale(nameof(Scale), transformModel.ScaleModel);
+            Rotation = new Rotation(nameof(Rotation), transformModel.RotationModel);
             Is3D = false;
         }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+            Translate.SetModuleReceiver(messageDispatcher);
+            Scale.SetModuleReceiver(messageDispatcher);
+            Rotation.SetModuleReceiver(messageDispatcher);
+        }
+
+
 
         public Translate Translate { get; set; }
         public Scale Scale { get; set; }

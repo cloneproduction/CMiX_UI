@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.Models.Beat;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
@@ -16,9 +17,9 @@ namespace CMiX.MVVM.ViewModels.Components
             moduleMessageDispatcher.SetNext(messageDispatcher);
 
             Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
-            Transition.SetModuleDispatcher(moduleMessageDispatcher);
-            //MasterBeat = new MasterBeat(moduleMessageDispatcher, new MasterBeatModel());
-            //Camera = new Camera(moduleMessageDispatcher, MasterBeat, compositionModel.CameraModel);
+
+            MasterBeat = new MasterBeat(new MasterBeatModel());
+            Camera = new Camera(MasterBeat, compositionModel.CameraModel);
             //Visibility = new Visibility(moduleMessageDispatcher, project.Visibility, compositionModel.VisibilityModel);
             ComponentFactory = new LayerFactory(this);
         }
@@ -27,6 +28,20 @@ namespace CMiX.MVVM.ViewModels.Components
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
         public MasterBeat MasterBeat { get; set; }
+
+
+        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        {
+            Transition.SetNext(messageDispatcher);
+            MasterBeat.SetNext(messageDispatcher);
+            Camera.SetNext(messageDispatcher);
+            //Visibility.SetNext(messageDispatcher);
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            Transition.SetModuleReceiver(messageDispatcher);
+        }
 
 
         public override IModel GetModel()

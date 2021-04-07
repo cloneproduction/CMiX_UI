@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : MessageCommunicator, IModifier, ISubject, IObserver
     {
-        public XYZModifier(string name, MessageDispatcher messageDispatcher, Vector3D vector3D, MasterBeat beat, XYZModifierModel xYZModifierModel)
+        public XYZModifier(string name, Vector3D vector3D, MasterBeat beat, XYZModifierModel xYZModifierModel)
         {
             Name = name;
             Observers = new List<IObserver>();
@@ -23,6 +23,13 @@ namespace CMiX.MVVM.ViewModels
             Attach(Y);
             Attach(Z);
         }
+
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+        }
+
 
         private List<IObserver> Observers { get; set; }
 

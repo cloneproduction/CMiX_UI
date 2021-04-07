@@ -12,11 +12,11 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             MasterBeat = scene.MasterBeat;
 
-            BeatModifier = new BeatModifier(this.MessageDispatcher, scene.MasterBeat, entityModel.BeatModifierModel);
+            BeatModifier = new BeatModifier(scene.MasterBeat, entityModel.BeatModifierModel);
             Geometry = new Geometry(this.MessageDispatcher, scene.MasterBeat, entityModel.GeometryModel);
             Texture = new Texture(this.MessageDispatcher, scene.MasterBeat, entityModel.TextureModel);
-            Coloration = new Coloration(this.MessageDispatcher, scene.MasterBeat, entityModel.ColorationModel);
-            Visibility = new Visibility(this.MessageDispatcher, scene.Visibility, entityModel.VisibilityModel);
+            Coloration = new Coloration(scene.MasterBeat, entityModel.ColorationModel);
+            Visibility = new Visibility(scene.Visibility, entityModel.VisibilityModel);
         }
 
 
@@ -25,6 +25,17 @@ namespace CMiX.MVVM.ViewModels.Components
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
         public MasterBeat MasterBeat { get; set; }
+
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            BeatModifier.SetModuleReceiver(messageDispatcher);
+        }
+
+        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        {
+            BeatModifier.SetNext(messageDispatcher);
+        }
 
 
         public override IModel GetModel()

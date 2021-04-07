@@ -1,12 +1,11 @@
 ﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
     public abstract class Beat : MessageCommunicator
     {
-        public Beat(IMessageDispatcher messageDispatcher, BeatModel beatModel) 
+        public Beat(BeatModel beatModel) 
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());

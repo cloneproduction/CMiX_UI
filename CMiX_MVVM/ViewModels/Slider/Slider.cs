@@ -2,12 +2,13 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : MessageCommunicator
+    public class Slider : MessageCommunicator, IHandler
     {
         public Slider(string name, SliderModel sliderModel) 
         {
@@ -20,13 +21,12 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
-        public void SetModuleDispatcher(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
         {
             messageDispatcher.RegisterMessageProcessor(this);
-            this.SetNext(messageDispatcher);
         }
 
-        //public ModuleMessageDispatcher ModuleMessageDispatcher { get; set; }
+
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
         public ICommand ResetCommand { get; }

@@ -2,18 +2,23 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Easing : MessageCommunicator
     {
-        public Easing(MessageDispatcher messageDispatcher, EasingModel easingModel)
+        public Easing(EasingModel easingModel)
         {
             EasingMode = EasingMode.EaseIn;
             EasingFunction = EasingFunction.None;
         }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+        }
+
 
         private bool _isEnabled;
         public bool IsEnabled

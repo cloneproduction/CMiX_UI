@@ -6,22 +6,33 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Scale : MessageCommunicator
     {
-        public Scale(string name, IMessageDispatcher messageDispatcher, ScaleModel scaleModel)
+        public Scale(string name, ScaleModel scaleModel)
         {
-            //Uniform = new Slider(nameof(Uniform), messageDispatcher, scaleModel.Uniform);
-            //Uniform.Amount = 1.0;
+            Uniform = new Slider(nameof(Uniform), scaleModel.Uniform);
+            Uniform.Amount = 1.0;
 
-            //X = new Slider(nameof(X), messageDispatcher, scaleModel.X);
-            //X.Amount = 1.0;
+            X = new Slider(nameof(X), scaleModel.X);
+            X.Amount = 1.0;
 
-            //Y = new Slider(nameof(Y), messageDispatcher, scaleModel.Y);
-            //Y.Amount = 1.0;
+            Y = new Slider(nameof(Y), scaleModel.Y);
+            Y.Amount = 1.0;
 
-            //Z = new Slider(nameof(Z), messageDispatcher, scaleModel.Z);
-            //Z.Amount = 1.0;
+            Z = new Slider(nameof(Z), scaleModel.Z);
+            Z.Amount = 1.0;
 
             IsUniform = true;
         }
+
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+            Uniform.SetModuleReceiver(messageDispatcher);
+            X.SetModuleReceiver(messageDispatcher);
+            Y.SetModuleReceiver(messageDispatcher);
+            Z.SetModuleReceiver(messageDispatcher);
+        }
+
 
         public Slider X { get; set; }
         public Slider Y { get; set; }

@@ -16,6 +16,12 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+        }
+
+
         private double nextStep;
 
         private double _width;

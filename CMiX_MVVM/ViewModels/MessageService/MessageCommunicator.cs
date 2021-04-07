@@ -8,8 +8,6 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class MessageCommunicator : ViewModel, IHandler, IMessageProcessor
     {
-
-
         public event Action<IMessage> MessageOutNotification;
         
         public void RaiseMessageNotification()
@@ -23,6 +21,8 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
+
         private IHandler _nextHandler;
         public void SendMessage(IMessage message)
         {
@@ -31,6 +31,7 @@ namespace CMiX.MVVM.ViewModels
                 _nextHandler.SendMessage(message);
             }
         }
+
         public IHandler SetNext(IHandler handler)
         {
             _nextHandler = handler;

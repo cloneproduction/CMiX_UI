@@ -12,8 +12,8 @@ namespace CMiX.MVVM.ViewModels.Beat
 {
     public class MasterBeat : Beat, IMessageProcessor, IBeatSubject
     {
-        public MasterBeat(IMessageDispatcher messageDispatcher, MasterBeatModel masterBeatModel) 
-            : base (messageDispatcher, masterBeatModel)
+        public MasterBeat(MasterBeatModel masterBeatModel) 
+            : base (masterBeatModel)
         {
             BeatObservers = new List<IBeatObserver>();
             Index = 0;
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             Periods = new double[15];
             
             BeatAnimations = new BeatAnimations();
-            Resync = new Resync(messageDispatcher, BeatAnimations, masterBeatModel.ResyncModel);
+            Resync = new Resync(BeatAnimations, masterBeatModel.ResyncModel);
 
             UpdatePeriods(Period);
             SetAnimatedDouble();
@@ -31,6 +31,12 @@ namespace CMiX.MVVM.ViewModels.Beat
             tapTime = new List<double>();
             
             TapCommand = new RelayCommand(p => Tap());
+        }
+
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
         }
 
         public ICommand ResyncCommand { get; }

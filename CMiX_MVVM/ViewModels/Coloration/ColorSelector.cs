@@ -7,12 +7,17 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorSelector : MessageCommunicator
     {
-        public ColorSelector(IMessageDispatcher messageDispatcher, ColorSelectorModel colorSelectorModel) 
+        public ColorSelector(ColorSelectorModel colorSelectorModel) 
         {
-            ColorPicker = new ColorPicker(messageDispatcher, colorSelectorModel.ColorPickerModel);
+            ColorPicker = new ColorPicker(colorSelectorModel.ColorPickerModel);
             //this.SelectedColor = Utils.HexStringToColor(colorSelectorModel.ColorPickerModel.SelectedColor);
         }
 
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+            ColorPicker.SetModuleReceiver(messageDispatcher);
+        }
 
         public ColorPicker ColorPicker { get; set; }
 

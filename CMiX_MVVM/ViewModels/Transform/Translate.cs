@@ -8,11 +8,19 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Translate : MessageCommunicator, IObserver
     {
-        public Translate(string name, IMessageDispatcher messageDispatcher, TranslateModel translateModel) 
+        public Translate(string name, TranslateModel translateModel) 
         {
-            //X = new Slider(nameof(X), messageDispatcher, translateModel.X);
-            //Y = new Slider(nameof(Y), messageDispatcher, translateModel.Y);
-            //Z = new Slider(nameof(Z), messageDispatcher, translateModel.Z);
+            X = new Slider(nameof(X), translateModel.X);
+            Y = new Slider(nameof(Y), translateModel.Y);
+            Z = new Slider(nameof(Z), translateModel.Z);
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+            X.SetModuleReceiver(messageDispatcher);
+            Y.SetModuleReceiver(messageDispatcher);
+            Z.SetModuleReceiver(messageDispatcher);
         }
 
         public Slider X { get; set; }

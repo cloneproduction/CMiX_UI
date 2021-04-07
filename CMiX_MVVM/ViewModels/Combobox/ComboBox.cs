@@ -6,9 +6,15 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ComboBox<T> : MessageCommunicator
     {
-        public ComboBox(MessageDispatcher messageDispatcher, ComboBoxModel<T> comboBoxModel) 
+        public ComboBox(ComboBoxModel<T> comboBoxModel) 
         {
 
+        }
+
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
         }
 
         private T _selection;

@@ -3,13 +3,14 @@ using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class BeatModifier : Beat, IMessageProcessor, IBeatObserver
+    public class BeatModifier : Beat, IMessageProcessor, IBeatObserver, IHandler
     {
-        public BeatModifier(IMessageDispatcher messageDispatcher, MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
-            : base (messageDispatcher, beatModifierModel)
+        public BeatModifier(MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
+            : base (beatModifierModel)
         {
             //ChanceToHit = new Slider(nameof(ChanceToHit), messageDispatcher, beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
             Multiplier = beatModifierModel.Multiplier;
@@ -19,6 +20,11 @@ namespace CMiX.MVVM.ViewModels.Beat
             Period = masterBeat.Period;
 
             SetAnimatedDouble();
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
         }
 
 

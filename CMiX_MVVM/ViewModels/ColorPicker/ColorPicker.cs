@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
         //    PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         //}
 
-        public ColorPicker(IMessageDispatcher messageDispatcher, ColorPickerModel colorPickerModel)
+        public ColorPicker(ColorPickerModel colorPickerModel)
         {
             SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
             Red = SelectedColor.R;
@@ -35,6 +35,11 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseDownCommand = new RelayCommand(p => PreviewMouseDown());
             PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
         }
 
         public ICommand PreviewMouseDownCommand { get; set; }

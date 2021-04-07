@@ -10,10 +10,19 @@ namespace CMiX.MVVM.ViewModels
     {
         public Geometry(IMessageDispatcher messageDispatcher, MasterBeat beat, GeometryModel geometryModel) 
         {
-            Instancer = new Instancer(messageDispatcher, beat, geometryModel.InstancerModel);
-            Transform = new Transform(messageDispatcher, geometryModel.TransformModel);
-            GeometryFX = new GeometryFX(messageDispatcher, geometryModel.GeometryFXModel);
-            AssetPathSelector = new AssetPathSelector(messageDispatcher, new AssetGeometry(), geometryModel.AssetPathSelectorModel);
+            Instancer = new Instancer(beat, geometryModel.InstancerModel);
+            Transform = new Transform(geometryModel.TransformModel);
+            GeometryFX = new GeometryFX(geometryModel.GeometryFXModel);
+            AssetPathSelector = new AssetPathSelector(new AssetGeometry(), geometryModel.AssetPathSelectorModel);
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+            Instancer.SetModuleReceiver(messageDispatcher);
+            Transform.SetModuleReceiver(messageDispatcher);
+            GeometryFX.SetModuleReceiver(messageDispatcher);
+            AssetPathSelector.SetModuleReceiver(messageDispatcher);
         }
 
         public AssetPathSelector AssetPathSelector { get; set; }

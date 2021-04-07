@@ -11,6 +11,13 @@ namespace CMiX.MVVM.ViewModels
             Mode = blendModeModel.Mode;
         }
 
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+        }
+
+
         private string _mode;
         public string Mode
         {

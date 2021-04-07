@@ -10,19 +10,34 @@ namespace CMiX.MVVM.ViewModels
     {
         public Texture(IMessageDispatcher messageDispatcher, MasterBeat beat, TextureModel textureModel)
         {
-            AssetPathSelector = new AssetPathSelector(messageDispatcher, new AssetTexture(), textureModel.AssetPathSelectorModel);
-            Inverter = new Inverter(nameof(Inverter), messageDispatcher, textureModel.InverterModel);
+            AssetPathSelector = new AssetPathSelector(new AssetTexture(), textureModel.AssetPathSelectorModel);
+            Inverter = new Inverter(nameof(Inverter), textureModel.InverterModel);
 
-            //Brightness = new Slider(nameof(Brightness), messageDispatcher, textureModel.Brightness) { Minimum = -1.0, Maximum = 1.0 };
-            //Contrast = new Slider(nameof(Contrast), messageDispatcher, textureModel.Contrast) { Minimum = -1.0, Maximum = 1.0 };
-            //Hue = new Slider(nameof(Hue), messageDispatcher, textureModel.Hue) { Minimum = -1.0, Maximum = 1.0 };
-            //Saturation = new Slider(nameof(Saturation), messageDispatcher, textureModel.Saturation) { Minimum = -1.0, Maximum = 1.0 };
-            //Luminosity = new Slider(nameof(Luminosity), messageDispatcher, textureModel.Luminosity) { Minimum = -1.0, Maximum = 1.0 };
-            //Keying = new Slider(nameof(Keying), messageDispatcher, textureModel.Keying);
-            //Scale = new Slider(nameof(Scale), messageDispatcher, textureModel.Scale) { Minimum = -1.0, Maximum = 1.0 };
-            //Rotate = new Slider(nameof(Rotate), messageDispatcher, textureModel.Rotate) { Minimum = -1.0, Maximum = 1.0 };
-            //Pan = new Slider(nameof(Pan), messageDispatcher, textureModel.Pan) { Minimum = -1.0, Maximum = 1.0 };
-            //Tilt = new Slider(nameof(Tilt), messageDispatcher, textureModel.Tilt) { Minimum = -1.0, Maximum = 1.0 };
+            Brightness = new Slider(nameof(Brightness), textureModel.Brightness) { Minimum = -1.0, Maximum = 1.0 };
+            Contrast = new Slider(nameof(Contrast), textureModel.Contrast) { Minimum = -1.0, Maximum = 1.0 };
+            Hue = new Slider(nameof(Hue), textureModel.Hue) { Minimum = -1.0, Maximum = 1.0 };
+            Saturation = new Slider(nameof(Saturation), textureModel.Saturation) { Minimum = -1.0, Maximum = 1.0 };
+            Luminosity = new Slider(nameof(Luminosity), textureModel.Luminosity) { Minimum = -1.0, Maximum = 1.0 };
+            Keying = new Slider(nameof(Keying), textureModel.Keying);
+            Scale = new Slider(nameof(Scale), textureModel.Scale) { Minimum = -1.0, Maximum = 1.0 };
+            Rotate = new Slider(nameof(Rotate), textureModel.Rotate) { Minimum = -1.0, Maximum = 1.0 };
+            Pan = new Slider(nameof(Pan), textureModel.Pan) { Minimum = -1.0, Maximum = 1.0 };
+            Tilt = new Slider(nameof(Tilt), textureModel.Tilt) { Minimum = -1.0, Maximum = 1.0 };
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+            Brightness.SetModuleReceiver(messageDispatcher);
+            Contrast.SetModuleReceiver(messageDispatcher);
+            Hue.SetModuleReceiver(messageDispatcher);
+            Saturation.SetModuleReceiver(messageDispatcher);
+            Luminosity.SetModuleReceiver(messageDispatcher);
+            Keying.SetModuleReceiver(messageDispatcher);
+            Scale.SetModuleReceiver(messageDispatcher);
+            Rotate.SetModuleReceiver(messageDispatcher);
+            Pan.SetModuleReceiver(messageDispatcher);
+            Tilt.SetModuleReceiver(messageDispatcher);
         }
 
 

@@ -15,18 +15,28 @@ namespace CMiX.MVVM.ViewModels.Components
             moduleMessageDispatcher.SetNext(messageDispatcher);
 
             Fade = new Slider(nameof(Fade), layerModel.Fade);
-            Fade.SetModuleDispatcher(moduleMessageDispatcher);
 
             MasterBeat = composition.MasterBeat;
             //Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);
 
             PostFX = new PostFX(layerModel.PostFXModel);
-            PostFX.SetModuleDispatcher(moduleMessageDispatcher);
             BlendMode = new BlendMode(this.MessageDispatcher, layerModel.BlendMode);
-            
             Mask = new Mask(this.MessageDispatcher, layerModel.MaskModel);
 
             ComponentFactory = new SceneFactory(this);
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            Fade.SetModuleReceiver(messageDispatcher);
+            PostFX.SetModuleReceiver(messageDispatcher);
+            BlendMode.SetModuleReceiver(messageDispatcher);
+            Mask.SetModuleReceiver(messageDispatcher);
+        }
+
+        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        {
+            throw new System.NotImplementedException();
         }
 
 
@@ -77,5 +87,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 this.ComponentFactory.CreateComponent(this.MessageDispatcher, layerModel);
             }
         }
+
+
     }
 }

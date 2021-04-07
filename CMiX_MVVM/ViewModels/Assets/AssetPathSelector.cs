@@ -8,10 +8,16 @@ namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetPathSelector : MessageCommunicator, IDropTarget
     {
-        public AssetPathSelector(IMessageDispatcher messageDispatcher, Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel) 
+        public AssetPathSelector(Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel) 
         {
             SelectedAsset = defaultAsset;
         }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+        }
+
 
         private Asset _selectedAsset;
         public Asset SelectedAsset

@@ -13,30 +13,36 @@ namespace CMiX.MVVM.ViewModels
     {
         public RandomXYZ(string name, MessageDispatcher messageDispatcher, int id, MasterBeat masterBeat, RandomXYZModel randomXYZModel)
         {
-            Counter = new Counter(messageDispatcher, randomXYZModel.CounterModel);
+            Counter = new Counter(randomXYZModel.CounterModel);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
 
-            Easing = new Easing(messageDispatcher, randomXYZModel.EasingModel); 
-            BeatModifier = new BeatModifier(messageDispatcher, masterBeat, randomXYZModel.BeatModifierModel);
+            Easing = new Easing(randomXYZModel.EasingModel); 
+            BeatModifier = new BeatModifier(masterBeat, randomXYZModel.BeatModifierModel);
             Transforms = new ObservableCollection<Transform>();
 
             SelectedModifierType = ModifierType.OBJECT;
 
-            //LocationX = new Slider(nameof(LocationX), messageDispatcher, randomXYZModel.LocationX );
-            //LocationY = new Slider(nameof(LocationY), messageDispatcher, randomXYZModel.LocationY);
-            //LocationZ = new Slider(nameof(LocationZ), messageDispatcher, randomXYZModel.LocationZ);
+            LocationX = new Slider(nameof(LocationX), randomXYZModel.LocationX);
+            LocationY = new Slider(nameof(LocationY), randomXYZModel.LocationY);
+            LocationZ = new Slider(nameof(LocationZ), randomXYZModel.LocationZ);
 
-            //ScaleX = new Slider(nameof(ScaleX), messageDispatcher, randomXYZModel.ScaleX);
-            //ScaleY = new Slider(nameof(ScaleY), messageDispatcher, randomXYZModel.ScaleY);
-            //ScaleZ = new Slider(nameof(ScaleZ), messageDispatcher, randomXYZModel.ScaleZ);
+            ScaleX = new Slider(nameof(ScaleX), randomXYZModel.ScaleX);
+            ScaleY = new Slider(nameof(ScaleY), randomXYZModel.ScaleY);
+            ScaleZ = new Slider(nameof(ScaleZ), randomXYZModel.ScaleZ);
 
-            //RotationX = new Slider(nameof(RotationX), messageDispatcher, randomXYZModel.RotationX);
-            //RotationY = new Slider(nameof(RotationY), messageDispatcher, randomXYZModel.RotationY);
-            //RotationZ = new Slider(nameof(RotationZ), messageDispatcher, randomXYZModel.RotationZ);
+            RotationX = new Slider(nameof(RotationX), randomXYZModel.RotationX);
+            RotationY = new Slider(nameof(RotationY), randomXYZModel.RotationY);
+            RotationZ = new Slider(nameof(RotationZ), randomXYZModel.RotationZ);
 
             RandomizeLocation = true;
             RandomizeScale = true;
             RandomizeRotation = true;
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+            LocationX.SetModuleReceiver(messageDispatcher);
         }
 
         private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)

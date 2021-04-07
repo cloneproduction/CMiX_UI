@@ -16,6 +16,11 @@ namespace CMiX.MVVM.ViewModels
             //Z = new AnimParameter(nameof(Z), this, scale.Z.Amount, beat);
         }
 
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+        }
+
         public override void SetViewModel(IModel model)
         {
             throw new NotImplementedException();

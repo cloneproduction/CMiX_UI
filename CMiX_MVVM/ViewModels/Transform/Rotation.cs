@@ -6,11 +6,19 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Rotation : MessageCommunicator
     {
-        public Rotation(string name, IMessageDispatcher messageDispatcher, RotationModel rotationModel)
+        public Rotation(string name, RotationModel rotationModel)
         {
             //X = new Slider(nameof(X), messageDispatcher, rotationModel.X);
             //Y = new Slider(nameof(Y), messageDispatcher, rotationModel.Y);
             //Z = new Slider(nameof(Z), messageDispatcher, rotationModel.Z);
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            //messageDispatcher.RegisterMessageProcessor(this);
+            X.SetModuleReceiver(messageDispatcher);
+            Y.SetModuleReceiver(messageDispatcher);
+            Z.SetModuleReceiver(messageDispatcher);
         }
 
         public Slider X { get; set; }

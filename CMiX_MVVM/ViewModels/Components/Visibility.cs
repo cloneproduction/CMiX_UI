@@ -7,18 +7,24 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Visibility : MessageCommunicator, IMessageProcessor
     {
-        public Visibility(IMessageDispatcher messageDispatcher, VisibilityModel visibilityModel)
+        public Visibility(VisibilityModel visibilityModel)
         {
             IsVisible = true;
             ParentIsVisible = true;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public Visibility(IMessageDispatcher messageDispatcher, Visibility parentVisibility, VisibilityModel visibilityModel)
+        public Visibility(Visibility parentVisibility, VisibilityModel visibilityModel)
         {
             IsVisible = true;
             ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
+        }
+
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageProcessor(this);
+
         }
 
         //public Visibility(MessageDispatcher messageDispatcher, Visibility parentVisibility, VisibilityModel visibilityModel) : base (messageDispatcher, visibilityModel)
