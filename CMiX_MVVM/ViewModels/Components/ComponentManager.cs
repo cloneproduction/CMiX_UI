@@ -117,7 +117,7 @@ namespace CMiX.MVVM.ViewModels.Components
             var selectedParent = GetSelectedParent(Components);
             int index = selectedParent.Components.IndexOf(component);
             GetSelectedParent(Components).RemoveComponent(component);
-            this.MessageDispatcher.UnregisterMessageProcessor(component);
+            component.Dispose();
             //this.MessageDispatcher.SendMessage(new MessageRemoveComponent(selectedParent.ID, index));
         }
 
