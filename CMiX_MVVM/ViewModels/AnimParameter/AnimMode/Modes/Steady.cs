@@ -82,7 +82,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _seed, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -93,7 +93,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _steadyType, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -104,7 +104,7 @@ namespace CMiX.MVVM.ViewModels
             set 
             {
                 SetAndNotify(ref _linearType, value);
-                RaiseMessageNotification();
+
             }
         }
 

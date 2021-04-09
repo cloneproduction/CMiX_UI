@@ -36,14 +36,12 @@ namespace CMiX.MVVM.ViewModels
 
             MessageTerminal = new MessageSender();
             MessageDispatcher.RegisterMessageProcessor(CurrentProject);
-            MessageDispatcher.SetNext(MessageTerminal);
+            MessageDispatcher.SetNextSender(MessageTerminal);
 
             ComponentManager = new ComponentManager(Projects, MessageDispatcher);
             ComponentManager.MessageOutNotification += MessageTerminal.SendMessage;
 
             Outliner = new Outliner(Projects);
-
-
 
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
@@ -61,6 +59,8 @@ namespace CMiX.MVVM.ViewModels
             AddCompositionCommand = new RelayCommand(p => AddComposition());
             AnimatedDouble = new ObservableCollection<double>();
         }
+
+
 
         #region PROPERTIES
         public ICommand NewProjectCommand { get; }

@@ -20,31 +20,16 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
 
-            SetNext(messageDispatcher as IHandler);
+            SetNextSender(messageDispatcher as IHandler);
             MessageDispatcher = messageDispatcher;
-            MessageDispatcher.MessageOutNotification += MessageDispatcher_MessageOutNotification;
         }
 
 
-        public event Action<IMessage> MessageOutNotification;
 
-        private void MessageDispatcher_MessageOutNotification(IMessage message)
-        {
-            Console.WriteLine(this.ID + "MessageOutNotification  " + this.GetType());
-            //var handler = MessageOutNotification;
-            //if (MessageOutNotification != null)
-            //{
-            //    message.ComponentID = this.ID;
-            //    handler(message);
-            //}
-        }
-
-
-        public abstract void SetModuleSender(ModuleMessageDispatcher messageDispatcher);
 
 
         private IHandler _nextHandler;
-        public IHandler SetNext(IHandler handler)
+        public IHandler SetNextSender(IHandler handler)
         {
             _nextHandler = handler;
             return handler;
@@ -158,10 +143,29 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
+
         public abstract void SetViewModel(IModel model);
 
         public abstract IModel GetModel();
 
         public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
+
+
+        internal void SetAsSender(IMessageDispatcher messageDispatcher)
+        {
+            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
+            moduleMessageDispatcher.SetNextSender(messageDispatcher);
+            this.SetModuleSender(moduleMessageDispatcher);
+        }
+
+        internal void SetAsReceiver(IMessageDispatcher messageDispatcher)
+        {
+            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
+            this.SetModuleReceiver(moduleMessageDispatcher);
+            messageDispatcher.RegisterMessageProcessor(this);
+        }
+
+
+        public abstract void SetModuleSender(ModuleMessageDispatcher messageDispatcher);
     }
 }

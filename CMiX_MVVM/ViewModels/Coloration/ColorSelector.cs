@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedColor, value);
 
-                RaiseMessageNotification();
+
             }
         }
 

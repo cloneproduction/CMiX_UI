@@ -16,7 +16,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        private IMessageDispatcher MessageDispatcher;// { get; set; }
+        private IMessageDispatcher MessageDispatcher;
         private CerasSerializer Serializer { get; set; }
 
 

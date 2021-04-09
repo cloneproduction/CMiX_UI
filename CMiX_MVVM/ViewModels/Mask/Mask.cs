@@ -8,8 +8,8 @@ namespace CMiX.MVVM.ViewModels
     {
         public Mask(IMessageDispatcher messageDispatcher, MaskModel maskModel) 
         {
-            MaskType = maskModel.MaskType;// ((MaskType)2).ToString();
-            MaskControlType = maskModel.MaskControlType;// ((MaskControlType)1).ToString();
+            MaskType = maskModel.MaskType;
+            MaskControlType = maskModel.MaskControlType;
             Enabled = maskModel.Enabled;
         }
 
@@ -25,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _IsMask, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _masktype, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -48,7 +48,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _maskcontroltype, value);
-                RaiseMessageNotification();
+
             }
         }
 

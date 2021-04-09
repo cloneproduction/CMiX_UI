@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.MessageSendCOR
 {
     public interface IHandler
     {
-        IHandler SetNext(IHandler handler);
+        IHandler SetNextSender(IHandler handler);
         void SendMessage(IMessage message);
     }
 }

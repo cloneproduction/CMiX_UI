@@ -8,20 +8,9 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class MessageCommunicator : ViewModel, IHandler, IMessageProcessor
     {
-        public event Action<IMessage> MessageOutNotification;
-        
-        public void RaiseMessageNotification()
-        {
-            var handler = MessageOutNotification;
-            if (handler != null)
-            {
-                handler(new MessageUpdateViewModel(this.ID, this.GetModel()));
-                Console.WriteLine("MessageNotification Raised by " + this.GetType() + " ID is " + this.ID);
-            }
-        }
-
-
         public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
+
+
 
         private IHandler _nextHandler;
         public void SendMessage(IMessage message)
@@ -32,7 +21,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public IHandler SetNext(IHandler handler)
+        public IHandler SetNextSender(IHandler handler)
         {
             _nextHandler = handler;
             return handler;

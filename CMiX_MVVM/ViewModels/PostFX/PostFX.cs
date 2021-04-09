@@ -11,14 +11,13 @@ namespace CMiX.MVVM.ViewModels
             Feedback = new Slider(nameof(Feedback), postFXModel.Feedback);
             Blur = new Slider(nameof(Blur), postFXModel.Blur);
 
-            Transforms = postFXModel.Transforms;// ((PostFXTransforms)0).ToString();
-            View = postFXModel.View;// ((PostFXView)0).ToString();
+            Transforms = postFXModel.Transforms;
+            View = postFXModel.View;
         }
 
         public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
         {
             messageDispatcher.RegisterMessageProcessor(this);
-            this.SetNext(messageDispatcher);
 
             Feedback.SetModuleReceiver(messageDispatcher);
             Blur.SetModuleReceiver(messageDispatcher);
@@ -35,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -46,7 +45,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                RaiseMessageNotification();
+
             }
         }
 

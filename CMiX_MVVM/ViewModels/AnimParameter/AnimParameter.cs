@@ -68,7 +68,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _animMode, value);
-                RaiseMessageNotification();
+
             }
         }
 

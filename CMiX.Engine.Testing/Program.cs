@@ -20,7 +20,7 @@ namespace CMiX.Engine.Testing
             messageReceiver.SetMessageDispatcher(messageDispatcher);
             messageReceiver.Start(settings);
 
-            Project Project = new Project(projectModel, new MessageDispatcher());
+            Project Project = new Project(projectModel, messageDispatcher);
             messageDispatcher.RegisterMessageProcessor(Project);
             
             var projects = new ObservableCollection<Component>();

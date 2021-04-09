@@ -29,6 +29,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public IMessageDispatcher MessageDispatcher { get; set; }
         public CerasSerializer Serializer { get; set; }
 
+
         MessengerFactory MessengerFactory { get; set; }
         public IDialogService DialogService { get; set; }
         public ICommand EditMessengerSettingsCommand { get; }
@@ -75,7 +76,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 obj.IsRenaming = true;
         }
 
-
         public void SendMessage(IMessage message)
         {
             var address = message.ComponentID;
@@ -85,10 +85,10 @@ namespace CMiX.MVVM.ViewModels.MessageService
             {
                 messenger.SendMessage(address, data);
             }
+            System.Console.WriteLine("MessageSender Send Message");
         }
 
-
-        public IHandler SetNext(IHandler handler)
+        public IHandler SetNextSender(IHandler handler)
         {
             throw new System.NotImplementedException();
         }

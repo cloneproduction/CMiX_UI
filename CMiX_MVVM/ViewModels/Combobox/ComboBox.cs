@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selection, value);
-                RaiseMessageNotification();
+
             }
         }
 

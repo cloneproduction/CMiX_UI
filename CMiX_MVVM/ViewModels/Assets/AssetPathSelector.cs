@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels.Assets
             set
             {
                 SetAndNotify(ref _selectedAsset, value);
-                RaiseMessageNotification();
+
             }
         }
 

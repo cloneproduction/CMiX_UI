@@ -44,7 +44,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _isVisible, value);
-                RaiseMessageNotification();
+
             } 
         }
 
@@ -55,7 +55,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _parentIsVisible, value);
-                RaiseMessageNotification();
+
             }
         }
 

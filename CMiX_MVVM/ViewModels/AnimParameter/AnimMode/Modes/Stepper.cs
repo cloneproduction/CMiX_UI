@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _width, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -44,7 +44,7 @@ namespace CMiX.MVVM.ViewModels
                 if (value <= 1)
                     value = 1;
                 SetAndNotify(ref _stepCount, value);
-                RaiseMessageNotification();
+
             }
         }
 

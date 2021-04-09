@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _isEnabled, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -70,7 +70,7 @@ namespace CMiX.MVVM.ViewModels
                 Enum.TryParse(EasingFunction.ToString() + EasingMode.ToString(), out myStatus);
 
             SelectedEasing = myStatus;
-            RaiseMessageNotification();
+
         }
 
         public override void SetViewModel(IModel model)

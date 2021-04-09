@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _invertMode, value);
-                RaiseMessageNotification();
+
             }
         }
 

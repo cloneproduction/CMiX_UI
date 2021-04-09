@@ -48,10 +48,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 this.SendMessage(new MessageUpdateViewModel(this.ID, this.GetModel()));
-                //ModuleMessageDispatcher.SendChange(CreateMessageViewModelUpdate);
-                //ModuleMessageDispatcher.SendViewModelUpdate(this);
-                //ModuleMessageDispatcher.SendMessage(new MessageUpdateViewModel(this.ID, this.GetModel()));
-                //RaiseMessageNotification();
             }
         }
 

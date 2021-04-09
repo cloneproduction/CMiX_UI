@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels;
 using System;
 
 namespace CMiX.MVVM.Models
@@ -10,6 +11,9 @@ namespace CMiX.MVVM.Models
         {
             Feedback = new SliderModel();
             Blur = new SliderModel();
+
+            Transforms = ((PostFXTransforms)0).ToString();
+            View = ((PostFXView)0).ToString();
         }
 
 

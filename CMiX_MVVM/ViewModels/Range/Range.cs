@@ -34,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _minimum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -46,7 +46,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _maximum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                RaiseMessageNotification();
+
             }
         }
 

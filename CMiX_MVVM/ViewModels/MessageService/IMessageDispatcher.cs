@@ -11,15 +11,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-        event Action<IMessage> MessageOutNotification;
-        event Action<IMessage> MessageInNotification;
-        void OnMessageOutNotification(IMessage message);
-
-        void OnMessageInNotification(IMessage message);
         IMessageProcessor GetMessageProcessor(Guid id);
 
         void ProcessMessage(IMessage message);
-
-        void SendMessage(Func<IMessage> CreateMessage);
     }
 }

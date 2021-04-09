@@ -55,7 +55,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                RaiseMessageNotification();
+
             }
         }
 
@@ -85,7 +85,7 @@ namespace CMiX.MVVM.ViewModels
                 this._selectedColor.R = value;
                 Notify(nameof(SelectedColor));
 
-                RaiseMessageNotification();
+
             }
         }
 
@@ -109,7 +109,7 @@ namespace CMiX.MVVM.ViewModels
                 this._selectedColor.G = value;
                 Notify(nameof(SelectedColor));
 
-                RaiseMessageNotification();
+
             }
         }
 
@@ -133,7 +133,7 @@ namespace CMiX.MVVM.ViewModels
                 this._selectedColor.B = value;
                 Notify(nameof(SelectedColor));
 
-                RaiseMessageNotification();
+
             }
         }
 
@@ -160,7 +160,7 @@ namespace CMiX.MVVM.ViewModels
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
 
-                RaiseMessageNotification();
+
             }
         }
 
@@ -189,7 +189,7 @@ namespace CMiX.MVVM.ViewModels
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
 
-                RaiseMessageNotification();
+
             }
         }
 
@@ -225,7 +225,7 @@ namespace CMiX.MVVM.ViewModels
                 }
                 Notify(nameof(SelectedColor));
 
-                RaiseMessageNotification();
+
             }
         }
 

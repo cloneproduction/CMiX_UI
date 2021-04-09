@@ -11,8 +11,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public Layer(Composition composition, LayerModel layerModel, IMessageDispatcher messageDispatcher) 
             : base (layerModel, messageDispatcher)
         {
-            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher(this);
-            moduleMessageDispatcher.SetNext(messageDispatcher);
+            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
+            moduleMessageDispatcher.SetNextSender(messageDispatcher);
 
             Fade = new Slider(nameof(Fade), layerModel.Fade);
 

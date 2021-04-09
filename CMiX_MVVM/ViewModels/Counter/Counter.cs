@@ -38,7 +38,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-                RaiseMessageNotification();
+
             }
         }
 

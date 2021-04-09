@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.Beat
         {
             BeatAnimations.ResetAnimation();
             OnBeatResync();
-            RaiseMessageNotification();
+
         }
 
         public ICommand ResyncCommand { get; }

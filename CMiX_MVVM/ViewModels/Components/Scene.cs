@@ -30,6 +30,17 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
+        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
         public override IModel GetModel()
         {
             SceneModel model = new SceneModel(this.ID);
@@ -46,16 +57,6 @@ namespace CMiX.MVVM.ViewModels.Components
                 model.ComponentModels.Add(item.GetModel() as IComponentModel);
 
             return model;
-        }
-
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void SetViewModel(IModel model)

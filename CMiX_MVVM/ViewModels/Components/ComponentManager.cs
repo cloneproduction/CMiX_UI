@@ -18,9 +18,9 @@ namespace CMiX.MVVM.ViewModels.Components
 
             MessageDispatcher = messageDispatcher;
 
-            messageDispatcher.MessageInNotification += MessageDispatcher_MessageInNotification;
+            //messageDispatcher.MessageInNotification += MessageDispatcher_MessageInNotification;
 
-            this.SetNext(MessageDispatcher as IHandler);
+            this.SetNextSender(MessageDispatcher as IHandler);
 
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
@@ -32,7 +32,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         private IHandler _nextHandler;
-        public IHandler SetNext(IHandler handler)
+        public IHandler SetNextSender(IHandler handler)
         {
             _nextHandler = handler;
             return handler;
@@ -96,10 +96,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public void CreateComponent(Component component)
         {
             var newComponent = component.ComponentFactory.CreateComponent(this.MessageDispatcher);
-            newComponent.SetNext(MessageDispatcher as IHandler);
-
             component.AddComponent(newComponent);
-            this.MessageDispatcher.RegisterMessageProcessor(newComponent);
 
             SendMessageAddComponent(component, newComponent);
         }

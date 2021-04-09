@@ -12,9 +12,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public Composition(Project project, CompositionModel compositionModel, IMessageDispatcher messageDispatcher)
             : base(compositionModel, messageDispatcher)
         {
-
-            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher(this);
-            moduleMessageDispatcher.SetNext(messageDispatcher);
+            //ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
+            //moduleMessageDispatcher.SetNextSender(messageDispatcher);
 
             Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
 
@@ -32,15 +31,17 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
         {
-            Transition.SetNext(messageDispatcher);
-            MasterBeat.SetNext(messageDispatcher);
-            Camera.SetNext(messageDispatcher);
+            Transition.SetNextSender(messageDispatcher);
+            MasterBeat.SetNextSender(messageDispatcher);
+            Camera.SetNextSender(messageDispatcher);
             //Visibility.SetNext(messageDispatcher);
         }
 
         public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
         {
             Transition.SetModuleReceiver(messageDispatcher);
+            MasterBeat.SetModuleReceiver(messageDispatcher);
+            Camera.SetModuleReceiver(messageDispatcher);
         }
 
 

@@ -13,42 +13,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-
         public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
-
-        public event Action<IMessage> MessageOutNotification;
-        public void OnMessageOutNotification(IMessage message)
-        {
-            var handler = MessageOutNotification;
-            if (handler != null)
-            {
-                handler(message);
-            }
-        }
-
-        public bool CanSend()
-        {
-            var handler = MessageOutNotification;
-            if (handler != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
-
-
-        public event Action<IMessage> MessageInNotification;
-        public void OnMessageInNotification(IMessage message)
-        {
-            //this.ProcessMessage(message);
-            var handler = MessageInNotification;
-            if (handler != null)
-            {
-                handler(message);
-            }
-        }
 
 
         public IMessageProcessor GetMessageProcessor(Guid id)
@@ -58,18 +23,18 @@ namespace CMiX.MVVM.ViewModels.MessageService
             return null;
         }
 
+
         public IMessage SetMessageID(IMessage message )
         {
             return message;
         }
 
 
-
         public void ProcessMessage(IMessage message)
         {
             if (message is IComponentManagerMessage)
             {
-                OnMessageInNotification(message);
+                ///OnMessageInNotification(message);
             }
             else
             {
@@ -82,7 +47,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
         {
-            messageProcessor.MessageOutNotification += OnMessageOutNotification;
+            //messageProcessor.MessageOutNotification += OnMessageOutNotification;
 
             if (MessageProcessors.ContainsKey(messageProcessor.ID))
                 MessageProcessors[messageProcessor.ID] = messageProcessor;
@@ -96,26 +61,21 @@ namespace CMiX.MVVM.ViewModels.MessageService
             MessageProcessors.Remove(messageProcessor.ID);
         }
 
-        public void SendMessage(Func<IMessage> CreateMessage)
-        {
-            var message = CreateMessage();
-            OnMessageOutNotification(message);
-        }
-
-
 
         private IHandler _nextHandler;
-        public IHandler SetNext(IHandler handler)
+        public IHandler SetNextSender(IHandler handler)
         {
             _nextHandler = handler;
             return handler;
         }
+
 
         public void SendMessage(IMessage message)
         {
             if(_nextHandler != null)
             {
                 _nextHandler.SendMessage(message);
+                Console.WriteLine("MessageDispatcher SendMessage");
             }
         }
     }

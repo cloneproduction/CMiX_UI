@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _is3D, value);
-                RaiseMessageNotification();
+
             }
         }
 
