@@ -12,9 +12,6 @@ namespace CMiX.MVVM.ViewModels.Components
         public Composition(Project project, CompositionModel compositionModel, IMessageDispatcher messageDispatcher)
             : base(compositionModel, messageDispatcher)
         {
-            //ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
-            //moduleMessageDispatcher.SetNextSender(messageDispatcher);
-
             Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
 
             MasterBeat = new MasterBeat(new MasterBeatModel());

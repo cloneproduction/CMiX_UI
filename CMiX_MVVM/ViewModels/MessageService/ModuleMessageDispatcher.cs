@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.ViewModels.Components;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+﻿using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Collections.Generic;
 

@@ -17,9 +17,6 @@ namespace CMiX.MVVM.ViewModels.Components
             Components = components;
 
             MessageDispatcher = messageDispatcher;
-
-            //messageDispatcher.MessageInNotification += MessageDispatcher_MessageInNotification;
-
             this.SetNextSender(MessageDispatcher as IHandler);
 
 

@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
-using System;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
@@ -12,9 +11,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public Slider(string name, SliderModel sliderModel) 
         {
+            Name = name;
+
             this.ID = sliderModel.ID;
             this.Amount = sliderModel.Amount;
-            Name = name;
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());

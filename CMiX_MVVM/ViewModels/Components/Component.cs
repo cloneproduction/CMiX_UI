@@ -20,7 +20,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
 
-            SetNextSender(messageDispatcher as IHandler);
             MessageDispatcher = messageDispatcher;
         }
 
@@ -128,8 +127,9 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Move(oldIndex, newIndex);
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
+            MessageDispatcher.UnregisterMessageProcessor(this);
             foreach (var component in Components)
             {
                 component.Dispose();
