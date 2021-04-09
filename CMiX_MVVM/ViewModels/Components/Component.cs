@@ -25,38 +25,6 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-
-
-
-        private IHandler _nextHandler;
-        public IHandler SetNextSender(IHandler handler)
-        {
-            _nextHandler = handler;
-            return handler;
-        }
-
-
-        public void SendMessage(IMessage message)
-        {
-            if(_nextHandler != null)
-            {
-                _nextHandler.SendMessage(message);
-            }
-            //MessageDispatcher.SendMessage(message);
-        }
-
-        public void ProcessMessage(IMessage message)
-        {
-            if(message is IViewModelMessage)
-            {
-                var vmMessage = message as IViewModelMessage;
-                var module = MessageDispatcher.GetMessageProcessor(vmMessage.ModuleID);
-                if(module != null)
-                    module.ProcessMessage(vmMessage);
-            }
-        }
-
-
         public Visibility Visibility { get; set; }
         public IMessageDispatcher MessageDispatcher { get; set; }
         public ICommand VisibilityCommand { get; set; }
@@ -106,7 +74,32 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public string GetAddress() => $"{this.GetType().Name}/{ID}/";
+        private IHandler _nextSender;
+        public IHandler SetNextSender(IHandler handler)
+        {
+            _nextSender = handler;
+            return handler;
+        }
+
+        public void SendMessage(IMessage message)
+        {
+            if(_nextSender != null)
+            {
+                _nextSender.SendMessage(message);
+            }
+        }
+
+
+        public void ProcessMessage(IMessage message)
+        {
+            if(message is IViewModelMessage)
+            {
+                var vmMessage = message as IViewModelMessage;
+                var module = MessageDispatcher.GetMessageProcessor(vmMessage.ModuleID);
+                if(module != null)
+                    module.ProcessMessage(vmMessage);
+            }
+        }
 
 
         public void AddComponent(Component component)
@@ -145,10 +138,10 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public abstract void SetViewModel(IModel model);
-
         public abstract IModel GetModel();
 
         public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
+        public abstract void SetModuleSender(ModuleMessageDispatcher messageDispatcher);
 
 
         internal void SetAsSender(IMessageDispatcher messageDispatcher)
@@ -157,15 +150,12 @@ namespace CMiX.MVVM.ViewModels.Components
             moduleMessageDispatcher.SetNextSender(messageDispatcher);
             this.SetModuleSender(moduleMessageDispatcher);
         }
-
+        
         internal void SetAsReceiver(IMessageDispatcher messageDispatcher)
         {
             ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
             this.SetModuleReceiver(moduleMessageDispatcher);
             messageDispatcher.RegisterMessageProcessor(this);
         }
-
-
-        public abstract void SetModuleSender(ModuleMessageDispatcher messageDispatcher);
     }
 }
