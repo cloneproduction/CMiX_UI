@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.MessageService.MessageSendCOR
 {
-    public interface IHandler
+    public interface IMessageHandler
     {
-        IHandler SetNextSender(IHandler handler);
-        void SendMessage(IMessage message);
+        Guid ID { get; set; }
     }
 }

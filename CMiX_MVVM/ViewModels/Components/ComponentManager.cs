@@ -10,14 +10,14 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class ComponentManager : ViewModel, IHandler
+    public class ComponentManager : ViewModel, IMessageSendHandler
     {
         public ComponentManager(ObservableCollection<Component> components, IMessageDispatcher messageDispatcher)
         {
             Components = components;
 
             MessageDispatcher = messageDispatcher;
-            this.SetNextSender(MessageDispatcher as IHandler);
+            this.SetNextSender(MessageDispatcher);
 
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
@@ -28,8 +28,8 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
 
-        private IHandler _nextHandler;
-        public IHandler SetNextSender(IHandler handler)
+        private IMessageSendHandler _nextHandler;
+        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
         {
             _nextHandler = handler;
             return handler;

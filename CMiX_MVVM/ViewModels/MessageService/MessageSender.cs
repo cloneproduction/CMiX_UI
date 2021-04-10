@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageSender : ViewModel, IHandler
+    public class MessageSender : ViewModel, IMessageSendHandler
     {
         public MessageSender()
         {
@@ -88,7 +88,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             System.Console.WriteLine("MessageSender Send Message");
         }
 
-        public IHandler SetNextSender(IHandler handler)
+        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
         {
             throw new System.NotImplementedException();
         }

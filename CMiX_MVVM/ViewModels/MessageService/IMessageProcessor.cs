@@ -4,13 +4,13 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public interface IMessageProcessor : IHandler
+    public interface IMessageProcessor
     {
         Guid ID { get; set; }
         void SetViewModel(IModel model);
         IModel GetModel();
 
-        void ProcessMessage(IMessage message);
-        void SendMessage(IMessage message);
+        //void ReceiveMessage(IMessage message);
+        //void SendMessage(IMessage message);
     }
 }

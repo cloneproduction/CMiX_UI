@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public interface IMessageDispatcher : IHandler
+    public interface IMessageDispatcher : IMessageSendHandler
     {
-        void RegisterMessageProcessor(IMessageProcessor messageProcessor);
-        void UnregisterMessageProcessor(IMessageProcessor messageProcessor);
+        void RegisterMessageProcessor(IMessageReceiveHandler messageProcessor);
+        void UnregisterMessageProcessor(IMessageReceiveHandler messageProcessor);
 
-        Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
+        ///Dictionary<Guid, IMessageReceiveHandler> MessageProcessors { get; set; }
 
-        IMessageProcessor GetMessageProcessor(Guid id);
+        IMessageReceiveHandler GetMessageProcessor(Guid id);
 
         void ProcessMessage(IMessage message);
     }

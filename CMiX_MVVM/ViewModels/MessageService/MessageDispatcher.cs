@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageDispatcher : IMessageDispatcher 
+    public class MessageDispatcher //: IMessageDispatcher 
     {
         public MessageDispatcher()
         {
-            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
+            MessageProcessors = new Dictionary<Guid, IMessageReceiveHandler>();
         }
 
 
-        public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
+        public Dictionary<Guid, IMessageReceiveHandler> MessageProcessors { get; set; }
 
 
-        public IMessageProcessor GetMessageProcessor(Guid id)
+        public IMessageReceiveHandler GetMessageProcessor(Guid id)
         {
             if (MessageProcessors.ContainsKey(id))
                 return MessageProcessors[id];
@@ -40,12 +40,12 @@ namespace CMiX.MVVM.ViewModels.MessageService
             {
                 var messageProcessor = GetMessageProcessor(message.ComponentID);
                 if(messageProcessor != null)
-                    messageProcessor.ProcessMessage(message);
+                    messageProcessor.ReceiveMessage(message);
             }
         }
 
 
-        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
+        public void RegisterMessageProcessor(IMessageReceiveHandler messageProcessor)
         {
             //messageProcessor.MessageOutNotification += OnMessageOutNotification;
 
@@ -62,8 +62,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        private IHandler _nextHandler;
-        public IHandler SetNextSender(IHandler handler)
+        private IMessageSendHandler _nextHandler;
+        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
         {
             _nextHandler = handler;
             return handler;

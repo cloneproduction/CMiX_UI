@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IHandler, IComponentMessageProcessor, IDisposable
+    public abstract class Component : ViewModel, IMessageSendHandler, IMessageReceiveHandler, IDisposable //IComponentMessageProcessor,
     {
         public Component(IComponentModel componentModel, IMessageDispatcher messageDispatcher)
         {
@@ -19,7 +19,6 @@ namespace CMiX.MVVM.ViewModels.Components
             ID = componentModel.ID;
 
             Components = new ObservableCollection<Component>();
-
             MessageDispatcher = messageDispatcher;
         }
 
@@ -73,12 +72,13 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        private IHandler _nextSender;
-        public IHandler SetNextSender(IHandler handler)
+        private IMessageSendHandler _nextSender;
+        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
         {
             _nextSender = handler;
             return handler;
         }
+
 
         public void SendMessage(IMessage message)
         {
@@ -89,14 +89,14 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public void ProcessMessage(IMessage message)
+        public void ReceiveMessage(IMessage message)
         {
             if(message is IViewModelMessage)
             {
                 var vmMessage = message as IViewModelMessage;
                 var module = MessageDispatcher.GetMessageProcessor(vmMessage.ModuleID);
                 if(module != null)
-                    module.ProcessMessage(vmMessage);
+                    module.ReceiveMessage(vmMessage);
             }
         }
 

@@ -4,18 +4,19 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ModuleMessageDispatcher : IHandler
+    public class ModuleMessageDispatcher : IMessageSendHandler, IMessageReceiveHandler
     {
 
         public ModuleMessageDispatcher()
         {
-            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
+            MessageProcessors = new Dictionary<Guid, IMessageReceiveHandler>();
         }
 
-        public Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-        private IHandler _nextHandler;
-        public IHandler SetNextSender(IHandler handler)
+        public Guid ID { get; set; }
+
+        private IMessageSendHandler _nextHandler;
+        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
         {
             _nextHandler = handler;
             return handler;
@@ -32,8 +33,9 @@ namespace CMiX.MVVM.ViewModels.MessageService
             }
         }
 
+        public Dictionary<Guid, IMessageReceiveHandler> MessageProcessors { get; set; }
 
-        public void RegisterMessageProcessor(IMessageProcessor messageProcessor)
+        public void RegisterMessageProcessor(IMessageReceiveHandler messageProcessor)
         {
             if (MessageProcessors.ContainsKey(messageProcessor.ID))
                 MessageProcessors[messageProcessor.ID] = messageProcessor;
@@ -41,9 +43,14 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 MessageProcessors.Add(messageProcessor.ID, messageProcessor);
         }
 
-        public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
+        public void UnregisterMessageProcessor(IMessageReceiveHandler messageProcessor)
         {
             MessageProcessors.Remove(messageProcessor.ID);
+        }
+
+        public void ReceiveMessage(IMessage message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

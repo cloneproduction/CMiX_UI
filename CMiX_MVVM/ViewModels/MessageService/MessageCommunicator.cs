@@ -6,29 +6,28 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class MessageCommunicator : ViewModel, IHandler, IMessageProcessor
+    public abstract class MessageCommunicator : ViewModel, IMessageSendHandler, IMessageReceiveHandler
     {
-        public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
-
-
-
-        private IHandler _nextHandler;
-        public void SendMessage(IMessage message)
-        {
-            if(_nextHandler != null)
-            {
-                _nextHandler.SendMessage(message);
-            }
-        }
-
-        public IHandler SetNextSender(IHandler handler)
+        private IMessageSendHandler _nextHandler;
+        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
         {
             _nextHandler = handler;
             return handler;
         }
 
+        public void SendMessage(IMessage message)
+        {
+            if (_nextHandler != null)
+            {
+                _nextHandler.SendMessage(message);
+            }
+        }
 
-        public void ProcessMessage(IMessage message)
+
+
+        public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
+
+        public void ReceiveMessage(IMessage message)
         {
             var vmMessage = message as IViewModelMessage;
             vmMessage.Process(this);
