@@ -20,8 +20,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
         void UnregisterMessageReceiver(IMessageReceiveHandler messageProcessor);
 
         IMessageReceiveHandler GetMessageProcessor(Guid id);
-
-        void ReceiveMessage(IMessage message);
     }
 
     public interface IMessageDispatcherSender : IMessageSendHandler, IMessageDispatcher

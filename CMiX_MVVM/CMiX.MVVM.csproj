@@ -145,6 +145,7 @@
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
     <Compile Include="ViewModels\Components\Messages\IComponentManagerMessage.cs" />
     <Compile Include="ViewModels\MessageService\IMessageDispatcher.cs" />
+    <Compile Include="ViewModels\MessageService\MessageDispatcherReceiver.cs" />
     <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageReceiveHandler.cs" />
     <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageSendHandler.cs" />
     <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageHandler.cs" />
@@ -207,7 +208,7 @@
     <Compile Include="ViewModels\Transform\ITransform.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
     <Compile Include="ViewModels\MessageService\IMessageProcessor.cs" />
-    <Compile Include="ViewModels\MessageService\MessageDispatcher.cs" />
+    <Compile Include="ViewModels\MessageService\MessageDispatcherSender.cs" />
     <Compile Include="ViewModels\MessageService\MessageTerminal.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
