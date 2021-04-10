@@ -151,11 +151,11 @@ namespace CMiX.MVVM.ViewModels.Components
             this.SetModuleSender(moduleMessageDispatcher);
         }
         
-        internal void SetAsReceiver(IMessageDispatcher messageDispatcher)
+        internal void SetAsReceiver(IMessageDispatcherReceiver messageDispatcher)
         {
             ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
             this.SetModuleReceiver(moduleMessageDispatcher);
-            messageDispatcher.RegisterMessageProcessor(this);
+            messageDispatcher.RegisterMessageReceiver(this);
         }
     }
 }

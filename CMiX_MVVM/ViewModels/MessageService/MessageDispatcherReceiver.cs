@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageDispatcher //: IMessageDispatcher 
+    public class MessageDispatcherReceiver : IMessageDispatcherReceiver
     {
-        public MessageDispatcher()
+        public MessageDispatcherReceiver()
         {
             MessageProcessors = new Dictionary<Guid, IMessageReceiveHandler>();
         }
 
 
         public Dictionary<Guid, IMessageReceiveHandler> MessageProcessors { get; set; }
-
+        public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public IMessageReceiveHandler GetMessageProcessor(Guid id)
         {
@@ -30,7 +30,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void ProcessMessage(IMessage message)
+        public void ReceiveMessage(IMessage message)
         {
             if (message is IComponentManagerMessage)
             {
@@ -45,7 +45,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void RegisterMessageProcessor(IMessageReceiveHandler messageProcessor)
+        public void RegisterMessageReceiver(IMessageReceiveHandler messageProcessor)
         {
             //messageProcessor.MessageOutNotification += OnMessageOutNotification;
 
@@ -56,27 +56,9 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void UnregisterMessageProcessor(IMessageProcessor messageProcessor)
+        public void UnregisterMessageReceiver(IMessageReceiveHandler messageProcessor)
         {
             MessageProcessors.Remove(messageProcessor.ID);
-        }
-
-
-        private IMessageSendHandler _nextHandler;
-        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
-        {
-            _nextHandler = handler;
-            return handler;
-        }
-
-
-        public void SendMessage(IMessage message)
-        {
-            if(_nextHandler != null)
-            {
-                _nextHandler.SendMessage(message);
-                Console.WriteLine("MessageDispatcher SendMessage");
-            }
         }
     }
 }

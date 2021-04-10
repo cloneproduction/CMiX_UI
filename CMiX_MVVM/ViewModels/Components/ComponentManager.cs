@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Collections.ObjectModel;
@@ -15,17 +14,13 @@ namespace CMiX.MVVM.ViewModels.Components
         public ComponentManager(ObservableCollection<Component> components, IMessageDispatcher messageDispatcher)
         {
             Components = components;
-
             MessageDispatcher = messageDispatcher;
-            this.SetNextSender(MessageDispatcher);
-
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
             DeleteComponentCommand = new RelayCommand(p => DeleteComponent(p as Component));
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
-
 
 
         private IMessageSendHandler _nextHandler;
@@ -37,36 +32,31 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void SendMessage(IMessage message)
         {
-            var handler = MessageOutNotification;
-            if (handler != null)
+            if (_nextHandler != null)
             {
-                handler(message);
+                _nextHandler.SendMessage(message);
             }
-            //if (this._nextHandler != null)
-            //{
-            //    this._nextHandler.SendMessage(message);
-            //}
         }
 
 
 
 
 
-        private void MessageDispatcher_MessageInNotification(IMessage message)
-        {
-            //var componentManagerMessage = message as IComponentManagerMessage;
-            if (message is IComponentManagerMessage)
-            {
-                ((IComponentManagerMessage)message).Process(this);
-            }
-            //else if(message is IViewModelMessage)
-            //{
-            //    var viewModelMessage = message as IViewModelMessage;
-            //    var component = MessageDispatcher.GetMessageProcessor(message.ComponentID) as Component;
-            //    var module = component.MessageDispatcher.GetMessageProcessor(viewModelMessage.ModuleID) as MessageCommunicator;
-            //    viewModelMessage.Process(module);
-            //}
-        }
+        //private void MessageDispatcher_MessageInNotification(IMessage message)
+        //{
+        //    //var componentManagerMessage = message as IComponentManagerMessage;
+        //    if (message is IComponentManagerMessage)
+        //    {
+        //        ((IComponentManagerMessage)message).Process(this);
+        //    }
+        //    //else if(message is IViewModelMessage)
+        //    //{
+        //    //    var viewModelMessage = message as IViewModelMessage;
+        //    //    var component = MessageDispatcher.GetMessageProcessor(message.ComponentID) as Component;
+        //    //    var module = component.MessageDispatcher.GetMessageProcessor(viewModelMessage.ModuleID) as MessageCommunicator;
+        //    //    viewModelMessage.Process(module);
+        //    //}
+        //}
 
 
         public ICommand CreateComponentCommand { get; }

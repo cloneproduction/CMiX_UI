@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
             Mementor = new Mementor();
 
             var model = new ProjectModel(Guid.Empty);
-            MessageDispatcher = new MessageDispatcher();
+            MessageDispatcher = new MessageDispatcherSender();
 
             CurrentProject = new Project(model, MessageDispatcher);
 
@@ -82,7 +82,7 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        public MessageDispatcher MessageDispatcher { get; set; }
+        public MessageDispatcherSender MessageDispatcher { get; set; }
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
         public ObservableCollection<Component> Projects { get; set; }

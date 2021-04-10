@@ -36,7 +36,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         }
 
 
-        public Component CreateComponent(MessageDispatcher messageDispatcherReceiver)
+        public Component CreateComponent(IMessageDispatcherReceiver messageDispatcherReceiver)
         {
             var model = new CompositionModel(Guid.NewGuid());
             var component = new Composition(ParentProject, model, messageDispatcherReceiver);
