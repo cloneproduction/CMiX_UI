@@ -3,13 +3,14 @@ using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IMessageSendHandler, IMessageReceiveHandler, IDisposable //IComponentMessageProcessor,
+    public abstract class Component : ViewModel, IDisposable
     {
         public Component(IComponentModel componentModel)
         {
@@ -128,8 +129,9 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void Dispose()
         {
-            if(MessageDispatcher is IMessageDispatcherReceiver)
-                ((IMessageDispatcherReceiver)MessageDispatcher).UnregisterMessageReceiver(this);
+            //if(MessageDispatcher is IMessageDispatcherReceiver)
+            //    ((IMessageDispatcherReceiver)MessageDispatcher).UnregisterMessageReceiver(this);
+
             foreach (var component in Components)
             {
                 component.Dispose();
@@ -140,22 +142,23 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();
 
-        public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
-        public abstract void SetModuleSender(ModuleMessageDispatcher messageDispatcher);
+
+        public abstract void SetModuleReceiver(ModuleMessageReceiver messageDispatcher);
+        public abstract void SetModuleSender(ModuleMessageSender messageDispatcher);
 
 
-        internal void SetAsSender(IMessageDispatcherSender messageDispatcher)
+        internal void SetAsSender(ComponentMessageSender messageDispatcher)
         {
-            this.MessageDispatcher = messageDispatcher;
-            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
+            this.MessageDispatcher = messageDispatcher as IMessageDispatcher;
+            ModuleMessageSender moduleMessageDispatcher = new ModuleMessageSender();
             moduleMessageDispatcher.SetNextSender(messageDispatcher);
             this.SetModuleSender(moduleMessageDispatcher);
         }
         
-        internal void SetAsReceiver(IMessageDispatcherReceiver messageDispatcher)
+        internal void SetAsReceiver(ComponentMessageReceiver messageDispatcher)
         {
-            this.MessageDispatcher = messageDispatcher;
-            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
+            this.MessageDispatcher = messageDispatcher as IMessageDispatcher;
+            ModuleMessageReceiver moduleMessageDispatcher = new ModuleMessageReceiver();
             this.SetModuleReceiver(moduleMessageDispatcher);
             messageDispatcher.RegisterMessageReceiver(this);
         }

@@ -2,14 +2,15 @@
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class MessageCommunicator : ViewModel, IMessageSendHandler, IMessageReceiveHandler
+    public abstract class MessageCommunicator : ViewModel//, IMessageSendHandler, IMessageReceiveHandler
     {
-        private IMessageSendHandler _nextHandler;
-        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
+        private ComponentMessageSender _nextHandler;
+        public ComponentMessageSender SetNextSender(ComponentMessageSender handler)
         {
             _nextHandler = handler;
             return handler;
@@ -24,8 +25,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-
-        public abstract void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher);
+        public abstract void SetModuleReceiver(ModuleMessageReceiver messageDispatcher);
 
         public void ReceiveMessage(IMessage message)
         {

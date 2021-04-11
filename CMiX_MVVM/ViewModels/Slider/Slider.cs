@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
@@ -21,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ComponentMessageReceiver messageDispatcher)
         {
             messageDispatcher.RegisterMessageProcessor(this);
         }

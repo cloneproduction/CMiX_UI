@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             //Zoom = new Slider(nameof(Zoom), messageDispatcher, cameraModel.Zoom);
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             BeatModifier.SetModuleReceiver(messageDispatcher);
         }

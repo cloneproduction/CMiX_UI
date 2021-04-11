@@ -7,7 +7,7 @@ using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class BeatModifier : Beat, IMessageProcessor, IBeatObserver, IMessageSendHandler
+    public class BeatModifier : Beat, IMessageProcessor, IBeatObserver//, IMessageSendHandler
     {
         public BeatModifier(MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
             : base (beatModifierModel)
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             SetAnimatedDouble();
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             messageDispatcher.RegisterMessageProcessor(this);
         }

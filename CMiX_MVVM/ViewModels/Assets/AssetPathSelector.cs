@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels.Assets
             SelectedAsset = defaultAsset;
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             messageDispatcher.RegisterMessageProcessor(this);
         }

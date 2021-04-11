@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             newRandom = GetNewRandoms(parentSender.Parameters.Length);
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             //messageDispatcher.RegisterMessageProcessor(this);
         }

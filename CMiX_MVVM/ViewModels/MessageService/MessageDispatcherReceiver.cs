@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageDispatcherReceiver : IMessageDispatcherReceiver
+    public class MessageDispatcherReceiver //: IMessageDispatcherReceiver
     {
         public MessageDispatcherReceiver()
         {
@@ -40,18 +40,16 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void RegisterMessageReceiver(IMessageReceiveHandler messageProcessor)
         {
-            //messageProcessor.MessageOutNotification += OnMessageOutNotification;
-
-            if (MessageProcessors.ContainsKey(messageProcessor.ID))
-                MessageProcessors[messageProcessor.ID] = messageProcessor;
-            else
-                MessageProcessors.Add(messageProcessor.ID, messageProcessor);
+            //if (MessageProcessors.ContainsKey(messageProcessor.ID))
+            //    MessageProcessors[messageProcessor.ID] = messageProcessor;
+            //else
+            //    MessageProcessors.Add(messageProcessor.ID, messageProcessor);
         }
 
 
         public void UnregisterMessageReceiver(IMessageReceiveHandler messageProcessor)
         {
-            MessageProcessors.Remove(messageProcessor.ID);
+            //MessageProcessors.Remove(messageProcessor.ID);
         }
     }
 }
