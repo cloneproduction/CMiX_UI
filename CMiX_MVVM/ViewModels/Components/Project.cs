@@ -12,8 +12,8 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Project : Component
     {
-        public Project(ProjectModel projectModel, IMessageDispatcher messageDispatcher) 
-            : base (projectModel, messageDispatcher)
+        public Project(ProjectModel projectModel) 
+            : base (projectModel)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();

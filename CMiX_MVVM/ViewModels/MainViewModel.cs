@@ -185,8 +185,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            var messageDispatcher = new MessageDispatcher();
-            Project project = new Project(new ProjectModel(Guid.Empty), messageDispatcher);
+            Project project = new Project(new ProjectModel(Guid.Empty));
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

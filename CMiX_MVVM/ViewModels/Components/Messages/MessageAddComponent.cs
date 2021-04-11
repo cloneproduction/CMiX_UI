@@ -22,11 +22,11 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         public void Process(ComponentManager componentManager)
         {
-            Component component = componentManager.MessageDispatcher.GetMessageProcessor(ComponentID) as Component;
-            var newComponent = component.ComponentFactory.CreateComponent(componentManager.MessageDispatcher, ComponentModel);
-            componentManager.MessageDispatcher.RegisterMessageProcessor(newComponent);
-            component.AddComponent(newComponent);
-            Console.WriteLine("MessageAddComponentProcessed" + "Component Count = " + component.Components.Count);
+            //Component component = componentManager.MessageDispatcher.GetMessageProcessor(ComponentID) as Component;
+            //var newComponent = component.ComponentFactory.CreateComponent(componentManager.MessageDispatcher, ComponentModel);
+            //componentManager.MessageDispatcher.RegisterMessageProcessor(newComponent);
+            //component.AddComponent(newComponent);
+            //Console.WriteLine("MessageAddComponentProcessed" + "Component Count = " + component.Components.Count);
         }
     }
 }

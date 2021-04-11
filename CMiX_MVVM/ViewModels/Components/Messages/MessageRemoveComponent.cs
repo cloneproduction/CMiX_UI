@@ -20,11 +20,11 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         public void Process(ComponentManager componentManager)
         {
-            Component component = componentManager.MessageDispatcher.GetMessageProcessor(ComponentID) as Component;
-            var componentToDelete = component.Components[Index];
-            component.RemoveComponent(componentToDelete);
-            componentManager.MessageDispatcher.UnregisterMessageProcessor(componentToDelete);
-            Console.WriteLine("MessageRemoveComponentProcessed" + "Component Count = " + component.Components.Count);
+            //Component component = componentManager.MessageDispatcher.GetMessageProcessor(ComponentID) as Component;
+            //var componentToDelete = component.Components[Index];
+            //component.RemoveComponent(componentToDelete);
+            //componentManager.MessageDispatcher.UnregisterMessageProcessor(componentToDelete);
+            //Console.WriteLine("MessageRemoveComponentProcessed" + "Component Count = " + component.Components.Count);
         }
     }
 }

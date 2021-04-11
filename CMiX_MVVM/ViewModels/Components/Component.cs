@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public abstract class Component : ViewModel, IMessageSendHandler, IMessageReceiveHandler, IDisposable //IComponentMessageProcessor,
     {
-        public Component(IComponentModel componentModel, IMessageDispatcher messageDispatcher)
+        public Component(IComponentModel componentModel)
         {
             IsExpanded = false;
 
@@ -19,12 +19,11 @@ namespace CMiX.MVVM.ViewModels.Components
             ID = componentModel.ID;
 
             Components = new ObservableCollection<Component>();
-            MessageDispatcher = messageDispatcher;
         }
 
 
-        public Visibility Visibility { get; set; }
         public IMessageDispatcher MessageDispatcher { get; set; }
+        public Visibility Visibility { get; set; }
         public ICommand VisibilityCommand { get; set; }
         internal IComponentFactory ComponentFactory { get; set; }
 
@@ -91,13 +90,13 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void ReceiveMessage(IMessage message)
         {
-            if(message is IViewModelMessage)
-            {
-                var vmMessage = message as IViewModelMessage;
-                var module = MessageDispatcher.GetMessageProcessor(vmMessage.ModuleID);
-                if(module != null)
-                    module.ReceiveMessage(vmMessage);
-            }
+            //if(message is IViewModelMessage)
+            //{
+            //    var vmMessage = message as IViewModelMessage;
+            //    var module = MessageDispatcher.GetMessageProcessor(vmMessage.ModuleID);
+            //    if(module != null)
+            //        module.ReceiveMessage(vmMessage);
+            //}
         }
 
 
@@ -129,7 +128,8 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void Dispose()
         {
-            MessageDispatcher.UnregisterMessageProcessor(this);
+            if(MessageDispatcher is IMessageDispatcherReceiver)
+                ((IMessageDispatcherReceiver)MessageDispatcher).UnregisterMessageReceiver(this);
             foreach (var component in Components)
             {
                 component.Dispose();
@@ -144,8 +144,9 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract void SetModuleSender(ModuleMessageDispatcher messageDispatcher);
 
 
-        internal void SetAsSender(IMessageDispatcher messageDispatcher)
+        internal void SetAsSender(IMessageDispatcherSender messageDispatcher)
         {
+            this.MessageDispatcher = messageDispatcher;
             ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
             moduleMessageDispatcher.SetNextSender(messageDispatcher);
             this.SetModuleSender(moduleMessageDispatcher);
@@ -153,6 +154,7 @@ namespace CMiX.MVVM.ViewModels.Components
         
         internal void SetAsReceiver(IMessageDispatcherReceiver messageDispatcher)
         {
+            this.MessageDispatcher = messageDispatcher;
             ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
             this.SetModuleReceiver(moduleMessageDispatcher);
             messageDispatcher.RegisterMessageReceiver(this);

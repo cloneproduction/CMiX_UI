@@ -8,12 +8,9 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(Composition composition, LayerModel layerModel, IMessageDispatcher messageDispatcher) 
-            : base (layerModel, messageDispatcher)
+        public Layer(Composition composition, LayerModel layerModel) 
+            : base (layerModel)
         {
-            ModuleMessageDispatcher moduleMessageDispatcher = new ModuleMessageDispatcher();
-            moduleMessageDispatcher.SetNextSender(messageDispatcher);
-
             Fade = new Slider(nameof(Fade), layerModel.Fade);
 
             MasterBeat = composition.MasterBeat;

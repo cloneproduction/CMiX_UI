@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class RotationModifier : MessageCommunicator, IModifier
     {
-        public RotationModifier(string name, MessageDispatcher messageDispatcher, Rotation rotation, MasterBeat beat, RotationModifierModel rotationModifierModel) 
+        public RotationModifier(string name, Rotation rotation, MasterBeat beat, RotationModifierModel rotationModifierModel) 
         {
             //X = new AnimParameter(nameof(X), this, rotation.X.Amount, beat);
             //Y = new AnimParameter(nameof(Y), this, rotation.X.Amount, beat);

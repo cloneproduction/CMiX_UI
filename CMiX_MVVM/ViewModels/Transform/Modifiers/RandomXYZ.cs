@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class RandomXYZ : MessageCommunicator, ITransformModifier, IMessageProcessor
     {
-        public RandomXYZ(string name, MessageDispatcher messageDispatcher, int id, MasterBeat masterBeat, RandomXYZModel randomXYZModel)
+        public RandomXYZ(string name, int id, MasterBeat masterBeat, RandomXYZModel randomXYZModel)
         {
             Counter = new Counter(randomXYZModel.CounterModel);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;

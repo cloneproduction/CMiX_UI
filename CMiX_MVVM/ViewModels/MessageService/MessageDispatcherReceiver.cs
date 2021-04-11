@@ -14,19 +14,12 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
 
         public Dictionary<Guid, IMessageReceiveHandler> MessageProcessors { get; set; }
-        public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public IMessageReceiveHandler GetMessageProcessor(Guid id)
         {
             if (MessageProcessors.ContainsKey(id))
                 return MessageProcessors[id];
             return null;
-        }
-
-
-        public IMessage SetMessageID(IMessage message )
-        {
-            return message;
         }
 
 

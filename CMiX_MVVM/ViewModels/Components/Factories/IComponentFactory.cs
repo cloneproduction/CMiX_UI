@@ -5,7 +5,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public interface IComponentFactory
     {
-        Component CreateComponent(IMessageDispatcher messageDispatcher);
-        Component CreateComponent(IMessageDispatcher messageDispatcher, IComponentModel model);
+        Component CreateComponent(IMessageDispatcherSender messageDispatcher);
+        Component CreateComponent(IMessageDispatcherSender messageDispatcher, IComponentModel model);
     }
 }

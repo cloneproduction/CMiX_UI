@@ -8,8 +8,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.MessageSendCOR
 {
     public interface IMessageReceiveHandler/// : IMessageHandler
     {
-        Guid ID { get; set; }
-        //IMessageSendHandler SetNextSender(IMessageSendHandler handler);
+        //Guid ID { get; set; }
         void ReceiveMessage(IMessage message);
     }
 }

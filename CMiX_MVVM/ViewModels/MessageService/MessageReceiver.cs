@@ -31,7 +31,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             if(MessageDispatcher != null)
             {
                 IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-                MessageDispatcher.ProcessMessage(message);
+                //MessageDispatcher.ProcessMessage(message);
                 Console.WriteLine("Client_DataReceived Message " + message.GetType() + "  " + message.ComponentID);
             }
         }

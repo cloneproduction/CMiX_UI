@@ -6,7 +6,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class ModuleMessageDispatcher : IMessageSendHandler, IMessageReceiveHandler
     {
-
         public ModuleMessageDispatcher()
         {
             MessageProcessors = new Dictionary<Guid, IMessageReceiveHandler>();
@@ -33,9 +32,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
             }
         }
 
+
+
         public Dictionary<Guid, IMessageReceiveHandler> MessageProcessors { get; set; }
 
-        public void RegisterMessageProcessor(IMessageReceiveHandler messageProcessor)
+        public void RegisterMessageProcessor(MessageCommunicator messageProcessor)
         {
             if (MessageProcessors.ContainsKey(messageProcessor.ID))
                 MessageProcessors[messageProcessor.ID] = messageProcessor;
@@ -43,7 +44,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 MessageProcessors.Add(messageProcessor.ID, messageProcessor);
         }
 
-        public void UnregisterMessageProcessor(IMessageReceiveHandler messageProcessor)
+        public void UnregisterMessageProcessor(MessageCommunicator messageProcessor)
         {
             MessageProcessors.Remove(messageProcessor.ID);
         }

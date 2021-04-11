@@ -9,8 +9,8 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(Project project, CompositionModel compositionModel, IMessageDispatcher messageDispatcher)
-            : base(compositionModel, messageDispatcher)
+        public Composition(Project project, CompositionModel compositionModel)
+            : base(compositionModel)
         {
             Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
 

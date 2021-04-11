@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public interface IMessageDispatcher //: IMessageSendHandler
+    public interface IMessageDispatcher
     {
         //void RegisterMessageReceiver(IMessageReceiveHandler messageProcessor);
         //void UnregisterMessageReceiver(IMessageReceiveHandler messageProcessor);
@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         //void ReceiveMessage(IMessage message);
     }
 
-    public interface IMessageDispatcherReceiver : IMessageReceiveHandler, IMessageDispatcher
+    public interface IMessageDispatcherReceiver : IMessageReceiveHandler
     {
         void RegisterMessageReceiver(IMessageReceiveHandler messageProcessor);
         void UnregisterMessageReceiver(IMessageReceiveHandler messageProcessor);
