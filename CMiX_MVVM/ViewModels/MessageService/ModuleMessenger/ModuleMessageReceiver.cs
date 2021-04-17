@@ -21,7 +21,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void RegisterMessageProcessor(MessageCommunicator messageProcessor)
+        public void RegisterMessageReceiver(MessageCommunicator messageProcessor)
         {
             if (MessageProcessors.ContainsKey(messageProcessor.ID))
                 MessageProcessors[messageProcessor.ID] = messageProcessor;
@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 MessageProcessors.Add(messageProcessor.ID, messageProcessor);
         }
 
-        public void UnregisterMessageProcessor(MessageCommunicator messageProcessor)
+        public void UnregisterMessageReceiver(MessageCommunicator messageProcessor)
         {
             MessageProcessors.Remove(messageProcessor.ID);
         }

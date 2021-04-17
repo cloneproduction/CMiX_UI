@@ -22,9 +22,9 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
-        public override void SetModuleReceiver(ComponentMessageReceiver messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver)
         {
-            messageDispatcher.RegisterMessageProcessor(this);
+            moduleMessageReceiver.RegisterMessageReceiver(this);
         }
 
 

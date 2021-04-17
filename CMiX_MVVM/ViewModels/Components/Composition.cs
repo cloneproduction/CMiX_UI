@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Components
@@ -26,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetModuleSender(ComponentMessageSender messageDispatcher)
+        public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
             Transition.SetNextSender(messageDispatcher);
             MasterBeat.SetNextSender(messageDispatcher);
@@ -34,7 +35,7 @@ namespace CMiX.MVVM.ViewModels.Components
             //Visibility.SetNext(messageDispatcher);
         }
 
-        public override void SetModuleReceiver(ComponentMessageReceiver messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             Transition.SetModuleReceiver(messageDispatcher);
             MasterBeat.SetModuleReceiver(messageDispatcher);

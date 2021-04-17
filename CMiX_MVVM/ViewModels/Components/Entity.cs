@@ -33,7 +33,7 @@ namespace CMiX.MVVM.ViewModels.Components
             BeatModifier.SetModuleReceiver(messageDispatcher);
         }
 
-        public override void SetModuleSender(ComponentMessageSender messageDispatcher)
+        public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
             BeatModifier.SetNextSender(messageDispatcher);
         }

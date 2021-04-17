@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
@@ -18,25 +19,25 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         private static int ID = 0;
 
 
-        public Component CreateComponent(IMessageDispatcherSender messageDispatcher)
+        public Component CreateComponent(ComponentMessageSender messageSender)
         {
             var model = new CompositionModel(Guid.NewGuid());
             var component = new Composition(ParentProject, model);
-            component.SetAsSender(messageDispatcher);
+            component.SetAsSender(messageSender);
             ID++;
             return component;
         }
 
 
-        public Component CreateComponent(IMessageDispatcherSender messageDispatcher, IComponentModel model)
+        public Component CreateComponent(ComponentMessageSender messageSender, IComponentModel model)
         {
             var component = new Composition(ParentProject, model as CompositionModel);
-            component.SetAsSender(messageDispatcher);
+            component.SetAsSender(messageSender);
             return component;
         }
 
 
-        public Component CreateComponent(IMessageDispatcherReceiver messageDispatcherReceiver)
+        public Component CreateComponent(ComponentMessageReceiver messageDispatcherReceiver)
         {
             var model = new CompositionModel(Guid.NewGuid());
             var component = new Composition(ParentProject, model);

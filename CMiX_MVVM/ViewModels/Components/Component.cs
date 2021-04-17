@@ -143,8 +143,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public abstract void SetModuleReceiver(ModuleMessageReceiver messageDispatcher);
-        public abstract void SetModuleSender(ModuleMessageSender messageDispatcher);
+        public abstract void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver);
+        public abstract void SetModuleSender(ModuleMessageSender moduleMessageSender);
 
 
         internal void SetAsSender(ComponentMessageSender messageDispatcher)

@@ -9,8 +9,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class MessageCommunicator : ViewModel//, IMessageSendHandler, IMessageReceiveHandler
     {
-        private ComponentMessageSender _nextHandler;
-        public ComponentMessageSender SetNextSender(ComponentMessageSender handler)
+        private ModuleMessageSender _nextHandler;
+        public ModuleMessageSender SetNextSender(ModuleMessageSender handler)
         {
             _nextHandler = handler;
             return handler;
