@@ -1,13 +1,9 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentMessageSender
+    public class ComponentMessageSender : IMessageDispatcher
     {
         public ComponentMessageSender()
         {
@@ -29,7 +25,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         }
 
 
-        public void SendMessage(IMessage message)
+        public void ProcessMessage(IMessage message)
         {
             if (_nextHandler != null)
             {

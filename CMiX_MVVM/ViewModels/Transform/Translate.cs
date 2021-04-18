@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
@@ -15,13 +14,6 @@ namespace CMiX.MVVM.ViewModels
             Z = new Slider(nameof(Z), translateModel.Z);
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
-        {
-            //messageDispatcher.RegisterMessageProcessor(this);
-            X.SetModuleReceiver(messageDispatcher);
-            Y.SetModuleReceiver(messageDispatcher);
-            Z.SetModuleReceiver(messageDispatcher);
-        }
 
         public Slider X { get; set; }
         public Slider Y { get; set; }
@@ -30,6 +22,16 @@ namespace CMiX.MVVM.ViewModels
         public void Update(int count)
         {
             //XYZ = new Vector3D[count];
+        }
+
+
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageReceiver(this);
+
+            X.SetModuleReceiver(messageDispatcher);
+            Y.SetModuleReceiver(messageDispatcher);
+            Z.SetModuleReceiver(messageDispatcher);
         }
 
         public override IModel GetModel()

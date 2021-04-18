@@ -24,16 +24,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
-        {
-            //messageDispatcher.RegisterMessageProcessor(this);
-            Uniform.SetModuleReceiver(messageDispatcher);
-            X.SetModuleReceiver(messageDispatcher);
-            Y.SetModuleReceiver(messageDispatcher);
-            Z.SetModuleReceiver(messageDispatcher);
-        }
-
-
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
@@ -46,6 +36,16 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isUniform, value);
         }
 
+
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageReceiver(this);
+
+            Uniform.SetModuleReceiver(messageDispatcher);
+            X.SetModuleReceiver(messageDispatcher);
+            Y.SetModuleReceiver(messageDispatcher);
+            Z.SetModuleReceiver(messageDispatcher);
+        }
 
         public override void SetViewModel(IModel model)
         {

@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
             AssetPathSelector = new AssetPathSelector(new AssetGeometry(), geometryModel.AssetPathSelectorModel);
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             //messageDispatcher.RegisterMessageProcessor(this);
             Instancer.SetModuleReceiver(messageDispatcher);

@@ -1,10 +1,10 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+﻿using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ModuleMessageReceiver
+    public class ModuleMessageReceiver : IMessageDispatcher
     {
         public ModuleMessageReceiver()
         {
@@ -34,7 +34,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             MessageProcessors.Remove(messageProcessor.ID);
         }
 
-        public void ReceiveMessage(IMessage message)
+        public void ProcessMessage(IMessage message)
         {
 
         }

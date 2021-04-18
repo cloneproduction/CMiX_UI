@@ -35,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
 
 
             MessageTerminal = new MessageSender();
-            MessageDispatcher.RegisterMessageProcessor(CurrentProject);
+            MessageDispatcher.RegisterMessageSender(CurrentProject);
             MessageDispatcher.SetNextSender(MessageTerminal);
 
             ComponentManager = new ComponentManager(Projects, MessageDispatcher);

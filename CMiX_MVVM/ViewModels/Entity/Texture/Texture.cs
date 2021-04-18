@@ -25,21 +25,6 @@ namespace CMiX.MVVM.ViewModels
             Tilt = new Slider(nameof(Tilt), textureModel.Tilt) { Minimum = -1.0, Maximum = 1.0 };
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
-        {
-            messageDispatcher.RegisterMessageProcessor(this);
-            Brightness.SetModuleReceiver(messageDispatcher);
-            Contrast.SetModuleReceiver(messageDispatcher);
-            Hue.SetModuleReceiver(messageDispatcher);
-            Saturation.SetModuleReceiver(messageDispatcher);
-            Luminosity.SetModuleReceiver(messageDispatcher);
-            Keying.SetModuleReceiver(messageDispatcher);
-            Scale.SetModuleReceiver(messageDispatcher);
-            Rotate.SetModuleReceiver(messageDispatcher);
-            Pan.SetModuleReceiver(messageDispatcher);
-            Tilt.SetModuleReceiver(messageDispatcher);
-        }
-
 
         public AssetPathSelector AssetPathSelector { get; set; }
         public Slider Brightness { get; set; }
@@ -53,6 +38,23 @@ namespace CMiX.MVVM.ViewModels
         public Slider Scale { get; set; }
         public Slider Rotate { get; set; }
         public Inverter Inverter { get; set; }
+
+
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageReceiver(this);
+
+            Brightness.SetModuleReceiver(messageDispatcher);
+            Contrast.SetModuleReceiver(messageDispatcher);
+            Hue.SetModuleReceiver(messageDispatcher);
+            Saturation.SetModuleReceiver(messageDispatcher);
+            Luminosity.SetModuleReceiver(messageDispatcher);
+            Keying.SetModuleReceiver(messageDispatcher);
+            Scale.SetModuleReceiver(messageDispatcher);
+            Rotate.SetModuleReceiver(messageDispatcher);
+            Pan.SetModuleReceiver(messageDispatcher);
+            Tilt.SetModuleReceiver(messageDispatcher);
+        }
 
 
         public override IModel GetModel()
@@ -72,6 +74,7 @@ namespace CMiX.MVVM.ViewModels
             model.Keying = (SliderModel)this.Keying.GetModel();
             return model;
         }
+
 
         public override void SetViewModel(IModel model)
         {

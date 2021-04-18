@@ -19,6 +19,24 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         private static int ID = 0;
 
 
+        public Component CreateComponent(IMessageDispatcher messageSender)
+        {
+            var model = new CompositionModel(Guid.NewGuid());
+            var component = new Composition(ParentProject, model);
+
+
+            component.SetAsSender(messageSender);
+            ID++;
+            return component;
+        }
+
+
+        private void SetComponent(IMessageDispatcher messageDispatcher)
+        {
+
+        }
+
+
         public Component CreateComponent(ComponentMessageSender messageSender)
         {
             var model = new CompositionModel(Guid.NewGuid());
@@ -37,13 +55,18 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         }
 
 
-        public Component CreateComponent(ComponentMessageReceiver messageDispatcherReceiver)
+        public Component CreateComponent(ComponentMessageReceiver messageReceiver)
         {
             var model = new CompositionModel(Guid.NewGuid());
             var component = new Composition(ParentProject, model);
-            component.SetAsReceiver(messageDispatcherReceiver);
+            component.SetAsReceiver(messageReceiver);
             ID++;
             return component;
+        }
+
+        public Component CreateComponent(ComponentMessageReceiver messageDispatcher, IComponentModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

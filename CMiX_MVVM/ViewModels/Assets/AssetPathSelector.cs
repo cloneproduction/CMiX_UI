@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageProcessor(this);
+            messageDispatcher.RegisterMessageReceiver(this);
         }
 
 

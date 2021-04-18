@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels.Beat
 
         public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageProcessor(this);
+            messageDispatcher.RegisterMessageReceiver(this);
         }
 
 

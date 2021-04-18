@@ -15,9 +15,9 @@ namespace CMiX.MVVM.ViewModels
             SubCommand = new RelayCommand(p => Sub());
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageProcessor(this);
+            messageDispatcher.RegisterMessageReceiver(this);
         }
 
         public event EventHandler<CounterEventArgs> CounterChangeEvent;

@@ -8,8 +8,8 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Entity : Component
     {
-        public Entity(Scene scene, EntityModel entityModel, IMessageDispatcher messageDispatcher) 
-            : base (entityModel, messageDispatcher)
+        public Entity(Scene scene, EntityModel entityModel) 
+            : base (entityModel)
         {
             MasterBeat = scene.MasterBeat;
 

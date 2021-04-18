@@ -8,23 +8,23 @@ namespace CMiX.MVVM.ViewModels
     {
         public Rotation(string name, RotationModel rotationModel)
         {
-            //X = new Slider(nameof(X), messageDispatcher, rotationModel.X);
-            //Y = new Slider(nameof(Y), messageDispatcher, rotationModel.Y);
-            //Z = new Slider(nameof(Z), messageDispatcher, rotationModel.Z);
-        }
-
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
-        {
-            //messageDispatcher.RegisterMessageProcessor(this);
-            X.SetModuleReceiver(messageDispatcher);
-            Y.SetModuleReceiver(messageDispatcher);
-            Z.SetModuleReceiver(messageDispatcher);
+            X = new Slider(nameof(X), rotationModel.X);
+            Y = new Slider(nameof(Y), rotationModel.Y);
+            Z = new Slider(nameof(Z), rotationModel.Z);
         }
 
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
 
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageReceiver(this);
+
+            X.SetModuleReceiver(messageDispatcher);
+            Y.SetModuleReceiver(messageDispatcher);
+            Z.SetModuleReceiver(messageDispatcher);
+        }
 
         public override IModel GetModel()
         {

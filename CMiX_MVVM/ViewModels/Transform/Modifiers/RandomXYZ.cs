@@ -39,9 +39,10 @@ namespace CMiX.MVVM.ViewModels
             RandomizeRotation = true;
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageProcessor(this);
+            messageDispatcher.RegisterMessageReceiver(this);
+
             LocationX.SetModuleReceiver(messageDispatcher);
         }
 

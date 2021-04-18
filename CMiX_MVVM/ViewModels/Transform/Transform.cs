@@ -15,16 +15,6 @@ namespace CMiX.MVVM.ViewModels
             Is3D = false;
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
-        {
-            //messageDispatcher.RegisterMessageProcessor(this);
-            Translate.SetModuleReceiver(messageDispatcher);
-            Scale.SetModuleReceiver(messageDispatcher);
-            Rotation.SetModuleReceiver(messageDispatcher);
-        }
-
-
-
         public Translate Translate { get; set; }
         public Scale Scale { get; set; }
         public Rotation Rotation { get; set; }
@@ -46,6 +36,16 @@ namespace CMiX.MVVM.ViewModels
         {
             //this.Count = count;
         }
+
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        {
+            messageDispatcher.RegisterMessageReceiver(this);
+
+            Translate.SetModuleReceiver(messageDispatcher);
+            Scale.SetModuleReceiver(messageDispatcher);
+            Rotation.SetModuleReceiver(messageDispatcher);
+        }
+
 
         public override void SetViewModel(IModel model)
         {

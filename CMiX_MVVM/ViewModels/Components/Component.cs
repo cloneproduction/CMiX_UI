@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;

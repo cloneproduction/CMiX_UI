@@ -4,6 +4,7 @@ using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using MvvmDialogs;
 using System.Collections.ObjectModel;
 
@@ -76,12 +77,12 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
             throw new System.NotImplementedException();
         }

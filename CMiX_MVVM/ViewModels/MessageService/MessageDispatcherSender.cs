@@ -3,7 +3,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageDispatcherSender : IMessageDispatcherSender 
+    public class MessageDispatcherSender //: IMessageDispatcherSender 
     {
         public MessageDispatcherSender()
         {

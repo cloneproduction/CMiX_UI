@@ -12,9 +12,9 @@ namespace CMiX.MVVM.ViewModels
             InvertMode = inverterModel.InvertMode;
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageProcessor(this);
+            messageDispatcher.RegisterMessageReceiver(this);
             Invert.SetModuleReceiver(messageDispatcher);
         }
 

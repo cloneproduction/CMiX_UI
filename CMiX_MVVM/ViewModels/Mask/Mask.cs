@@ -13,9 +13,9 @@ namespace CMiX.MVVM.ViewModels
             Enabled = maskModel.Enabled;
         }
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageProcessor(this);
+            messageDispatcher.RegisterMessageReceiver(this);
         }
 
         private bool _IsMask;

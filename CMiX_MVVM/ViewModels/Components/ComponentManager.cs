@@ -2,6 +2,7 @@
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

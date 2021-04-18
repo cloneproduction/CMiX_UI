@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
@@ -16,17 +17,37 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         private Scene ParentScene { get; set; }
 
 
-        public Component CreateComponent(IMessageDispatcher messageDispatcher)
+        public Component CreateComponent(ComponentMessageReceiver messageReceiver)
         {
             EntityModel entityModel = new EntityModel(Guid.NewGuid());
-            var component = new Entity(ParentScene, entityModel, messageDispatcher);
+            var component = new Entity(ParentScene, entityModel);
+            component.SetAsReceiver(messageReceiver);
             ID++;
             return component;
         }
 
-        public Component CreateComponent(IMessageDispatcher messageDispatcher, IComponentModel model)
+        public Component CreateComponent(ComponentMessageReceiver messageReceiver, IComponentModel model)
         {
-            return new Entity(ParentScene, model as EntityModel, messageDispatcher);
+            var component = new Entity(ParentScene, model as EntityModel);
+            component.SetAsReceiver(messageReceiver);
+            return component;
+        }
+
+
+        public Component CreateComponent(ComponentMessageSender messageSender)
+        {
+            EntityModel entityModel = new EntityModel(Guid.NewGuid());
+            var component = new Entity(ParentScene, entityModel);
+            component.SetAsSender(messageSender);
+            ID++;
+            return component;
+        }
+
+        public Component CreateComponent(ComponentMessageSender messageSender, IComponentModel model)
+        {
+            var component = new Entity(ParentScene, model as EntityModel);
+            component.SetAsSender(messageSender);
+            return component;
         }
     }
 }

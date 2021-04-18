@@ -3,13 +3,14 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(Layer layer, SceneModel sceneModel, IMessageDispatcher messageDispatcher) 
-            : base (sceneModel, messageDispatcher)
+        public Scene(Layer layer, SceneModel sceneModel) 
+            : base (sceneModel)
         {
             MasterBeat = layer.MasterBeat;
 
@@ -30,12 +31,12 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetModuleReceiver(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void SetModuleSender(ModuleMessageDispatcher messageDispatcher)
+        public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
             throw new System.NotImplementedException();
         }
