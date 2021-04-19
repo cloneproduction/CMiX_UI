@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
@@ -9,6 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class Module : ViewModel//, IMessageSendHandler, IMessageReceiveHandler
     {
+
         private ModuleMessageSender _nextHandler;
         public ModuleMessageSender SetNextSender(ModuleMessageSender handler)
         {

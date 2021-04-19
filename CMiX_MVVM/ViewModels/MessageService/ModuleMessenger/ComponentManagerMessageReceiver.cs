@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels.Components;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,10 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void ProcessMessage(IMessage message)
         {
+            if(message is MessageUpdateViewModel)
+            {
+                ComponentManager.MessageDispatcher.ProcessMessage(message);
+            }
             Console.WriteLine("ComponentManagerMessageReceiver ProcessMessage");
         }
     }
