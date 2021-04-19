@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Easing : MessageCommunicator
+    public class Easing : Module
     {
         public Easing(EasingModel easingModel)
         {

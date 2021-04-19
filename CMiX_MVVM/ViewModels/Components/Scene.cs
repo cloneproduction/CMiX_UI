@@ -33,12 +33,20 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            throw new System.NotImplementedException();
+            Transform.SetModuleReceiver(messageDispatcher);
+            Mask.SetModuleReceiver(messageDispatcher);
+            PostFX.SetModuleReceiver(messageDispatcher);
+            BeatModifier.SetModuleReceiver(messageDispatcher);
+            MasterBeat.SetModuleReceiver(messageDispatcher);
         }
 
         public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
-            throw new System.NotImplementedException();
+            Transform.SetNextSender(messageDispatcher);
+            Mask.SetNextSender(messageDispatcher);
+            PostFX.SetNextSender(messageDispatcher);
+            BeatModifier.SetNextSender(messageDispatcher);
+            MasterBeat.SetNextSender(messageDispatcher);
         }
 
 

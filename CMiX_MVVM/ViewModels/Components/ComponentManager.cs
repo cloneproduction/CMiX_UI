@@ -1,8 +1,8 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,12 +10,11 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class ComponentManager : ViewModel, IMessageSendHandler
+    public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components, IMessageDispatcher messageDispatcher)
+        public ComponentManager(ObservableCollection<Component> components)
         {
             Components = components;
-            MessageDispatcher = messageDispatcher;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -24,40 +23,39 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        private IMessageSendHandler _nextHandler;
-        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
+        public void SetMessageCommunication(IMessageDispatcher messageDispatcher)
         {
-            _nextHandler = handler;
-            return handler;
-        }
-
-        public void SendMessage(IMessage message)
-        {
-            if (_nextHandler != null)
+            if (messageDispatcher is ComponentManagerMessageSender)
             {
-                _nextHandler.SendMessage(message);
+                this.SetAsSender(messageDispatcher as ComponentManagerMessageSender);
+            }
+            else if (messageDispatcher is ComponentManagerMessageReceiver)
+            {
+                this.SetAsReceiver(messageDispatcher as ComponentManagerMessageReceiver);
             }
         }
 
 
+        private void SetAsSender(ComponentManagerMessageSender messageSender)
+        {
+            var componentMessageSender = new ComponentMessageSender();
+            componentMessageSender.SetNextSender(messageSender);
+
+            MessageDispatcher = componentMessageSender;
+        }
 
 
+        private void SetAsReceiver(ComponentManagerMessageReceiver messageReceiver)
+        {
+            var componentMessageReceiver = new ComponentMessageReceiver();
 
-        //private void MessageDispatcher_MessageInNotification(IMessage message)
-        //{
-        //    //var componentManagerMessage = message as IComponentManagerMessage;
-        //    if (message is IComponentManagerMessage)
-        //    {
-        //        ((IComponentManagerMessage)message).Process(this);
-        //    }
-        //    //else if(message is IViewModelMessage)
-        //    //{
-        //    //    var viewModelMessage = message as IViewModelMessage;
-        //    //    var component = MessageDispatcher.GetMessageProcessor(message.ComponentID) as Component;
-        //    //    var module = component.MessageDispatcher.GetMessageProcessor(viewModelMessage.ModuleID) as MessageCommunicator;
-        //    //    viewModelMessage.Process(module);
-        //    //}
-        //}
+            messageReceiver.RegisterMessageReceiver(componentMessageReceiver);
+
+            MessageDispatcher = componentMessageReceiver;
+        }
+
+
+        public IMessageDispatcher MessageDispatcher { get; set; }
 
 
         public ICommand CreateComponentCommand { get; }
@@ -66,7 +64,6 @@ namespace CMiX.MVVM.ViewModels.Components
         public ICommand RenameComponentCommand { get; }
 
 
-        public IMessageDispatcher MessageDispatcher { get; set; }
         public ObservableCollection<Component> Components { get; set; }
 
 

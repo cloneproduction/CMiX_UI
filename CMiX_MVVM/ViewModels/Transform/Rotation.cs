@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Rotation : MessageCommunicator
+    public class Rotation : Module
     {
         public Rotation(string name, RotationModel rotationModel)
         {

@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Translate : MessageCommunicator, IObserver
+    public class Translate : Module, IObserver
     {
         public Translate(string name, TranslateModel translateModel) 
         {

@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using Memento;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
@@ -20,11 +21,10 @@ namespace CMiX.MVVM.ViewModels
         public MainViewModel()
         {
             Mementor = new Mementor();
+            MessageDispatcher = new ComponentMessageSender();
 
             var model = new ProjectModel(Guid.Empty);
-            MessageDispatcher = new MessageDispatcherSender();
-
-            CurrentProject = new Project(model, MessageDispatcher);
+            CurrentProject = new Project(model);
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<Component>();
@@ -33,13 +33,14 @@ namespace CMiX.MVVM.ViewModels
             AssetManager = new AssetManager(CurrentProject);
 
 
+            MessageSender = new MessageSender();
 
-            MessageTerminal = new MessageSender();
-            MessageDispatcher.RegisterMessageSender(CurrentProject);
-            MessageDispatcher.SetNextSender(MessageTerminal);
+            ComponentManagerMessageSender componentManagerMessageSender = new ComponentManagerMessageSender();
+            componentManagerMessageSender.SetNextSender(MessageSender);
 
-            ComponentManager = new ComponentManager(Projects, MessageDispatcher);
-            ComponentManager.MessageOutNotification += MessageTerminal.SendMessage;
+            ComponentManager = new ComponentManager(Projects);
+            ComponentManager.SetMessageCommunication(componentManagerMessageSender);
+
 
             Outliner = new Outliner(Projects);
 
@@ -82,7 +83,7 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        public MessageDispatcherSender MessageDispatcher { get; set; }
+        public ComponentMessageSender MessageDispatcher { get; set; }
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
         public ObservableCollection<Component> Projects { get; set; }
@@ -97,11 +98,11 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        private MessageSender _MessageTerminal;
-        public MessageSender MessageTerminal
+        private MessageSender _messageSender;
+        public MessageSender MessageSender
         {
-            get => _MessageTerminal;
-            set => SetAndNotify(ref _MessageTerminal, value);
+            get => _messageSender;
+            set => SetAndNotify(ref _messageSender, value);
         }
 
 

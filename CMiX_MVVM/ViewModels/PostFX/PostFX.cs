@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class PostFX : MessageCommunicator
+    public class PostFX : Module
     {
         public PostFX(PostFXModel postFXModel)
         {

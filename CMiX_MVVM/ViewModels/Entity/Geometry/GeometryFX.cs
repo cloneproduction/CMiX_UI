@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryFX : MessageCommunicator
+    public class GeometryFX : Module
     {
         public GeometryFX(GeometryFXModel geometryFXModel) 
         {

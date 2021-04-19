@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class MessageReceiver : ViewModel, IMessageTerminal
+    public class MessageReceiver : ViewModel, IMessageTerminal, IMessageDispatcher
     {
         public MessageReceiver()
         {
@@ -16,11 +16,13 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
+
+
         private IMessageDispatcher MessageDispatcher;
         private CerasSerializer Serializer { get; set; }
 
 
-        public void SetMessageDispatcher(IMessageDispatcher messageDispatcher)
+        public void RegisterMessageReceiver(IMessageDispatcher messageDispatcher)
         {
             MessageDispatcher = messageDispatcher;
         }
@@ -28,13 +30,22 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
-            if(MessageDispatcher != null)
+            if (MessageDispatcher != null)
             {
                 IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-                //MessageDispatcher.ProcessMessage(message);
-                Console.WriteLine("Client_DataReceived Message " + message.GetType() + "  " + message.ComponentID);
+                ProcessMessage(message);
             }
         }
+
+
+        public void ProcessMessage(IMessage message)
+        {
+            MessageDispatcher.ProcessMessage(message);
+            Console.WriteLine("Client_DataReceived Message " + message.GetType() + "  " + message.ComponentID);
+        }
+
+
+
 
 
         public string Address

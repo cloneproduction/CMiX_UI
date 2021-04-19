@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ComboBox<T> : MessageCommunicator
+    public class ComboBox<T> : Module
     {
         public ComboBox(ComboBoxModel<T> comboBoxModel) 
         {

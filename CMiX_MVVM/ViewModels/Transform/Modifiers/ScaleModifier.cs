@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ScaleModifier : MessageCommunicator, IModifier
+    public class ScaleModifier : Module, IModifier
     {
         public ScaleModifier(string name, Scale scale, MasterBeat beat, ScaleModifierModel scaleModifierModel) 
         {

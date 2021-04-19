@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Texture : MessageCommunicator
+    public class Texture : Module
     {
         public Texture(IMessageDispatcher messageDispatcher, MasterBeat beat, TextureModel textureModel)
         {

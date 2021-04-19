@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Transform : MessageCommunicator, IObserver
+    public class Transform : Module, IObserver
     {
         public Transform(TransformModel transformModel)
         {

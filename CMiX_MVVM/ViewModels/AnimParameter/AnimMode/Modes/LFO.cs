@@ -7,7 +7,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : MessageCommunicator, IAnimMode
+    public class LFO : Module, IAnimMode
     {
         public LFO(LFOModel lfoModel)
         {

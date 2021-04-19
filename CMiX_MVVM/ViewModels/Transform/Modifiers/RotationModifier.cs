@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RotationModifier : MessageCommunicator, IModifier
+    public class RotationModifier : Module, IModifier
     {
         public RotationModifier(string name, Rotation rotation, MasterBeat beat, RotationModifierModel rotationModifierModel) 
         {

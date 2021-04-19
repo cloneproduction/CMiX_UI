@@ -79,12 +79,12 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            throw new System.NotImplementedException();
+            Visibility.SetModuleReceiver(messageDispatcher);
         }
 
         public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
-            throw new System.NotImplementedException();
+            Visibility.SetNextSender(messageDispatcher);
         }
     }
 }

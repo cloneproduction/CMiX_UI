@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Mask : MessageCommunicator
+    public class Mask : Module
     {
         public Mask(IMessageDispatcher messageDispatcher, MaskModel maskModel) 
         {

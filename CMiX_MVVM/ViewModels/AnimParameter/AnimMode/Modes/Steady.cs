@@ -8,7 +8,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Steady : MessageCommunicator, IAnimMode
+    public class Steady : Module, IAnimMode
     {
         public Steady(SteadyModel steadyModel)
         {

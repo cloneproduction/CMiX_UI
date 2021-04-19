@@ -8,7 +8,7 @@ using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class XYZModifier : MessageCommunicator, IModifier, ISubject, IObserver
+    public class XYZModifier : Module, IModifier, ISubject, IObserver
     {
         public XYZModifier(string name, Vector3D vector3D, MasterBeat beat, XYZModifierModel xYZModifierModel)
         {

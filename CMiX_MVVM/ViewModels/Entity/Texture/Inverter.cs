@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Inverter : MessageCommunicator
+    public class Inverter : Module
     {
         public Inverter(string name, InverterModel inverterModel) 
         {

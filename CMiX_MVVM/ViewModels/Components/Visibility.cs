@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class Visibility : MessageCommunicator, IMessageProcessor
+    public class Visibility : Module, IMessageProcessor
     {
         public Visibility(VisibilityModel visibilityModel)
         {
@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public Visibility(Visibility parentVisibility, VisibilityModel visibilityModel)
         {
             IsVisible = true;
-            ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
+            //ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 

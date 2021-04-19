@@ -7,6 +7,6 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
     {
         Guid ModuleID { get; set; }
 
-        void Process(MessageCommunicator messageCommunicator);
+        void Process(Module messageCommunicator);
     }
 }

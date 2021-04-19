@@ -7,7 +7,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AnimParameter : MessageCommunicator, IObserver
+    public class AnimParameter : Module, IObserver
     {
         public AnimParameter(string name, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) 
         {

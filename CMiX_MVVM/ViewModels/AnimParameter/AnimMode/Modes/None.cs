@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : MessageCommunicator, IAnimMode
+    public class None : Module, IAnimMode
     {
         public None(AnimParameter animParameter, NoneModel noneModel)
         {

@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Counter : MessageCommunicator
+    public class Counter : Module
     {
         public Counter(CounterModel counterModel) 
         {

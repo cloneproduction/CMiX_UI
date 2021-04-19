@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public Guid ModuleID { get; set; }
         public Guid ComponentID { get; set; }
 
-        public void Process(MessageCommunicator messageCommunicator)
+        public void Process(Module messageCommunicator)
         {
             messageCommunicator.SetViewModel(Model);
         }

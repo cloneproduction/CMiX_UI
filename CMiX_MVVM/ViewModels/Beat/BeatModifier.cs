@@ -3,7 +3,6 @@ using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
@@ -12,7 +11,7 @@ namespace CMiX.MVVM.ViewModels.Beat
         public BeatModifier(MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
             : base (beatModifierModel)
         {
-            //ChanceToHit = new Slider(nameof(ChanceToHit), messageDispatcher, beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
+            ChanceToHit = new Slider(nameof(ChanceToHit), beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
             Multiplier = beatModifierModel.Multiplier;
 
             MasterBeat = masterBeat;
@@ -111,12 +110,6 @@ namespace CMiX.MVVM.ViewModels.Beat
             model.Multiplier = this.Multiplier;
             return model;
         }
-
-        //public override void Dispose()
-        //{
-        //    MasterBeat.Detach(this);
-        //    base.Dispose();
-        //}
 
         public void UpdatePeriod(double period)
         {

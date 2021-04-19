@@ -7,7 +7,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class MessageCommunicator : ViewModel//, IMessageSendHandler, IMessageReceiveHandler
+    public abstract class Module : ViewModel//, IMessageSendHandler, IMessageReceiveHandler
     {
         private ModuleMessageSender _nextHandler;
         public ModuleMessageSender SetNextSender(ModuleMessageSender handler)
@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels
         {
             if (_nextHandler != null)
             {
-                _nextHandler.SendMessage(message);
+                _nextHandler.ProcessMessage(message);
             }
         }
 

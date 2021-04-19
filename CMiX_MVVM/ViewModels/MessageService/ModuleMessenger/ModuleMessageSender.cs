@@ -4,10 +4,13 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
     public class ModuleMessageSender : IMessageDispatcher
     {
-        public ModuleMessageSender()
+        public ModuleMessageSender(Guid componentID)
         {
-
+            ComponentID = componentID;
         }
+
+
+        Guid ComponentID { get; set; }
 
         public IMessage SetMessageID(IMessage message)
         {
@@ -25,6 +28,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         {
             if (_nextHandler != null)
             {
+                message.ComponentID = ComponentID;
                 _nextHandler.ProcessMessage(message);
                 Console.WriteLine("ModuleMessageSender SendMessage");
             }

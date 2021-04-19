@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageSender : ViewModel, IMessageSendHandler
+    public class MessageSender : ViewModel, IMessageDispatcher
     {
         public MessageSender()
         {
@@ -76,7 +76,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 obj.IsRenaming = true;
         }
 
-        public void SendMessage(IMessage message)
+        public void ProcessMessage(IMessage message)
         {
             var address = message.ComponentID;
             var data = Serializer.Serialize(message);
@@ -84,8 +84,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
             foreach (var messenger in Messengers)
             {
                 messenger.SendMessage(address, data);
+                System.Console.WriteLine("MessageSender SendMessage");
             }
-            System.Console.WriteLine("MessageSender Send Message");
         }
 
         public IMessageSendHandler SetNextSender(IMessageSendHandler handler)

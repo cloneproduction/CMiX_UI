@@ -146,17 +146,32 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract void SetModuleSender(ModuleMessageSender moduleMessageSender);
 
 
-        internal void SetAsSender(ComponentMessageSender messageDispatcher)
+        public void SetMessageCommunication(IMessageDispatcher messageDispatcher)
         {
-            this.MessageDispatcher = messageDispatcher as IMessageDispatcher;
-            ModuleMessageSender moduleMessageDispatcher = new ModuleMessageSender();
+            if (messageDispatcher is ComponentMessageSender)
+            {
+                this.SetAsSender(messageDispatcher as ComponentMessageSender);
+            }
+            else if (messageDispatcher is ComponentMessageReceiver)
+            {
+                this.SetAsReceiver(messageDispatcher as ComponentMessageReceiver);
+            }
+        }
+
+
+        private void SetAsSender(ComponentMessageSender messageDispatcher)
+        {
+            MessageDispatcher = messageDispatcher;
+
+            ModuleMessageSender moduleMessageDispatcher = new ModuleMessageSender(this.ID);
             moduleMessageDispatcher.SetNextSender(messageDispatcher);
             this.SetModuleSender(moduleMessageDispatcher);
         }
-        
-        internal void SetAsReceiver(ComponentMessageReceiver messageDispatcher)
+
+        private void SetAsReceiver(ComponentMessageReceiver messageDispatcher)
         {
-            this.MessageDispatcher = messageDispatcher as IMessageDispatcher;
+            MessageDispatcher = messageDispatcher;
+
             ModuleMessageReceiver moduleMessageDispatcher = new ModuleMessageReceiver();
             this.SetModuleReceiver(moduleMessageDispatcher);
             messageDispatcher.RegisterMessageReceiver(this);

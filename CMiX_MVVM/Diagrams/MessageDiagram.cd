@@ -76,11 +76,11 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.MessageCommunicator" BaseTypeListCollapsed="true">
+  <Class Name="CMiX.MVVM.ViewModels.Module" BaseTypeListCollapsed="true">
     <Position X="25.75" Y="10.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACCAAAAAAAAAAgQAAAAAAQACAAAAAAAAAQA=</HashCode>
-      <FileName>ViewModels\MessageService\MessageCommunicator.cs</FileName>
+      <FileName>ViewModels\MessageService\Module.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MessageDispatcher" />

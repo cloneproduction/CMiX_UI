@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class TranslateModifier : ViewModel, IModifier, IObserver
     {
-        public TranslateModifier(string name, MessageCommunicator parentSender, MasterBeat beat)
+        public TranslateModifier(string name, Module parentSender, MasterBeat beat)
         {
             Count = 1;
 

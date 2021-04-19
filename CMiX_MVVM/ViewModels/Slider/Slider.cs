@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : MessageCommunicator
+    public class Slider : Module
     {
         public Slider(string name, SliderModel sliderModel) 
         {

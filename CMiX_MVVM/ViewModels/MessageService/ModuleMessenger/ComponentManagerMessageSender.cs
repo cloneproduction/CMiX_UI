@@ -1,21 +1,13 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentMessageSender : IMessageDispatcher
+    public class ComponentManagerMessageSender : IMessageDispatcher
     {
-        public ComponentMessageSender()
+        public ComponentManagerMessageSender()
         {
 
         }
-
-
-        public IMessage SetMessageID(IMessage message)
-        {
-            return message;
-        }
-
 
         private IMessageDispatcher _nextHandler;
         public IMessageDispatcher SetNextSender(IMessageDispatcher handler)
@@ -24,13 +16,12 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return handler;
         }
 
-
         public void ProcessMessage(IMessage message)
         {
             if (_nextHandler != null)
             {
                 _nextHandler.ProcessMessage(message);
-                Console.WriteLine("ComponentMessageSender SendMessage");
+                Console.WriteLine("ManagerMessageSender SendMessage");
             }
         }
     }

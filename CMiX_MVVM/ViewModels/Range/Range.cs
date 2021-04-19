@@ -5,7 +5,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Range : MessageCommunicator, IRange
+    public class Range : Module, IRange
     {
         public Range(RangeModel rangeModel) 
         {

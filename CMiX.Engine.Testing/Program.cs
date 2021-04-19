@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using CMiX.Studio.ViewModels.MessageService;
 using System;
 using System.Collections.ObjectModel;
@@ -15,17 +16,24 @@ namespace CMiX.Engine.Testing
 
             var projectModel = new ProjectModel(Guid.Empty);
 
-            var messageDispatcher = new MessageDispatcher();
+            ComponentManagerMessageReceiver componentManagerMessageReceiver = new ComponentManagerMessageReceiver();
+
             var messageReceiver = new MessageReceiver();
-            messageReceiver.SetMessageDispatcher(messageDispatcher);
+            messageReceiver.RegisterMessageReceiver(componentManagerMessageReceiver);
             messageReceiver.Start(settings);
 
-            Project Project = new Project(projectModel, messageDispatcher);
-            messageDispatcher.RegisterMessageProcessor(Project);
-            
+            Project Project = new Project(projectModel);
+            Project.SetMessageCommunication(componentManagerMessageReceiver);
+
             var projects = new ObservableCollection<Component>();
             projects.Add(Project);
-            ComponentManager componentManager = new ComponentManager(projects, messageDispatcher);
+
+
+
+
+
+            ComponentManager componentManager = new ComponentManager(projects);
+            componentManager.SetMessageCommunication(componentManagerMessageReceiver);
 
             Console.ReadLine();
         }

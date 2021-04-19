@@ -1,38 +1,41 @@
 ﻿using CMiX.MVVM.ViewModels.Components;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentMessageReceiver
+    public class ComponentMessageReceiver : IMessageDispatcher
     {
         public ComponentMessageReceiver()
         {
-            MessageProcessors = new Dictionary<Guid, Component>();
+            Components = new Dictionary<Guid, Component>();
         }
 
-        private Dictionary<Guid, Component> MessageProcessors { get; set; }
+        private Dictionary<Guid, Component> Components { get; set; }
 
-        public void RegisterMessageReceiver(Component messageProcessor)
+        private Component GetMessageProcessor(Guid id)
         {
-            if (MessageProcessors.ContainsKey(messageProcessor.ID))
-                MessageProcessors[messageProcessor.ID] = messageProcessor;
+            if (Components.ContainsKey(id))
+                return Components[id];
+            return null;
+        }
+
+        public void RegisterMessageReceiver(Component component)
+        {
+            if (Components.ContainsKey(component.ID))
+                Components[component.ID] = component;
             else
-                MessageProcessors.Add(messageProcessor.ID, messageProcessor);
+                Components.Add(component.ID, component);
         }
 
-        public void UnregisterMessageReceiver(Component messageProcessor)
+        public void UnregisterMessageReceiver(Component component)
         {
-            MessageProcessors.Remove(messageProcessor.ID);
+            Components.Remove(component.ID);
         }
 
-        public void ReceiveMessage(IMessage message)
+        public void ProcessMessage(IMessage message)
         {
-
+            Console.WriteLine("ComponentMessageReceiver");
         }
     }
 }

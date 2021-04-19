@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Camera : MessageCommunicator
+    public class Camera : Module
     {
         public Camera(MasterBeat beat, CameraModel cameraModel) 
         {

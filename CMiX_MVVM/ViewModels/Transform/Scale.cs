@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scale : MessageCommunicator
+    public class Scale : Module
     {
         public Scale(string name, ScaleModel scaleModel)
         {

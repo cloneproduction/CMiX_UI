@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorSelector : MessageCommunicator
+    public class ColorSelector : Module
     {
         public ColorSelector(ColorSelectorModel colorSelectorModel) 
         {

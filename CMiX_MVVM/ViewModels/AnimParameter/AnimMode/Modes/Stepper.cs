@@ -7,7 +7,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Stepper : MessageCommunicator, IAnimMode
+    public class Stepper : Module, IAnimMode
     {
         public Stepper(StepperModel stepperModel)
         {

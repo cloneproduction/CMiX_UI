@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Coloration : MessageCommunicator
+    public class Coloration : Module
     {
         public Coloration(MasterBeat masterBeat, ColorationModel colorationModel) 
         {

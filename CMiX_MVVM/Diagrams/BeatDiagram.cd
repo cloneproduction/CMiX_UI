@@ -93,7 +93,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.MessageCommunicator" Collapsed="true">
+  <Class Name="CMiX.MVVM.ViewModels.Module" Collapsed="true">
     <Position X="27" Y="18.25" Width="3" />
     <InheritanceLine Type="CMiX.MVVM.ViewModels.ViewModel" ManuallyRouted="true">
       <Path>
@@ -105,7 +105,7 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAACCAAAAAAAAAAgQAAAAAAQACAAAAAAAAAQA=</HashCode>
-      <FileName>ViewModels\MessageService\MessageCommunicator.cs</FileName>
+      <FileName>ViewModels\MessageService\Module.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MessageDispatcher" />

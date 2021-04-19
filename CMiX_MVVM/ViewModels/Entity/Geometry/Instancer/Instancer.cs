@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : MessageCommunicator
+    public class Instancer : Module
     {
         public Instancer(MasterBeat beat, InstancerModel instancerModel) 
         {

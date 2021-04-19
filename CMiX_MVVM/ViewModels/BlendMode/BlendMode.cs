@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BlendMode : MessageCommunicator
+    public class BlendMode : Module
     {
         public BlendMode(IMessageDispatcher messageDispatcher, BlendModeModel blendModeModel)
         {
