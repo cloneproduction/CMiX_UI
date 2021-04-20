@@ -15,12 +15,12 @@ namespace CMiX.MVVM.ViewModels
             View = postFXModel.View;
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
             messageDispatcher.RegisterMessageReceiver(this);
 
-            Feedback.SetModuleReceiver(messageDispatcher);
-            Blur.SetModuleReceiver(messageDispatcher);
+            Feedback.SetReceiver(messageDispatcher);
+            Blur.SetReceiver(messageDispatcher);
         }
 
 

@@ -50,7 +50,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             return model;
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
             throw new NotImplementedException();
         }

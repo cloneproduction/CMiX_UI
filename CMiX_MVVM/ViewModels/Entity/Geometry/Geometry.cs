@@ -16,13 +16,13 @@ namespace CMiX.MVVM.ViewModels
             AssetPathSelector = new AssetPathSelector(new AssetGeometry(), geometryModel.AssetPathSelectorModel);
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
             //messageDispatcher.RegisterMessageProcessor(this);
-            Instancer.SetModuleReceiver(messageDispatcher);
-            Transform.SetModuleReceiver(messageDispatcher);
-            GeometryFX.SetModuleReceiver(messageDispatcher);
-            AssetPathSelector.SetModuleReceiver(messageDispatcher);
+            Instancer.SetReceiver(messageDispatcher);
+            Transform.SetReceiver(messageDispatcher);
+            GeometryFX.SetReceiver(messageDispatcher);
+            AssetPathSelector.SetReceiver(messageDispatcher);
         }
 
         public AssetPathSelector AssetPathSelector { get; set; }

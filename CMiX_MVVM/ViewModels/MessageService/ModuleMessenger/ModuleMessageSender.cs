@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         }
 
         private ComponentMessageSender _nextHandler;
-        public ComponentMessageSender SetNextSender(ComponentMessageSender handler)
+        public ComponentMessageSender SetSender(ComponentMessageSender handler)
         {
             _nextHandler = handler;
             return handler;

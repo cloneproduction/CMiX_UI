@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels
             EasingFunction = EasingFunction.None;
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
             messageDispatcher.RegisterMessageReceiver(this);
         }

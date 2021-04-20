@@ -21,11 +21,11 @@ namespace CMiX.MVVM.ViewModels
             SelectedModeType = ModeType.None;
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageReceiver(this);
+            base.SetReceiver(messageDispatcher);
 
-            Width.SetModuleReceiver(messageDispatcher);
+            Width.SetReceiver(messageDispatcher);
         }
 
         public BeatModifier BeatModifier { get; set; }

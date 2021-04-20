@@ -110,7 +110,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public abstract void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver);
+        public abstract void SetReceiver(ModuleMessageReceiver moduleMessageReceiver);
         public abstract void SetModuleSender(ModuleMessageSender moduleMessageSender);
 
 
@@ -131,7 +131,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             ModuleMessageSender moduleMessageSender = new ModuleMessageSender(this.ID);
 
-            moduleMessageSender.SetNextSender(componentMessageSender);
+            moduleMessageSender.SetSender(componentMessageSender);
             this.SetModuleSender(moduleMessageSender);
 
             MessageDispatcher = moduleMessageSender;
@@ -142,7 +142,7 @@ namespace CMiX.MVVM.ViewModels.Components
             componentMessageReceiver.RegisterMessageReceiver(this);
 
             ModuleMessageReceiver moduleMessageReceiver = new ModuleMessageReceiver();
-            this.SetModuleReceiver(moduleMessageReceiver);
+            this.SetReceiver(moduleMessageReceiver);
 
             MessageDispatcher = moduleMessageReceiver;
         }

@@ -36,7 +36,7 @@ namespace CMiX.MVVM.ViewModels
             MessageSender = new MessageSender();
 
             ComponentManagerMessageSender componentManagerMessageSender = new ComponentManagerMessageSender();
-            componentManagerMessageSender.SetNextSender(MessageSender);
+            componentManagerMessageSender.SetSender(MessageSender);
 
             ComponentManager = new ComponentManager(Projects);
             ComponentManager.SetMessageCommunication(componentManagerMessageSender);

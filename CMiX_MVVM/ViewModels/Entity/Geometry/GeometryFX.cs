@@ -11,9 +11,9 @@ namespace CMiX.MVVM.ViewModels
             Explode = new Slider(nameof(Explode), geometryFXModel.Explode);
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            Explode.SetModuleReceiver(messageDispatcher);
+            Explode.SetReceiver(messageDispatcher);
         }
 
         public Slider Explode { get; set; }

@@ -8,23 +8,23 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class Module : ViewModel
     {
-        private ModuleMessageSender _nextHandler;
-        public ModuleMessageSender SetNextSender(ModuleMessageSender handler)
+        private ModuleMessageSender ModuleMessageSender;
+        public ModuleMessageSender SetSender(ModuleMessageSender moduleMessageSender)
         {
-            _nextHandler = handler;
-            return handler;
+            ModuleMessageSender = moduleMessageSender;
+            return moduleMessageSender;
         }
 
         public void SendViewModelUpdate()
         {
-            if (_nextHandler != null)
+            if (ModuleMessageSender != null)
             {
                 var message = new MessageUpdateViewModel(this.ID, this.GetModel());
-                _nextHandler.ProcessMessage(message);
+                ModuleMessageSender.ProcessMessage(message);
             }
         }
 
-        public virtual void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver)
+        public virtual void SetReceiver(ModuleMessageReceiver moduleMessageReceiver)
         {
             moduleMessageReceiver.RegisterMessageReceiver(this);
         }

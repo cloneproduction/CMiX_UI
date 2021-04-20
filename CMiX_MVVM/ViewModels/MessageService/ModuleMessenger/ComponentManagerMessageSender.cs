@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         }
 
         private IMessageDispatcher _nextHandler;
-        public IMessageDispatcher SetNextSender(IMessageDispatcher handler)
+        public IMessageDispatcher SetSender(IMessageDispatcher handler)
         {
             _nextHandler = handler;
             return handler;

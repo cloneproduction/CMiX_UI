@@ -78,14 +78,14 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            Visibility.SetModuleReceiver(messageDispatcher);
+            Visibility.SetReceiver(messageDispatcher);
         }
 
         public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
-            Visibility.SetNextSender(messageDispatcher);
+            Visibility.SetSender(messageDispatcher);
         }
     }
 }

@@ -88,7 +88,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             }
         }
 
-        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
+        public IMessageSendHandler SetSender(IMessageSendHandler handler)
         {
             throw new System.NotImplementedException();
         }

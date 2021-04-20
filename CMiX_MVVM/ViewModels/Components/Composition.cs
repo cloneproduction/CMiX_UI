@@ -29,18 +29,18 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetModuleSender(ModuleMessageSender moduleMessageSender)
         {
-            Transition.SetNextSender(moduleMessageSender);
-            MasterBeat.SetNextSender(moduleMessageSender);
-            Camera.SetNextSender(moduleMessageSender);
-            Visibility.SetNextSender(moduleMessageSender);
+            Transition.SetSender(moduleMessageSender);
+            MasterBeat.SetSender(moduleMessageSender);
+            Camera.SetSender(moduleMessageSender);
+            Visibility.SetSender(moduleMessageSender);
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver)
+        public override void SetReceiver(ModuleMessageReceiver moduleMessageReceiver)
         {
-            Transition.SetModuleReceiver(moduleMessageReceiver);
-            MasterBeat.SetModuleReceiver(moduleMessageReceiver);
-            Camera.SetModuleReceiver(moduleMessageReceiver);
-            Visibility.SetModuleReceiver(moduleMessageReceiver);
+            Transition.SetReceiver(moduleMessageReceiver);
+            MasterBeat.SetReceiver(moduleMessageReceiver);
+            Camera.SetReceiver(moduleMessageReceiver);
+            Visibility.SetReceiver(moduleMessageReceiver);
         }
 
 

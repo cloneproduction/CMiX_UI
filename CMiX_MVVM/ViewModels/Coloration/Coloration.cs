@@ -13,12 +13,12 @@ namespace CMiX.MVVM.ViewModels
             ColorSelector = new ColorSelector(colorationModel.ColorSelectorModel);
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
             messageDispatcher.RegisterMessageReceiver(this);
 
-            BeatModifier.SetModuleReceiver(messageDispatcher);
-            ColorSelector.SetModuleReceiver(messageDispatcher);
+            BeatModifier.SetReceiver(messageDispatcher);
+            ColorSelector.SetReceiver(messageDispatcher);
         }
 
         public ColorSelector ColorSelector { get; set; }

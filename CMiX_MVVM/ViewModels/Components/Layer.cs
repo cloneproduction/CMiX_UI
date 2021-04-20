@@ -24,20 +24,20 @@ namespace CMiX.MVVM.ViewModels.Components
             ComponentFactory = new SceneFactory(this);
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            Fade.SetModuleReceiver(messageDispatcher);
-            PostFX.SetModuleReceiver(messageDispatcher);
-            BlendMode.SetModuleReceiver(messageDispatcher);
-            Mask.SetModuleReceiver(messageDispatcher);
+            Fade.SetReceiver(messageDispatcher);
+            PostFX.SetReceiver(messageDispatcher);
+            BlendMode.SetReceiver(messageDispatcher);
+            Mask.SetReceiver(messageDispatcher);
         }
 
         public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
-            Fade.SetNextSender(messageDispatcher);
-            PostFX.SetNextSender(messageDispatcher);
-            BlendMode.SetNextSender(messageDispatcher);
-            Mask.SetNextSender(messageDispatcher);
+            Fade.SetSender(messageDispatcher);
+            PostFX.SetSender(messageDispatcher);
+            BlendMode.SetSender(messageDispatcher);
+            Mask.SetSender(messageDispatcher);
         }
 
 

@@ -38,7 +38,7 @@ namespace CMiX.MVVM.ViewModels.Components
         private void SetAsSender(ComponentManagerMessageSender messageSender)
         {
             var componentMessageSender = new ComponentMessageSender();
-            componentMessageSender.SetNextSender(messageSender);
+            componentMessageSender.SetSender(messageSender);
             MessageDispatcher = componentMessageSender;
         }
 

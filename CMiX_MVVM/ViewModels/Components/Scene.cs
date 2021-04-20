@@ -31,22 +31,22 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            Transform.SetModuleReceiver(messageDispatcher);
-            Mask.SetModuleReceiver(messageDispatcher);
-            PostFX.SetModuleReceiver(messageDispatcher);
-            BeatModifier.SetModuleReceiver(messageDispatcher);
-            MasterBeat.SetModuleReceiver(messageDispatcher);
+            Transform.SetReceiver(messageDispatcher);
+            Mask.SetReceiver(messageDispatcher);
+            PostFX.SetReceiver(messageDispatcher);
+            BeatModifier.SetReceiver(messageDispatcher);
+            MasterBeat.SetReceiver(messageDispatcher);
         }
 
         public override void SetModuleSender(ModuleMessageSender messageDispatcher)
         {
-            Transform.SetNextSender(messageDispatcher);
-            Mask.SetNextSender(messageDispatcher);
-            PostFX.SetNextSender(messageDispatcher);
-            BeatModifier.SetNextSender(messageDispatcher);
-            MasterBeat.SetNextSender(messageDispatcher);
+            Transform.SetSender(messageDispatcher);
+            Mask.SetSender(messageDispatcher);
+            PostFX.SetSender(messageDispatcher);
+            BeatModifier.SetSender(messageDispatcher);
+            MasterBeat.SetSender(messageDispatcher);
         }
 
 
