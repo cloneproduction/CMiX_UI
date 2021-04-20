@@ -16,12 +16,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-
-
-        private IMessageDispatcher MessageDispatcher;
-        private CerasSerializer Serializer { get; set; }
-
-
         public void RegisterMessageReceiver(IMessageDispatcher messageDispatcher)
         {
             MessageDispatcher = messageDispatcher;
@@ -37,21 +31,21 @@ namespace CMiX.Studio.ViewModels.MessageService
             }
         }
 
-
         public void ProcessMessage(IMessage message)
         {
             MessageDispatcher.ProcessMessage(message);
-            Console.WriteLine("Client_DataReceived Message " + message.GetType() + "  " + message.ComponentID);
+            Console.WriteLine("Client_DataReceived Message ");// + message.GetType() + "  " + message.ComponentID);
         }
-
-
-
 
 
         public string Address
         {
             get { return String.Format("tcp://{0}:{1}", IP, Port); }
         }
+
+
+        private IMessageDispatcher MessageDispatcher;
+        private CerasSerializer Serializer { get; set; }
 
 
         private string _ip;

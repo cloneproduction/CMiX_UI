@@ -38,11 +38,12 @@ namespace CMiX.MVVM.ViewModels.MessageService
             var msg = message as MessageUpdateViewModel;
             var module = GetMessageProcessor(msg.ModuleID);
 
-            if (message != null && module != null)
+            if (msg != null && module != null)
             {
-                msg.Process(module);
+                module.SetViewModel(msg.Model);
+                return;
             }
-            Console.WriteLine("ModuleMessageReceiver ProcessMessage");
+            //Console.WriteLine("ModuleMessageReceiver ProcessMessage");
         }
     }
 }

@@ -137,9 +137,9 @@ namespace CMiX.MVVM.ViewModels.Components
             MessageDispatcher = moduleMessageSender;
         }
 
-        private void SetAsReceiver(ComponentMessageReceiver messageDispatcher)
+        private void SetAsReceiver(ComponentMessageReceiver componentMessageReceiver)
         {
-            messageDispatcher.RegisterMessageReceiver(this);
+            componentMessageReceiver.RegisterMessageReceiver(this);
 
             ModuleMessageReceiver moduleMessageReceiver = new ModuleMessageReceiver();
             this.SetModuleReceiver(moduleMessageReceiver);

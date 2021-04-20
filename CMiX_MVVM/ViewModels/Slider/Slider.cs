@@ -1,9 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
@@ -20,11 +16,6 @@ namespace CMiX.MVVM.ViewModels
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             ResetCommand = new RelayCommand(p => Reset());
-        }
-
-        public override void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver)
-        {
-            moduleMessageReceiver.RegisterMessageReceiver(this);
         }
 
 
@@ -48,13 +39,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                this.SendMessage(new MessageUpdateViewModel(this.ID, this.GetModel()));
+                SendViewModelUpdate();
             }
-        }
-
-        public IMessage CreateMessageViewModelUpdate()
-        {
-            return new MessageUpdateViewModel(this.ID, this.GetModel());
         }
 
 

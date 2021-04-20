@@ -25,17 +25,15 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void ProcessMessage(IMessage message)
         {
-            if(message is MessageAddComponent)
+            var msg = message as IComponentManagerMessage;
+
+            if (msg != null)
             {
-                var msg = message as MessageAddComponent;
                 msg.Process(ComponentManager);
-            }
-            else if (message is MessageUpdateViewModel)
-            {
-                ComponentManager.MessageDispatcher.ProcessMessage(message);
+                return;
             }
 
-            Console.WriteLine("ComponentManagerMessageReceiver ProcessMessage");
+            ComponentManager.MessageDispatcher.ProcessMessage(message);
         }
     }
 }

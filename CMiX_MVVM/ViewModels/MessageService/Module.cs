@@ -6,9 +6,8 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Module : ViewModel//, IMessageSendHandler, IMessageReceiveHandler
+    public abstract class Module : ViewModel
     {
-
         private ModuleMessageSender _nextHandler;
         public ModuleMessageSender SetNextSender(ModuleMessageSender handler)
         {
@@ -16,23 +15,19 @@ namespace CMiX.MVVM.ViewModels
             return handler;
         }
 
-        public void SendMessage(IMessage message)
+        public void SendViewModelUpdate()
         {
             if (_nextHandler != null)
             {
+                var message = new MessageUpdateViewModel(this.ID, this.GetModel());
                 _nextHandler.ProcessMessage(message);
             }
         }
 
-
-        public abstract void SetModuleReceiver(ModuleMessageReceiver messageDispatcher);
-
-        public void ReceiveMessage(IMessage message)
+        public virtual void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver)
         {
-            var vmMessage = message as IViewModelMessage;
-            vmMessage.Process(this);
+            moduleMessageReceiver.RegisterMessageReceiver(this);
         }
-
 
         public Guid ID { get; set; }
         public abstract void SetViewModel(IModel model);
