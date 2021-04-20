@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Collections.ObjectModel;
@@ -20,7 +19,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
         }
-
 
         public IMessageDispatcher MessageDispatcher { get; set; }
         public Visibility Visibility { get; set; }
@@ -71,41 +69,12 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        private IMessageSendHandler _nextSender;
-        public IMessageSendHandler SetNextSender(IMessageSendHandler handler)
-        {
-            _nextSender = handler;
-            return handler;
-        }
-
-
-        public void SendMessage(IMessage message)
-        {
-            if(_nextSender != null)
-            {
-                _nextSender.SendMessage(message);
-            }
-        }
-
-
-        public void ReceiveMessage(IMessage message)
-        {
-            //if(message is IViewModelMessage)
-            //{
-            //    var vmMessage = message as IViewModelMessage;
-            //    var module = MessageDispatcher.GetMessageProcessor(vmMessage.ModuleID);
-            //    if(module != null)
-            //        module.ReceiveMessage(vmMessage);
-            //}
-        }
-
 
         public void AddComponent(Component component)
         {
             Components.Add(component);
             IsExpanded = true;
         }
-
 
         public void RemoveComponent(Component component)
         {
@@ -114,17 +83,16 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Remove(component);
         }
 
-
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
         }
 
-
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
         }
+
 
         public void Dispose()
         {
@@ -159,22 +127,24 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        private void SetAsSender(ComponentMessageSender messageDispatcher)
+        private void SetAsSender(ComponentMessageSender componentMessageSender)
         {
-            MessageDispatcher = messageDispatcher;
+            ModuleMessageSender moduleMessageSender = new ModuleMessageSender(this.ID);
 
-            ModuleMessageSender moduleMessageDispatcher = new ModuleMessageSender(this.ID);
-            moduleMessageDispatcher.SetNextSender(messageDispatcher);
-            this.SetModuleSender(moduleMessageDispatcher);
+            moduleMessageSender.SetNextSender(componentMessageSender);
+            this.SetModuleSender(moduleMessageSender);
+
+            MessageDispatcher = moduleMessageSender;
         }
 
         private void SetAsReceiver(ComponentMessageReceiver messageDispatcher)
         {
-            MessageDispatcher = messageDispatcher;
-
-            ModuleMessageReceiver moduleMessageDispatcher = new ModuleMessageReceiver();
-            this.SetModuleReceiver(moduleMessageDispatcher);
             messageDispatcher.RegisterMessageReceiver(this);
+
+            ModuleMessageReceiver moduleMessageReceiver = new ModuleMessageReceiver();
+            this.SetModuleReceiver(moduleMessageReceiver);
+
+            MessageDispatcher = moduleMessageReceiver;
         }
     }
 }

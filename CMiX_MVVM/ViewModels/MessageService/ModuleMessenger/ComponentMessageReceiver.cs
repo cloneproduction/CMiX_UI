@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         private Dictionary<Guid, Component> Components { get; set; }
 
-        private Component GetMessageProcessor(Guid id)
+        public Component GetMessageProcessor(Guid id)
         {
             if (Components.ContainsKey(id))
                 return Components[id];
@@ -35,6 +35,11 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void ProcessMessage(IMessage message)
         {
+            var component = GetMessageProcessor(message.ComponentID);
+            if(component != null)
+            {
+                component.MessageDispatcher.ProcessMessage(message);
+            }
             Console.WriteLine("ComponentMessageReceiver");
         }
     }

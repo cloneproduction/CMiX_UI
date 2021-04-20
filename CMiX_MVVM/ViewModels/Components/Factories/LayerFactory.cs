@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
@@ -16,19 +15,17 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         public Composition ParentComposition { get; set; }
 
 
-        public Component CreateComponent(IMessageDispatcher messageDispatcher)
+        public Component CreateComponent()
         {
             var model = new LayerModel(Guid.NewGuid());
             var component = new Layer(ParentComposition, model);
-            component.SetMessageCommunication(messageDispatcher);
             ID++;
             return component;
         }
 
-        public Component CreateComponent(IMessageDispatcher messageDispatcher, IComponentModel model)
+        public Component CreateComponent(IComponentModel model)
         {
             var component = new Layer(ParentComposition, model as LayerModel);
-            component.SetMessageCommunication(messageDispatcher);
             return component;
         }
     }

@@ -12,18 +12,18 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
             var projectModel = new ProjectModel(Guid.Empty);
 
             ComponentManagerMessageReceiver componentManagerMessageReceiver = new ComponentManagerMessageReceiver();
+            
 
             var messageReceiver = new MessageReceiver();
             messageReceiver.RegisterMessageReceiver(componentManagerMessageReceiver);
             messageReceiver.Start(settings);
 
             Project Project = new Project(projectModel);
-            Project.SetMessageCommunication(componentManagerMessageReceiver);
 
             var projects = new ObservableCollection<Component>();
             projects.Add(Project);
@@ -31,7 +31,13 @@ namespace CMiX.Engine.Testing
 
 
             ComponentManager componentManager = new ComponentManager(projects);
+
+
             componentManager.SetMessageCommunication(componentManagerMessageReceiver);
+            componentManagerMessageReceiver.RegisterMessageReceiver(componentManager);
+
+            ComponentMessageReceiver componentMessageReceiver = componentManager.MessageDispatcher as ComponentMessageReceiver;
+            componentMessageReceiver.RegisterMessageReceiver(Project);
 
             Console.ReadLine();
         }

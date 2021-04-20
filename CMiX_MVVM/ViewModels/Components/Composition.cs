@@ -27,20 +27,20 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetModuleSender(ModuleMessageSender messageDispatcher)
+        public override void SetModuleSender(ModuleMessageSender moduleMessageSender)
         {
-            Transition.SetNextSender(messageDispatcher);
-            MasterBeat.SetNextSender(messageDispatcher);
-            Camera.SetNextSender(messageDispatcher);
-            Visibility.SetNextSender(messageDispatcher);
+            Transition.SetNextSender(moduleMessageSender);
+            MasterBeat.SetNextSender(moduleMessageSender);
+            Camera.SetNextSender(moduleMessageSender);
+            Visibility.SetNextSender(moduleMessageSender);
         }
 
-        public override void SetModuleReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetModuleReceiver(ModuleMessageReceiver moduleMessageReceiver)
         {
-            Transition.SetModuleReceiver(messageDispatcher);
-            MasterBeat.SetModuleReceiver(messageDispatcher);
-            Camera.SetModuleReceiver(messageDispatcher);
-            Visibility.SetModuleReceiver(messageDispatcher);
+            Transition.SetModuleReceiver(moduleMessageReceiver);
+            MasterBeat.SetModuleReceiver(moduleMessageReceiver);
+            Camera.SetModuleReceiver(moduleMessageReceiver);
+            Visibility.SetModuleReceiver(moduleMessageReceiver);
         }
 
 
@@ -72,7 +72,9 @@ namespace CMiX.MVVM.ViewModels.Components
             this.Components.Clear();
             foreach (var componentModel in compositionModel.ComponentModels)
             {
-                this.ComponentFactory.CreateComponent(this.MessageDispatcher, componentModel);
+                var newComponent = this.ComponentFactory.CreateComponent(compositionModel);
+                newComponent.SetMessageCommunication(MessageDispatcher);
+                this.AddComponent(newComponent);
             }
         }
     }

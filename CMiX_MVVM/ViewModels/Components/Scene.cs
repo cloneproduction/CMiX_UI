@@ -79,7 +79,11 @@ namespace CMiX.MVVM.ViewModels.Components
 
             this.Components.Clear();
             foreach (var componentModel in sceneModel.ComponentModels)
-                this.ComponentFactory.CreateComponent(this.MessageDispatcher, sceneModel);
+            {
+                var newComponent = this.ComponentFactory.CreateComponent(componentModel);
+                newComponent.SetMessageCommunication(MessageDispatcher);
+                this.AddComponent(newComponent);
+            }
         }
     }
 }

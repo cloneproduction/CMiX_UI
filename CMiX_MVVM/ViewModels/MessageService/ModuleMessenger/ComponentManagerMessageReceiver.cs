@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels.Components;
+using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.Generic;
@@ -17,17 +18,23 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         ComponentManager ComponentManager { get; set; }
 
-        public void RegisterMessageReceiver (IMessageDispatcher messageDispatcher)
+        public void RegisterMessageReceiver (ComponentManager componentManager)
         {
-            ComponentManager = messageDispatcher as ComponentManager;
+            ComponentManager = componentManager;
         }
 
         public void ProcessMessage(IMessage message)
         {
-            if(message is MessageUpdateViewModel)
+            if(message is MessageAddComponent)
+            {
+                var msg = message as MessageAddComponent;
+                msg.Process(ComponentManager);
+            }
+            else if (message is MessageUpdateViewModel)
             {
                 ComponentManager.MessageDispatcher.ProcessMessage(message);
             }
+
             Console.WriteLine("ComponentManagerMessageReceiver ProcessMessage");
         }
     }

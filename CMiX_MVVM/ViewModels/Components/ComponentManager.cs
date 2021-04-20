@@ -2,7 +2,6 @@
 using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
-using CMiX.Studio.ViewModels.MessageService;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -40,7 +39,6 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             var componentMessageSender = new ComponentMessageSender();
             componentMessageSender.SetNextSender(messageSender);
-
             MessageDispatcher = componentMessageSender;
         }
 
@@ -48,9 +46,7 @@ namespace CMiX.MVVM.ViewModels.Components
         private void SetAsReceiver(ComponentManagerMessageReceiver messageReceiver)
         {
             var componentMessageReceiver = new ComponentMessageReceiver();
-
-            messageReceiver.RegisterMessageReceiver(componentMessageReceiver);
-
+            messageReceiver.RegisterMessageReceiver(this);
             MessageDispatcher = componentMessageReceiver;
         }
 
@@ -80,23 +76,17 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void CreateComponent(Component component)
         {
-            var newComponent = component.ComponentFactory.CreateComponent(this.MessageDispatcher);
+            var newComponent = component.ComponentFactory.CreateComponent();
+            newComponent.SetMessageCommunication(MessageDispatcher);
             component.AddComponent(newComponent);
 
             SendMessageAddComponent(component, newComponent);
         }
 
 
-        public event Action<IMessage> MessageOutNotification;
-
-
         public void SendMessageAddComponent(Component component, Component newComponent)
         {
-            var handler = MessageOutNotification;
-            if (handler != null)
-            {
-                handler(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
-            }
+            this.MessageDispatcher.ProcessMessage(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
         }
 
 

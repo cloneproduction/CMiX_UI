@@ -57,7 +57,8 @@ namespace CMiX.MVVM.ViewModels.Components
             this.Components.Clear();
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)
             {
-                var newComponent = this.ComponentFactory.CreateComponent(this.MessageDispatcher, componentModel as IComponentModel);
+                var newComponent = this.ComponentFactory.CreateComponent(compositionModel);
+                newComponent.SetMessageCommunication(MessageDispatcher);
                 this.AddComponent(newComponent);
             }
 
