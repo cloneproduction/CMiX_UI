@@ -35,10 +35,10 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void ProcessMessage(IMessage message)
         {
-            var component = GetMessageProcessor(message.ComponentID);
-            if(component != null)
+            var messageDispatcher = GetMessageProcessor(message.ComponentID).MessageDispatcher;
+            if(messageDispatcher != null)
             {
-                component.MessageDispatcher.ProcessMessage(message);
+                messageDispatcher.ProcessMessage(message);
             }
             Console.WriteLine("ComponentMessageReceiver");
         }

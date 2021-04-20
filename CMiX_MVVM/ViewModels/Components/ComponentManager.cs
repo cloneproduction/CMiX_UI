@@ -86,9 +86,15 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void SendMessageAddComponent(Component component, Component newComponent)
         {
-            this.MessageDispatcher.ProcessMessage(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
+            var md = MessageDispatcher as ComponentMessageSender;
+            md?.SendMessageAddComponent(component, newComponent);
         }
 
+        public void SendMessageRemoveComponent(Component parentComponent, int index)
+        {
+            var md = MessageDispatcher as ComponentMessageSender;
+            md?.SendMessageRemoveComponent(parentComponent, index);
+        }
 
         public void DeleteComponent(Component component)
         {
@@ -96,7 +102,8 @@ namespace CMiX.MVVM.ViewModels.Components
             int index = selectedParent.Components.IndexOf(component);
             GetSelectedParent(Components).RemoveComponent(component);
             component.Dispose();
-            //this.MessageDispatcher.SendMessage(new MessageRemoveComponent(selectedParent.ID, index));
+
+            SendMessageRemoveComponent(selectedParent, index);
         }
 
 
