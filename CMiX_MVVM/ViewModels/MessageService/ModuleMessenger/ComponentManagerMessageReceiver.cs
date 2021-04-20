@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         ComponentManager ComponentManager { get; set; }
 
-        public void RegisterMessageReceiver (ComponentManager componentManager)
+        public void RegisterReceiver (ComponentManager componentManager)
         {
             ComponentManager = componentManager;
         }

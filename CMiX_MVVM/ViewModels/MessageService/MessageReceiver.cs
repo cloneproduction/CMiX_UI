@@ -16,7 +16,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        public void RegisterMessageReceiver(IMessageDispatcher messageDispatcher)
+        public void RegisterReceiver(IMessageDispatcher messageDispatcher)
         {
             MessageDispatcher = messageDispatcher;
         }

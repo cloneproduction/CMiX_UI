@@ -39,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageReceiver(this);
+            messageDispatcher.RegisterReceiver(this);
 
             Translate.SetReceiver(messageDispatcher);
             Scale.SetReceiver(messageDispatcher);

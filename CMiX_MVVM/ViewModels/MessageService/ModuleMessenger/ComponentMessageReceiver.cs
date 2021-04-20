@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return null;
         }
 
-        public void RegisterMessageReceiver(Component component)
+        public void RegisterReceiver(Component component)
         {
             if (Components.ContainsKey(component.ID))
                 Components[component.ID] = component;

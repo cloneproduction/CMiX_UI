@@ -38,7 +38,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void RegisterMessageReceiver(IMessageReceiveHandler messageProcessor)
+        public void RegisterReceiver(IMessageReceiveHandler messageProcessor)
         {
             //if (MessageProcessors.ContainsKey(messageProcessor.ID))
             //    MessageProcessors[messageProcessor.ID] = messageProcessor;

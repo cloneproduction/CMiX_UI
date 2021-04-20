@@ -12,7 +12,7 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
 
             var projectModel = new ProjectModel(Guid.Empty);
 
@@ -20,7 +20,7 @@ namespace CMiX.Engine.Testing
             
 
             var messageReceiver = new MessageReceiver();
-            messageReceiver.RegisterMessageReceiver(componentManagerMessageReceiver);
+            messageReceiver.RegisterReceiver(componentManagerMessageReceiver);
             messageReceiver.Start(settings);
 
             Project Project = new Project(projectModel);
@@ -34,10 +34,10 @@ namespace CMiX.Engine.Testing
 
 
             componentManager.SetMessageCommunication(componentManagerMessageReceiver);
-            componentManagerMessageReceiver.RegisterMessageReceiver(componentManager);
+            componentManagerMessageReceiver.RegisterReceiver(componentManager);
 
             ComponentMessageReceiver componentMessageReceiver = componentManager.MessageDispatcher as ComponentMessageReceiver;
-            componentMessageReceiver.RegisterMessageReceiver(Project);
+            componentMessageReceiver.RegisterReceiver(Project);
 
             Console.ReadLine();
         }

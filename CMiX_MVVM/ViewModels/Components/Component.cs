@@ -139,7 +139,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         private void SetAsReceiver(ComponentMessageReceiver componentMessageReceiver)
         {
-            componentMessageReceiver.RegisterMessageReceiver(this);
+            componentMessageReceiver.RegisterReceiver(this);
 
             ModuleMessageReceiver moduleMessageReceiver = new ModuleMessageReceiver();
             this.SetReceiver(moduleMessageReceiver);

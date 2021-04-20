@@ -26,7 +26,12 @@ namespace CMiX.MVVM.ViewModels
 
         public virtual void SetReceiver(ModuleMessageReceiver moduleMessageReceiver)
         {
-            moduleMessageReceiver.RegisterMessageReceiver(this);
+            moduleMessageReceiver.RegisterReceiver(this);
+        }
+
+        public void ReceiveViewModelUpdate(IModel model)
+        {
+            this.SetViewModel(model);
         }
 
         public Guid ID { get; set; }

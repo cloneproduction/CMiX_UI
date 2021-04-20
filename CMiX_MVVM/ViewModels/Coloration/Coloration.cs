@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageReceiver(this);
+            messageDispatcher.RegisterReceiver(this);
 
             BeatModifier.SetReceiver(messageDispatcher);
             ColorSelector.SetReceiver(messageDispatcher);

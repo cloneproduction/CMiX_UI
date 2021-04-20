@@ -42,7 +42,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageReceiver(this);
+            messageDispatcher.RegisterReceiver(this);
 
             Brightness.SetReceiver(messageDispatcher);
             Contrast.SetReceiver(messageDispatcher);

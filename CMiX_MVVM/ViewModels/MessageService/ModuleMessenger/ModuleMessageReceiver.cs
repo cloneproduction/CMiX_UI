@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             return null;
         }
 
-        public void RegisterMessageReceiver(Module module)
+        public void RegisterReceiver(Module module)
         {
             if (Modules.ContainsKey(module.ID))
                 Modules[module.ID] = module;
@@ -28,7 +28,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 Modules.Add(module.ID, module);
         }
 
-        public void UnregisterMessageReceiver(Module module)
+        public void UnregisterReceiver(Module module)
         {
             Modules.Remove(module.ID);
         }
@@ -40,10 +40,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
             if (msg != null && module != null)
             {
-                module.SetViewModel(msg.Model);
-                return;
+                module.ReceiveViewModelUpdate(msg.Model);
             }
-            //Console.WriteLine("ModuleMessageReceiver ProcessMessage");
         }
     }
 }

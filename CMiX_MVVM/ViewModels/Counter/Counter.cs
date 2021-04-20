@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
         {
-            messageDispatcher.RegisterMessageReceiver(this);
+            messageDispatcher.RegisterReceiver(this);
         }
 
         public event EventHandler<CounterEventArgs> CounterChangeEvent;

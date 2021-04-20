@@ -313,7 +313,7 @@
     <Compile Include="ViewModels\Network\Settings.cs" />
     <Compile Include="ViewModels\Network\SettingsEventArgs.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
-    <Compile Include="ViewModels\MessageService\Module.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\Module.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\AnimParameter\Easing\EasingTypes.cs" />
     <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
