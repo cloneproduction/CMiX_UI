@@ -40,20 +40,20 @@ namespace CMiX.MVVM.ViewModels
         public Inverter Inverter { get; set; }
 
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
 
-            Brightness.SetReceiver(messageDispatcher);
-            Contrast.SetReceiver(messageDispatcher);
-            Hue.SetReceiver(messageDispatcher);
-            Saturation.SetReceiver(messageDispatcher);
-            Luminosity.SetReceiver(messageDispatcher);
-            Keying.SetReceiver(messageDispatcher);
-            Scale.SetReceiver(messageDispatcher);
-            Rotate.SetReceiver(messageDispatcher);
-            Pan.SetReceiver(messageDispatcher);
-            Tilt.SetReceiver(messageDispatcher);
+            Brightness.SetReceiver(messageReceiver);
+            Contrast.SetReceiver(messageReceiver);
+            Hue.SetReceiver(messageReceiver);
+            Saturation.SetReceiver(messageReceiver);
+            Luminosity.SetReceiver(messageReceiver);
+            Keying.SetReceiver(messageReceiver);
+            Scale.SetReceiver(messageReceiver);
+            Rotate.SetReceiver(messageReceiver);
+            Pan.SetReceiver(messageReceiver);
+            Tilt.SetReceiver(messageReceiver);
         }
 
 

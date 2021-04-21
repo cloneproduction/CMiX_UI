@@ -3,6 +3,7 @@ using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
@@ -21,9 +22,9 @@ namespace CMiX.MVVM.ViewModels.Beat
             SetAnimatedDouble();
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
         }
 
 

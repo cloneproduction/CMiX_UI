@@ -9,31 +9,32 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentManagerMessageReceiver : IMessageDispatcher
+    public class ComponentManagerMessageReceiver : IMessageReceiver, IMessageDispatcher
     {
         public ComponentManagerMessageReceiver()
         {
 
         }
 
-        ComponentManager ComponentManager { get; set; }
+        IMessageCommunicator MessageCommunicator { get; set; }
 
-        public void RegisterReceiver (ComponentManager componentManager)
+        public void RegisterReceiver (IMessageCommunicator messageCommunicator)
         {
-            ComponentManager = componentManager;
+            MessageCommunicator = messageCommunicator;
+        }
+
+        public void UnregisterReceiver(IMessageCommunicator component)
+        {
+            throw new NotImplementedException();
         }
 
         public void ProcessMessage(IMessage message)
         {
-            var msg = message as IComponentManagerMessage;
-
-            if (msg != null)
+            var componentManager = MessageCommunicator as ComponentManager;
+            if (componentManager != null)
             {
-                msg.Process(ComponentManager);
-                return;
+                componentManager.ReceiveMessage(message);
             }
-
-            ComponentManager.MessageDispatcher.ProcessMessage(message);
         }
     }
 }

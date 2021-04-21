@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,12 +14,12 @@ namespace CMiX.MVVM.ViewModels
             ColorSelector = new ColorSelector(colorationModel.ColorSelectorModel);
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
 
-            BeatModifier.SetReceiver(messageDispatcher);
-            ColorSelector.SetReceiver(messageDispatcher);
+            BeatModifier.SetReceiver(messageReceiver);
+            ColorSelector.SetReceiver(messageReceiver);
         }
 
         public ColorSelector ColorSelector { get; set; }

@@ -2,7 +2,6 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
@@ -28,12 +27,16 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            BeatModifier.SetReceiver(messageDispatcher);
+            BeatModifier.SetReceiver(messageReceiver);
+            Geometry.SetReceiver(messageReceiver);
+            Texture.SetReceiver(messageReceiver);
+            Coloration.SetReceiver(messageReceiver);
+            Visibility.SetReceiver(messageReceiver);
         }
 
-        public override void SetModuleSender(ModuleMessageSender messageDispatcher)
+        public override void SetSender(IMessageSender messageDispatcher)
         {
             BeatModifier.SetSender(messageDispatcher);
         }

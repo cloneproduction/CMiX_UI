@@ -1,46 +1,44 @@
-﻿using CMiX.MVVM.ViewModels.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentMessageReceiver : IMessageDispatcher
+    public class ComponentMessageReceiver : IMessageReceiver, IMessageDispatcher
     {
         public ComponentMessageReceiver()
         {
-            Components = new Dictionary<Guid, Component>();
+            MessageCommunicators = new Dictionary<Guid, IMessageCommunicator>();
         }
 
-        private Dictionary<Guid, Component> Components { get; set; }
+        private Dictionary<Guid, IMessageCommunicator> MessageCommunicators { get; set; }
 
-        public Component GetMessageProcessor(Guid id)
+        public IMessageCommunicator GetMessageProcessor(Guid id)
         {
-            if (Components.ContainsKey(id))
-                return Components[id];
+            if (MessageCommunicators.ContainsKey(id))
+                return MessageCommunicators[id];
             return null;
         }
 
-        public void RegisterReceiver(Component component)
+        public void RegisterReceiver(IMessageCommunicator component)
         {
-            if (Components.ContainsKey(component.ID))
-                Components[component.ID] = component;
+            if (MessageCommunicators.ContainsKey(component.ID))
+                MessageCommunicators[component.ID] = component;
             else
-                Components.Add(component.ID, component);
+                MessageCommunicators.Add(component.ID, component);
         }
 
-        public void UnregisterMessageReceiver(Component component)
+        public void UnregisterReceiver(IMessageCommunicator component)
         {
-            Components.Remove(component.ID);
+            MessageCommunicators.Remove(component.ID);
         }
 
         public void ProcessMessage(IMessage message)
         {
-            var messageDispatcher = GetMessageProcessor(message.ComponentID).MessageDispatcher;
-            if(messageDispatcher != null)
+            var component = GetMessageProcessor(message.ComponentID);
+            if(component != null)
             {
-                messageDispatcher.ProcessMessage(message);
+                component.ReceiveMessage(message);
             }
-            Console.WriteLine("ComponentMessageReceiver");
         }
     }
 }

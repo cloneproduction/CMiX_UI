@@ -22,10 +22,10 @@ namespace CMiX.MVVM.ViewModels
             RemoveTransformModifierCommand = new RelayCommand(p => RemoveTransformModifier(p as ITransformModifier));
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            //messageDispatcher.RegisterMessageProcessor(this);
-            Transform.SetReceiver(messageDispatcher);
+            messageReceiver.RegisterReceiver(this);
+            Transform.SetReceiver(messageReceiver);
         }
 
 

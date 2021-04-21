@@ -2,7 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
@@ -21,11 +21,11 @@ namespace CMiX.MVVM.ViewModels
             SelectedModeType = ModeType.None;
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            base.SetReceiver(messageDispatcher);
+            base.SetReceiver(messageReceiver);
 
-            Width.SetReceiver(messageDispatcher);
+            Width.SetReceiver(messageReceiver);
         }
 
         public BeatModifier BeatModifier { get; set; }

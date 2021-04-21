@@ -13,9 +13,9 @@ namespace CMiX.MVVM.ViewModels
             Maximum = rangeModel.Maximum;
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
         }
 
 

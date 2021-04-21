@@ -39,11 +39,11 @@ namespace CMiX.MVVM.ViewModels
             RandomizeRotation = true;
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
 
-            LocationX.SetReceiver(messageDispatcher);
+            LocationX.SetReceiver(messageReceiver);
         }
 
         private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)

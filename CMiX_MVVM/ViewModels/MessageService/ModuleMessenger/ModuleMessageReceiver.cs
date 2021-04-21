@@ -4,34 +4,36 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ModuleMessageReceiver : IMessageDispatcher
+    public class ModuleMessageReceiver : IMessageReceiver, IMessageDispatcher
     {
         public ModuleMessageReceiver()
         {
-            Modules = new Dictionary<Guid, Module>();
+            MessageCommunicators = new Dictionary<Guid, IMessageCommunicator>();
         }
 
-        private Dictionary<Guid, Module> Modules { get; set; }
+        private Dictionary<Guid, IMessageCommunicator> MessageCommunicators { get; set; }
 
-        private Module GetMessageProcessor(Guid id)
+        private IMessageCommunicator GetMessageProcessor(Guid id)
         {
-            if (Modules.ContainsKey(id))
-                return Modules[id];
+            if (MessageCommunicators.ContainsKey(id))
+                return MessageCommunicators[id];
             return null;
         }
 
-        public void RegisterReceiver(Module module)
+
+        public void RegisterReceiver(IMessageCommunicator messageCommunicator)
         {
-            if (Modules.ContainsKey(module.ID))
-                Modules[module.ID] = module;
+            if (MessageCommunicators.ContainsKey(messageCommunicator.ID))
+                MessageCommunicators[messageCommunicator.ID] = messageCommunicator;
             else
-                Modules.Add(module.ID, module);
+                MessageCommunicators.Add(messageCommunicator.ID, messageCommunicator);
         }
 
-        public void UnregisterReceiver(Module module)
+        public void UnregisterReceiver(IMessageCommunicator messageCommunicator)
         {
-            Modules.Remove(module.ID);
+            MessageCommunicators.Remove(messageCommunicator.ID);
         }
+
 
         public void ProcessMessage(IMessage message)
         {
@@ -40,7 +42,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
             if (msg != null && module != null)
             {
-                module.ReceiveViewModelUpdate(msg.Model);
+                module.ReceiveMessage(msg);
             }
         }
     }

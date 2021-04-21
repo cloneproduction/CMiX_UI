@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 
 namespace CMiX.MVVM.ViewModels
@@ -18,7 +17,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             //messageDispatcher.RegisterMessageProcessor(this);
         }

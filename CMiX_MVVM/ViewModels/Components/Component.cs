@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IDisposable
+    public abstract class Component : ViewModel, IMessageCommunicator, IDisposable
     {
         public Component(IComponentModel componentModel)
         {
@@ -19,6 +19,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             Components = new ObservableCollection<Component>();
         }
+
 
         public IMessageDispatcher MessageDispatcher { get; set; }
         public Visibility Visibility { get; set; }
@@ -69,7 +70,6 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-
         public void AddComponent(Component component)
         {
             Components.Add(component);
@@ -110,8 +110,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public abstract void SetReceiver(ModuleMessageReceiver moduleMessageReceiver);
-        public abstract void SetModuleSender(ModuleMessageSender moduleMessageSender);
+        public abstract void SetReceiver(IMessageReceiver messageReceiver);
+        public abstract void SetSender(IMessageSender messageSender);
 
 
         public void SetMessageCommunication(IMessageDispatcher messageDispatcher)
@@ -132,7 +132,7 @@ namespace CMiX.MVVM.ViewModels.Components
             ModuleMessageSender moduleMessageSender = new ModuleMessageSender(this.ID);
 
             moduleMessageSender.SetSender(componentMessageSender);
-            this.SetModuleSender(moduleMessageSender);
+            this.SetSender(moduleMessageSender);
 
             MessageDispatcher = moduleMessageSender;
         }
@@ -145,6 +145,22 @@ namespace CMiX.MVVM.ViewModels.Components
             this.SetReceiver(moduleMessageReceiver);
 
             MessageDispatcher = moduleMessageReceiver;
+        }
+
+        public void SendMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReceiveMessage(IMessage message)
+        {
+            var msg = message as IComponentMessage;
+            if(msg != null)
+            {
+                Console.WriteLine("Component received IComponentMessage");
+                return;
+            }
+            MessageDispatcher.ProcessMessage(message);
         }
     }
 }

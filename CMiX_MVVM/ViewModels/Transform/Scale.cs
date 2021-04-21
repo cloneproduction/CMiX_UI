@@ -37,14 +37,14 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
 
-            Uniform.SetReceiver(messageDispatcher);
-            X.SetReceiver(messageDispatcher);
-            Y.SetReceiver(messageDispatcher);
-            Z.SetReceiver(messageDispatcher);
+            Uniform.SetReceiver(messageReceiver);
+            X.SetReceiver(messageReceiver);
+            Y.SetReceiver(messageReceiver);
+            Z.SetReceiver(messageReceiver);
         }
 
         public override void SetViewModel(IModel model)

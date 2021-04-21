@@ -5,52 +5,49 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentMessageSender : IMessageDispatcher
+    public class ComponentMessageSender : IMessageSender, IMessageDispatcher
     {
         public ComponentMessageSender()
         {
 
         }
 
-
         public IMessage SetMessageID(IMessage message)
         {
             return message;
         }
 
-
-        private IMessageDispatcher _nextHandler;
-        public IMessageDispatcher SetSender(IMessageDispatcher handler)
+        private IMessageSender MessageSender;
+        public IMessageSender SetSender(IMessageSender messageSender)
         {
-            _nextHandler = handler;
-            return handler;
+            MessageSender = messageSender;
+            return messageSender;
         }
-
 
         public void ProcessMessage(IMessage message)
         {
-            if (_nextHandler != null)
+            if (MessageSender != null)
             {
-                _nextHandler.ProcessMessage(message);
+                MessageSender.ProcessMessage(message);
                 Console.WriteLine("ComponentMessageSender SendMessage");
             }
         }
 
         public void SendMessageAddComponent(Component component, Component newComponent)
         {
-            if (_nextHandler != null)
+            if (MessageSender != null)
             {
-                _nextHandler.ProcessMessage(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
-                Console.WriteLine("ManagerMessageSender SendMessage");
+                MessageSender.ProcessMessage(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
+                Console.WriteLine("ManagerMessageSender SendMessageAdd");
             }
         }
 
         public void SendMessageRemoveComponent(Component selectedParent, int index)
         {
-            if (_nextHandler != null)
+            if (MessageSender != null)
             {
-                _nextHandler.ProcessMessage(new MessageRemoveComponent(selectedParent.ID, index));
-                Console.WriteLine("ManagerMessageSender SendMessage");
+                MessageSender.ProcessMessage(new MessageRemoveComponent(selectedParent.ID, index));
+                Console.WriteLine("ManagerMessageSender SendMessageRemove");
             }
         }
     }

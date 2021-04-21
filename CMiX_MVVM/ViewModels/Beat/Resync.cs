@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Windows.Input;
 
@@ -50,7 +51,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             return model;
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             throw new NotImplementedException();
         }

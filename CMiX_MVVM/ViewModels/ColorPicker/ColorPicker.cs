@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using ColorMine.ColorSpaces;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -37,9 +38,9 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
         }
 
         public ICommand PreviewMouseDownCommand { get; set; }

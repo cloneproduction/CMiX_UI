@@ -6,16 +6,18 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Module : ViewModel
+    public abstract class Module : ViewModel, IMessageCommunicator
     {
-        private ModuleMessageSender ModuleMessageSender;
-        public ModuleMessageSender SetSender(ModuleMessageSender moduleMessageSender)
+        public Guid ID { get; set; }
+
+
+        private IMessageSender ModuleMessageSender;
+        public void SetSender(IMessageSender moduleMessageSender)
         {
             ModuleMessageSender = moduleMessageSender;
-            return moduleMessageSender;
         }
 
-        public void SendViewModelUpdate()
+        public void SendMessage()
         {
             if (ModuleMessageSender != null)
             {
@@ -24,17 +26,18 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public virtual void SetReceiver(ModuleMessageReceiver moduleMessageReceiver)
+        public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            moduleMessageReceiver.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
         }
 
-        public void ReceiveViewModelUpdate(IModel model)
+        public void ReceiveMessage(IMessage message)
         {
-            this.SetViewModel(model);
+            var msg = message as MessageUpdateViewModel;
+            if(msg != null)
+                this.SetViewModel(msg.Model);
         }
 
-        public Guid ID { get; set; }
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();
     }

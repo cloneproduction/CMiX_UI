@@ -3,6 +3,7 @@ using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,9 @@ namespace CMiX.MVVM.ViewModels.Beat
         }
 
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
         }
 
         public ICommand ResyncCommand { get; }

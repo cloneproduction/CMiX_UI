@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ModuleMessageSender : IMessageDispatcher
+    public class ModuleMessageSender : IMessageDispatcher, IMessageSender
     {
         public ModuleMessageSender(Guid componentID)
         {

@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -18,9 +19,9 @@ namespace CMiX.MVVM.ViewModels
             //Zoom = new Slider(nameof(Zoom), messageDispatcher, cameraModel.Zoom);
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            BeatModifier.SetReceiver(messageDispatcher);
+            BeatModifier.SetReceiver(messageReceiver);
         }
 
 

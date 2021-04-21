@@ -39,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                SendViewModelUpdate();
+                SendMessage();
             }
         }
 

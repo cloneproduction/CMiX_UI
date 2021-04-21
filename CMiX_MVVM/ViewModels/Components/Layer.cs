@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
@@ -24,20 +23,20 @@ namespace CMiX.MVVM.ViewModels.Components
             ComponentFactory = new SceneFactory(this);
         }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            Fade.SetReceiver(messageDispatcher);
-            PostFX.SetReceiver(messageDispatcher);
-            BlendMode.SetReceiver(messageDispatcher);
-            Mask.SetReceiver(messageDispatcher);
+            Fade.SetReceiver(messageReceiver);
+            PostFX.SetReceiver(messageReceiver);
+            BlendMode.SetReceiver(messageReceiver);
+            Mask.SetReceiver(messageReceiver);
         }
 
-        public override void SetModuleSender(ModuleMessageSender messageDispatcher)
+        public override void SetSender(IMessageSender messageSender)
         {
-            Fade.SetSender(messageDispatcher);
-            PostFX.SetSender(messageDispatcher);
-            BlendMode.SetSender(messageDispatcher);
-            Mask.SetSender(messageDispatcher);
+            Fade.SetSender(messageSender);
+            PostFX.SetSender(messageSender);
+            BlendMode.SetSender(messageSender);
+            Mask.SetSender(messageSender);
         }
 
 

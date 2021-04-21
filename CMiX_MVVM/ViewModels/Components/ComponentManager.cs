@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class ComponentManager : ViewModel
+    public class ComponentManager : ViewModel, IMessageCommunicator
     {
         public ComponentManager(ObservableCollection<Component> components)
         {
@@ -26,16 +26,16 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             if (messageDispatcher is ComponentManagerMessageSender)
             {
-                this.SetAsSender(messageDispatcher as ComponentManagerMessageSender);
+                this.SetSender(messageDispatcher as ComponentManagerMessageSender);
             }
             else if (messageDispatcher is ComponentManagerMessageReceiver)
             {
-                this.SetAsReceiver(messageDispatcher as ComponentManagerMessageReceiver);
+                this.SetReceiver(messageDispatcher as ComponentManagerMessageReceiver);
             }
         }
 
 
-        private void SetAsSender(ComponentManagerMessageSender messageSender)
+        public void SetSender(IMessageSender messageSender)
         {
             var componentMessageSender = new ComponentMessageSender();
             componentMessageSender.SetSender(messageSender);
@@ -43,12 +43,31 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        private void SetAsReceiver(ComponentManagerMessageReceiver messageReceiver)
+        public void SetReceiver(IMessageReceiver messageReceiver)
         {
             var componentMessageReceiver = new ComponentMessageReceiver();
             messageReceiver.RegisterReceiver(this);
             MessageDispatcher = componentMessageReceiver;
         }
+
+
+        public void ReceiveMessage(IMessage message)
+        {
+            var msg = message as IComponentManagerMessage;
+            if(msg != null)
+            {
+                msg.Process(this);
+                return;
+            }
+            MessageDispatcher.ProcessMessage(message);
+        }
+
+
+        public void SendMessage()
+        {
+
+        }
+
 
 
         public IMessageDispatcher MessageDispatcher { get; set; }
@@ -69,7 +88,7 @@ namespace CMiX.MVVM.ViewModels.Components
             get => _selectedComponent;
             set => SetAndNotify(ref _selectedComponent, value);
         }
-
+        public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
 

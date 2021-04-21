@@ -17,13 +17,13 @@ namespace CMiX.MVVM.ViewModels
         public Slider Y { get; set; }
         public Slider Z { get; set; }
 
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageDispatcher.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this);
 
-            X.SetReceiver(messageDispatcher);
-            Y.SetReceiver(messageDispatcher);
-            Z.SetReceiver(messageDispatcher);
+            X.SetReceiver(messageReceiver);
+            Y.SetReceiver(messageReceiver);
+            Z.SetReceiver(messageReceiver);
         }
 
         public override IModel GetModel()

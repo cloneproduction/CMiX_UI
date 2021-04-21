@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
 namespace CMiX.MVVM.ViewModels
@@ -13,11 +14,6 @@ namespace CMiX.MVVM.ViewModels
             //X = new AnimParameter(nameof(X), this, rotation.X.Amount, beat);
             //Y = new AnimParameter(nameof(Y), this, rotation.X.Amount, beat);
             //Z = new AnimParameter(nameof(Z), this, rotation.X.Amount, beat);
-        }
-
-        public override void SetReceiver(ModuleMessageReceiver messageDispatcher)
-        {
-            messageDispatcher.RegisterReceiver(this);
         }
 
         public override void SetViewModel(IModel model)
