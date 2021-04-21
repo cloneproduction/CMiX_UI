@@ -12,7 +12,7 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
 
             var projectModel = new ProjectModel(Guid.Empty);
 
@@ -35,8 +35,8 @@ namespace CMiX.Engine.Testing
 
             componentManagerMessageReceiver.RegisterReceiver(componentManager);
 
-            ComponentMessageReceiver componentMessageReceiver = componentManager.MessageReceiver;
-            componentMessageReceiver.RegisterReceiver(Project);
+            Project.SetReceiver(componentManager.MessageReceiver);
+
 
             Console.ReadLine();
         }

@@ -115,16 +115,14 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver?.RegisterReceiver(this);
-            ModuleMessageReceiver moduleMessageReceiver = new ModuleMessageReceiver();
-            MessageReceiver = moduleMessageReceiver;
+            MessageReceiver = new ModuleMessageReceiver();
+            messageReceiver.RegisterReceiver(this);
         }
 
         public virtual void SetSender(IMessageSender messageSender)
         {
-            ModuleMessageSender moduleMessageSender = new ModuleMessageSender(this.ID);
-            moduleMessageSender.SetSender(messageSender);
-            MessageSender = moduleMessageSender;
+            MessageSender = new ModuleMessageSender(this.ID);
+            MessageSender.SetSender(messageSender);
         }
 
 
@@ -136,7 +134,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 Console.WriteLine("Component received IComponentMessage");
                 return;
             }
-            MessageReceiver.ReceiveMessage(message);
+            MessageReceiver?.ReceiveMessage(message);
         }
     }
 }

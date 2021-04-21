@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.Components.Messages;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
@@ -23,28 +24,20 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void SetSender(IMessageSender messageSender)
         {
-            var componentMessageSender = new ComponentMessageSender();
-            componentMessageSender.SetSender(messageSender);
-            MessageSender = componentMessageSender;
+            MessageSender = new ComponentMessageSender();
+            MessageSender.SetSender(messageSender);
         }
 
 
         public void SetReceiver(IMessageReceiver messageReceiver)
         {
-            var componentMessageReceiver = new ComponentMessageReceiver();
-            messageReceiver?.RegisterReceiver(this);
-            MessageReceiver = componentMessageReceiver;
+            MessageReceiver = new ComponentMessageReceiver();
+            messageReceiver.RegisterReceiver(this);
         }
 
 
         public void ReceiveMessage(IMessage message)
         {
-            var msg = message as IComponentManagerMessage;
-            if(msg != null)
-            {
-                msg.Process(this);
-                return;
-            }
             MessageReceiver.ReceiveMessage(message);
         }
 
@@ -77,14 +70,17 @@ namespace CMiX.MVVM.ViewModels.Components
         public void CreateComponent(Component component)
         {
             var newComponent = component.ComponentFactory.CreateComponent();
-
-            newComponent.SetReceiver(MessageReceiver);
-            newComponent.SetSender(MessageSender);
-
             component.AddComponent(newComponent);
 
-            MessageSender.SendMessageAddComponent(component, newComponent);
+            if (MessageReceiver != null)
+                newComponent.SetReceiver(MessageReceiver);
+
+            if(MessageSender != null)
+                newComponent.SetSender(MessageSender);
+
+            MessageSender?.SendMessageAddComponent(component, newComponent);
         }
+
 
         public void DeleteComponent(Component component)
         {
@@ -93,7 +89,7 @@ namespace CMiX.MVVM.ViewModels.Components
             GetSelectedParent(Components).RemoveComponent(component);
             component.Dispose();
 
-            MessageSender.SendMessageRemoveComponent(selectedParent, index);
+            MessageSender?.SendMessageRemoveComponent(selectedParent, index);
         }
 
 
