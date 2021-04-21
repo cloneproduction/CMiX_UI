@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
@@ -17,19 +18,25 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return message;
         }
 
-        private ComponentMessageSender _nextHandler;
-        public ComponentMessageSender SetSender(ComponentMessageSender handler)
+        private IMessageSender MessageSender;
+        public IMessageSender SetSender(IMessageSender messageSender)
         {
-            _nextHandler = handler;
-            return handler;
+            MessageSender = messageSender;
+            return messageSender;
         }
 
-        public void ProcessMessage(IMessage message)
+        public void SendMessageUpdateViewModel(Module module)
         {
-            if (_nextHandler != null)
+            MessageSender?.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
+        }
+
+
+        public void SendMessage(IMessage message)
+        {
+            if (MessageSender != null)
             {
                 message.ComponentID = ComponentID;
-                _nextHandler.ProcessMessage(message);
+                MessageSender.SendMessage(message);
                 Console.WriteLine("ModuleMessageSender SendMessage");
             }
         }

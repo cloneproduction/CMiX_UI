@@ -33,13 +33,13 @@ namespace CMiX.MVVM.ViewModels
             AssetManager = new AssetManager(CurrentProject);
 
 
-            MessageSender = new MessageSender();
+            DataSender = new DataSender();
 
             ComponentManagerMessageSender componentManagerMessageSender = new ComponentManagerMessageSender();
-            componentManagerMessageSender.SetSender(MessageSender);
+            componentManagerMessageSender.SetSender(DataSender);
 
             ComponentManager = new ComponentManager(Projects);
-            ComponentManager.SetMessageCommunication(componentManagerMessageSender);
+            ComponentManager.SetSender(componentManagerMessageSender);
 
 
             Outliner = new Outliner(Projects);
@@ -98,11 +98,11 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        private MessageSender _messageSender;
-        public MessageSender MessageSender
+        private DataSender _dataSender;
+        public DataSender DataSender
         {
-            get => _messageSender;
-            set => SetAndNotify(ref _messageSender, value);
+            get => _dataSender;
+            set => SetAndNotify(ref _dataSender, value);
         }
 
 

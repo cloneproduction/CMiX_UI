@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BlendMode : Module
     {
-        public BlendMode(IMessageDispatcher messageDispatcher, BlendModeModel blendModeModel)
+        public BlendMode(BlendModeModel blendModeModel)
         {
             Mode = blendModeModel.Mode;
         }
@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this);
         }
 
 

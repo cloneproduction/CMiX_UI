@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Mask : Module
     {
-        public Mask(IMessageDispatcher messageDispatcher, MaskModel maskModel) 
+        public Mask(MaskModel maskModel) 
         {
             MaskType = maskModel.MaskType;
             MaskControlType = maskModel.MaskControlType;
@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this);
         }
 
         private bool _IsMask;

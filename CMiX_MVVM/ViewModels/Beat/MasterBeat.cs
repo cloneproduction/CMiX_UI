@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels.Beat
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this);
         }
 
         public ICommand ResyncCommand { get; }

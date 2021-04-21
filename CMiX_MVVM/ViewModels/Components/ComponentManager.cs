@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Components.Messages;
+﻿using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
@@ -22,32 +21,19 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public void SetMessageCommunication(IMessageDispatcher messageDispatcher)
-        {
-            if (messageDispatcher is ComponentManagerMessageSender)
-            {
-                this.SetSender(messageDispatcher as ComponentManagerMessageSender);
-            }
-            else if (messageDispatcher is ComponentManagerMessageReceiver)
-            {
-                this.SetReceiver(messageDispatcher as ComponentManagerMessageReceiver);
-            }
-        }
-
-
         public void SetSender(IMessageSender messageSender)
         {
             var componentMessageSender = new ComponentMessageSender();
             componentMessageSender.SetSender(messageSender);
-            MessageDispatcher = componentMessageSender;
+            MessageSender = componentMessageSender;
         }
 
 
         public void SetReceiver(IMessageReceiver messageReceiver)
         {
             var componentMessageReceiver = new ComponentMessageReceiver();
-            messageReceiver.RegisterReceiver(this);
-            MessageDispatcher = componentMessageReceiver;
+            messageReceiver?.RegisterReceiver(this);
+            MessageReceiver = componentMessageReceiver;
         }
 
 
@@ -59,18 +45,12 @@ namespace CMiX.MVVM.ViewModels.Components
                 msg.Process(this);
                 return;
             }
-            MessageDispatcher.ProcessMessage(message);
+            MessageReceiver.ReceiveMessage(message);
         }
 
 
-        public void SendMessage()
-        {
-
-        }
-
-
-
-        public IMessageDispatcher MessageDispatcher { get; set; }
+        public ComponentMessageSender MessageSender { get; set; }
+        public ComponentMessageReceiver MessageReceiver { get; set; }
 
 
         public ICommand CreateComponentCommand { get; }
@@ -88,6 +68,7 @@ namespace CMiX.MVVM.ViewModels.Components
             get => _selectedComponent;
             set => SetAndNotify(ref _selectedComponent, value);
         }
+
         public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
@@ -96,23 +77,13 @@ namespace CMiX.MVVM.ViewModels.Components
         public void CreateComponent(Component component)
         {
             var newComponent = component.ComponentFactory.CreateComponent();
-            newComponent.SetMessageCommunication(MessageDispatcher);
+
+            newComponent.SetReceiver(MessageReceiver);
+            newComponent.SetSender(MessageSender);
+
             component.AddComponent(newComponent);
 
-            SendMessageAddComponent(component, newComponent);
-        }
-
-
-        public void SendMessageAddComponent(Component component, Component newComponent)
-        {
-            var md = MessageDispatcher as ComponentMessageSender;
-            md?.SendMessageAddComponent(component, newComponent);
-        }
-
-        public void SendMessageRemoveComponent(Component parentComponent, int index)
-        {
-            var md = MessageDispatcher as ComponentMessageSender;
-            md?.SendMessageRemoveComponent(parentComponent, index);
+            MessageSender.SendMessageAddComponent(component, newComponent);
         }
 
         public void DeleteComponent(Component component)
@@ -122,7 +93,7 @@ namespace CMiX.MVVM.ViewModels.Components
             GetSelectedParent(Components).RemoveComponent(component);
             component.Dispose();
 
-            SendMessageRemoveComponent(selectedParent, index);
+            MessageSender.SendMessageRemoveComponent(selectedParent, index);
         }
 
 
@@ -130,6 +101,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             parentComponent.InsertComponent(index, componentToInsert);
         }
+
 
         public Component DuplicateComponent(Component component)
         {

@@ -6,9 +6,9 @@ using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class MessageReceiver : ViewModel, IMessageTerminal, IMessageDispatcher
+    public class DataReceiver : ViewModel, IMessageTerminal, IMessageDispatcher
     {
-        public MessageReceiver()
+        public DataReceiver()
         {
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
@@ -16,15 +16,15 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        public void RegisterReceiver(IMessageDispatcher messageDispatcher)
+        public void RegisterReceiver(IMessageReceiver messageReceiver)
         {
-            MessageDispatcher = messageDispatcher;
+            MessageReceiver = messageReceiver;
         }
 
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
-            if (MessageDispatcher != null)
+            if (MessageReceiver != null)
             {
                 IMessage message = Serializer.Deserialize<IMessage>(e.Data);
                 ProcessMessage(message);
@@ -33,7 +33,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void ProcessMessage(IMessage message)
         {
-            MessageDispatcher.ProcessMessage(message);
+            MessageReceiver.ReceiveMessage(message);
             Console.WriteLine("Client_DataReceived Message ");// + message.GetType() + "  " + message.ComponentID);
         }
 
@@ -44,7 +44,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        private IMessageDispatcher MessageDispatcher;
+        private IMessageReceiver MessageReceiver;
         private CerasSerializer Serializer { get; set; }
 
 

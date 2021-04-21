@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this);
         }
 
 

@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Texture : Module
     {
-        public Texture(IMessageDispatcher messageDispatcher, MasterBeat beat, TextureModel textureModel)
+        public Texture(MasterBeat beat, TextureModel textureModel)
         {
             AssetPathSelector = new AssetPathSelector(new AssetTexture(), textureModel.AssetPathSelectorModel);
             Inverter = new Inverter(nameof(Inverter), textureModel.InverterModel);
@@ -42,7 +42,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this);
 
             Brightness.SetReceiver(messageReceiver);
             Contrast.SetReceiver(messageReceiver);

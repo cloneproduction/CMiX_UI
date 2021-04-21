@@ -11,24 +11,16 @@ namespace CMiX.MVVM.ViewModels
         public Guid ID { get; set; }
 
 
-        private IMessageSender ModuleMessageSender;
-        public void SetSender(IMessageSender moduleMessageSender)
+        public ModuleMessageSender MessageSender;
+        public void SetSender(IMessageSender messageSender)
         {
-            ModuleMessageSender = moduleMessageSender;
+            MessageSender = messageSender as ModuleMessageSender;
         }
 
-        public void SendMessage()
-        {
-            if (ModuleMessageSender != null)
-            {
-                var message = new MessageUpdateViewModel(this.ID, this.GetModel());
-                ModuleMessageSender.ProcessMessage(message);
-            }
-        }
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this);
         }
 
         public void ReceiveMessage(IMessage message)

@@ -22,10 +22,6 @@ namespace CMiX.MVVM.ViewModels.Beat
             SetAnimatedDouble();
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            messageReceiver.RegisterReceiver(this);
-        }
 
 
         public MasterBeat MasterBeat { get; set; }

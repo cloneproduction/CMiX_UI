@@ -13,8 +13,8 @@ namespace CMiX.MVVM.ViewModels.Components
             MasterBeat = scene.MasterBeat;
 
             BeatModifier = new BeatModifier(scene.MasterBeat, entityModel.BeatModifierModel);
-            Geometry = new Geometry(this.MessageDispatcher, scene.MasterBeat, entityModel.GeometryModel);
-            Texture = new Texture(this.MessageDispatcher, scene.MasterBeat, entityModel.TextureModel);
+            Geometry = new Geometry(scene.MasterBeat, entityModel.GeometryModel);
+            Texture = new Texture(scene.MasterBeat, entityModel.TextureModel);
             Coloration = new Coloration(scene.MasterBeat, entityModel.ColorationModel);
             Visibility = new Visibility(scene.Visibility, entityModel.VisibilityModel);
         }

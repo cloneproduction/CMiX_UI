@@ -310,8 +310,8 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MessageService\Messengers\Messenger.cs" />
     <Compile Include="ViewModels\MessageService\Messengers\MessengerFactory.cs" />
-    <Compile Include="ViewModels\MessageService\MessageSender.cs" />
-    <Compile Include="ViewModels\MessageService\MessageReceiver.cs" />
+    <Compile Include="ViewModels\MessageService\DataSender.cs" />
+    <Compile Include="ViewModels\MessageService\DataReceiver.cs" />
     <Compile Include="ViewModels\Network\Server.cs" />
     <Compile Include="ViewModels\Network\Settings.cs" />
     <Compile Include="ViewModels\Network\SettingsEventArgs.cs" />

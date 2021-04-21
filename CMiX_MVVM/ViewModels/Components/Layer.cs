@@ -17,8 +17,8 @@ namespace CMiX.MVVM.ViewModels.Components
             //Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);
 
             PostFX = new PostFX(layerModel.PostFXModel);
-            BlendMode = new BlendMode(this.MessageDispatcher, layerModel.BlendMode);
-            Mask = new Mask(this.MessageDispatcher, layerModel.MaskModel);
+            BlendMode = new BlendMode(layerModel.BlendMode);
+            Mask = new Mask(layerModel.MaskModel);
 
             ComponentFactory = new SceneFactory(this);
         }
@@ -85,7 +85,8 @@ namespace CMiX.MVVM.ViewModels.Components
             foreach (var componentModel in layerModel.ComponentModels)
             {
                 var newComponent = this.ComponentFactory.CreateComponent(componentModel);
-                newComponent.SetMessageCommunication(MessageDispatcher);
+                newComponent.SetReceiver(MessageReceiver);
+                newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);
             }
         }

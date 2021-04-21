@@ -10,18 +10,18 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         }
 
-        private IMessageDispatcher _nextHandler;
-        public IMessageDispatcher SetSender(IMessageDispatcher handler)
+        private IMessageSender MessageSender;
+        public IMessageDispatcher SetSender(IMessageSender messageSender)
         {
-            _nextHandler = handler;
-            return handler;
+            MessageSender = messageSender;
+            return messageSender;
         }
 
-        public void ProcessMessage(IMessage message)
+        public void SendMessage(IMessage message)
         {
-            if (_nextHandler != null)
+            if (MessageSender != null)
             {
-                _nextHandler.ProcessMessage(message);
+                MessageSender.SendMessage(message);
                 Console.WriteLine("ManagerMessageSender SendMessage");
             }
         }

@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this);
 
             Feedback.SetReceiver(messageReceiver);
             Blur.SetReceiver(messageReceiver);

@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         void SetSender(IMessageSender messageSender);
         void SetReceiver(IMessageReceiver messageReceiver);
 
-        void SendMessage();
+
         void ReceiveMessage(IMessage message);
     }
 }

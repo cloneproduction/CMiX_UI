@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentMessageReceiver : IMessageReceiver, IMessageDispatcher
+    public class ComponentMessageReceiver : IMessageReceiver//, IMessageDispatcher
     {
         public ComponentMessageReceiver()
         {
@@ -32,7 +32,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             MessageCommunicators.Remove(component.ID);
         }
 
-        public void ProcessMessage(IMessage message)
+        public void ReceiveMessage(IMessage message)
         {
             var component = GetMessageProcessor(message.ComponentID);
             if(component != null)

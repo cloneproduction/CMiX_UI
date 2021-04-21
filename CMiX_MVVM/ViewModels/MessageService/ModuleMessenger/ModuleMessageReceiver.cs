@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ModuleMessageReceiver : IMessageReceiver, IMessageDispatcher
+    public class ModuleMessageReceiver : IMessageReceiver//, IMessageDispatcher
     {
         public ModuleMessageReceiver()
         {
@@ -35,7 +35,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public void ProcessMessage(IMessage message)
+        public void ReceiveMessage(IMessage message)
         {
             var msg = message as MessageUpdateViewModel;
             var module = GetMessageProcessor(msg.ModuleID);

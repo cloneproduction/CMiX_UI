@@ -23,8 +23,6 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            base.SetReceiver(messageReceiver);
-
             Width.SetReceiver(messageReceiver);
         }
 

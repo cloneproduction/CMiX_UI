@@ -19,9 +19,9 @@ namespace CMiX.Engine.Testing
             ComponentManagerMessageReceiver componentManagerMessageReceiver = new ComponentManagerMessageReceiver();
             
 
-            var messageReceiver = new MessageReceiver();
-            messageReceiver.RegisterReceiver(componentManagerMessageReceiver);
-            messageReceiver.Start(settings);
+            var dataReceiver = new DataReceiver();
+            dataReceiver.RegisterReceiver(componentManagerMessageReceiver);
+            dataReceiver.Start(settings);
 
             Project Project = new Project(projectModel);
 
@@ -31,12 +31,11 @@ namespace CMiX.Engine.Testing
 
 
             ComponentManager componentManager = new ComponentManager(projects);
+            componentManager.SetReceiver(componentManagerMessageReceiver);
 
-
-            componentManager.SetMessageCommunication(componentManagerMessageReceiver);
             componentManagerMessageReceiver.RegisterReceiver(componentManager);
 
-            ComponentMessageReceiver componentMessageReceiver = componentManager.MessageDispatcher as ComponentMessageReceiver;
+            ComponentMessageReceiver componentMessageReceiver = componentManager.MessageReceiver;
             componentMessageReceiver.RegisterReceiver(Project);
 
             Console.ReadLine();

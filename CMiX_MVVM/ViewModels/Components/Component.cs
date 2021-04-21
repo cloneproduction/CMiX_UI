@@ -21,7 +21,10 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public IMessageDispatcher MessageDispatcher { get; set; }
+        public ModuleMessageReceiver MessageReceiver { get; set; }
+        public ModuleMessageSender MessageSender { get; set; }
+
+
         public Visibility Visibility { get; set; }
         public ICommand VisibilityCommand { get; set; }
         internal IComponentFactory ComponentFactory { get; set; }
@@ -110,47 +113,20 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public abstract void SetReceiver(IMessageReceiver messageReceiver);
-        public abstract void SetSender(IMessageSender messageSender);
-
-
-        public void SetMessageCommunication(IMessageDispatcher messageDispatcher)
+        public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            if (messageDispatcher is ComponentMessageSender)
-            {
-                this.SetAsSender(messageDispatcher as ComponentMessageSender);
-            }
-            else if (messageDispatcher is ComponentMessageReceiver)
-            {
-                this.SetAsReceiver(messageDispatcher as ComponentMessageReceiver);
-            }
+            messageReceiver?.RegisterReceiver(this);
+            ModuleMessageReceiver moduleMessageReceiver = new ModuleMessageReceiver();
+            MessageReceiver = moduleMessageReceiver;
         }
 
-
-        private void SetAsSender(ComponentMessageSender componentMessageSender)
+        public virtual void SetSender(IMessageSender messageSender)
         {
             ModuleMessageSender moduleMessageSender = new ModuleMessageSender(this.ID);
-
-            moduleMessageSender.SetSender(componentMessageSender);
-            this.SetSender(moduleMessageSender);
-
-            MessageDispatcher = moduleMessageSender;
+            moduleMessageSender.SetSender(messageSender);
+            MessageSender = moduleMessageSender;
         }
 
-        private void SetAsReceiver(ComponentMessageReceiver componentMessageReceiver)
-        {
-            componentMessageReceiver.RegisterReceiver(this);
-
-            ModuleMessageReceiver moduleMessageReceiver = new ModuleMessageReceiver();
-            this.SetReceiver(moduleMessageReceiver);
-
-            MessageDispatcher = moduleMessageReceiver;
-        }
-
-        public void SendMessage()
-        {
-            throw new NotImplementedException();
-        }
 
         public void ReceiveMessage(IMessage message)
         {
@@ -160,7 +136,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 Console.WriteLine("Component received IComponentMessage");
                 return;
             }
-            MessageDispatcher.ProcessMessage(message);
+            MessageReceiver.ReceiveMessage(message);
         }
     }
 }

@@ -5,5 +5,7 @@
         void RegisterReceiver(IMessageCommunicator messageCommunicator);
 
         void UnregisterReceiver(IMessageCommunicator component);
+
+        void ReceiveMessage(IMessage message);
     }
 }

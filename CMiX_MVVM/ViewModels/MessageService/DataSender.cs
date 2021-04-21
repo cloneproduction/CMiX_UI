@@ -9,9 +9,9 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessageSender : ViewModel, IMessageDispatcher
+    public class DataSender : ViewModel, IMessageSender, IMessageDispatcher
     {
-        public MessageSender()
+        public DataSender()
         {
             Serializer = new CerasSerializer();
 
@@ -76,7 +76,13 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 obj.IsRenaming = true;
         }
 
-        public void ProcessMessage(IMessage message)
+
+        public IMessageSendHandler SetSender(IMessageSendHandler handler)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SendMessage(IMessage message)
         {
             var address = message.ComponentID;
             var data = Serializer.Serialize(message);
@@ -86,11 +92,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 messenger.SendMessage(address, data);
                 System.Console.WriteLine("MessageSender SendMessage");
             }
-        }
-
-        public IMessageSendHandler SetSender(IMessageSendHandler handler)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

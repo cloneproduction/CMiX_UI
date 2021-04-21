@@ -2,5 +2,6 @@
 {
     public interface IMessageSender : IMessageDispatcher
     {
+        void SendMessage(IMessage message);
     }
 }

@@ -28,7 +28,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             throw new NotImplementedException();
         }
 
-        public void ProcessMessage(IMessage message)
+        public void ReceiveMessage(IMessage message)
         {
             var componentManager = MessageCommunicator as ComponentManager;
             if (componentManager != null)
