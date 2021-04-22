@@ -12,6 +12,8 @@ namespace CMiX.MVVM.ViewModels
 
 
         public ModuleMessageSender MessageSender;
+
+
         public void SetSender(IMessageSender messageSender)
         {
             MessageSender = messageSender as ModuleMessageSender;
@@ -20,14 +22,7 @@ namespace CMiX.MVVM.ViewModels
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            messageReceiver?.RegisterReceiver(this);
-        }
-
-        public void ReceiveMessage(IMessage message)
-        {
-            var msg = message as MessageUpdateViewModel;
-            if(msg != null)
-                this.SetViewModel(msg.Model);
+            messageReceiver.RegisterReceiver(this);
         }
 
         public abstract void SetViewModel(IModel model);

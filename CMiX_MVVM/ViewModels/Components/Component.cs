@@ -4,6 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
@@ -81,9 +82,18 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void RemoveComponent(Component component)
         {
-            int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
+        }
+
+        public void RemoveComponentAtIndex(int index)
+        {
+            Component component = Components.ElementAt(index);
+            if(component != null)
+            {
+                component.Dispose();
+                Components.Remove(component);
+            }
         }
 
         public void InsertComponent(int index, Component component)
@@ -128,13 +138,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void ReceiveMessage(IMessage message)
         {
-            var msg = message as IComponentMessage;
-            if(msg != null)
-            {
-                Console.WriteLine("Component received IComponentMessage");
-                return;
-            }
-            MessageReceiver?.ReceiveMessage(message);
+
         }
     }
 }

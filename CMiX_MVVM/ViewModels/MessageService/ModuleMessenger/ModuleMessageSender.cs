@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void SendMessageUpdateViewModel(Module module)
         {
-            MessageSender?.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
+            this.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
         }
 
 

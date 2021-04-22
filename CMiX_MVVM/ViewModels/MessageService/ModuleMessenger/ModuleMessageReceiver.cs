@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ModuleMessageReceiver : IMessageReceiver//, IMessageDispatcher
+    public class ModuleMessageReceiver : IMessageReceiver
     {
         public ModuleMessageReceiver()
         {
@@ -23,11 +23,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void RegisterReceiver(IMessageCommunicator messageCommunicator)
         {
-            if (MessageCommunicators.ContainsKey(messageCommunicator.ID))
+            if (!MessageCommunicators.ContainsKey(messageCommunicator.ID))
                 MessageCommunicators[messageCommunicator.ID] = messageCommunicator;
-            else
-                MessageCommunicators.Add(messageCommunicator.ID, messageCommunicator);
+
         }
+
 
         public void UnregisterReceiver(IMessageCommunicator messageCommunicator)
         {
@@ -38,12 +38,13 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public void ReceiveMessage(IMessage message)
         {
             var msg = message as MessageUpdateViewModel;
-            var module = GetMessageProcessor(msg.ModuleID);
+            Module module = null;
+
+            if(msg != null)
+                module = GetMessageProcessor(msg.ModuleID) as Module;
 
             if (msg != null && module != null)
-            {
-                module.ReceiveMessage(msg);
-            }
+                module.SetViewModel(msg.Model);
         }
     }
 }

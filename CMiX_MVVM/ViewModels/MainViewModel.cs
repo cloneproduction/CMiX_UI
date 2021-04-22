@@ -21,7 +21,6 @@ namespace CMiX.MVVM.ViewModels
         public MainViewModel()
         {
             Mementor = new Mementor();
-            MessageDispatcher = new ComponentMessageSender();
 
             var model = new ProjectModel(Guid.Empty);
             CurrentProject = new Project(model);

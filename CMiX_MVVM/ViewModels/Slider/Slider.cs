@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
@@ -63,7 +62,6 @@ namespace CMiX.MVVM.ViewModels
         private void Add() => Amount = Amount >= Maximum ? Maximum : Amount += 0.01;
         private void Sub() => Amount = Amount <= Minimum ? Minimum : Amount -= 0.01;
         public void Reset() => Amount = 0.0;
-
 
 
         public override void SetViewModel(IModel model)

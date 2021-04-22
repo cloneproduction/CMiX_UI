@@ -38,6 +38,11 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void ReceiveMessage(IMessage message)
         {
+            if(message is MessageAddComponent)
+            {
+                MessageReceiver.ReceiveMessage(message);
+                return;
+            }
             MessageReceiver.ReceiveMessage(message);
         }
 
@@ -67,6 +72,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
 
 
+
         public void CreateComponent(Component component)
         {
             var newComponent = component.ComponentFactory.CreateComponent();
@@ -80,6 +86,22 @@ namespace CMiX.MVVM.ViewModels.Components
 
             MessageSender?.SendMessageAddComponent(component, newComponent);
         }
+
+        public void CreateComponent(Component component, IComponentModel componentModel)
+        {
+            var newComponent = component.ComponentFactory.CreateComponent(componentModel);
+            component.AddComponent(newComponent);
+
+            if (MessageReceiver != null)
+                newComponent.SetReceiver(MessageReceiver);
+
+            if (MessageSender != null)
+                newComponent.SetSender(MessageSender);
+
+            Console.WriteLine(component.GetType() + " has " + component.Components.Count + " Components");
+            MessageSender?.SendMessageAddComponent(component, newComponent);
+        }
+
 
 
         public void DeleteComponent(Component component)

@@ -12,7 +12,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         }
 
-
         private IMessageSender MessageSender;
         public IMessageSender SetSender(IMessageSender messageSender)
         {
@@ -20,16 +19,15 @@ namespace CMiX.MVVM.ViewModels.MessageService
             return messageSender;
         }
 
-
         public void SendMessageAddComponent(Component component, Component newComponent)
         {
-            MessageSender.SendMessage(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
+            this.SendMessage(new MessageAddComponent(component.ID, newComponent.GetModel() as IComponentModel));
             Console.WriteLine("ManagerMessageSender SendMessageAdd");
         }
 
         public void SendMessageRemoveComponent(Component selectedParent, int index)
         {
-            MessageSender?.SendMessage(new MessageRemoveComponent(selectedParent.ID, index));
+            this.SendMessage(new MessageRemoveComponent(selectedParent.ID, index));
             Console.WriteLine("ManagerMessageSender SendMessageRemove");
         }
 
