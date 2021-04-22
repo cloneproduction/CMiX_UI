@@ -18,10 +18,6 @@ namespace CMiX.MVVM.ViewModels
             newRandom = GetNewRandoms(parentSender.Parameters.Length);
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            //messageDispatcher.RegisterMessageProcessor(this);
-        }
 
 
         private Random Random { get; set; }

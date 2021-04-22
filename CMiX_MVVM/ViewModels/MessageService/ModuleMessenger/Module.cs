@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Module : ViewModel, IMessageCommunicator
+    public abstract class Module : ViewModel
     {
         public Guid ID { get; set; }
 
@@ -20,9 +20,9 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public virtual void SetReceiver(IMessageReceiver messageReceiver)
+        public virtual void SetReceiver(IMessageReceiver<Module> messageReceiver)
         {
-            messageReceiver.RegisterReceiver(this);
+            messageReceiver.RegisterReceiver(this, ID);
         }
 
         public abstract void SetViewModel(IModel model);

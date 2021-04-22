@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class DataSender : ViewModel, IMessageSender, IMessageDispatcher
+    public class DataSender : ViewModel, IMessageSender//, IMessageDispatcher
     {
         public DataSender()
         {
@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        public IMessageDispatcher MessageDispatcher { get; set; }
+        //public IMessageDispatcher MessageDispatcher { get; set; }
         public CerasSerializer Serializer { get; set; }
 
 

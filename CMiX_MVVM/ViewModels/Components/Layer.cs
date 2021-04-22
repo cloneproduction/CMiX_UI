@@ -23,20 +23,20 @@ namespace CMiX.MVVM.ViewModels.Components
             ComponentFactory = new SceneFactory(this);
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
         {
-            Fade.SetReceiver(messageReceiver);
-            PostFX.SetReceiver(messageReceiver);
-            BlendMode.SetReceiver(messageReceiver);
-            Mask.SetReceiver(messageReceiver);
+            Fade.SetReceiver(MessageReceiver);
+            PostFX.SetReceiver(MessageReceiver);
+            BlendMode.SetReceiver(MessageReceiver);
+            Mask.SetReceiver(MessageReceiver);
         }
 
         public override void SetSender(IMessageSender messageSender)
         {
-            Fade.SetSender(messageSender);
-            PostFX.SetSender(messageSender);
-            BlendMode.SetSender(messageSender);
-            Mask.SetSender(messageSender);
+            Fade.SetSender(MessageSender);
+            PostFX.SetSender(MessageSender);
+            BlendMode.SetSender(MessageSender);
+            Mask.SetSender(MessageSender);
         }
 
 
@@ -85,8 +85,8 @@ namespace CMiX.MVVM.ViewModels.Components
             foreach (var componentModel in layerModel.ComponentModels)
             {
                 var newComponent = this.ComponentFactory.CreateComponent(componentModel);
-                newComponent.SetReceiver(MessageReceiver);
-                newComponent.SetSender(MessageSender);
+                //newComponent.SetReceiver(MessageReceiver);
+                //newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);
             }
         }

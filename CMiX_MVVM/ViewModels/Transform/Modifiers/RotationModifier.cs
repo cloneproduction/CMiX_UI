@@ -26,9 +26,9 @@ namespace CMiX.MVVM.ViewModels
             throw new NotImplementedException();
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
         {
-            messageReceiver?.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this, ID);
         }
 
         public AnimParameter X { get; set; }

@@ -12,9 +12,9 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
         {
-            messageReceiver?.RegisterReceiver(this);
+            messageReceiver?.RegisterReceiver(this, ID);
         }
 
         private T _selection;

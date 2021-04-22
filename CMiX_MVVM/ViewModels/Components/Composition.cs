@@ -36,10 +36,9 @@ namespace CMiX.MVVM.ViewModels.Components
             //Visibility.SetSender(MessageSender);
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
         {
-            MessageReceiver = new ModuleMessageReceiver();
-            messageReceiver.RegisterReceiver(this);
+            base.SetReceiver(messageReceiver);
 
             Transition.SetReceiver(MessageReceiver);
             //MasterBeat.SetReceiver(MessageReceiver);
@@ -78,8 +77,8 @@ namespace CMiX.MVVM.ViewModels.Components
             {
                 var newComponent = this.ComponentFactory.CreateComponent(compositionModel);
                 //newComponent.SetMessageCommunication(MessageDispatcher);
-                newComponent.SetReceiver(MessageReceiver);
-                newComponent.SetSender(MessageSender);
+                //newComponent.SetReceiver(MessageReceiver);
+                //newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);
             }
         }

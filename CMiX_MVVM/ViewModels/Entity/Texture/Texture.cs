@@ -40,10 +40,8 @@ namespace CMiX.MVVM.ViewModels
         public Inverter Inverter { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
         {
-            messageReceiver?.RegisterReceiver(this);
-
             Brightness.SetReceiver(messageReceiver);
             Contrast.SetReceiver(messageReceiver);
             Hue.SetReceiver(messageReceiver);

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IMessageCommunicator, IDisposable
+    public abstract class Component : ViewModel, IDisposable //IMessageCommunicator, 
     {
         public Component(IComponentModel componentModel)
         {
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public ModuleMessageReceiver MessageReceiver { get; set; }
+        public ModuleReceiver MessageReceiver { get; set; }
         public ModuleMessageSender MessageSender { get; set; }
 
 
@@ -123,10 +123,10 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public virtual void SetReceiver(IMessageReceiver messageReceiver)
+        public virtual void SetReceiver(IMessageReceiver<Component> messageReceiver)
         {
-            MessageReceiver = new ModuleMessageReceiver();
-            messageReceiver.RegisterReceiver(this);
+            MessageReceiver = new ModuleReceiver();
+            messageReceiver.RegisterReceiver(this, ID);
         }
 
         public virtual void SetSender(IMessageSender messageSender)

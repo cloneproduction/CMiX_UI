@@ -12,10 +12,6 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            //messageDispatcher.RegisterMessageProcessor(this);
-        }
 
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {

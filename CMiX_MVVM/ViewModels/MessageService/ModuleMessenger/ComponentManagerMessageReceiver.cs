@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentManagerMessageReceiver : IMessageReceiver, IMessageDispatcher
+    public class ComponentManagerMessageReceiver : IMessageReceiver
     {
         public ComponentManagerMessageReceiver()
         {

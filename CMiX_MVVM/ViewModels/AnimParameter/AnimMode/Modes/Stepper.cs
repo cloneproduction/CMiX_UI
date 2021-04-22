@@ -15,11 +15,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            //messageDispatcher.RegisterMessageProcessor(this);
-        }
-
 
         private double nextStep;
 

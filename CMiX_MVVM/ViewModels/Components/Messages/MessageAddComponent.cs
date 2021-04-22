@@ -23,7 +23,7 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         public void Process(ComponentManager componentManager)
         {
-            ComponentMessageReceiver componentMessageReceiver = componentManager.MessageReceiver;
+            ComponentReceiver componentMessageReceiver = componentManager.MessageReceiver;
             var parentComponent = componentMessageReceiver.GetMessageProcessor(ComponentID) as Component;
             var newComponent = parentComponent.ComponentFactory.CreateComponent(ComponentModel);
             newComponent.SetReceiver(componentMessageReceiver);

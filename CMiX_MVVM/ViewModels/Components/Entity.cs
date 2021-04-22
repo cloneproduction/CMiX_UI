@@ -27,13 +27,13 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
         {
-            BeatModifier.SetReceiver(messageReceiver);
-            Geometry.SetReceiver(messageReceiver);
-            Texture.SetReceiver(messageReceiver);
-            Coloration.SetReceiver(messageReceiver);
-            Visibility.SetReceiver(messageReceiver);
+            BeatModifier.SetReceiver(MessageReceiver);
+            Geometry.SetReceiver(MessageReceiver);
+            Texture.SetReceiver(MessageReceiver);
+            Coloration.SetReceiver(MessageReceiver);
+            Visibility.SetReceiver(MessageReceiver);
         }
 
         public override void SetSender(IMessageSender messageDispatcher)

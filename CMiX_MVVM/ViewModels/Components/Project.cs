@@ -57,8 +57,8 @@ namespace CMiX.MVVM.ViewModels.Components
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)
             {
                 var newComponent = this.ComponentFactory.CreateComponent(compositionModel);
-                newComponent.SetReceiver(MessageReceiver);
-                newComponent.SetSender(MessageSender);
+                //newComponent.SetReceiver(MessageReceiver);
+                //newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);
             }
 
@@ -78,10 +78,9 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
         {
-            MessageReceiver = new ModuleMessageReceiver();
-            messageReceiver.RegisterReceiver(this);
+            base.SetReceiver(messageReceiver);
 
             //Visibility.SetReceiver(MessageReceiver);
         }

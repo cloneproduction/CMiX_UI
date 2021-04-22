@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class DataReceiver : ViewModel, IMessageTerminal, IMessageDispatcher
+    public class DataReceiver : ViewModel, IMessageTerminal
     {
         public DataReceiver()
         {

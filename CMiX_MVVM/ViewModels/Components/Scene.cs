@@ -30,13 +30,13 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
         {
-            Transform.SetReceiver(messageReceiver);
-            Mask.SetReceiver(messageReceiver);
-            PostFX.SetReceiver(messageReceiver);
-            BeatModifier.SetReceiver(messageReceiver);
-            MasterBeat.SetReceiver(messageReceiver);
+            Transform.SetReceiver(MessageReceiver);
+            Mask.SetReceiver(MessageReceiver);
+            PostFX.SetReceiver(MessageReceiver);
+            BeatModifier.SetReceiver(MessageReceiver);
+            MasterBeat.SetReceiver(MessageReceiver);
         }
 
         public override void SetSender(IMessageSender messageSender)
@@ -80,8 +80,8 @@ namespace CMiX.MVVM.ViewModels.Components
             foreach (var componentModel in sceneModel.ComponentModels)
             {
                 var newComponent = this.ComponentFactory.CreateComponent(componentModel);
-                newComponent.SetReceiver(MessageReceiver);
-                newComponent.SetSender(MessageSender);
+                //newComponent.SetReceiver(MessageReceiver);
+                //newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);
             }
         }

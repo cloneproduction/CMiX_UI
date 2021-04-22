@@ -3,7 +3,7 @@
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentManagerMessageSender : IMessageSender, IMessageDispatcher
+    public class ComponentManagerMessageSender : IMessageSender
     {
         public ComponentManagerMessageSender()
         {
@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         }
 
         private IMessageSender MessageSender;
-        public IMessageDispatcher SetSender(IMessageSender messageSender)
+        public IMessageSender SetSender(IMessageSender messageSender)
         {
             MessageSender = messageSender;
             return messageSender;

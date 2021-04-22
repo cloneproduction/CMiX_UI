@@ -4,34 +4,31 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ModuleMessageReceiver : IMessageReceiver
+    public class ModuleReceiver : IMessageReceiver<Module>
     {
-        public ModuleMessageReceiver()
+        public ModuleReceiver()
         {
-            MessageCommunicators = new Dictionary<Guid, IMessageCommunicator>();
+            MessageCommunicators = new Dictionary<Guid, Module>();
         }
 
-        private Dictionary<Guid, IMessageCommunicator> MessageCommunicators { get; set; }
+        Dictionary<Guid, Module> MessageCommunicators { get; set; }
 
-        private IMessageCommunicator GetMessageProcessor(Guid id)
+        private Module GetMessageProcessor(Guid id)
         {
             if (MessageCommunicators.ContainsKey(id))
                 return MessageCommunicators[id];
             return null;
         }
 
-
-        public void RegisterReceiver(IMessageCommunicator messageCommunicator)
+        public void RegisterReceiver(Module messageCommunicator, Guid id)
         {
-            if (!MessageCommunicators.ContainsKey(messageCommunicator.ID))
-                MessageCommunicators[messageCommunicator.ID] = messageCommunicator;
-
+            if (!MessageCommunicators.ContainsKey(id))
+                MessageCommunicators.Add(id, messageCommunicator);
         }
 
-
-        public void UnregisterReceiver(IMessageCommunicator messageCommunicator)
+        public void UnregisterReceiver(Guid id)
         {
-            MessageCommunicators.Remove(messageCommunicator.ID);
+            MessageCommunicators.Remove(id);
         }
 
 

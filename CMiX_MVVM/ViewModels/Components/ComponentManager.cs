@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Components.Messages;
+﻿using CMiX.MVVM.ViewModels.Components.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
@@ -31,7 +30,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void SetReceiver(IMessageReceiver messageReceiver)
         {
-            MessageReceiver = new ComponentMessageReceiver();
+            MessageReceiver = new ComponentReceiver();
             messageReceiver.RegisterReceiver(this);
         }
 
@@ -48,7 +47,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentMessageSender MessageSender { get; set; }
-        public ComponentMessageReceiver MessageReceiver { get; set; }
+        public ComponentReceiver MessageReceiver { get; set; }
 
 
         public ICommand CreateComponentCommand { get; }
@@ -86,22 +85,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
             MessageSender?.SendMessageAddComponent(component, newComponent);
         }
-
-        public void CreateComponent(Component component, IComponentModel componentModel)
-        {
-            var newComponent = component.ComponentFactory.CreateComponent(componentModel);
-            component.AddComponent(newComponent);
-
-            if (MessageReceiver != null)
-                newComponent.SetReceiver(MessageReceiver);
-
-            if (MessageSender != null)
-                newComponent.SetSender(MessageSender);
-
-            Console.WriteLine(component.GetType() + " has " + component.Components.Count + " Components");
-            MessageSender?.SendMessageAddComponent(component, newComponent);
-        }
-
 
 
         public void DeleteComponent(Component component)

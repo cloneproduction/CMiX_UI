@@ -21,10 +21,10 @@ namespace CMiX.MVVM.ViewModels
             SelectedModeType = ModeType.None;
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            Width.SetReceiver(messageReceiver);
-        }
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    Width.SetReceiver(messageReceiver);
+        //}
 
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
