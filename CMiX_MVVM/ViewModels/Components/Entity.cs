@@ -36,9 +36,9 @@ namespace CMiX.MVVM.ViewModels.Components
             Visibility.SetReceiver(MessageReceiver);
         }
 
-        public override void SetSender(IMessageSender messageDispatcher)
+        public override void SetSender(ComponentSender messageSender)
         {
-            BeatModifier.SetSender(messageDispatcher);
+            BeatModifier.SetSender(MessageSender);
         }
 
 

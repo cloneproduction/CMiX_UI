@@ -1,7 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.Components.Messages;
-using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -23,20 +21,12 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void SetSender(IMessageSender messageSender)
         {
-            MessageSender = new ComponentMessageSender();
+            MessageSender = new ComponentSender();
             MessageSender.SetSender(messageSender);
         }
 
 
-        public void SetReceiver(ComponentReceiver componentReceiver)
-        {
-            MessageReceiver = componentReceiver;
-            //messageReceiver.RegisterReceiver(this);
-        }
-
-
-
-        public ComponentMessageSender MessageSender { get; set; }
+        public ComponentSender MessageSender { get; set; }
         public ComponentReceiver MessageReceiver { get; set; }
 
 
@@ -56,10 +46,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set => SetAndNotify(ref _selectedComponent, value);
         }
 
-        public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
         public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
-
 
 
         public void CreateComponent(Component component)
@@ -71,22 +58,15 @@ namespace CMiX.MVVM.ViewModels.Components
                 newComponent.SetReceiver(MessageReceiver);
 
             if(MessageSender != null)
-            {
                 newComponent.SetSender(MessageSender);
-                MessageSender.SendMessageAddComponent(component.ID, newComponent);
-            }
         }
 
 
         public void DeleteComponent(Component component)
         {
-            var selectedParent = GetSelectedParent(Components);
-            int index = selectedParent.Components.IndexOf(component);
-            GetSelectedParent(Components).RemoveComponent(component);
+            var selectedParent = GetParent(Components);
+            selectedParent.RemoveComponent(component);
             component.Dispose();
-
-            if (MessageSender != null)
-                MessageSender.SendMessageRemoveComponent(selectedParent.ID, index);
         }
 
 
@@ -119,7 +99,8 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public Component GetSelectedParent(ObservableCollection<Component> components)
+
+        private Component GetParent(ObservableCollection<Component> components)
         {
             Component result = null;
             foreach (Component component in components)
@@ -131,7 +112,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 }
                 else
                 {
-                    result = GetSelectedParent(component.Components);
+                    result = GetParent(component.Components);
                 }
             }
             return result;

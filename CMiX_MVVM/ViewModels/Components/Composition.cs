@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetSender(IMessageSender messageSender)
+        public override void SetSender(ComponentSender messageSender)
         {
             base.SetSender(messageSender);
 

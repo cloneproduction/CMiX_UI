@@ -177,7 +177,7 @@
     <Compile Include="ViewModels\Components\Factories\SceneFactory.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentManagerMessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentReceiver.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentMessageSender.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageCommunicator.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\MessageSender.cs" />

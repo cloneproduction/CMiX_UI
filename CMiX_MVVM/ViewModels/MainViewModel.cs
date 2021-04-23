@@ -29,10 +29,14 @@ namespace CMiX.MVVM.ViewModels
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
 
+            ComponentSender componentMessageSender = new ComponentSender();
+            CurrentProject.SetSender(componentMessageSender);
+
             AssetManager = new AssetManager(CurrentProject);
 
 
             DataSender = new DataSender();
+            componentMessageSender.SetSender(DataSender);
 
             ComponentManagerMessageSender componentManagerMessageSender = new ComponentManagerMessageSender();
             componentManagerMessageSender.SetSender(DataSender);
@@ -82,7 +86,6 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        public ComponentMessageSender MessageDispatcher { get; set; }
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
         public ObservableCollection<Component> Projects { get; set; }

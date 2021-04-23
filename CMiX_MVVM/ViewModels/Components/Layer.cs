@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Mask.SetReceiver(MessageReceiver);
         }
 
-        public override void SetSender(IMessageSender messageSender)
+        public override void SetSender(ComponentSender messageSender)
         {
             Fade.SetSender(MessageSender);
             PostFX.SetSender(MessageSender);

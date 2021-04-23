@@ -21,6 +21,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Components = new ObservableCollection<Component>();
         }
 
+        public ComponentSender ComponentSender { get; set; }
 
         public ModuleReceiver MessageReceiver { get; set; }
         public ModuleMessageSender MessageSender { get; set; }
@@ -78,12 +79,16 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Components.Add(component);
             IsExpanded = true;
+
+            ComponentSender?.SendMessageAddComponent(ID, component);
         }
 
         public void RemoveComponent(Component component)
         {
+            int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
+            ComponentSender?.SendMessageRemoveComponent(this.ID, index);
         }
 
         public void RemoveComponentAtIndex(int index)
@@ -107,18 +112,6 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public void Dispose()
-        {
-            //if(MessageDispatcher is IMessageDispatcherReceiver)
-            //    ((IMessageDispatcherReceiver)MessageDispatcher).UnregisterMessageReceiver(this);
-
-            foreach (var component in Components)
-            {
-                component.Dispose();
-            }
-        }
-
-
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();
 
@@ -129,16 +122,22 @@ namespace CMiX.MVVM.ViewModels.Components
             messageReceiver.RegisterReceiver(this, ID);
         }
 
-        public virtual void SetSender(IMessageSender messageSender)
+        public virtual void SetSender(ComponentSender messageSender)
         {
+            ComponentSender = messageSender;
             MessageSender = new ModuleMessageSender(this.ID);
             MessageSender.SetSender(messageSender);
         }
 
-
-        public void ReceiveMessage(IMessage message)
+        public void Dispose()
         {
+            //if(MessageDispatcher is IMessageDispatcherReceiver)
+            //    ((IMessageDispatcherReceiver)MessageDispatcher).UnregisterMessageReceiver(this);
 
+            foreach (var component in Components)
+            {
+                component.Dispose();
+            }
         }
     }
 }

@@ -5,9 +5,9 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class ComponentMessageSender : IMessageSender
+    public class ComponentSender : IMessageSender
     {
-        public ComponentMessageSender()
+        public ComponentSender()
         {
 
         }
@@ -21,14 +21,16 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void SendMessageAddComponent(Guid parentID, Component newComponent)
         {
-            this.SendMessage(new MessageAddComponent(parentID, newComponent.GetModel() as IComponentModel));
-            Console.WriteLine("ManagerMessageSender SendMessageAdd");
+            IMessage message = new MessageAddComponent(parentID, newComponent.GetModel() as IComponentModel);
+            this.SendMessage(message);
+            Console.WriteLine("ComponentMessageSender SendMessageAdd");
         }
 
         public void SendMessageRemoveComponent(Guid parentID, int index)
         {
-            this.SendMessage(new MessageRemoveComponent(parentID, index));
-            Console.WriteLine("ManagerMessageSender SendMessageRemove");
+            IMessage message = new MessageRemoveComponent(parentID, index);
+            this.SendMessage(message);
+            Console.WriteLine("ComponentMessageSender SendMessageRemove");
         }
 
         public void SendMessage(IMessage message)
