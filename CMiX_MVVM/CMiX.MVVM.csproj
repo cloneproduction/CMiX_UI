@@ -176,13 +176,12 @@
     <Compile Include="ViewModels\Components\Factories\LayerFactory.cs" />
     <Compile Include="ViewModels\Components\Factories\SceneFactory.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentManagerMessageSender.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentManagerMessageReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentMessageSender.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageCommunicator.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\MessageReceiver.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\MessageSender.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageSender.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\IModifier.cs" />

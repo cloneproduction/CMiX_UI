@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         Guid ID { get; set; }
 
         void SetSender(IMessageSender messageSender);
-        void SetReceiver(IMessageReceiver messageReceiver);
+        //void SetReceiver(IMessageReceiver messageReceiver);
 
 
         //void ReceiveMessage(IMessage message);

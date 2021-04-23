@@ -22,10 +22,10 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return null;
         }
 
-        public void RegisterReceiver(Component messageCommunicator, Guid id)
+        public void RegisterReceiver(Component component, Guid id)
         {
             if (!MessageCommunicators.ContainsKey(id))
-                MessageCommunicators.Add(id, messageCommunicator);
+                MessageCommunicators.Add(id, component);
         }
 
         public void UnregisterReceiver(Guid id)

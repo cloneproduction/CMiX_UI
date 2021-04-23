@@ -10,13 +10,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             ComponentID = componentID;
         }
 
-
         Guid ComponentID { get; set; }
-
-        public IMessage SetMessageID(IMessage message)
-        {
-            return message;
-        }
 
         private IMessageSender MessageSender;
         public IMessageSender SetSender(IMessageSender messageSender)
@@ -29,7 +23,6 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         {
             this.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
         }
-
 
         public void SendMessage(IMessage message)
         {

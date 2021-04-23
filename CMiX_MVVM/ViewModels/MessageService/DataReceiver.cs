@@ -1,6 +1,7 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService;
 using System;
 
@@ -16,7 +17,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        public void RegisterReceiver(IMessageReceiver messageReceiver)
+        public void RegisterReceiver(IMessageReceiver<Component> messageReceiver)
         {
             MessageReceiver = messageReceiver;
         }
@@ -27,14 +28,9 @@ namespace CMiX.Studio.ViewModels.MessageService
             if (MessageReceiver != null)
             {
                 IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-                ProcessMessage(message);
+                MessageReceiver.ReceiveMessage(message);
+                Console.WriteLine("Client_DataReceived Message ");// + message.GetType() + "  " + message.ComponentID);
             }
-        }
-
-        public void ProcessMessage(IMessage message)
-        {
-            MessageReceiver.ReceiveMessage(message);
-            Console.WriteLine("Client_DataReceived Message ");// + message.GetType() + "  " + message.ComponentID);
         }
 
 
@@ -44,7 +40,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        private IMessageReceiver MessageReceiver;
+        private IMessageReceiver<Component> MessageReceiver;
         private CerasSerializer Serializer { get; set; }
 
 
