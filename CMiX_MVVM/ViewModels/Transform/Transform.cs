@@ -37,14 +37,14 @@ namespace CMiX.MVVM.ViewModels
             //this.Count = count;
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            messageReceiver?.RegisterReceiver(this, ID);
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
 
-            Translate.SetReceiver(messageReceiver);
-            Scale.SetReceiver(messageReceiver);
-            Rotation.SetReceiver(messageReceiver);
-        }
+        //    Translate.SetReceiver(messageReceiver);
+        //    Scale.SetReceiver(messageReceiver);
+        //    Rotation.SetReceiver(messageReceiver);
+        //}
 
 
         public override void SetViewModel(IModel model)

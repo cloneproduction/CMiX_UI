@@ -23,13 +23,13 @@ namespace CMiX.MVVM.ViewModels
         public GeometryFX GeometryFX { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            Instancer.SetReceiver(messageReceiver);
-            Transform.SetReceiver(messageReceiver);
-            GeometryFX.SetReceiver(messageReceiver);
-            AssetPathSelector.SetReceiver(messageReceiver);
-        }
+        //public override void SetReceiver(ModuleReceiver messageReceiver)
+        //{
+        //    Instancer.SetReceiver(messageReceiver);
+        //    Transform.SetReceiver(messageReceiver);
+        //    GeometryFX.SetReceiver(messageReceiver);
+        //    AssetPathSelector.SetReceiver(messageReceiver);
+        //}
 
         public override IModel GetModel()
         {

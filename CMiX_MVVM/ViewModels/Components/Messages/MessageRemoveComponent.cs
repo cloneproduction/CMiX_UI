@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
-    public class MessageRemoveComponent : IComponentManagerMessage
-
+    public class MessageRemoveComponent : IComponentMessage
     {
         public MessageRemoveComponent()
         {

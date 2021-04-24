@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class Visibility : Module, IMessageProcessor
+    public class Visibility : Module
     {
         public Visibility(VisibilityModel visibilityModel)
         {
@@ -21,9 +22,9 @@ namespace CMiX.MVVM.ViewModels.Components
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
+        public override void SetReceiver(ModuleReceiver messageReceiver)
         {
-            messageReceiver?.RegisterReceiver(this, ID);
+            //messageReceiver?.RegisterReceiver(this, ID);
         }
 
         //public Visibility(MessageDispatcher messageDispatcher, Visibility parentVisibility, VisibilityModel visibilityModel) : base (messageDispatcher, visibilityModel)

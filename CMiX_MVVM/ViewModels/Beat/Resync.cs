@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class Resync : Module, IMessageProcessor
+    public class Resync : Module
     {
         public Resync(BeatAnimations beatAnimations, ResyncModel resyncModel) 
         {
@@ -51,9 +51,9 @@ namespace CMiX.MVVM.ViewModels.Beat
             return model;
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void SetReceiver(ModuleReceiver messageReceiver)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

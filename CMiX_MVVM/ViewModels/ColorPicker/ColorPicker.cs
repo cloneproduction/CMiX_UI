@@ -38,10 +38,10 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            messageReceiver?.RegisterReceiver(this, ID);
-        }
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
+        //}
 
         public ICommand PreviewMouseDownCommand { get; set; }
         public ICommand PreviewMouseUpCommand { get; set; }

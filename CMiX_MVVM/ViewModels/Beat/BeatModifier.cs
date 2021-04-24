@@ -7,7 +7,7 @@ using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class BeatModifier : Beat, IMessageProcessor, IBeatObserver//, IMessageSendHandler
+    public class BeatModifier : Beat, IBeatObserver
     {
         public BeatModifier(MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
             : base (beatModifierModel)

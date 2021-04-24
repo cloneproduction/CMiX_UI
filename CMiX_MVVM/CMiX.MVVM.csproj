@@ -177,13 +177,16 @@
     <Compile Include="ViewModels\Components\Factories\SceneFactory.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentManagerMessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentMessageProcessor.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageFactory.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentSender.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageProcessor.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageCommunicator.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\MessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageReceiver.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleReceiver.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageProcessor.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageSender.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RandomXYZ.cs" />
@@ -215,7 +218,6 @@
     <Compile Include="ViewModels\Entity\Geometry\Instancer\XYZModifier.cs" />
     <Compile Include="ViewModels\Transform\ITransform.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
-    <Compile Include="ViewModels\MessageService\IMessageProcessor.cs" />
     <Compile Include="ViewModels\MessageService\MessageDispatcherSender.cs" />
     <Compile Include="ViewModels\MessageService\MessageTerminal.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />

@@ -39,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                MessageSender?.SendMessageUpdateViewModel(this);
+                ModuleMessageFactory?.SendMessageUpdateViewModel(this);
             }
         }
 
@@ -67,6 +67,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             SliderModel sliderModel = model as SliderModel;
+            this.ID = sliderModel.ID;
             this.Amount = sliderModel.Amount;
             System.Console.WriteLine("Slider SetViewModel Amount " + Amount);
         }

@@ -4,6 +4,7 @@ using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using MvvmDialogs;
 using System.Collections.ObjectModel;
 
@@ -78,7 +79,7 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
-        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
+        public override void SetReceiver(ComponentReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
 

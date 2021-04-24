@@ -13,10 +13,10 @@ namespace CMiX.MVVM.ViewModels
             Enabled = maskModel.Enabled;
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            messageReceiver?.RegisterReceiver(this, ID);
-        }
+        //public override void SetReceiver(ModuleReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
+        //}
 
         private bool _IsMask;
         public bool IsMask

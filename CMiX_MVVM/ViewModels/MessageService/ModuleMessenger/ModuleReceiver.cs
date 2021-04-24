@@ -2,46 +2,45 @@
 using System;
 using System.Collections.Generic;
 
-namespace CMiX.MVVM.ViewModels.MessageService
+namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ModuleReceiver : IMessageReceiver<Module>
+    public class ModuleReceiver : IMessageReceiver
     {
         public ModuleReceiver()
         {
-            MessageCommunicators = new Dictionary<Guid, Module>();
+            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
 
-        Dictionary<Guid, Module> MessageCommunicators { get; set; }
+        Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-        private Module GetMessageProcessor(Guid id)
+        public IMessageProcessor GetMessageProcessor(Guid id)
         {
-            if (MessageCommunicators.ContainsKey(id))
-                return MessageCommunicators[id];
+            if (MessageProcessors.ContainsKey(id))
+                return MessageProcessors[id];
             return null;
         }
 
-        public void RegisterReceiver(Module messageCommunicator, Guid id)
+        public void RegisterReceiver(Guid id, IMessageProcessor component)
         {
-            if (!MessageCommunicators.ContainsKey(id))
-                MessageCommunicators.Add(id, messageCommunicator);
+            if (!MessageProcessors.ContainsKey(id))
+                MessageProcessors.Add(id, component);
         }
 
         public void UnregisterReceiver(Guid id)
         {
-            MessageCommunicators.Remove(id);
+            MessageProcessors.Remove(id);
         }
 
 
         public void ReceiveMessage(IMessage message)
         {
-            var msg = message as MessageUpdateViewModel;
-            Module module = null;
+            var msg = message as IViewModelMessage;
+            var messageProcessor = GetMessageProcessor(msg.ModuleID);
 
-            if(msg != null)
-                module = GetMessageProcessor(msg.ModuleID) as Module;
+            if (messageProcessor == null)
+                return;
 
-            if (msg != null && module != null)
-                module.SetViewModel(msg.Model);
+            messageProcessor.ProcessMessage(message);
         }
     }
 }

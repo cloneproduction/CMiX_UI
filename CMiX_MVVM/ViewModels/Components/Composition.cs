@@ -4,6 +4,7 @@ using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
@@ -36,7 +37,7 @@ namespace CMiX.MVVM.ViewModels.Components
             //Visibility.SetSender(MessageSender);
         }
 
-        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
+        public override void SetReceiver(ComponentReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
 

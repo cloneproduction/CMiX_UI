@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public interface ITransformModifier : IMessageProcessor//, IDisposable
+    public interface ITransformModifier
     {
         string Name { get; set; }
         ObservableCollection<Transform> Transforms { get; set; }

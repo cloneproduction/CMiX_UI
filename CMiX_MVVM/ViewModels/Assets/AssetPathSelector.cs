@@ -13,10 +13,10 @@ namespace CMiX.MVVM.ViewModels.Assets
             SelectedAsset = defaultAsset;
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            messageReceiver?.RegisterReceiver(this, ID);
-        }
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
+        //}
 
 
         private Asset _selectedAsset;

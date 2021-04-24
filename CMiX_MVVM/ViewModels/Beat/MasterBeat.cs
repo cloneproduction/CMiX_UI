@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class MasterBeat : Beat, IMessageProcessor, IBeatSubject
+    public class MasterBeat : Beat, IBeatSubject
     {
         public MasterBeat(MasterBeatModel masterBeatModel) 
             : base (masterBeatModel)
@@ -35,10 +35,10 @@ namespace CMiX.MVVM.ViewModels.Beat
         }
 
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            messageReceiver?.RegisterReceiver(this, ID);
-        }
+        //public override void SetReceiver(ModuleReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
+        //}
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }

@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public interface IComponentMessageProcessor : IMessageProcessor
+    public interface IComponentMessageProcessor
     {
 
     }

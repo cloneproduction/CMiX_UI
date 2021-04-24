@@ -9,7 +9,7 @@ using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RandomXYZ : Module, ITransformModifier, IMessageProcessor
+    public class RandomXYZ : Module, ITransformModifier
     {
         public RandomXYZ(string name, int id, MasterBeat masterBeat, RandomXYZModel randomXYZModel)
         {
@@ -39,12 +39,12 @@ namespace CMiX.MVVM.ViewModels
             RandomizeRotation = true;
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            messageReceiver?.RegisterReceiver(this, ID);
+        //public override void SetReceiver(ModuleReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
 
-            LocationX.SetReceiver(messageReceiver);
-        }
+        //    LocationX.SetReceiver(messageReceiver);
+        //}
 
         private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
         {

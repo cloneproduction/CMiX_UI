@@ -1,8 +1,8 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        public void RegisterReceiver(IMessageReceiver<Component> messageReceiver)
+        public void RegisterReceiver(IMessageReceiver messageReceiver)
         {
             MessageReceiver = messageReceiver;
         }
@@ -40,7 +40,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        private IMessageReceiver<Component> MessageReceiver;
+        private IMessageReceiver MessageReceiver;
         private CerasSerializer Serializer { get; set; }
 
 

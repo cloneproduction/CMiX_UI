@@ -20,12 +20,5 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         public int OldIndex { get; set; }
         public int NewIndex { get; set; }
         public Guid ComponentID { get; set; }
-        
-
-        public void Process(IMessageProcessor messageProcessor)
-        {
-            //Component component = messageProcessor as Component;
-            //component.Components.Move(OldIndex, NewIndex);
-        }
     }
 }

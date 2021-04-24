@@ -23,11 +23,11 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public Guid ComponentID { get; set; }
         public Guid ModuleID { get; set; }
 
-        public void Process(IMessageProcessor messageProcessor)
-        {
-            //Instancer instancer = messageProcessor as Instancer;
-            //var transformModifier = instancer.Factory.CreateTransformModifier(TransformModifierNames, TransformModifierModel, instancer);
-            //instancer.TransformModifiers.Add(transformModifier);
-        }
+        //public void Process(IMessageProcessor messageProcessor)
+        //{
+        //    //Instancer instancer = messageProcessor as Instancer;
+        //    //var transformModifier = instancer.Factory.CreateTransformModifier(TransformModifierNames, TransformModifierModel, instancer);
+        //    //instancer.TransformModifiers.Add(transformModifier);
+        //}
     }
 }

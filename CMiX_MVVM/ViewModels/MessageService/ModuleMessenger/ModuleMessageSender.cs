@@ -30,7 +30,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             {
                 message.ComponentID = ComponentID;
                 MessageSender.SendMessage(message);
-                Console.WriteLine("ModuleMessageSender SendMessage");
+                Console.WriteLine("ModuleMessageSender SendMessage ComponentAddress" + message.ComponentID);
             }
         }
     }

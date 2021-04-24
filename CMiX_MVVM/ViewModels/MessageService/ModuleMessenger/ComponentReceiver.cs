@@ -1,78 +1,45 @@
-﻿using CMiX.MVVM.ViewModels.Components;
-using CMiX.MVVM.ViewModels.Components.Messages;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentReceiver : IMessageReceiver<Component>
+    public class ComponentReceiver : IMessageReceiver
     {
-        public ComponentReceiver(ComponentMessageProcessor componentMessageProcessor)
+        public ComponentReceiver()
         {
-            ComponentMessageProcessor = componentMessageProcessor;
-            MessageCommunicators = new Dictionary<Guid, Component>();
+            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
 
+        Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-        ComponentMessageProcessor ComponentMessageProcessor { get; set; }
-        Dictionary<Guid, Component> MessageCommunicators { get; set; }
-
-        public Component GetMessageProcessor(Guid id)
+        public IMessageProcessor GetMessageProcessor(Guid id)
         {
-            if (MessageCommunicators.ContainsKey(id))
-                return MessageCommunicators[id];
+            if (MessageProcessors.ContainsKey(id))
+                return MessageProcessors[id];
             return null;
         }
 
-        public void RegisterReceiver(Component component, Guid id)
+        public void RegisterReceiver(Guid id, IMessageProcessor component)
         {
-            if (!MessageCommunicators.ContainsKey(id))
-                MessageCommunicators.Add(id, component);
+            if (!MessageProcessors.ContainsKey(id))
+                MessageProcessors.Add(id, component);
         }
 
         public void UnregisterReceiver(Guid id)
         {
-            MessageCommunicators.Remove(id);
+            MessageProcessors.Remove(id);
         }
 
 
         public void ReceiveMessage(IMessage message)
         {
-            var component = GetMessageProcessor(message.ComponentID);
+            //Console.WriteLine("ComponentReceiver ReceiveMessage ComponentID" + message.ComponentID);
+            var messageProcessor = GetMessageProcessor(message.ComponentID);
 
-            if (component == null)
+            if (messageProcessor == null)
                 return;
 
-            if (message is MessageAddComponent)
-            {
-                ReceiveMessageAddComponent(component, message as MessageAddComponent);
-                return;
-            }
-
-            if(message is MessageRemoveComponent)
-            {
-                ReceiveMessageRemoveComponent(component, message as MessageRemoveComponent);
-                return;
-            }
-
-            component.MessageReceiver.ReceiveMessage(message);
-        }
-
-        private void ReceiveMessageAddComponent(Component component, MessageAddComponent message)
-        {
-            Component newComponent = component.ComponentFactory.CreateComponent(message.ComponentModel);
-            newComponent.SetReceiver(this);
-            component.AddComponent(newComponent);
-            Console.WriteLine("ComponentReceiver ReceiveMessageAddComponent Count is " + component.Components.Count);
-        }
-
-        private void ReceiveMessageRemoveComponent(Component component, MessageRemoveComponent message)
-        {
-            Component componentToRemove = component.Components.ElementAt(message.Index);
-            component.RemoveComponent(componentToRemove);
-            this.UnregisterReceiver(componentToRemove.ID);
-            Console.WriteLine("ComponentReceiver ReceiveMessageRemoveComponent Count is " + component.Components.Count);
+            messageProcessor.ProcessMessage(message);
         }
     }
 }

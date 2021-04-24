@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
@@ -30,8 +31,10 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
+        public override void SetReceiver(ComponentReceiver messageReceiver)
         {
+            base.SetReceiver(messageReceiver);
+
             Transform.SetReceiver(MessageReceiver);
             Mask.SetReceiver(MessageReceiver);
             PostFX.SetReceiver(MessageReceiver);
@@ -41,11 +44,11 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetSender(ComponentSender messageSender)
         {
-            Transform.SetSender(messageSender);
-            Mask.SetSender(messageSender);
-            PostFX.SetSender(messageSender);
-            BeatModifier.SetSender(messageSender);
-            MasterBeat.SetSender(messageSender);
+            Transform.SetSender(MessageSender);
+            Mask.SetSender(MessageSender);
+            PostFX.SetSender(MessageSender);
+            BeatModifier.SetSender(MessageSender);
+            MasterBeat.SetSender(MessageSender);
         }
 
 

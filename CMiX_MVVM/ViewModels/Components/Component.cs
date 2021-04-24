@@ -21,8 +21,8 @@ namespace CMiX.MVVM.ViewModels.Components
             Components = new ObservableCollection<Component>();
         }
 
+
         public ComponentSender ComponentSender { get; set; }
-        public ComponentReceiver ComponentReceiver { get; set; }
 
         public ModuleReceiver MessageReceiver { get; set; }
         public ModuleMessageSender MessageSender { get; set; }
@@ -117,25 +117,24 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public virtual void SetReceiver(IMessageReceiver<Component> messageReceiver)
+        public virtual void SetReceiver(ComponentReceiver messageReceiver)
         {
-            ComponentReceiver = messageReceiver;
             MessageReceiver = new ModuleReceiver();
-            messageReceiver.RegisterReceiver(this, ID);
+
+            var messageProcessor = new ComponentMessageProcessor(this, messageReceiver);
+            messageReceiver.RegisterReceiver(ID, messageProcessor);
         }
 
         public virtual void SetSender(ComponentSender messageSender)
         {
-            ComponentSender = messageSender;
             MessageSender = new ModuleMessageSender(this.ID);
             MessageSender.SetSender(messageSender);
+
+            ComponentSender = messageSender;
         }
 
         public void Dispose()
         {
-            //if(MessageDispatcher is IMessageDispatcherReceiver)
-            //    ((IMessageDispatcherReceiver)MessageDispatcher).UnregisterMessageReceiver(this);
-
             foreach (var component in Components)
             {
                 component.Dispose();

@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
@@ -23,20 +24,24 @@ namespace CMiX.MVVM.ViewModels.Components
             ComponentFactory = new SceneFactory(this);
         }
 
-        public override void SetReceiver(IMessageReceiver<Component> messageReceiver)
+        public override void SetReceiver(ComponentReceiver messageReceiver)
         {
+            base.SetReceiver(messageReceiver);
+
             Fade.SetReceiver(MessageReceiver);
             PostFX.SetReceiver(MessageReceiver);
-            BlendMode.SetReceiver(MessageReceiver);
-            Mask.SetReceiver(MessageReceiver);
+            //BlendMode.SetReceiver(MessageReceiver);
+            //Mask.SetReceiver(MessageReceiver);
         }
 
         public override void SetSender(ComponentSender messageSender)
         {
+            base.SetSender(messageSender);
+
             Fade.SetSender(MessageSender);
             PostFX.SetSender(MessageSender);
-            BlendMode.SetSender(MessageSender);
-            Mask.SetSender(MessageSender);
+            //BlendMode.SetSender(MessageSender);
+            //Mask.SetSender(MessageSender);
         }
 
 
@@ -65,6 +70,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             model.Fade = (SliderModel)this.Fade.GetModel();
             model.BlendMode = (BlendModeModel)this.BlendMode.GetModel();
+            model.PostFXModel = (PostFXModel)this.PostFX.GetModel();
 
             foreach (Component item in this.Components)
                 model.ComponentModels.Add(item.GetModel() as IComponentModel);
@@ -80,6 +86,7 @@ namespace CMiX.MVVM.ViewModels.Components
             this.Out = layerModel.Out;
             this.Fade.SetViewModel(layerModel.Fade);
             this.BlendMode.SetViewModel(layerModel.BlendMode);
+            this.PostFX.SetViewModel(layerModel.PostFXModel);
 
             this.Components.Clear();
             foreach (var componentModel in layerModel.ComponentModels)

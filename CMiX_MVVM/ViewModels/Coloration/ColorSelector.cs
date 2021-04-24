@@ -13,12 +13,12 @@ namespace CMiX.MVVM.ViewModels
             //this.SelectedColor = Utils.HexStringToColor(colorSelectorModel.ColorPickerModel.SelectedColor);
         }
 
-        public override void SetReceiver(IMessageReceiver<Module> messageReceiver)
-        {
-            messageReceiver?.RegisterReceiver(this, ID);
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
 
-            ColorPicker.SetReceiver(messageReceiver);
-        }
+        //    ColorPicker.SetReceiver(messageReceiver);
+        //}
 
         public ColorPicker ColorPicker { get; set; }
 
