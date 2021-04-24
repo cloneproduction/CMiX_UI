@@ -8,11 +8,14 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
     public class ComponentReceiver : IMessageReceiver<Component>
     {
-        public ComponentReceiver()
+        public ComponentReceiver(ComponentMessageProcessor componentMessageProcessor)
         {
+            ComponentMessageProcessor = componentMessageProcessor;
             MessageCommunicators = new Dictionary<Guid, Component>();
         }
 
+
+        ComponentMessageProcessor ComponentMessageProcessor { get; set; }
         Dictionary<Guid, Component> MessageCommunicators { get; set; }
 
         public Component GetMessageProcessor(Guid id)

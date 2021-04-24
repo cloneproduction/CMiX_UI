@@ -22,6 +22,7 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
         public ComponentSender ComponentSender { get; set; }
+        public ComponentReceiver ComponentReceiver { get; set; }
 
         public ModuleReceiver MessageReceiver { get; set; }
         public ModuleMessageSender MessageSender { get; set; }
@@ -118,6 +119,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual void SetReceiver(IMessageReceiver<Component> messageReceiver)
         {
+            ComponentReceiver = messageReceiver;
             MessageReceiver = new ModuleReceiver();
             messageReceiver.RegisterReceiver(this, ID);
         }
