@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
         public Guid ID { get; set; }
         public ModuleMessageFactory ModuleMessageFactory  { get; set; }
 
-        public virtual void SetSender(ModuleMessageSender messageSender)
+        public virtual void SetSender(ModuleSender messageSender)
         {
             ModuleMessageFactory = new ModuleMessageFactory(messageSender);
             Console.WriteLine(messageSender.GetType());

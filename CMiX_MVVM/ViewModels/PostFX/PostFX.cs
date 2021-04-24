@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
             Blur.SetReceiver(messageReceiver);
         }
 
-        public override void SetSender(ModuleMessageSender messageSender)
+        public override void SetSender(ModuleSender messageSender)
         {
             //base.SetSender(messageSender);
 
@@ -61,7 +61,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             PostFXModel postFXModel = model as PostFXModel;
-            //this.ID = postFXModel.ID;
+            this.ID = postFXModel.ID;
             this.Transforms = postFXModel.Transforms;
             this.View = postFXModel.View;
             this.Feedback.SetViewModel(postFXModel.Feedback);

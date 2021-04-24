@@ -3,9 +3,9 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ModuleMessageSender : IMessageSender
+    public class ModuleSender : IMessageSender
     {
-        public ModuleMessageSender(Guid componentID)
+        public ModuleSender(Guid componentID)
         {
             ComponentID = componentID;
         }
@@ -30,7 +30,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             {
                 message.ComponentID = ComponentID;
                 MessageSender.SendMessage(message);
-                Console.WriteLine("ModuleMessageSender SendMessage ComponentAddress" + message.ComponentID);
+                Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);
             }
         }
     }

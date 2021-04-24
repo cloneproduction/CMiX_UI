@@ -9,19 +9,19 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
     public class ModuleMessageFactory
     {
-        public ModuleMessageFactory(ModuleMessageSender moduleMessageSender)
+        public ModuleMessageFactory(ModuleSender moduleMessageSender)
         {
-            ModuleMessageSender = moduleMessageSender;
+            ModuleSender = moduleMessageSender;
         }
 
-        private ModuleMessageSender ModuleMessageSender { get; set; }
+        private ModuleSender ModuleSender { get; set; }
 
         public void SendMessageUpdateViewModel(Module module)
         {
-            if(ModuleMessageSender != null)
+            if(ModuleSender != null)
             {
-                Console.WriteLine("ModuleMessageSender SendMessage ModuleAddress" + module.ID);
-                ModuleMessageSender.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
+                Console.WriteLine("ModuleSender SendMessage ModuleAddress" + module.ID);
+                ModuleSender.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
             }
                 
         }
