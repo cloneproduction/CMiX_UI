@@ -41,7 +41,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetSender(ComponentSender messageSender)
         {
-            BeatModifier.SetSender(MessageSender);
+            BeatModifier.SetSender(ModuleSender);
         }
 
 

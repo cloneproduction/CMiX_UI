@@ -44,11 +44,11 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetSender(ComponentSender messageSender)
         {
-            Transform.SetSender(MessageSender);
-            Mask.SetSender(MessageSender);
-            PostFX.SetSender(MessageSender);
-            BeatModifier.SetSender(MessageSender);
-            MasterBeat.SetSender(MessageSender);
+            Transform.SetSender(ModuleSender);
+            Mask.SetSender(ModuleSender);
+            PostFX.SetSender(ModuleSender);
+            BeatModifier.SetSender(ModuleSender);
+            MasterBeat.SetSender(ModuleSender);
         }
 
 

@@ -144,6 +144,7 @@
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
     <Compile Include="ViewModels\Components\Messages\IComponentManagerMessage.cs" />
+    <Compile Include="ViewModels\MessageService\MessageCourier.cs" />
     <Compile Include="ViewModels\MessageService\MessageDispatcherReceiver.cs" />
     <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageReceiveHandler.cs" />
     <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageSendHandler.cs" />
@@ -187,7 +188,7 @@
     <Compile Include="ViewModels\MessageService\ModuleMessenger\MessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageProcessor.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageSender.cs" />
+    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleSender.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />

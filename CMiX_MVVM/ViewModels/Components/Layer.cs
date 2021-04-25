@@ -38,8 +38,8 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             base.SetSender(messageSender);
 
-            Fade.SetSender(MessageSender);
-            PostFX.SetSender(MessageSender);
+            Fade.SetSender(ModuleSender);
+            PostFX.SetSender(ModuleSender);
             //BlendMode.SetSender(MessageSender);
             //Mask.SetSender(MessageSender);
         }

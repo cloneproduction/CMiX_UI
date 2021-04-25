@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService;
 using System;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
@@ -15,6 +16,7 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
             Index = index;
         }
 
+        public List<Guid> IDs { get; set; }
         public int Index { get; set; }
         public Guid ComponentID { get; set; }
     }

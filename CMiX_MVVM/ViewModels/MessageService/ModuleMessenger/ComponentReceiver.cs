@@ -33,7 +33,6 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void ReceiveMessage(IMessage message)
         {
-            //Console.WriteLine("ComponentReceiver ReceiveMessage ComponentID" + message.ComponentID);
             var messageProcessor = GetMessageProcessor(message.ComponentID);
 
             if (messageProcessor == null)

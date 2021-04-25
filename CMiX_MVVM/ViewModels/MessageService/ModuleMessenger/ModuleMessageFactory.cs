@@ -1,9 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
@@ -23,7 +19,6 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
                 Console.WriteLine("ModuleSender SendMessage ModuleAddress" + module.ID);
                 ModuleSender.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
             }
-                
         }
     }
 }

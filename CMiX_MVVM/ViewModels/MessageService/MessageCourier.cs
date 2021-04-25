@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public interface IMessage
+    public class MessageCourier
     {
-        List<Guid> IDs { get; set; }
-        Guid ComponentID { get; set; }
     }
 }

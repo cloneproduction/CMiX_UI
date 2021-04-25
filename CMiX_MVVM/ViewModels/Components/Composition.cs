@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             base.SetSender(messageSender);
 
-            Transition.SetSender(MessageSender);
+            Transition.SetSender(ModuleSender);
             //MasterBeat.SetSender(MessageSender);
             //Camera.SetSender(MessageSender);
             //Visibility.SetSender(MessageSender);

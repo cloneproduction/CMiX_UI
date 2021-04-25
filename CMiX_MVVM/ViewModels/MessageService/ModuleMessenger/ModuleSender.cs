@@ -28,6 +28,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         {
             if (MessageSender != null)
             {
+                message.IDs.Add(ComponentID);
                 message.ComponentID = ComponentID;
                 MessageSender.SendMessage(message);
                 Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);

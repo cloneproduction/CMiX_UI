@@ -2,6 +2,7 @@
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
 using System;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
@@ -17,6 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
             this.ComponentModel = componentModel;
         }
 
+        public List<Guid> IDs { get; set; }
         private int Index { get; set; }
         public IComponentModel ComponentModel { get; set; }
         public object Obj { get; set; }
