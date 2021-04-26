@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.Components.Messages;
+using CMiX.MVVM.ViewModels.Messages;
 using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
@@ -36,6 +37,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public void SendMessage(IMessage message)
         {
             MessageSender?.SendMessage(message);
+        }
+
+        public void SendMessageAggregator(IMessageAggregator messageAggregator)
+        {
+            MessageSender?.SendMessageAggregator(messageAggregator);
         }
     }
 }

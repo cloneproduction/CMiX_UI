@@ -1,16 +1,17 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.ViewModels.Messages;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
     public class ModuleSender : IMessageSender
     {
-        public ModuleSender(Guid componentID)
+        public ModuleSender(Guid id)
         {
-            ComponentID = componentID;
+            ID = id;
         }
 
-        Guid ComponentID { get; set; }
+        Guid ID { get; set; }
 
         private IMessageSender MessageSender;
         public IMessageSender SetSender(IMessageSender messageSender)
@@ -19,17 +20,20 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return messageSender;
         }
 
-        public void SendMessageUpdateViewModel(Module module)
+        public void SendMessageAggregator(IMessageAggregator messageAggregator)
         {
-            this.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
+            if(MessageSender != null)
+            {
+                messageAggregator.AddMessage(new MessageEmpty(ID));
+                MessageSender.SendMessageAggregator(messageAggregator);
+            }
         }
 
         public void SendMessage(IMessage message)
         {
             if (MessageSender != null)
             {
-                message.IDs.Add(ComponentID);
-                message.ComponentID = ComponentID;
+                message.ComponentID = ID;
                 MessageSender.SendMessage(message);
                 Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);
             }

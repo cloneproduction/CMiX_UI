@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.Messages;
+using System;
 
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
@@ -24,6 +25,11 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
                 MessageSender.SendMessage(message);
                 Console.WriteLine("ManagerMessageSender SendMessage");
             }
+        }
+
+        public void SendMessageAggregator(IMessageAggregator messageAggregator)
+        {
+            throw new NotImplementedException();
         }
     }
 }

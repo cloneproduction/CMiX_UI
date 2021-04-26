@@ -15,12 +15,11 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         public MessageAddComponent(Guid componentID, IComponentModel componentModel)
         {
-            IDs.Add(componentID);
             ComponentID = componentID;
             ComponentModel = componentModel;
         }
 
-        public List<Guid> IDs { get; set; }
+        
         public Guid ComponentID { get; set; }
         public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...
     }

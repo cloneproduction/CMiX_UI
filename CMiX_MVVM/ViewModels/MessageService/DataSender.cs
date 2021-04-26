@@ -1,8 +1,10 @@
 ﻿using Ceras;
+using CMiX.MVVM.ViewModels.Messages;
 using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
 using CMiX.MVVM.Views;
 using CMiX.Studio.ViewModels.MessageService;
 using MvvmDialogs;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -80,6 +82,20 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public IMessageSendHandler SetSender(IMessageSendHandler handler)
         {
             throw new System.NotImplementedException();
+        }
+
+
+        public void SendMessageAggregator(IMessageAggregator messageAggregator)
+        {
+            //var address = message.ComponentID;
+            var address = Guid.NewGuid(); //for testing
+            var data = Serializer.Serialize(messageAggregator);
+
+            foreach (var messenger in Messengers)
+            {
+                messenger.SendMessage(address, data);
+                System.Console.WriteLine("MessageSender SendMessage");
+            }
         }
 
         public void SendMessage(IMessage message)
