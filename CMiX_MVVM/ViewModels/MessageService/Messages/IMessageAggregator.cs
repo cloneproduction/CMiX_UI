@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels.Messages
 {
     public interface IMessageAggregator
     {
-        IMessageIterator CreateIterator();
-        void AddMessage(IMessage message);
+        //IMessageIterator CreateIterator();
+        //void AddMessage(IMessage message);
     }
 }

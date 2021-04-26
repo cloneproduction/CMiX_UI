@@ -13,12 +13,10 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
 
         public MessageUpdateViewModel(Guid moduleID, IModel model)
         {
-            IDs.Add(moduleID);
             Model = model;
             ModuleID = moduleID;
         }
 
-        public List<Guid> IDs { get; set; }
         public IModel Model { get; set; }
         public Guid ModuleID { get; set; }
         public Guid ComponentID { get; set; }

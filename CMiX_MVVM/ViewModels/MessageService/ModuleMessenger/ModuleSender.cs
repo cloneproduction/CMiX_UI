@@ -24,8 +24,10 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         {
             if(MessageSender != null)
             {
-                messageAggregator.AddMessage(new MessageEmpty(ID));
+                //var pouet = messageAggregator as MessageAggregator;
+                //pouet.Messages.Add(new MessageEmpty(ID));
                 MessageSender.SendMessageAggregator(messageAggregator);
+                Console.WriteLine("ModuleSender SendAggregator ComponentAddress");
             }
         }
 
@@ -33,9 +35,10 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         {
             if (MessageSender != null)
             {
+                Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);
                 message.ComponentID = ID;
                 MessageSender.SendMessage(message);
-                Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);
+                
             }
         }
     }

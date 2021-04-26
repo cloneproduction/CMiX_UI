@@ -18,14 +18,14 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         public void SendMessageUpdateViewModel(Module module)
         {
             MessageAggregator messageAggregator = new MessageAggregator();
-            messageAggregator.AddMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
+            //messageAggregator.Messages.Add(new MessageUpdateViewModel(module.ID, module.GetModel()));
 
             
 
             if(ModuleSender != null)
             {
-                Console.WriteLine("ModuleSender SendMessage ModuleAddress" + module.ID);
-                ModuleSender.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
+                Console.WriteLine("ModuleSender SendMessageUpdateViewModel ModuleAddress" + module.ID);
+                //ModuleSender.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
 
                 ModuleSender.SendMessageAggregator(messageAggregator);
             }

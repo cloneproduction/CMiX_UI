@@ -87,9 +87,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void SendMessageAggregator(IMessageAggregator messageAggregator)
         {
+            Console.WriteLine("DataSender SendMessageAggregator");
             //var address = message.ComponentID;
             var address = Guid.NewGuid(); //for testing
-            var data = Serializer.Serialize(messageAggregator);
+            var message = messageAggregator as MessageAggregator;
+            byte[] data = Serializer.Serialize(message);
 
             foreach (var messenger in Messengers)
             {
@@ -106,7 +108,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             foreach (var messenger in Messengers)
             {
                 messenger.SendMessage(address, data);
-                System.Console.WriteLine("MessageSender SendMessage");
+                Console.WriteLine("MessageSender SendMessage");
             }
         }
     }

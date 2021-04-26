@@ -225,7 +225,6 @@
     <Compile Include="ViewModels\Transform\ITransform.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
     <Compile Include="ViewModels\MessageService\MessageDispatcherSender.cs" />
-    <Compile Include="ViewModels\MessageService\MessageTerminal.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>

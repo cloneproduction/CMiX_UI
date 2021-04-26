@@ -41,7 +41,9 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void SendMessageAggregator(IMessageAggregator messageAggregator)
         {
+            Console.WriteLine("ComponentMessageSender SendMessageAggregator");
             MessageSender?.SendMessageAggregator(messageAggregator);
+
         }
     }
 }

@@ -29,7 +29,11 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void SendMessageAggregator(IMessageAggregator messageAggregator)
         {
-            throw new NotImplementedException();
+            if (MessageSender != null)
+            {
+                MessageSender.SendMessageAggregator(messageAggregator);
+                Console.WriteLine("ManagerMessageSender SendMessageAggregator");
+            }
         }
     }
 }
