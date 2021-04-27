@@ -13,23 +13,23 @@ namespace CMiX.MVVM.ViewModels.Messages
 
         public List<IMessage> Messages { get; set; }
 
-        //public IMessageIterator CreateIterator()
-        //{
-        //    return new MessageIterator(this);
-        //}
+        public IMessageIterator CreateIterator()
+        {
+            return new MessageIterator(this);
+        }
 
-        //public int Count
-        //{
-        //    get { return Messages.Count; }
-        //}
+        public int Count
+        {
+            get { return Messages.Count; }
+        }
 
-        //public IMessage GetMessage(int index)
-        //{
-        //    return Messages[index];
-        //}
-        //public void AddMessage(IMessage message)
-        //{
-        //    Messages.Add(message);
-        //}
+        public IMessage GetMessage(int index)
+        {
+            return Messages[index];
+        }
+        public void AddMessage(IMessage message)
+        {
+            Messages.Add(message);
+        }
     }
 }

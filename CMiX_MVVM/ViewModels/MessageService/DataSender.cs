@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class DataSender : ViewModel, IMessageSender//, IMessageDispatcher
+    public class DataSender : ViewModel, IMessageSender
     {
         public DataSender()
         {
