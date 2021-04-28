@@ -1,6 +1,7 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
@@ -27,9 +28,11 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             if (MessageReceiver != null)
             {
-                IMessage message = Serializer.Deserialize<IMessage>(e.Data);
-                MessageReceiver.ReceiveMessage(message);
-                Console.WriteLine("Client_DataReceived Message ");// + message.GetType() + "  " + message.ComponentID);
+                Console.WriteLine("Client_DataReceived Message");
+
+                IMessageAggregator messageAggregator = Serializer.Deserialize<MessageAggregator>(e.Data);
+                MessageIterator messageIterator = messageAggregator.CreateIterator() as MessageIterator;
+                MessageReceiver.ReceiveMessage(messageIterator);
             }
         }
 

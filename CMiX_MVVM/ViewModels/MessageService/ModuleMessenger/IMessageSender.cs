@@ -4,7 +4,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IMessageSender
     {
-        void SendMessage(IMessage message);
+        //void SendMessage(IMessage message);
 
         void SendMessageAggregator(IMessageAggregator messageAggregator);
     }

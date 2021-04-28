@@ -18,14 +18,14 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return messageSender;
         }
 
-        public void SendMessage(IMessage message)
-        {
-            if (MessageSender != null)
-            {
-                MessageSender.SendMessage(message);
-                Console.WriteLine("ManagerMessageSender SendMessage");
-            }
-        }
+        //public void SendMessage(IMessage message)
+        //{
+        //    if (MessageSender != null)
+        //    {
+        //        MessageSender.SendMessage(message);
+        //        Console.WriteLine("ManagerMessageSender SendMessage");
+        //    }
+        //}
 
         public void SendMessageAggregator(IMessageAggregator messageAggregator)
         {

@@ -94,14 +94,14 @@ namespace CMiX.MVVM.Services
             Start();
         }
 
-        public void SendObject(string topic, string messageAddress, byte[] message)
+        public void SendObject(string topic, byte[] message)
         {
             if (actor == null)
                 return;
 
             var msg = new NetMQMessage(3);
             msg.Append(topic);
-            msg.Append(messageAddress);
+            //msg.Append(messageAddress);
             msg.Append(message);
             actor.SendMultipartMessage(msg);
             Console.WriteLine("SendObject with Topic " + topic);

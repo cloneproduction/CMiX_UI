@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.ViewModels.Messages;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
@@ -11,12 +12,13 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         private Module Module { get; set; }
 
-        public void ProcessMessage(IMessage message)
+        public void ProcessMessage(IMessageIterator messageIterator)
         {
-            var msg = message as IViewModelMessage;
+            System.Console.WriteLine("ModuleMessageProcessor ProcessMessage");
+            //var msg = message as IViewModelMessage;
 
-            if (msg != null)
-                Module.SetViewModel(msg.Model);
+            //if (msg != null)
+            //    Module.SetViewModel(msg.Model);
         }
     }
 }

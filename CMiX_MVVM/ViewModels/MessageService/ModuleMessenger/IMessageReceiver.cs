@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
+﻿using CMiX.MVVM.ViewModels.Messages;
+using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService
@@ -7,6 +8,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
     {
         void RegisterReceiver(Guid id, IMessageProcessor messageCommunicator);
         void UnregisterReceiver(Guid id);
-        void ReceiveMessage(IMessage message);
+        void ReceiveMessage(IMessageIterator messageIterator);
     }
 }

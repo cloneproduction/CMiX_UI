@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.Components.Messages;
+using CMiX.MVVM.ViewModels.Messages;
 using System;
 using System.Linq;
 
@@ -16,10 +17,12 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         private ComponentReceiver ComponentReceiver { get; set; }
         private Component Component { get; set; }
 
-        public void ProcessMessage(IMessage message)
+        public void ProcessMessage(IMessageIterator messageIterator)
         {
+            IMessage message = messageIterator.Next();
+
             if (message is IComponentMessage == false)
-                Component.MessageReceiver.ReceiveMessage(message);
+                Component.MessageReceiver.ReceiveMessage(messageIterator);
 
             if (message is MessageAddComponent)
             {

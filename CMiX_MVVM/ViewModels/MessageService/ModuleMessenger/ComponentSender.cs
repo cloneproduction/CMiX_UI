@@ -23,21 +23,23 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public void SendMessageAddComponent(Guid parentID, Component newComponent)
         {
             IMessage message = new MessageAddComponent(parentID, newComponent.GetModel() as IComponentModel);
-            this.SendMessage(message);
+
+            MessageAggregator messageAggregator = new MessageAggregator();
+            messageAggregator.AddMessage(message);
+            this.SendMessageAggregator(messageAggregator);
             Console.WriteLine("ComponentMessageSender SendMessageAdd");
         }
 
         public void SendMessageRemoveComponent(Guid parentID, int index)
         {
             IMessage message = new MessageRemoveComponent(parentID, index);
-            this.SendMessage(message);
+
+            MessageAggregator messageAggregator = new MessageAggregator();
+            messageAggregator.AddMessage(message);
+            this.SendMessageAggregator(messageAggregator);
             Console.WriteLine("ComponentMessageSender SendMessageRemove");
         }
 
-        public void SendMessage(IMessage message)
-        {
-            MessageSender?.SendMessage(message);
-        }
 
         public void SendMessageAggregator(IMessageAggregator messageAggregator)
         {

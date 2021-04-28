@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.Messages;
+using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
@@ -31,14 +32,17 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         }
 
 
-        public void ReceiveMessage(IMessage message)
+        public void ReceiveMessage(IMessageIterator messageIterator)
         {
+            Console.WriteLine("ComponentReceiver ReceiveMessage");
+            IMessage message = messageIterator.Next();
+
             var messageProcessor = GetMessageProcessor(message.ComponentID);
 
             if (messageProcessor == null)
                 return;
 
-            messageProcessor.ProcessMessage(message);
+            //messageProcessor.ProcessMessage(message);
         }
     }
 }

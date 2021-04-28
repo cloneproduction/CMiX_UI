@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.ViewModels.Messages;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Collections.Generic;
 
@@ -32,15 +33,15 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         }
 
 
-        public void ReceiveMessage(IMessage message)
+        public void ReceiveMessage(IMessageIterator messageIterator)
         {
-            var msg = message as IViewModelMessage;
-            var messageProcessor = GetMessageProcessor(msg.ModuleID);
+            //var msg = message as IViewModelMessage;
+            //var messageProcessor = GetMessageProcessor(msg.ModuleID);
 
-            if (messageProcessor == null)
-                return;
+            //if (messageProcessor == null)
+            //    return;
 
-            messageProcessor.ProcessMessage(message);
+            //messageProcessor.ProcessMessage(message);
         }
     }
 }

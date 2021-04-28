@@ -76,12 +76,12 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public NetMQServer NetMQServer { get; set; }
 
-        public void Send(string messageAddress, byte[] data)
+        public void Send(byte[] data)
         {
             if (Enabled && NetMQServer != null)
             {
-                NetMQServer.SendObject(Topic, messageAddress, data);
-                Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + this.Topic + " Data Size = " + data.Length);
+                NetMQServer.SendObject(Topic, data);
+                Console.WriteLine("NetMQServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length);
             }
         }
 

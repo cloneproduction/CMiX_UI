@@ -31,15 +31,15 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             }
         }
 
-        public void SendMessage(IMessage message)
-        {
-            if (MessageSender != null)
-            {
-                Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);
-                message.ComponentID = ID;
-                MessageSender.SendMessage(message);
+        //public void SendMessage(IMessage message)
+        //{
+        //    if (MessageSender != null)
+        //    {
+        //        Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);
+        //        message.ComponentID = ID;
+        //        MessageSender.SendMessage(message);
                 
-            }
-        }
+        //    }
+        //}
     }
 }

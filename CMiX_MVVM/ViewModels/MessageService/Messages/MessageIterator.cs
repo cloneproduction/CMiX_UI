@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels.Messages
             this.MessageAggregator = messageAggregator;
         }
 
-        private int _current = 0;
+        private int _current = -1;
         private int _step = 1;
 
         private MessageAggregator MessageAggregator { get; set; }
