@@ -14,6 +14,12 @@ namespace CMiX.MVVM.ViewModels.Messages
 
         private MessageAggregator MessageAggregator { get; set; }
 
+        public void Reverse()
+        {
+            MessageAggregator.Messages.Reverse();
+        }
+
+
         public IMessage First()
         {
             _current = 0;

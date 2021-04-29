@@ -18,9 +18,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         public void SendMessageUpdateViewModel(Module module)
         {
             MessageAggregator messageAggregator = new MessageAggregator();
-            //messageAggregator.Messages.Add(new MessageUpdateViewModel(module.ID, module.GetModel()));
-
-            
+            messageAggregator.Messages.Add(new MessageUpdateViewModel(module.ID, module.GetModel()));
 
             if(ModuleSender != null)
             {

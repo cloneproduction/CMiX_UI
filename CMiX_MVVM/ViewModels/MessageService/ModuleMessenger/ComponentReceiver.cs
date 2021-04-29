@@ -37,12 +37,15 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             Console.WriteLine("ComponentReceiver ReceiveMessage");
             IMessage message = messageIterator.Next();
 
-            var messageProcessor = GetMessageProcessor(message.ComponentID);
+            if (!messageIterator.IsDone)
+            {
+                var messageProcessor = GetMessageProcessor(message.ComponentID);
 
-            if (messageProcessor == null)
-                return;
+                if (messageProcessor == null)
+                    return;
 
-            //messageProcessor.ProcessMessage(message);
+                messageProcessor.ProcessMessage(messageIterator);
+            }
         }
     }
 }

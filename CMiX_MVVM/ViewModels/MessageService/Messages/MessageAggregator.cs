@@ -15,7 +15,9 @@ namespace CMiX.MVVM.ViewModels.Messages
 
         public IMessageIterator CreateIterator()
         {
-            return new MessageIterator(this);
+            var iterator = new MessageIterator(this);
+            iterator.Reverse();
+            return iterator;
         }
 
         public int Count

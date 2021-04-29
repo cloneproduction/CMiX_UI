@@ -24,22 +24,10 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
         {
             if(MessageSender != null)
             {
-                //var pouet = messageAggregator as MessageAggregator;
-                //pouet.Messages.Add(new MessageEmpty(ID));
+                messageAggregator.AddMessage(new MessageEmpty(ID));
                 MessageSender.SendMessageAggregator(messageAggregator);
                 Console.WriteLine("ModuleSender SendAggregator ComponentAddress");
             }
         }
-
-        //public void SendMessage(IMessage message)
-        //{
-        //    if (MessageSender != null)
-        //    {
-        //        Console.WriteLine("ModuleSender SendMessage ComponentAddress" + message.ComponentID);
-        //        message.ComponentID = ID;
-        //        MessageSender.SendMessage(message);
-                
-        //    }
-        //}
     }
 }

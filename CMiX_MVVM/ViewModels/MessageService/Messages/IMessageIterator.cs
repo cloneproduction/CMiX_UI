@@ -5,5 +5,6 @@ namespace CMiX.MVVM.ViewModels.Messages
     public interface IMessageIterator
     {
         IMessage Next();
+        bool IsDone { get; }
     }
 }

@@ -99,17 +99,5 @@ namespace CMiX.MVVM.ViewModels.MessageService
                 System.Console.WriteLine("MessageSender SendMessage");
             }
         }
-
-        public void SendMessage(IMessage message)
-        {
-            var address = message.ComponentID;
-            var data = Serializer.Serialize(message);
-
-            foreach (var messenger in Messengers)
-            {
-                messenger.SendMessage(address, data);
-                Console.WriteLine("MessageSender SendMessage");
-            }
-        }
     }
 }
