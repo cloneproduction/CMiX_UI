@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(ModuleReceiver messageReceiver)
+        public override void SetReceiver(MessageReceiver messageReceiver)
         {
             //messageReceiver?.RegisterReceiver(this, ID);
         }

@@ -16,7 +16,7 @@ namespace CMiX.Engine.Testing
 
             var projectModel = new ProjectModel(Guid.Empty);
 
-            ComponentReceiver componentReceiver = new ComponentReceiver();
+            MessageReceiver componentReceiver = new MessageReceiver();
 
             var dataReceiver = new DataReceiver();
             dataReceiver.RegisterReceiver(componentReceiver);

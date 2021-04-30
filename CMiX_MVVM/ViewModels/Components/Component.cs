@@ -23,8 +23,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentSender ComponentSender { get; set; }
-
-        public ModuleReceiver MessageReceiver { get; set; }
+        public MessageReceiver MessageReceiver { get; set; }
         public ModuleSender ModuleSender { get; set; }
 
 
@@ -117,9 +116,9 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public virtual void SetReceiver(ComponentReceiver messageReceiver)
+        public virtual void SetReceiver(MessageReceiver messageReceiver)
         {
-            MessageReceiver = new ModuleReceiver();
+            MessageReceiver = new MessageReceiver();
 
             var messageProcessor = new ComponentMessageProcessor(this, messageReceiver);
             messageReceiver.RegisterReceiver(ID, messageProcessor);

@@ -184,7 +184,6 @@
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentManagerMessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentMessageProcessor.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageFactory.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageProcessor.cs" />

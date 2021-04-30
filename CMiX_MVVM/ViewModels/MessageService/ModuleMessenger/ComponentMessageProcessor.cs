@@ -8,22 +8,23 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
     public class ComponentMessageProcessor : IMessageProcessor
     {
-        public ComponentMessageProcessor(Component component, ComponentReceiver componentReceiver)
+        public ComponentMessageProcessor(Component component, MessageReceiver messageReceiver)
         {
             Component = component;
-            ComponentReceiver = componentReceiver;
+            ComponentReceiver = messageReceiver;
         }
 
-        private ComponentReceiver ComponentReceiver { get; set; }
+        private MessageReceiver ComponentReceiver { get; set; }
         private Component Component { get; set; }
 
-        public void ProcessMessage(IMessageIterator messageIterator)
+        public void DispatchIterator(IMessageIterator messageIterator)
         {
-            IMessage message = messageIterator.Next();
+            Component.MessageReceiver.ReceiveMessage(messageIterator);
+        }
 
-            if (message is IComponentMessage == false)
-                Component.MessageReceiver.ReceiveMessage(messageIterator);
 
+        public void ProcessMessage(IMessage message)
+        {
             if (message is MessageAddComponent)
             {
                 ReceiveMessageAddComponent(message as MessageAddComponent);

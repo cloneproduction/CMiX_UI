@@ -12,13 +12,18 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         private Module Module { get; set; }
 
-        public void ProcessMessage(IMessageIterator messageIterator)
+        public void DispatchIterator(IMessageIterator messageIterator)
+        {
+
+        }
+
+        public void ProcessMessage(IMessage message)
         {
             System.Console.WriteLine("ModuleMessageProcessor ProcessMessage");
-            //var msg = message as IViewModelMessage;
+            var msg = message as IViewModelMessage;
 
-            //if (msg != null)
-            //    Module.SetViewModel(msg.Model);
+            if (msg != null)
+                Module.SetViewModel(msg.Model);
         }
     }
 }

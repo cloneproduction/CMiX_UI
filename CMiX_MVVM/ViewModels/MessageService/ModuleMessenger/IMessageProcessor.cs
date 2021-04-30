@@ -4,6 +4,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
     public interface IMessageProcessor
     {
-        void ProcessMessage(IMessageIterator messageIterator);
+        void ProcessMessage(IMessage message);
+        void DispatchIterator(IMessageIterator messageIterator);
     }
 }

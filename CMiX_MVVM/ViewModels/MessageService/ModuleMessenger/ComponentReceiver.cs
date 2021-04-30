@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
-    public class ComponentReceiver : IMessageReceiver
+    public class MessageReceiver : IMessageReceiver
     {
-        public ComponentReceiver()
+        public MessageReceiver()
         {
             MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
         }
@@ -34,17 +34,20 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void ReceiveMessage(IMessageIterator messageIterator)
         {
-            Console.WriteLine("ComponentReceiver ReceiveMessage");
+            //Console.WriteLine("ComponentReceiver ReceiveMessage");
             IMessage message = messageIterator.Next();
 
-            if (!messageIterator.IsDone)
+            if (message != null)
             {
-                var messageProcessor = GetMessageProcessor(message.ComponentID);
+                IMessageProcessor messageProcessor = GetMessageProcessor(message.ComponentID);
 
                 if (messageProcessor == null)
                     return;
 
-                messageProcessor.ProcessMessage(messageIterator);
+                messageProcessor.ProcessMessage(message);
+
+                if (!messageIterator.IsDone)
+                    messageProcessor.DispatchIterator(messageIterator);
             }
         }
     }

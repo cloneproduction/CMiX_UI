@@ -6,5 +6,6 @@ namespace CMiX.MVVM.ViewModels.Messages
     {
         IMessage Next();
         bool IsDone { get; }
+        IMessage CurrentMessage { get; }
     }
 }

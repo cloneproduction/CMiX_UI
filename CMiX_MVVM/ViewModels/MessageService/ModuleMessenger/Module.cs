@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
             Console.WriteLine(messageSender.GetType());
         }
 
-        public virtual void SetReceiver(ModuleReceiver messageReceiver)
+        public virtual void SetReceiver(MessageReceiver messageReceiver)
         {
             ModuleMessageProcessor moduleMessageProcessor = new ModuleMessageProcessor(this);
             messageReceiver.RegisterReceiver(this.ID, moduleMessageProcessor);

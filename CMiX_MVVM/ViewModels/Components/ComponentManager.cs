@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentSender MessageSender { get; set; }
-        public ComponentReceiver MessageReceiver { get; set; }
+        public MessageReceiver MessageReceiver { get; set; }
 
 
         public ICommand CreateComponentCommand { get; }

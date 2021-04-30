@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
             View = postFXModel.View;
         }
 
-        public override void SetReceiver(ModuleReceiver messageReceiver)
+        public override void SetReceiver(MessageReceiver messageReceiver)
         {
             //base.SetReceiver(messageReceiver);
 
