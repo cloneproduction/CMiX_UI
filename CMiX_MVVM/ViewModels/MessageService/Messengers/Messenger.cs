@@ -32,7 +32,6 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void SendMessage(Guid id, byte[] data)
         {
-            //this.Server.Send(id.ToString(), data);
             this.Server.Send(data);
         }
 

@@ -28,12 +28,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
 
-        //public IMessageDispatcher MessageDispatcher { get; set; }
+        private MessengerFactory MessengerFactory { get; set; }
+
         public CerasSerializer Serializer { get; set; }
-
-
-        MessengerFactory MessengerFactory { get; set; }
         public IDialogService DialogService { get; set; }
+
         public ICommand EditMessengerSettingsCommand { get; }
         public ICommand AddMessengerCommand { get; set; }
         public ICommand DeleteMessengerCommand { get; set; }
@@ -41,6 +40,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
 
         public bool HasMessengerRunning { get => Messengers.Any(x => x.ServerIsRunning); }
+
 
         private ObservableCollection<Messenger> _messengers;
         public ObservableCollection<Messenger> Messengers
@@ -81,22 +81,22 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public IMessageSendHandler SetSender(IMessageSendHandler handler)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
 
-        public void SendMessageAggregator(IMessageAggregator messageAggregator)
+        public void SendMessagePack(IMessagePack messagePack)
         {
             Console.WriteLine("DataSender SendMessageAggregator");
             //var address = message.ComponentID;
             var address = Guid.NewGuid(); //for testing
-            var message = messageAggregator as MessageAggregator;
+            var message = messagePack as MessagePack;
             byte[] data = Serializer.Serialize(message);
 
             foreach (var messenger in Messengers)
             {
                 messenger.SendMessage(address, data);
-                System.Console.WriteLine("MessageSender SendMessage");
+                Console.WriteLine("MessageSender SendMessage");
             }
         }
     }

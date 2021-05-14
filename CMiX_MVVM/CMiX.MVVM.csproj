@@ -144,14 +144,12 @@
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
     <Compile Include="ViewModels\Components\Messages\IComponentManagerMessage.cs" />
-    <Compile Include="ViewModels\MessageService\Messages\IMessageAggregator.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\IMessagePack.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IMessageIterator.cs" />
-    <Compile Include="ViewModels\MessageService\Messages\MessageAggregator.cs" />
-    <Compile Include="ViewModels\MessageService\MessageCourier.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\MessagePack.cs" />
     <Compile Include="ViewModels\MessageService\MessageDispatcherReceiver.cs" />
     <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageReceiveHandler.cs" />
     <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageSendHandler.cs" />
-    <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageHandler.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IViewModelMessage.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IComponentMessage.cs" />
     <Compile Include="ViewModels\Components\Messages\MessageRemoveComponent.cs" />
@@ -188,8 +186,6 @@
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageProcessor.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageSender.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageCommunicator.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\MessageSender.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageReceiver.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageProcessor.cs" />
     <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleSender.cs" />
@@ -252,7 +248,6 @@
     <Compile Include="Models\TextureFileModel.cs" />
     <Compile Include="Resources\SortableObservableCollection.cs" />
     <Compile Include="ViewModels\Network\Client.cs" />
-    <Compile Include="ViewModels\MessageService\MessageEventArgs.cs" />
     <Compile Include="Services\ModelEventArgs.cs" />
     <Compile Include="Services\NetMQServer.cs" />
     <Compile Include="Models\BlendModeModel.cs" />

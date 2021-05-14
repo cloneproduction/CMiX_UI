@@ -20,12 +20,12 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return messageSender;
         }
 
-        public void SendMessageAggregator(IMessageAggregator messageAggregator)
+        public void SendMessagePack(IMessagePack messageAggregator)
         {
             if(MessageSender != null)
             {
                 messageAggregator.AddMessage(new MessageEmpty(ID));
-                MessageSender.SendMessageAggregator(messageAggregator);
+                MessageSender.SendMessagePack(messageAggregator);
                 Console.WriteLine("ModuleSender SendAggregator ComponentAddress");
             }
         }

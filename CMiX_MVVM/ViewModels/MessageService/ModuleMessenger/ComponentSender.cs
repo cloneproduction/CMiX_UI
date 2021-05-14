@@ -24,9 +24,9 @@ namespace CMiX.MVVM.ViewModels.MessageService
         {
             IMessage message = new MessageAddComponent(parentID, newComponent.GetModel() as IComponentModel);
 
-            MessageAggregator messageAggregator = new MessageAggregator();
-            messageAggregator.AddMessage(message);
-            this.SendMessageAggregator(messageAggregator);
+            MessagePack messagePack = new MessagePack();
+            messagePack.AddMessage(message);
+            this.SendMessagePack(messagePack);
             Console.WriteLine("ComponentMessageSender SendMessageAdd");
         }
 
@@ -34,18 +34,16 @@ namespace CMiX.MVVM.ViewModels.MessageService
         {
             IMessage message = new MessageRemoveComponent(parentID, index);
 
-            MessageAggregator messageAggregator = new MessageAggregator();
-            messageAggregator.AddMessage(message);
-            this.SendMessageAggregator(messageAggregator);
+            MessagePack messagePack = new MessagePack();
+            messagePack.AddMessage(message);
+            this.SendMessagePack(messagePack);
             Console.WriteLine("ComponentMessageSender SendMessageRemove");
         }
 
-
-        public void SendMessageAggregator(IMessageAggregator messageAggregator)
+        public void SendMessagePack(IMessagePack messagePack)
         {
             Console.WriteLine("ComponentMessageSender SendMessageAggregator");
-            MessageSender?.SendMessageAggregator(messageAggregator);
-
+            MessageSender?.SendMessagePack(messagePack);
         }
     }
 }

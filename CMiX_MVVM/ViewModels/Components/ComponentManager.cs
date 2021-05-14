@@ -54,11 +54,11 @@ namespace CMiX.MVVM.ViewModels.Components
             var newComponent = component.ComponentFactory.CreateComponent();
             component.AddComponent(newComponent);
 
-            if (MessageReceiver != null)
-                newComponent.SetReceiver(MessageReceiver);
+            //if (MessageReceiver != null)
+                //newComponent.SetReceiver(component.MessageReceiver);
 
-            if(MessageSender != null)
-                newComponent.SetSender(MessageSender);
+            //if(MessageSender != null)
+                newComponent.SetSender(component.ComponentSender);
         }
 
 

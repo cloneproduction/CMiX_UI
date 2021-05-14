@@ -17,15 +17,13 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void SendMessageUpdateViewModel(Module module)
         {
-            MessageAggregator messageAggregator = new MessageAggregator();
+            MessagePack messageAggregator = new MessagePack();
             messageAggregator.Messages.Add(new MessageUpdateViewModel(module.ID, module.GetModel()));
 
             if(ModuleSender != null)
             {
                 Console.WriteLine("ModuleSender SendMessageUpdateViewModel ModuleAddress" + module.ID);
-                //ModuleSender.SendMessage(new MessageUpdateViewModel(module.ID, module.GetModel()));
-
-                ModuleSender.SendMessageAggregator(messageAggregator);
+                ModuleSender.SendMessagePack(messageAggregator);
             }
         }
     }

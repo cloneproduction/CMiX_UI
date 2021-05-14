@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.ViewModels.Messages;
 using System;
 
-
 namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 {
     public class ComponentManagerMessageSender : IMessageSender
@@ -18,20 +17,11 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
             return messageSender;
         }
 
-        //public void SendMessage(IMessage message)
-        //{
-        //    if (MessageSender != null)
-        //    {
-        //        MessageSender.SendMessage(message);
-        //        Console.WriteLine("ManagerMessageSender SendMessage");
-        //    }
-        //}
-
-        public void SendMessageAggregator(IMessageAggregator messageAggregator)
+        public void SendMessagePack(IMessagePack messagePack)
         {
             if (MessageSender != null)
             {
-                MessageSender.SendMessageAggregator(messageAggregator);
+                MessageSender.SendMessagePack(messagePack);
                 Console.WriteLine("ManagerMessageSender SendMessageAggregator");
             }
         }

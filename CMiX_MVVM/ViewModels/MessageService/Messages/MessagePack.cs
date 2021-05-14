@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.Messages
 {
-    public class MessageAggregator : IMessageAggregator
+    public class MessagePack : IMessagePack
     {
-        public MessageAggregator()
+        public MessagePack()
         {
             Messages = new List<IMessage>();
         }
@@ -29,6 +29,7 @@ namespace CMiX.MVVM.ViewModels.Messages
         {
             return Messages[index];
         }
+
         public void AddMessage(IMessage message)
         {
             Messages.Add(message);

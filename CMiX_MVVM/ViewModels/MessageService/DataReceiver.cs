@@ -3,7 +3,6 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.ViewModels.Messages;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
@@ -30,7 +29,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             {
                 Console.WriteLine("Client_DataReceived Message");
 
-                IMessageAggregator messageAggregator = Serializer.Deserialize<MessageAggregator>(e.Data);
+                IMessagePack messageAggregator = Serializer.Deserialize<MessagePack>(e.Data);
                 MessageIterator messageIterator = messageAggregator.CreateIterator() as MessageIterator;
                 MessageReceiver.ReceiveMessage(messageIterator);
             }

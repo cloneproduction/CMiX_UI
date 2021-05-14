@@ -4,7 +4,7 @@ namespace CMiX.MVVM.ViewModels.Messages
 {
     public class MessageIterator : IMessageIterator
     {
-        public MessageIterator(MessageAggregator messageAggregator)
+        public MessageIterator(MessagePack messageAggregator)
         {
             this.MessageAggregator = messageAggregator;
         }
@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels.Messages
         private int _current = -1;
         private int _step = 1;
 
-        private MessageAggregator MessageAggregator { get; set; }
+        private MessagePack MessageAggregator { get; set; }
 
         public void Reverse()
         {

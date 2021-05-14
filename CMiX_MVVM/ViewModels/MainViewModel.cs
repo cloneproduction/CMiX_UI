@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using Memento;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
@@ -20,31 +19,22 @@ namespace CMiX.MVVM.ViewModels
     {
         public MainViewModel()
         {
+            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Mementor = new Mementor();
+            DataSender = new DataSender();
+
+            ComponentSender componentSender = new ComponentSender();
+            componentSender.SetSender(DataSender);
 
             var model = new ProjectModel(Guid.Empty);
             CurrentProject = new Project(model);
+            CurrentProject.SetSender(componentSender);
+            AssetManager = new AssetManager(CurrentProject);
 
-            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
 
-            ComponentSender componentMessageSender = new ComponentSender();
-            CurrentProject.SetSender(componentMessageSender);
-
-            AssetManager = new AssetManager(CurrentProject);
-
-
-            DataSender = new DataSender();
-            componentMessageSender.SetSender(DataSender);
-
-            ComponentManagerMessageSender componentManagerMessageSender = new ComponentManagerMessageSender();
-            componentManagerMessageSender.SetSender(DataSender);
-
             ComponentManager = new ComponentManager(Projects);
-            ComponentManager.SetSender(componentManagerMessageSender);
-
-
             Outliner = new Outliner(Projects);
 
 
@@ -63,7 +53,6 @@ namespace CMiX.MVVM.ViewModels
             AddCompositionCommand = new RelayCommand(p => AddComposition());
             AnimatedDouble = new ObservableCollection<double>();
         }
-
 
 
         #region PROPERTIES
@@ -185,7 +174,7 @@ namespace CMiX.MVVM.ViewModels
             //Mementor.Redo();
         }
 
-        #region MENU METHODS
+
         private void NewProject()
         {
             Project project = new Project(new ProjectModel(Guid.Empty));
@@ -256,6 +245,5 @@ namespace CMiX.MVVM.ViewModels
             var window = p as Window;
             window.Close();
         }
-        #endregion
     }
 }
