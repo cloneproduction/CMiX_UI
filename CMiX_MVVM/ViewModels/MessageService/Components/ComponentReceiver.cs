@@ -1,8 +1,7 @@
-﻿using CMiX.MVVM.ViewModels.Messages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
+namespace CMiX.MVVM.MessageService
 {
     public class MessageReceiver : IMessageReceiver
     {
@@ -34,7 +33,6 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         public void ReceiveMessage(IMessageIterator messageIterator)
         {
-            //Console.WriteLine("ComponentReceiver ReceiveMessage");
             IMessage message = messageIterator.Next();
 
             if (message != null)

@@ -1,8 +1,9 @@
 ﻿using CMiX.MVVM.ViewModels;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 using System.Windows.Input;
 
-namespace CMiX.Studio.ViewModels.MessageService
+namespace CMiX.Studio.ViewModels
 {
     public class Messenger : ViewModel
     {

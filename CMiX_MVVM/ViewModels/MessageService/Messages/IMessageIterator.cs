@@ -1,6 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
-
-namespace CMiX.MVVM.ViewModels.Messages
+﻿
+namespace CMiX.MVVM.MessageService
 {
     public interface IMessageIterator
     {

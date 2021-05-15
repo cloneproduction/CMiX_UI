@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.MessageService;
 using System;
-using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {

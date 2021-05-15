@@ -1,8 +1,8 @@
 ﻿using Ceras;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components;
-using CMiX.MVVM.ViewModels.MessageService;
 using Memento;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;

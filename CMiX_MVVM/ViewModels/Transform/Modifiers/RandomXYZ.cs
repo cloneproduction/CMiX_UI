@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
-using CMiX.MVVM.ViewModels.MessageService;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Media3D;
 

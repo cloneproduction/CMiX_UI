@@ -1,9 +1,9 @@
 ﻿
 using CMiX.MVVM.Views;
+using CMiX.Studio.ViewModels;
 using MvvmDialogs.DialogTypeLocators;
 using System;
 using System.ComponentModel;
-using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {

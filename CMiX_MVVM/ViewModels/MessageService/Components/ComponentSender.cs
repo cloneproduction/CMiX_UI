@@ -1,10 +1,9 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.Components.Messages;
-using CMiX.MVVM.ViewModels.Messages;
 using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService
+namespace CMiX.MVVM.MessageService
 {
     public class ComponentSender : IMessageSender
     {

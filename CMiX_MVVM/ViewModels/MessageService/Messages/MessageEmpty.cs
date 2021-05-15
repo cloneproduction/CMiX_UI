@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService.Messages
+namespace CMiX.MVVM.MessageService
 {
     public class MessageEmpty : IMessage
     {

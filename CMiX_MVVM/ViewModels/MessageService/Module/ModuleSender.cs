@@ -1,8 +1,6 @@
-﻿using CMiX.MVVM.ViewModels.Messages;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
-using System;
+﻿using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
+namespace CMiX.MVVM.MessageService
 {
     public class ModuleSender : IMessageSender
     {

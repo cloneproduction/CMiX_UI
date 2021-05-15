@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
+using CMiX.MVVM.MessageService;
 using System;
 
 namespace CMiX.MVVM.ViewModels
@@ -12,7 +12,6 @@ namespace CMiX.MVVM.ViewModels
         public virtual void SetSender(ModuleSender messageSender)
         {
             ModuleMessageFactory = new ModuleMessageFactory(messageSender);
-            Console.WriteLine(messageSender.GetType());
         }
 
         public virtual void SetReceiver(MessageReceiver messageReceiver)

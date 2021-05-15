@@ -1,7 +1,7 @@
 ﻿using Ceras;
-using CMiX.MVVM.ViewModels.Messages;
-using CMiX.MVVM.ViewModels.MessageService.MessageSendCOR;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Views;
+using CMiX.Studio.ViewModels;
 using CMiX.Studio.ViewModels.MessageService;
 using MvvmDialogs;
 using System;
@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.ViewModels.MessageService
+namespace CMiX.MVVM.ViewModels
 {
     public class DataSender : ViewModel, IMessageSender
     {
@@ -76,12 +76,6 @@ namespace CMiX.MVVM.ViewModels.MessageService
         {
             if (obj != null)
                 obj.IsRenaming = true;
-        }
-
-
-        public IMessageSendHandler SetSender(IMessageSendHandler handler)
-        {
-            throw new NotImplementedException();
         }
 
 

@@ -1,13 +1,12 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.ViewModels.Messages;
-using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.Studio.ViewModels.MessageService;
 using System;
 
-namespace CMiX.Studio.ViewModels.MessageService
+namespace CMiX.MVVM.MessageService
 {
-    public class DataReceiver : ViewModel, IMessageTerminal
+    public class DataReceiver : ViewModel
     {
         public DataReceiver()
         {

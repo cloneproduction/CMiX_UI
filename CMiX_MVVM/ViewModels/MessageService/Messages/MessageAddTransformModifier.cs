@@ -1,8 +1,8 @@
 ﻿using CMiX.MVVM.Models;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels;
 using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService.Messages
+namespace CMiX.MVVM.MessageService
 {
     public class MessageAddTransformModifier //: IViewModelMessage
     {

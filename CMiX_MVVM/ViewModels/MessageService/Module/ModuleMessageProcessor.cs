@@ -1,7 +1,6 @@
-﻿using CMiX.MVVM.ViewModels.Messages;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.ViewModels;
 
-namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
+namespace CMiX.MVVM.MessageService
 {
     public class ModuleMessageProcessor : IMessageProcessor
     {

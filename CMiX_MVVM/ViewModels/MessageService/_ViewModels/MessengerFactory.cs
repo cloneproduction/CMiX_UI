@@ -1,6 +1,6 @@
-﻿using CMiX.Studio.ViewModels.MessageService;
+﻿using CMiX.Studio.ViewModels;
 
-namespace CMiX.MVVM.ViewModels.MessageService
+namespace CMiX.MVVM.ViewModels
 {
     public class MessengerFactory
     {

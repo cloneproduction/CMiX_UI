@@ -1,8 +1,7 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 
-namespace CMiX.MVVM.ViewModels.Messages
+namespace CMiX.MVVM.MessageService
 {
     public class MessagePack : IMessagePack
     {

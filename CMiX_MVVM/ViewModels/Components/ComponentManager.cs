@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
+﻿using CMiX.MVVM.MessageService;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;

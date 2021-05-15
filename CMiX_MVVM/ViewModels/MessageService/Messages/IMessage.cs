@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CMiX.MVVM.ViewModels.MessageService
+namespace CMiX.MVVM.MessageService
 {
     public interface IMessage
     {

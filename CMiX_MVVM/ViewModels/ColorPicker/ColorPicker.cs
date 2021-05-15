@@ -1,9 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
-using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using ColorMine.ColorSpaces;
 using System.Windows.Input;
 using System.Windows.Media;

@@ -1,8 +1,7 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.MessageService
 {
     public class MessageRemoveTransformModifier : IMessage
     {

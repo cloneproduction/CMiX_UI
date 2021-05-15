@@ -1,7 +1,6 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.MessageService;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Components;
-using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using CMiX.Studio.ViewModels.MessageService;
 using System;
 using System.Collections.ObjectModel;

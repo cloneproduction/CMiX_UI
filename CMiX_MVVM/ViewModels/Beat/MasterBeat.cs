@@ -1,9 +1,6 @@
 ﻿using CMiX.MVVM.Controls;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Beat;
-using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
 using System;
 using System.Collections.Generic;
 using System.Linq;

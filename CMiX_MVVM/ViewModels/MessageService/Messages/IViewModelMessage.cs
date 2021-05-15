@@ -1,7 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService.Messages
+namespace CMiX.MVVM.MessageService
 {
     public interface IViewModelMessage : IMessage
     {

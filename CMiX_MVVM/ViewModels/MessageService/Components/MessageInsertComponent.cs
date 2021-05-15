@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.MessageService;
 using System;
 using System.Collections.Generic;
 

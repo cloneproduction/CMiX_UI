@@ -143,21 +143,15 @@
     <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
-    <Compile Include="ViewModels\Components\Messages\IComponentManagerMessage.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IMessagePack.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IMessageIterator.cs" />
     <Compile Include="ViewModels\MessageService\Messages\MessagePack.cs" />
-    <Compile Include="ViewModels\MessageService\MessageDispatcherReceiver.cs" />
-    <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageReceiveHandler.cs" />
-    <Compile Include="ViewModels\MessageService\MessageSendCOR\IMessageSendHandler.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IViewModelMessage.cs" />
-    <Compile Include="ViewModels\MessageService\Messages\IComponentMessage.cs" />
-    <Compile Include="ViewModels\Components\Messages\MessageRemoveComponent.cs" />
+    <Compile Include="ViewModels\MessageService\Components\IComponentMessage.cs" />
+    <Compile Include="ViewModels\MessageService\Components\MessageRemoveComponent.cs" />
     <Compile Include="ViewModels\Components\Visibility.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageRemoveTransformModifier.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageAddTransformModifier.cs" />
-    <Compile Include="ViewModels\MessageService\IComponentMessageProcessor.cs" />
-    <Compile Include="ViewModels\MessageService\IMessageTerminal.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\MessageRemoveTransformModifier.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\MessageAddTransformModifier.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IMessage.cs" />
     <Compile Include="Services\ClientShimHandler.cs" />
     <Compile Include="Services\NetMQMessageEventArgs.cs" />
@@ -179,16 +173,15 @@
     <Compile Include="ViewModels\Components\Factories\SceneFactory.cs" />
     <Compile Include="ViewModels\MessageService\Messages\MessageEmpty.cs" />
     <Compile Include="ViewModels\MessageService\Messages\MessageIterator.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentManagerMessageSender.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentMessageProcessor.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageFactory.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentReceiver.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ComponentSender.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageProcessor.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageSender.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\IMessageReceiver.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleMessageProcessor.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\ModuleSender.cs" />
+    <Compile Include="ViewModels\MessageService\Components\ComponentMessageProcessor.cs" />
+    <Compile Include="ViewModels\MessageService\Module\ModuleMessageFactory.cs" />
+    <Compile Include="ViewModels\MessageService\Components\ComponentReceiver.cs" />
+    <Compile Include="ViewModels\MessageService\Components\ComponentSender.cs" />
+    <Compile Include="ViewModels\MessageService\IMessageProcessor.cs" />
+    <Compile Include="ViewModels\MessageService\IMessageSender.cs" />
+    <Compile Include="ViewModels\MessageService\IMessageReceiver.cs" />
+    <Compile Include="ViewModels\MessageService\Module\ModuleMessageProcessor.cs" />
+    <Compile Include="ViewModels\MessageService\Module\ModuleSender.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />
@@ -200,9 +193,9 @@
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierTemplateSelector.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TranslateModifier.cs" />
     <Compile Include="ViewModels\Transform\TransformType.cs" />
-    <Compile Include="ViewModels\Components\Messages\MessageAddComponent.cs" />
-    <Compile Include="ViewModels\Components\Messages\MessageInsertComponent.cs" />
-    <Compile Include="ViewModels\Components\Messages\MessageMoveComponent.cs" />
+    <Compile Include="ViewModels\MessageService\Components\MessageAddComponent.cs" />
+    <Compile Include="ViewModels\MessageService\Components\MessageInsertComponent.cs" />
+    <Compile Include="ViewModels\MessageService\Components\MessageMoveComponent.cs" />
     <Compile Include="ViewModels\MessageService\Messages\MessageUpdateViewModel.cs" />
     <Compile Include="ViewModels\Observer\IObserver.cs" />
     <Compile Include="ViewModels\Observer\ISubject.cs" />
@@ -219,7 +212,6 @@
     <Compile Include="ViewModels\Entity\Geometry\Instancer\XYZModifier.cs" />
     <Compile Include="ViewModels\Transform\ITransform.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
-    <Compile Include="ViewModels\MessageService\MessageDispatcherSender.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
@@ -309,15 +301,15 @@
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\MessageService\Messengers\Messenger.cs" />
-    <Compile Include="ViewModels\MessageService\Messengers\MessengerFactory.cs" />
+    <Compile Include="ViewModels\MessageService\_ViewModels\Messenger.cs" />
+    <Compile Include="ViewModels\MessageService\_ViewModels\MessengerFactory.cs" />
     <Compile Include="ViewModels\MessageService\DataSender.cs" />
     <Compile Include="ViewModels\MessageService\DataReceiver.cs" />
     <Compile Include="ViewModels\Network\Server.cs" />
     <Compile Include="ViewModels\Network\Settings.cs" />
     <Compile Include="ViewModels\Network\SettingsEventArgs.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
-    <Compile Include="ViewModels\MessageService\ModuleMessenger\Module.cs" />
+    <Compile Include="ViewModels\MessageService\_ViewModels\Module.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\AnimParameter\Easing\EasingTypes.cs" />
     <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
@@ -737,6 +729,9 @@
     <Resource Include="Assets\Sub.png" />
     <Content Include="Themes\Basic\Fonts\LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModels\Components\Messages\" />
+    <Folder Include="ViewModels\Entity\Geometry\Instancer\Messages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

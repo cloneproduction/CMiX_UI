@@ -1,10 +1,9 @@
 ﻿using CMiX.MVVM.ViewModels.Components;
 using CMiX.MVVM.ViewModels.Components.Messages;
-using CMiX.MVVM.ViewModels.Messages;
 using System;
 using System.Linq;
 
-namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
+namespace CMiX.MVVM.MessageService
 {
     public class ComponentMessageProcessor : IMessageProcessor
     {

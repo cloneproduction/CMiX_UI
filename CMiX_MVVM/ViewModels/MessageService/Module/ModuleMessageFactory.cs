@@ -1,8 +1,7 @@
-﻿using CMiX.MVVM.ViewModels.Messages;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.ViewModels;
 using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
+namespace CMiX.MVVM.MessageService
 {
     public class ModuleMessageFactory
     {
@@ -13,17 +12,15 @@ namespace CMiX.MVVM.ViewModels.MessageService.ModuleMessenger
 
         private ModuleSender ModuleSender { get; set; }
 
-
-
         public void SendMessageUpdateViewModel(Module module)
         {
-            MessagePack messageAggregator = new MessagePack();
-            messageAggregator.Messages.Add(new MessageUpdateViewModel(module.ID, module.GetModel()));
+            MessagePack messagePack = new MessagePack();
+            messagePack.Messages.Add(new MessageUpdateViewModel(module.ID, module.GetModel()));
 
             if(ModuleSender != null)
             {
                 Console.WriteLine("ModuleSender SendMessageUpdateViewModel ModuleAddress" + module.ID);
-                ModuleSender.SendMessagePack(messageAggregator);
+                ModuleSender.SendMessagePack(messagePack);
             }
         }
     }

@@ -1,8 +1,6 @@
-﻿using CMiX.MVVM.ViewModels.Messages;
-using CMiX.MVVM.ViewModels.MessageService.ModuleMessenger;
-using System;
+﻿using System;
 
-namespace CMiX.MVVM.ViewModels.MessageService
+namespace CMiX.MVVM.MessageService
 {
     public interface IMessageReceiver
     {

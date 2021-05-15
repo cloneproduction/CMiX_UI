@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 

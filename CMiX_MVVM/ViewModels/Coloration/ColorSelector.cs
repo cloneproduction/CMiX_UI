@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels.MessageService;
 using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels

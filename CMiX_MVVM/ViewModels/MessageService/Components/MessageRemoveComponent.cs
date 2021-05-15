@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.MVVM.MessageService;
 using System;
 using System.Collections.Generic;
 
