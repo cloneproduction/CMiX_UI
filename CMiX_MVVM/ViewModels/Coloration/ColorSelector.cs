@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorSelector : Module
+    public class ColorSelector : Control
     {
         public ColorSelector(ColorSelectorModel colorSelectorModel) 
         {

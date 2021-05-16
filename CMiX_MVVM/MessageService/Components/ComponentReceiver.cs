@@ -12,7 +12,8 @@ namespace CMiX.MVVM.MessageService
 
         Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-        public IMessageProcessor GetMessageProcessor(Guid id)
+
+        private IMessageProcessor GetMessageProcessor(Guid id)
         {
             if (MessageProcessors.ContainsKey(id))
                 return MessageProcessors[id];

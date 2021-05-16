@@ -1,8 +1,7 @@
-﻿using System;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
+using System;
 
-namespace CMiX.Studio.ViewModels.MessageService
+namespace CMiX.MVVM.ViewModels
 {
     public class Server : ViewModel
     {

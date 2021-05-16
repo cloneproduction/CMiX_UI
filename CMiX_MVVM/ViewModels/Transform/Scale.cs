@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scale : Module
+    public class Scale : Control
     {
         public Scale(string name, ScaleModel scaleModel)
         {

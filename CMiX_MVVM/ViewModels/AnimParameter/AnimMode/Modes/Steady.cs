@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Steady : Module, IAnimMode
+    public class Steady : Control, IAnimMode
     {
         public Steady(SteadyModel steadyModel)
         {

@@ -1,7 +1,6 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using CMiX.Studio.ViewModels.MessageService;
 using System;
 
 namespace CMiX.MVVM.MessageService
@@ -15,12 +14,10 @@ namespace CMiX.MVVM.MessageService
             Serializer = new CerasSerializer();
         }
 
-
         public void RegisterReceiver(IMessageReceiver messageReceiver)
         {
             MessageReceiver = messageReceiver;
         }
-
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
@@ -28,18 +25,16 @@ namespace CMiX.MVVM.MessageService
             {
                 Console.WriteLine("Client_DataReceived Message");
 
-                IMessagePack messageAggregator = Serializer.Deserialize<MessagePack>(e.Data);
-                MessageIterator messageIterator = messageAggregator.CreateIterator() as MessageIterator;
+                IMessagePack messagePack = Serializer.Deserialize<MessagePack>(e.Data);
+                IMessageIterator messageIterator = messagePack.CreateIterator();
                 MessageReceiver.ReceiveMessage(messageIterator);
             }
         }
-
 
         public string Address
         {
             get { return String.Format("tcp://{0}:{1}", IP, Port); }
         }
-
 
         private IMessageReceiver MessageReceiver;
         private CerasSerializer Serializer { get; set; }

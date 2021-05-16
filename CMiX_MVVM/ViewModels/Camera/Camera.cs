@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Camera : Module
+    public class Camera : Control
     {
         public Camera(MasterBeat beat, CameraModel cameraModel) 
         {

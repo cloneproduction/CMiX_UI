@@ -4,21 +4,23 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Module : ViewModel
+    public abstract class Control : ViewModel
     {
         public Guid ID { get; set; }
-        public ModuleMessageFactory ModuleMessageFactory  { get; set; }
+        public ViewModelMessageFactory ViewModelMessageFactory { get; set; }
 
-        public virtual void SetSender(ModuleSender messageSender)
+
+        public virtual void SetSender(ViewModelSender messageSender)
         {
-            ModuleMessageFactory = new ModuleMessageFactory(messageSender);
+            ViewModelMessageFactory = new ViewModelMessageFactory(messageSender);
         }
 
         public virtual void SetReceiver(MessageReceiver messageReceiver)
         {
-            ModuleMessageProcessor moduleMessageProcessor = new ModuleMessageProcessor(this);
+            ViewModelMessageProcessor moduleMessageProcessor = new ViewModelMessageProcessor(this);
             messageReceiver.RegisterReceiver(this.ID, moduleMessageProcessor);
         }
+
 
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();

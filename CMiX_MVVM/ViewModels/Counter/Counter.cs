@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Counter : Module
+    public class Counter : Control
     {
         public Counter(CounterModel counterModel) 
         {

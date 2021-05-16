@@ -8,7 +8,7 @@ using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Randomized : Module, IAnimMode
+    public class Randomized : Control, IAnimMode
     {
         public Randomized(AnimParameter parentSender, RandomizedModel randomizedModel)
         {

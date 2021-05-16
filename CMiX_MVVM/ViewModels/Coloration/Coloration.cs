@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Coloration : Module
+    public class Coloration : Control
     {
         public Coloration(MasterBeat masterBeat, ColorationModel colorationModel) 
         {

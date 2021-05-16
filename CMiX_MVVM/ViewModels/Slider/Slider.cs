@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Module
+    public class Slider : Control
     {
         public Slider(string name, SliderModel sliderModel) 
         {

@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : Module, IAnimMode
+    public class None : Control, IAnimMode
     {
         public None(AnimParameter animParameter, NoneModel noneModel)
         {

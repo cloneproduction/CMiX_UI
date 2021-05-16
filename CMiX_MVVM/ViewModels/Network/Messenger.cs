@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.ViewModels;
-using CMiX.Studio.ViewModels.MessageService;
 using System;
 using System.Windows.Input;
 
@@ -22,6 +21,9 @@ namespace CMiX.Studio.ViewModels
         public ICommand StopServerCommand { get; }
         public ICommand RestartServerCommand { get; }
 
+        private Server Server { get; set; }
+
+
         private string _name;
         public string Name
         {
@@ -29,7 +31,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        private Server Server { get; set; }
 
         public void SendMessage(Guid id, byte[] data)
         {

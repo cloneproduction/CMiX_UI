@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorPicker : Module
+    public class ColorPicker : Control
     {
         //public ColorPicker(IMessageProcessor parentSender) : base (parentSender)
         //{

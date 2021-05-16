@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Transform : Module, IObserver
+    public class Transform : Control, IObserver
     {
         public Transform(TransformModel transformModel)
         {

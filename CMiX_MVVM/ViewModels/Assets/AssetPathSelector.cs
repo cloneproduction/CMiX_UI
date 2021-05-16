@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace CMiX.MVVM.ViewModels.Assets
 {
-    public class AssetPathSelector : Module, IDropTarget
+    public class AssetPathSelector : Control, IDropTarget
     {
         public AssetPathSelector(Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel) 
         {

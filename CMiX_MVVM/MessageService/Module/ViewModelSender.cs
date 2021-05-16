@@ -2,9 +2,9 @@
 
 namespace CMiX.MVVM.MessageService
 {
-    public class ModuleSender : IMessageSender
+    public class ViewModelSender : IMessageSender
     {
-        public ModuleSender(Guid id)
+        public ViewModelSender(Guid id)
         {
             ID = id;
         }

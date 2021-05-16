@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Inverter : Module
+    public class Inverter : Control
     {
         public Inverter(string name, InverterModel inverterModel) 
         {

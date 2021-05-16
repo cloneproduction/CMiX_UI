@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class Resync : Module
+    public class Resync : Control
     {
         public Resync(BeatAnimations beatAnimations, ResyncModel resyncModel) 
         {

@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Range : Module, IRange
+    public class Range : Control, IRange
     {
         public Range(RangeModel rangeModel) 
         {

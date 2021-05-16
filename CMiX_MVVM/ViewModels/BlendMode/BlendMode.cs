@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BlendMode : Module
+    public class BlendMode : Control
     {
         public BlendMode(BlendModeModel blendModeModel)
         {

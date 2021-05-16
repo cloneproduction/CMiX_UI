@@ -2,7 +2,6 @@
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Views;
 using CMiX.Studio.ViewModels;
-using CMiX.Studio.ViewModels.MessageService;
 using MvvmDialogs;
 using System;
 using System.Collections.ObjectModel;

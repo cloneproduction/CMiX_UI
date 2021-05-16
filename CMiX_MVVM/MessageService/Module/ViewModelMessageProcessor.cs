@@ -2,14 +2,14 @@
 
 namespace CMiX.MVVM.MessageService
 {
-    public class ModuleMessageProcessor : IMessageProcessor
+    public class ViewModelMessageProcessor : IMessageProcessor
     {
-        public ModuleMessageProcessor(Module module)
+        public ViewModelMessageProcessor(Control module)
         {
             Module = module;
         }
 
-        private Module Module { get; set; }
+        private Control Module { get; set; }
 
         public void DispatchIterator(IMessageIterator messageIterator)
         {

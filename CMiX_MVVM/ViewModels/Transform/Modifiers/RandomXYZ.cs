@@ -8,7 +8,7 @@ using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RandomXYZ : Module, ITransformModifier
+    public class RandomXYZ : Control, ITransformModifier
     {
         public RandomXYZ(string name, int id, MasterBeat masterBeat, RandomXYZModel randomXYZModel)
         {

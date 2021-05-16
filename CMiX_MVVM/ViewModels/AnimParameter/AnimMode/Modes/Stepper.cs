@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Stepper : Module, IAnimMode
+    public class Stepper : Control, IAnimMode
     {
         public Stepper(StepperModel stepperModel)
         {

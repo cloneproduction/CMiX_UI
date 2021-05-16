@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : Module, IAnimMode
+    public class LFO : Control, IAnimMode
     {
         public LFO(LFOModel lfoModel)
         {

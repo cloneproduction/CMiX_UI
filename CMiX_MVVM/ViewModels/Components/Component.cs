@@ -22,8 +22,9 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentSender ComponentSender { get; set; }
+        public ViewModelSender ModuleSender { get; set; }
+
         public MessageReceiver MessageReceiver { get; set; }
-        public ModuleSender ModuleSender { get; set; }
 
 
         public Visibility Visibility { get; set; }
@@ -125,7 +126,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual void SetSender(ComponentSender messageSender)
         {
-            ModuleSender = new ModuleSender(this.ID);
+            ModuleSender = new ViewModelSender(this.ID);
             ModuleSender.SetSender(messageSender);
 
             ComponentSender = messageSender;

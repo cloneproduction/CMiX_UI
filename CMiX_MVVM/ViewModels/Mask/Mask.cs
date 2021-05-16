@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Mask : Module
+    public class Mask : Control
     {
         public Mask(MaskModel maskModel) 
         {

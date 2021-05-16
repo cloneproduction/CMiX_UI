@@ -45,7 +45,6 @@ namespace CMiX.MVVM.Services
         private void ClientSub_ReceiveReady(object sender, NetMQSocketEventArgs e)
         {
             string topic = e.Socket.ReceiveFrameString();
-            //string messageAddress = e.Socket.ReceiveFrameString();
             byte[] data = e.Socket.ReceiveFrameBytes();
             OnDataReceived(sender, new DataEventArgs(data));
         }

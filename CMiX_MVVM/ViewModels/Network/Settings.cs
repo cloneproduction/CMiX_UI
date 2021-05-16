@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.ViewModels;
-using MvvmDialogs;
+﻿using MvvmDialogs;
 using System;
 using System.Linq;
 using System.Net;
@@ -7,7 +6,7 @@ using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
 
-namespace CMiX.Studio.ViewModels.MessageService
+namespace CMiX.MVVM.ViewModels
 {
     public class Settings : ViewModel, IModalDialogViewModel
     {

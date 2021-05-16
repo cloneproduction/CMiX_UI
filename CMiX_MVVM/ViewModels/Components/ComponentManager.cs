@@ -18,17 +18,6 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public void SetSender(IMessageSender messageSender)
-        {
-            MessageSender = new ComponentSender();
-            MessageSender.SetSender(messageSender);
-        }
-
-
-        public ComponentSender MessageSender { get; set; }
-        public MessageReceiver MessageReceiver { get; set; }
-
-
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
@@ -57,7 +46,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 //newComponent.SetReceiver(component.MessageReceiver);
 
             //if(MessageSender != null)
-                newComponent.SetSender(component.ComponentSender);
+            newComponent.SetSender(component.ComponentSender);
         }
 
 

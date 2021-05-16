@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Translate : Module, IObserver
+    public class Translate : Control, IObserver
     {
         public Translate(string name, TranslateModel translateModel) 
         {

@@ -3,24 +3,24 @@ using System;
 
 namespace CMiX.MVVM.MessageService
 {
-    public class ModuleMessageFactory
+    public class ViewModelMessageFactory
     {
-        public ModuleMessageFactory(ModuleSender moduleMessageSender)
+        public ViewModelMessageFactory(ViewModelSender moduleMessageSender)
         {
-            ModuleSender = moduleMessageSender;
+            ViewModelSender = moduleMessageSender;
         }
 
-        private ModuleSender ModuleSender { get; set; }
+        private ViewModelSender ViewModelSender { get; set; }
 
-        public void SendMessageUpdateViewModel(Module module)
+        public void SendMessageUpdateViewModel(Control module)
         {
             MessagePack messagePack = new MessagePack();
             messagePack.Messages.Add(new MessageUpdateViewModel(module.ID, module.GetModel()));
 
-            if(ModuleSender != null)
+            if(ViewModelSender != null)
             {
                 Console.WriteLine("ModuleSender SendMessageUpdateViewModel ModuleAddress" + module.ID);
-                ModuleSender.SendMessagePack(messagePack);
+                ViewModelSender.SendMessagePack(messagePack);
             }
         }
     }

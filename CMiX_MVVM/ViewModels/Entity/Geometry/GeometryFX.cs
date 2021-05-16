@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryFX : Module
+    public class GeometryFX : Control
     {
         public GeometryFX(GeometryFXModel geometryFXModel) 
         {

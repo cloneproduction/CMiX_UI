@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ComboBox<T> : Module
+    public class ComboBox<T> : Control
     {
         public ComboBox(ComboBoxModel<T> comboBoxModel) 
         {

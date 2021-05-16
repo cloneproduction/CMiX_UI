@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Rotation : Module
+    public class Rotation : Control
     {
         public Rotation(string name, RotationModel rotationModel)
         {

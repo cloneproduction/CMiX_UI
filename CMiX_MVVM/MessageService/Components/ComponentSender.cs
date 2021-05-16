@@ -19,9 +19,9 @@ namespace CMiX.MVVM.MessageService
             return messageSender;
         }
 
-        public void SendMessageAddComponent(Guid parentID, Component newComponent)
+        public void SendMessageAddComponent(Guid id, Component newComponent)
         {
-            IMessage message = new MessageAddComponent(parentID, newComponent.GetModel() as IComponentModel);
+            IMessage message = new MessageAddComponent(id, newComponent.GetModel() as IComponentModel);
 
             MessagePack messagePack = new MessagePack();
             messagePack.AddMessage(message);
@@ -29,9 +29,9 @@ namespace CMiX.MVVM.MessageService
             Console.WriteLine("ComponentMessageSender SendMessageAdd");
         }
 
-        public void SendMessageRemoveComponent(Guid parentID, int index)
+        public void SendMessageRemoveComponent(Guid id, int index)
         {
-            IMessage message = new MessageRemoveComponent(parentID, index);
+            IMessage message = new MessageRemoveComponent(id, index);
 
             MessagePack messagePack = new MessagePack();
             messagePack.AddMessage(message);

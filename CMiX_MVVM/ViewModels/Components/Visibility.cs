@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class Visibility : Module
+    public class Visibility : Control
     {
         public Visibility(VisibilityModel visibilityModel)
         {

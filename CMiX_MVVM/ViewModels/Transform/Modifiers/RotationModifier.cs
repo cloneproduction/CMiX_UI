@@ -5,7 +5,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RotationModifier : Module, IModifier
+    public class RotationModifier : Control, IModifier
     {
         public RotationModifier(string name, Rotation rotation, MasterBeat beat, RotationModifierModel rotationModifierModel) 
         {

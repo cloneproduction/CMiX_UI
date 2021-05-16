@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Texture : Module
+    public class Texture : Control
     {
         public Texture(MasterBeat beat, TextureModel textureModel)
         {

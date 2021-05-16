@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : Module
+    public class Instancer : Control
     {
         public Instancer(MasterBeat beat, InstancerModel instancerModel) 
         {

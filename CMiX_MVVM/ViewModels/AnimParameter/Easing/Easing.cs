@@ -5,7 +5,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Easing : Module
+    public class Easing : Control
     {
         public Easing(EasingModel easingModel)
         {

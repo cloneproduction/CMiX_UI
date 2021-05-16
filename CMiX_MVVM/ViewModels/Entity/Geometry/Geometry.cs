@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : Module, ITransform
+    public class Geometry : Control, ITransform
     {
         public Geometry(MasterBeat beat, GeometryModel geometryModel) 
         {

@@ -23,13 +23,16 @@ namespace CMiX.MVVM.ViewModels
             Mementor = new Mementor();
             DataSender = new DataSender();
 
-            ComponentSender componentSender = new ComponentSender();
-            componentSender.SetSender(DataSender);
 
             var model = new ProjectModel(Guid.Empty);
             CurrentProject = new Project(model);
+
+            ComponentSender componentSender = new ComponentSender();
+            componentSender.SetSender(DataSender);
+
             CurrentProject.SetSender(componentSender);
             AssetManager = new AssetManager(CurrentProject);
+
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);

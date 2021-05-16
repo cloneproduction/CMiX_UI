@@ -4,7 +4,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class PostFX : Module
+    public class PostFX : Control
     {
         public PostFX(PostFXModel postFXModel)
         {
@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
             Blur.SetReceiver(messageReceiver);
         }
 
-        public override void SetSender(ModuleSender messageSender)
+        public override void SetSender(ViewModelSender messageSender)
         {
             //base.SetSender(messageSender);
 
