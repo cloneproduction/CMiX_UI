@@ -1,7 +1,7 @@
 ﻿using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.ViewModels.Components;
-using CMiX.Studio.ViewModels.MessageService;
 using System;
 using System.Collections.ObjectModel;
 
@@ -15,14 +15,14 @@ namespace CMiX.Engine.Testing
 
             var projectModel = new ProjectModel(Guid.Empty);
 
-            MessageReceiver componentReceiver = new MessageReceiver();
+            MessageReceiver messageReceiver = new MessageReceiver();
 
             var dataReceiver = new DataReceiver();
-            dataReceiver.RegisterReceiver(componentReceiver);
+            dataReceiver.RegisterReceiver(messageReceiver);
             dataReceiver.Start(settings);
 
             Project Project = new Project(projectModel);
-            Project.SetReceiver(componentReceiver);
+            Project.SetReceiver(messageReceiver);
 
             var projects = new ObservableCollection<Component>();
             projects.Add(Project);

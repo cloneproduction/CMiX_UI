@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CMiX.MVVM.MessageService
-{
-    public interface IMessage
-    {
-        Guid ComponentID { get; set; }
-    }
-}
+﻿//namespace CMiX.MVVM.MessageService
+//{
+//    public interface Message
+//    {
+//        IDAggregator IDAggregator { get; set; }
+//    }
+//}

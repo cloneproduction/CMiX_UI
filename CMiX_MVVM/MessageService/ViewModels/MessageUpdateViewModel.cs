@@ -3,7 +3,7 @@ using System;
 
 namespace CMiX.MVVM.MessageService
 {
-    public class MessageUpdateViewModel : IViewModelMessage
+    public class MessageUpdateViewModel : Message, IViewModelMessage
     {
         public MessageUpdateViewModel()
         {
@@ -13,10 +13,9 @@ namespace CMiX.MVVM.MessageService
         public MessageUpdateViewModel(Guid id, IModel model)
         {
             Model = model;
-            ComponentID = id;
+            this.AddID(id);
         }
 
         public IModel Model { get; set; }
-        public Guid ComponentID { get; set; }
     }
 }

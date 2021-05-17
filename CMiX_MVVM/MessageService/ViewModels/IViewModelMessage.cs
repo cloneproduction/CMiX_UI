@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.MessageService
 {
-    public interface IViewModelMessage : IMessage
+    public interface IViewModelMessage
     {
         IModel Model { get; set; }
     }

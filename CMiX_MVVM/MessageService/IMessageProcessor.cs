@@ -2,7 +2,7 @@
 {
     public interface IMessageProcessor
     {
-        void ProcessMessage(IMessage message);
-        void DispatchIterator(IMessageIterator messageIterator);
+        void ProcessMessage(Message message);
+        void DispatchIterator(IIDIterator messageIterator);
     }
 }

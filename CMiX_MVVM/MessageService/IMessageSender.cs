@@ -1,7 +1,10 @@
-﻿namespace CMiX.MVVM.MessageService
+﻿using System;
+
+namespace CMiX.MVVM.MessageService
 {
     public interface IMessageSender
     {
-        void SendMessagePack(IMessagePack messagePack);
+        IMessageSender SetSender(IMessageSender messageSender);
+        void SendMessage(Message message);
     }
 }

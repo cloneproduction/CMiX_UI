@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels
             var model = new ProjectModel(Guid.Empty);
             CurrentProject = new Project(model);
 
-            ComponentSender componentSender = new ComponentSender();
+            MessageSender componentSender = new MessageSender(CurrentProject.ID);
             componentSender.SetSender(DataSender);
 
             CurrentProject.SetSender(componentSender);

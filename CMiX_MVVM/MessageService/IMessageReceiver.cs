@@ -4,8 +4,8 @@ namespace CMiX.MVVM.MessageService
 {
     public interface IMessageReceiver
     {
-        void RegisterReceiver(Guid id, IMessageProcessor messageCommunicator);
-        void UnregisterReceiver(Guid id);
-        void ReceiveMessage(IMessageIterator messageIterator);
+        void RegisterMessageProcessor(Guid id, IMessageProcessor messageProcessor);
+        void UnregisterMessageProcessor(Guid id);
+        void ReceiveMessage(IIDIterator idIterator);
     }
 }

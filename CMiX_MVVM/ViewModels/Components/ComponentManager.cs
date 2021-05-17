@@ -46,7 +46,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 //newComponent.SetReceiver(component.MessageReceiver);
 
             //if(MessageSender != null)
-            newComponent.SetSender(component.ComponentSender);
+            newComponent.SetSender(component.MessageEmitter.MessageSender);
         }
 
 

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.MessageService
 {
-    public class MessageRemoveTransformModifier : IMessage
+    public class MessageRemoveTransformModifier : Message
     {
-        public MessageRemoveTransformModifier(Guid componentID, int index)
+        public MessageRemoveTransformModifier(Guid id, int index)
         {
             Index = index;
-            ComponentID = componentID;
+            this.AddID(id);
         }
 
-        public List<Guid> IDs { get; set; }
         public int Index { get; set; }
-        public Guid ComponentID { get; set; }
     }
 }

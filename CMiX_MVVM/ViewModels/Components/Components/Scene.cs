@@ -41,13 +41,13 @@ namespace CMiX.MVVM.ViewModels.Components
             MasterBeat.SetReceiver(MessageReceiver);
         }
 
-        public override void SetSender(ComponentSender messageSender)
+        public override void SetSender(IMessageSender messageSender)
         {
-            Transform.SetSender(ModuleSender);
-            Mask.SetSender(ModuleSender);
-            PostFX.SetSender(ModuleSender);
-            BeatModifier.SetSender(ModuleSender);
-            MasterBeat.SetSender(ModuleSender);
+            Transform.SetSender(messageSender);
+            Mask.SetSender(messageSender);
+            PostFX.SetSender(messageSender);
+            BeatModifier.SetSender(messageSender);
+            MasterBeat.SetSender(messageSender);
         }
 
 

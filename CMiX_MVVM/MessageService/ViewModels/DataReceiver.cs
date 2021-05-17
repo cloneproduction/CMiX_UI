@@ -25,9 +25,9 @@ namespace CMiX.MVVM.MessageService
             {
                 Console.WriteLine("Client_DataReceived Message");
 
-                IMessagePack messagePack = Serializer.Deserialize<MessagePack>(e.Data);
-                IMessageIterator messageIterator = messagePack.CreateIterator();
-                MessageReceiver.ReceiveMessage(messageIterator);
+                Message message = Serializer.Deserialize<Message>(e.Data);
+                var messageIDIterator = message.CreateIterator();
+                MessageReceiver.ReceiveMessage(messageIDIterator);
             }
         }
 

@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
             Blur.SetReceiver(messageReceiver);
         }
 
-        public override void SetSender(ViewModelSender messageSender)
+        public override void SetSender(IMessageSender messageSender)
         {
             //base.SetSender(messageSender);
 

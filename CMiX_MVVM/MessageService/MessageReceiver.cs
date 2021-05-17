@@ -12,7 +12,6 @@ namespace CMiX.MVVM.MessageService
 
         Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
 
-
         private IMessageProcessor GetMessageProcessor(Guid id)
         {
             if (MessageProcessors.ContainsKey(id))
@@ -20,34 +19,31 @@ namespace CMiX.MVVM.MessageService
             return null;
         }
 
-        public void RegisterReceiver(Guid id, IMessageProcessor component)
+        public void RegisterMessageProcessor(Guid id, IMessageProcessor component)
         {
             if (!MessageProcessors.ContainsKey(id))
                 MessageProcessors.Add(id, component);
         }
 
-        public void UnregisterReceiver(Guid id)
+        public void UnregisterMessageProcessor(Guid id)
         {
             MessageProcessors.Remove(id);
         }
 
-
-        public void ReceiveMessage(IMessageIterator messageIterator)
+        public void ReceiveMessage(IIDIterator idIterator)
         {
-            IMessage message = messageIterator.Next();
+            idIterator.Next();
+            Guid id = idIterator.CurrentID;
 
-            if (message != null)
-            {
-                IMessageProcessor messageProcessor = GetMessageProcessor(message.ComponentID);
+            IMessageProcessor messageProcessor = GetMessageProcessor(id);
 
-                if (messageProcessor == null)
-                    return;
+            if (messageProcessor == null)
+                return;
 
-                messageProcessor.ProcessMessage(message);
+            messageProcessor.ProcessMessage(idIterator.Message);
 
-                if (!messageIterator.IsDone)
-                    messageProcessor.DispatchIterator(messageIterator);
-            }
+            if (!idIterator.IsDone)
+                messageProcessor.DispatchIterator(idIterator);
         }
     }
 }

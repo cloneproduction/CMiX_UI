@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
+using CMiX.MVVM.MessageService.Components;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using System;
 using System.Collections.ObjectModel;
@@ -21,10 +22,12 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public ComponentSender ComponentSender { get; set; }
-        public ViewModelSender ModuleSender { get; set; }
+        public ComponentMessageEmitter MessageEmitter { get; set; }
+        public ComponentMessageProcessor MessageProcessor { get; set; }
 
-        public MessageReceiver MessageReceiver { get; set; }
+
+        internal MessageReceiver MessageReceiver { get; set; }
+        internal MessageSender MessageSender { get; set; }
 
 
         public Visibility Visibility { get; set; }
@@ -80,7 +83,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Add(component);
             IsExpanded = true;
 
-            ComponentSender?.SendMessageAddComponent(ID, component);
+            MessageEmitter?.SendMessageAddComponent(ID, component);
         }
 
         public void RemoveComponent(Component component)
@@ -88,7 +91,7 @@ namespace CMiX.MVVM.ViewModels.Components
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
-            ComponentSender?.SendMessageRemoveComponent(this.ID, index);
+            MessageEmitter?.SendMessageRemoveComponent(ID, index);
         }
 
         public void RemoveComponentAtIndex(int index)
@@ -118,18 +121,19 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual void SetReceiver(MessageReceiver messageReceiver)
         {
-            MessageReceiver = new MessageReceiver();
+            MessageProcessor = new ComponentMessageProcessor(this, messageReceiver);
+            messageReceiver.RegisterMessageProcessor(this.ID, MessageProcessor);
 
-            var messageProcessor = new ComponentMessageProcessor(this, messageReceiver);
-            messageReceiver.RegisterReceiver(ID, messageProcessor);
+            MessageReceiver = new MessageReceiver();
         }
 
-        public virtual void SetSender(ComponentSender messageSender)
+        public virtual void SetSender(IMessageSender messageSender)
         {
-            ModuleSender = new ViewModelSender(this.ID);
-            ModuleSender.SetSender(messageSender);
+            MessageEmitter = new ComponentMessageEmitter();
+            MessageEmitter.SetSender(messageSender);
 
-            ComponentSender = messageSender;
+            MessageSender = new MessageSender(this.ID);
+            MessageSender.SetSender(messageSender);
         }
 
         public void Dispose()
