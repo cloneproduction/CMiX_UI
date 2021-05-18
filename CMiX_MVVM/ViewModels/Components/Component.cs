@@ -23,10 +23,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentMessageEmitter MessageEmitter { get; set; }
-
         internal IMessageReceiver MessageReceiver { get; set; }
-
-        internal MessageSender MessageSender { get; set; }
 
 
         public Visibility Visibility { get; set; }

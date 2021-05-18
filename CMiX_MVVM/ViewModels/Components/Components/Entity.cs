@@ -41,7 +41,12 @@ namespace CMiX.MVVM.ViewModels.Components
         public override IMessageSender SetSender(IMessageSender messageSender)
         {
             var sender = base.SetSender(messageSender);
-            BeatModifier.SetSender(messageSender);
+
+            BeatModifier.SetSender(sender);
+            Geometry.SetSender(sender);
+            Texture.SetSender(sender);
+            Coloration.SetSender(sender);
+            Visibility.SetSender(sender);
 
             return sender;
         }
