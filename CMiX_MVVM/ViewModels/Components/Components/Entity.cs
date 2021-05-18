@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetReceiver(MessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
 
@@ -38,9 +38,12 @@ namespace CMiX.MVVM.ViewModels.Components
             Visibility.SetReceiver(MessageReceiver);
         }
 
-        public override void SetSender(IMessageSender messageSender)
+        public override IMessageSender SetSender(IMessageSender messageSender)
         {
+            var sender = base.SetSender(messageSender);
             BeatModifier.SetSender(messageSender);
+
+            return sender;
         }
 
 

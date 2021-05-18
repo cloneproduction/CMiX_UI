@@ -7,25 +7,33 @@ namespace CMiX.MVVM.MessageService
     {
         public MessageReceiver()
         {
-            MessageProcessors = new Dictionary<Guid, IMessageProcessor>();
+            MessageProcessors = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        Dictionary<Guid, IMessageProcessor> MessageProcessors { get; set; }
+        public MessageReceiver(IMessageProcessor messageProcessor)
+        {
+            MessageProcessor = messageProcessor;
+            MessageProcessors = new Dictionary<Guid, IMessageReceiver>();
+        }
 
-        private IMessageProcessor GetMessageProcessor(Guid id)
+
+        private IMessageProcessor MessageProcessor { get; set; }
+        private Dictionary<Guid, IMessageReceiver> MessageProcessors { get; set; }
+
+        private IMessageReceiver GetMessageProcessor(Guid id)
         {
             if (MessageProcessors.ContainsKey(id))
                 return MessageProcessors[id];
             return null;
         }
 
-        public void RegisterMessageProcessor(Guid id, IMessageProcessor component)
+        public void RegisterMessageReceiver(Guid id, IMessageReceiver component)
         {
             if (!MessageProcessors.ContainsKey(id))
                 MessageProcessors.Add(id, component);
         }
 
-        public void UnregisterMessageProcessor(Guid id)
+        public void UnregisterMessageReceiver(Guid id)
         {
             MessageProcessors.Remove(id);
         }
@@ -33,17 +41,17 @@ namespace CMiX.MVVM.MessageService
         public void ReceiveMessage(IIDIterator idIterator)
         {
             idIterator.Next();
-            Guid id = idIterator.CurrentID;
 
-            IMessageProcessor messageProcessor = GetMessageProcessor(id);
-
-            if (messageProcessor == null)
+            if (idIterator.IsDone)
+            {
+                MessageProcessor.ProcessMessage(idIterator.Message);
                 return;
+            }
 
-            messageProcessor.ProcessMessage(idIterator.Message);
+            IMessageReceiver messageReceiver = GetMessageProcessor(idIterator.CurrentID);
 
-            if (!idIterator.IsDone)
-                messageProcessor.DispatchIterator(idIterator);
+            if (messageReceiver != null)
+                messageReceiver.ReceiveMessage(idIterator);
         }
     }
 }

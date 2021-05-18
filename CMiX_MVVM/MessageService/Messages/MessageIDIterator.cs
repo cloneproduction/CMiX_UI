@@ -14,11 +14,6 @@ namespace CMiX.MVVM.MessageService
 
         public Message Message { get; set; } //must be public because of Ceras
 
-        //public void Reverse()
-        //{
-        //    Message.IDs.Reverse();
-        //}
-
 
         public Guid First()
         {

@@ -6,12 +6,12 @@ namespace CMiX.MVVM.MessageService
     {
         public MessageSender(Guid id)
         {
-            ID = id;
+            _id = id;
         }
 
-        public Guid ID { get; set; }
-
+        private Guid _id { get; set; }
         private IMessageSender _messageSender;
+
         public IMessageSender SetSender(IMessageSender messageSender)
         {
             _messageSender = messageSender;
@@ -22,8 +22,8 @@ namespace CMiX.MVVM.MessageService
         {
             if(_messageSender != null)
             {
-                Console.WriteLine("MessageSender SendMessage");
-                message.AddID(ID);
+                Console.WriteLine("MessageSender SendMessage with ID " + _id);
+                message.AddID(_id);
                 _messageSender?.SendMessage(message);
             }
         }

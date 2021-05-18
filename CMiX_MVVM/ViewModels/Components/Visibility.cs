@@ -21,7 +21,7 @@ namespace CMiX.MVVM.ViewModels.Components
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public override void SetReceiver(MessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             //messageReceiver?.RegisterReceiver(this, ID);
         }

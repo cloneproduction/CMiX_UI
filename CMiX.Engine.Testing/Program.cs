@@ -11,9 +11,10 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
-            var projectModel = new ProjectModel(Guid.Empty);
+            Guid g = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
+            var projectModel = new ProjectModel(g);
 
             MessageReceiver messageReceiver = new MessageReceiver();
 

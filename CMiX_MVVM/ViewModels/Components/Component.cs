@@ -23,10 +23,9 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentMessageEmitter MessageEmitter { get; set; }
-        public ComponentMessageProcessor MessageProcessor { get; set; }
 
+        internal IMessageReceiver MessageReceiver { get; set; }
 
-        internal MessageReceiver MessageReceiver { get; set; }
         internal MessageSender MessageSender { get; set; }
 
 
@@ -83,7 +82,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Add(component);
             IsExpanded = true;
 
-            MessageEmitter?.SendMessageAddComponent(ID, component);
+            MessageEmitter?.SendMessageAddComponent(component);
         }
 
         public void RemoveComponent(Component component)
@@ -91,7 +90,7 @@ namespace CMiX.MVVM.ViewModels.Components
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
-            MessageEmitter?.SendMessageRemoveComponent(ID, index);
+            MessageEmitter?.SendMessageRemoveComponent(index);
         }
 
         public void RemoveComponentAtIndex(int index)
@@ -119,22 +118,25 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public virtual void SetReceiver(MessageReceiver messageReceiver)
-        {
-            MessageProcessor = new ComponentMessageProcessor(this, messageReceiver);
-            messageReceiver.RegisterMessageProcessor(this.ID, MessageProcessor);
 
-            MessageReceiver = new MessageReceiver();
+        public virtual void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            var messageProcessor = new ComponentMessageProcessor(this);
+            MessageReceiver = new MessageReceiver(messageProcessor);
+            messageReceiver.RegisterMessageReceiver(this.ID, MessageReceiver);
         }
 
-        public virtual void SetSender(IMessageSender messageSender)
-        {
-            MessageEmitter = new ComponentMessageEmitter();
-            MessageEmitter.SetSender(messageSender);
 
-            MessageSender = new MessageSender(this.ID);
-            MessageSender.SetSender(messageSender);
+        public virtual IMessageSender SetSender(IMessageSender messageSender)
+        {
+            var sender = new MessageSender(this.ID);
+            sender.SetSender(messageSender);
+            MessageEmitter = new ComponentMessageEmitter(sender);
+
+            return sender;
         }
+
+
 
         public void Dispose()
         {

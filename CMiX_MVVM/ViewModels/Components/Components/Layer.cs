@@ -23,7 +23,7 @@ namespace CMiX.MVVM.ViewModels.Components
             ComponentFactory = new SceneFactory(this);
         }
 
-        public override void SetReceiver(MessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
 
@@ -33,12 +33,14 @@ namespace CMiX.MVVM.ViewModels.Components
             //Mask.SetReceiver(MessageReceiver);
         }
 
-        public override void SetSender(IMessageSender messageSender)
+        public override IMessageSender SetSender(IMessageSender messageSender)
         {
-            base.SetSender(messageSender);
+            var sender = base.SetSender(messageSender);
 
             Fade.SetSender(messageSender);
             PostFX.SetSender(messageSender);
+
+            return sender;
             //BlendMode.SetSender(MessageSender);
             //Mask.SetSender(MessageSender);
         }

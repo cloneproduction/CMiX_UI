@@ -4,19 +4,12 @@ namespace CMiX.MVVM.MessageService
 {
     public class ControlMessageProcessor : IMessageProcessor
     {
-        public ControlMessageProcessor(Control module, MessageReceiver messageReceiver)
+        public ControlMessageProcessor(Control control)
         {
-            Module = module;
-            MessageReceiver = messageReceiver;
+            Control = control;
         }
 
-        private Control Module { get; set; }
-        private MessageReceiver MessageReceiver { get; set; }
-
-        public void DispatchIterator(IIDIterator messageIterator)
-        {
-            //MessageReceiver.ReceiveMessage(messageIterator);
-        }
+        private Control Control { get; set; }
 
         public void ProcessMessage(Message message)
         {
@@ -24,7 +17,7 @@ namespace CMiX.MVVM.MessageService
             var msg = message as IViewModelMessage;
 
             if (msg != null)
-                Module.SetViewModel(msg.Model);
+                Control.SetViewModel(msg.Model);
         }
     }
 }

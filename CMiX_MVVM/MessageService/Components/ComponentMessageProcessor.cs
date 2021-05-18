@@ -7,20 +7,17 @@ namespace CMiX.MVVM.MessageService
 {
     public class ComponentMessageProcessor : IMessageProcessor
     {
-        public ComponentMessageProcessor(Component component, MessageReceiver messageReceiver)
+        public ComponentMessageProcessor(Component component)
         {
             Component = component;
-            MessageReceiver = messageReceiver;
         }
 
-        private MessageReceiver MessageReceiver { get; set; }
         private Component Component { get; set; }
 
         public void DispatchIterator(IIDIterator messageIterator)
         {
-            //MessageReceiver.ReceiveMessage(messageIterator);
+            Component.MessageReceiver.ReceiveMessage(messageIterator);
         }
-
 
         public void ProcessMessage(Message message)
         {
@@ -42,15 +39,15 @@ namespace CMiX.MVVM.MessageService
             Component newComponent = Component.ComponentFactory.CreateComponent(message.ComponentModel);
             newComponent.SetReceiver(Component.MessageReceiver);
             Component.AddComponent(newComponent);
-            Console.WriteLine("ComponentReceiver ReceiveMessageAddComponent Count is " + Component.Components.Count);
+            Console.WriteLine("ReceiveMessageAddComponent Count is " + Component.Components.Count);
         }
 
         private void ReceiveMessageRemoveComponent(MessageRemoveComponent message)
         {
             Component componentToRemove = Component.Components.ElementAt(message.Index);
             Component.RemoveComponent(componentToRemove);
-            MessageReceiver.UnregisterMessageProcessor(componentToRemove.ID);
-            Console.WriteLine("ComponentReceiver ReceiveMessageRemoveComponent Count is " + Component.Components.Count);
+            Component.MessageReceiver.UnregisterMessageReceiver(componentToRemove.ID);
+            Console.WriteLine("ReceiveMessageRemoveComponent Count is " + Component.Components.Count);
         }
     }
 }

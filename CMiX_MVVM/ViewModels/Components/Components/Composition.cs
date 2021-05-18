@@ -26,18 +26,19 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetSender(IMessageSender messageSender)
+        public override IMessageSender SetSender(IMessageSender messageSender)
         {
-            base.SetSender(messageSender);
+            var sender = base.SetSender(messageSender);
 
-            Transition.SetSender(this.MessageSender);
+            Transition.SetSender(sender);
 
+            return sender;
             //MasterBeat.SetSender(MessageSender);
             //Camera.SetSender(MessageSender);
             //Visibility.SetSender(MessageSender);
         }
 
-        public override void SetReceiver(MessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
 
@@ -77,7 +78,6 @@ namespace CMiX.MVVM.ViewModels.Components
             foreach (var componentModel in compositionModel.ComponentModels)
             {
                 var newComponent = this.ComponentFactory.CreateComponent(compositionModel);
-                //newComponent.SetMessageCommunication(MessageDispatcher);
                 //newComponent.SetReceiver(MessageReceiver);
                 //newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);

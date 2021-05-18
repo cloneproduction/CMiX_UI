@@ -16,7 +16,6 @@ namespace CMiX.MVVM.MessageService
         public IIDIterator CreateIterator()
         {
             var iterator = new MessageIDIterator(this);
-            //iterator.Reverse();
             return iterator;
         }
 
@@ -32,7 +31,7 @@ namespace CMiX.MVVM.MessageService
 
         public void AddID(Guid id)
         {
-            IDs.Add(id);
+            IDs.Insert(0, id);
         }
     }
 }

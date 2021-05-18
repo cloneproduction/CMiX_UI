@@ -5,16 +5,16 @@ namespace CMiX.MVVM.MessageService.Module
 {
     public class ControlMessageEmitter : IMessageEmitter
     {
-        public ControlMessageEmitter()
-        {
-
-        }
-
-        public IMessageSender MessageSender { get; set; }
-
-        public void SetSender(IMessageSender messageSender)
+        public ControlMessageEmitter(IMessageSender messageSender)
         {
             MessageSender = messageSender;
+        }
+
+        IMessageSender MessageSender { get; set; }
+
+        public IMessageSender GetMessageSender()
+        {
+            return MessageSender;
         }
 
         public void SendMessageUpdateViewModel(Guid id, Control module)

@@ -1,6 +1,4 @@
 ﻿using CMiX.MVVM.MessageService;
-using System;
-using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.Components.Messages
 {
@@ -10,9 +8,8 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
         {
 
         }
-        public MessageRemoveComponent(Guid id, int index)
+        public MessageRemoveComponent(int index)
         {
-            this.AddID(id);
             Index = index;
         }
 

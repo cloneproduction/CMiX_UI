@@ -23,14 +23,13 @@ namespace CMiX.MVVM.ViewModels
             Mementor = new Mementor();
             DataSender = new DataSender();
 
+            Guid g = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
+            var model = new ProjectModel(g);
 
-            var model = new ProjectModel(Guid.Empty);
             CurrentProject = new Project(model);
 
-            MessageSender componentSender = new MessageSender(CurrentProject.ID);
-            componentSender.SetSender(DataSender);
 
-            CurrentProject.SetSender(componentSender);
+            CurrentProject.SetSender(DataSender);
             AssetManager = new AssetManager(CurrentProject);
 
 

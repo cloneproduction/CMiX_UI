@@ -7,30 +7,31 @@ namespace CMiX.MVVM.MessageService.Components
 {
     public class ComponentMessageEmitter : IMessageEmitter
     {
-        public ComponentMessageEmitter()
-        {
-
-        }
-
-        public IMessageSender MessageSender { get; set; }
-
-        public void SetSender(IMessageSender messageSender)
+        public ComponentMessageEmitter(IMessageSender messageSender)
         {
             MessageSender = messageSender;
         }
 
-        public void SendMessageAddComponent(Guid id, Component newComponent)
+        IMessageSender MessageSender { get; set; }
+
+        public IMessageSender GetMessageSender()
         {
-            Message message = new MessageAddComponent(id, newComponent.GetModel() as IComponentModel);
-            MessageSender.SendMessage(message);
-            Console.WriteLine("ComponentMessageSender SendMessageAdd");
+            return this.MessageSender;
         }
 
-        public void SendMessageRemoveComponent(Guid id, int index)
+        public void SendMessageAddComponent(Component newComponent)
         {
-            Message message = new MessageRemoveComponent(id, index);
+            Console.WriteLine("ComponentMessageSender SendMessageAdd");
+            Message message = new MessageAddComponent(newComponent.GetModel() as IComponentModel);
             MessageSender.SendMessage(message);
+
+        }
+
+        public void SendMessageRemoveComponent(int index)
+        {
             Console.WriteLine("ComponentMessageSender SendMessageRemove");
+            Message message = new MessageRemoveComponent(index);
+            MessageSender.SendMessage(message);
         }
     }
 }

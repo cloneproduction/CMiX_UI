@@ -32,7 +32,7 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-        public void SendMessage(Guid id, byte[] data)
+        public void SendData(byte[] data)
         {
             this.Server.Send(data);
         }

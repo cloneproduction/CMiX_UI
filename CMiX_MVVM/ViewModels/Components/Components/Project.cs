@@ -77,17 +77,17 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
-        public override void SetReceiver(MessageReceiver messageReceiver)
+        public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
 
             //Visibility.SetReceiver(MessageReceiver);
         }
 
-        public override void SetSender(IMessageSender messageSender)
+        public override IMessageSender SetSender(IMessageSender messageSender)
         {
-            base.SetSender(messageSender);
-
+            var sender = base.SetSender(messageSender);
+            return sender;
             //Visibility.SetSender(MessageSender);
         }
     }

@@ -3,6 +3,5 @@
     public interface IMessageProcessor
     {
         void ProcessMessage(Message message);
-        void DispatchIterator(IIDIterator messageIterator);
     }
 }

@@ -5,7 +5,6 @@ using CMiX.Studio.ViewModels;
 using MvvmDialogs;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
@@ -28,17 +27,13 @@ namespace CMiX.MVVM.ViewModels
 
 
         private MessengerFactory MessengerFactory { get; set; }
-
-        public CerasSerializer Serializer { get; set; }
-        public IDialogService DialogService { get; set; }
+        private CerasSerializer Serializer { get; set; }
+        private IDialogService DialogService { get; set; }
 
         public ICommand EditMessengerSettingsCommand { get; }
         public ICommand AddMessengerCommand { get; set; }
         public ICommand DeleteMessengerCommand { get; set; }
         public ICommand RenameMessengerCommand { get; set; }
-
-
-        public bool HasMessengerRunning { get => Messengers.Any(x => x.ServerIsRunning); }
 
 
         private ObservableCollection<Messenger> _messengers;
@@ -80,15 +75,12 @@ namespace CMiX.MVVM.ViewModels
 
         public void SendMessage(Message message)
         {
-            Console.WriteLine("DataSender SendMessageAggregator");
-            //var address = message.ComponentID;
-            var address = Guid.NewGuid(); //for testing
             byte[] data = Serializer.Serialize(message);
 
             foreach (var messenger in Messengers)
             {
-                messenger.SendMessage(address, data);
-                Console.WriteLine("MessageSender SendMessage");
+                messenger.SendData(data);
+                Console.WriteLine("DataSender SendMessageAggregator");
             }
         }
 
