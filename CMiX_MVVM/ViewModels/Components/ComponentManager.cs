@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.MessageService;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -40,13 +39,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public void CreateComponent(Component component)
         {
             var newComponent = component.ComponentFactory.CreateComponent();
+            newComponent.SetSender(component.MessageSender);
             component.AddComponent(newComponent);
-
-            //if (MessageReceiver != null)
-                //newComponent.SetReceiver(component.MessageReceiver);
-
-            //if(MessageSender != null)
-            newComponent.SetSender(component.MessageEmitter.GetMessageSender());
         }
 
 

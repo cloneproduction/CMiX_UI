@@ -12,19 +12,13 @@ namespace CMiX.MVVM.MessageService.Components
             MessageSender = messageSender;
         }
 
-        IMessageSender MessageSender { get; set; }
-
-        public IMessageSender GetMessageSender()
-        {
-            return this.MessageSender;
-        }
+        private IMessageSender MessageSender { get; set; }
 
         public void SendMessageAddComponent(Component newComponent)
         {
             Console.WriteLine("ComponentMessageSender SendMessageAdd");
             Message message = new MessageAddComponent(newComponent.GetModel() as IComponentModel);
             MessageSender.SendMessage(message);
-
         }
 
         public void SendMessageRemoveComponent(int index)

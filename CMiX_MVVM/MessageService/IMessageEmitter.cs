@@ -4,6 +4,6 @@ namespace CMiX.MVVM.MessageService
 {
     public interface IMessageEmitter
     {
-        IMessageSender GetMessageSender();
+        //IMessageSender GetMessageSender();
     }
 }
