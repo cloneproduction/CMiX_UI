@@ -27,10 +27,10 @@ namespace CMiX.MVVM.MessageService
             return null;
         }
 
-        public void RegisterMessageReceiver(Guid id, IMessageReceiver component)
+        public void RegisterMessageReceiver(Guid id, IMessageReceiver receiver)
         {
             if (!_messageReceivers.ContainsKey(id))
-                _messageReceivers.Add(id, component);
+                _messageReceivers.Add(id, receiver);
         }
 
         public void UnregisterMessageReceiver(Guid id)
