@@ -177,7 +177,6 @@
     <Compile Include="MessageService\Messages\MessageEmpty.cs" />
     <Compile Include="MessageService\Messages\MessageIDIterator.cs" />
     <Compile Include="MessageService\Components\ComponentMessageProcessor.cs" />
-    <Compile Include="MessageService\Module\ViewModelMessageFactory.cs" />
     <Compile Include="MessageService\MessageReceiver.cs" />
     <Compile Include="MessageService\MessageSender.cs" />
     <Compile Include="MessageService\IMessageProcessor.cs" />
