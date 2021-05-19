@@ -21,7 +21,9 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentMessageEmitter MessageEmitter { get; set; }
+        public IMessageProcessor MessageProcessor { get; set; }
         public IMessageReceiver MessageReceiver { get; set; }
+        public IMessageSender MessageSender { get; set; }
 
 
         public Visibility Visibility { get; set; }
@@ -115,21 +117,17 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            var messageProcessor = new ComponentMessageProcessor(this);
-            MessageReceiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterMessageReceiver(MessageReceiver);
+            MessageReceiver = new MessageReceiver(this);
+            messageReceiver.RegisterReceiver(MessageReceiver);
+            MessageProcessor = new ComponentMessageProcessor(this);
         }
 
-
-        public virtual IMessageSender SetSender(IMessageSender messageSender)
+        public virtual void SetSender(IMessageSender messageSender)
         {
-            var sender = new MessageSender(this);
-            sender.SetSender(messageSender);
-            MessageEmitter = new ComponentMessageEmitter(sender);
-
-            return sender;
+            MessageSender = new MessageSender(this);
+            MessageSender.SetSender(messageSender);
+            MessageEmitter = new ComponentMessageEmitter(MessageSender);
         }
-
 
 
         public void Dispose()

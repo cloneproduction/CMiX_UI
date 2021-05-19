@@ -20,9 +20,10 @@ namespace CMiX.MVVM.MessageService
         public void ProcessMessage(Message message)
         {
             System.Console.WriteLine("ModuleMessageProcessor ProcessMessage");
+
             var msg = message as IViewModelMessage;
 
-            if (msg != null)
+            if (msg != null && Control != null)
                 Control.SetViewModel(msg.Model);
         }
     }

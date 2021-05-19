@@ -26,26 +26,24 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override IMessageSender SetSender(IMessageSender messageSender)
+        public override void SetSender(IMessageSender messageSender)
         {
-            var sender = base.SetSender(messageSender);
+            base.SetSender(messageSender);
 
-            Transition.SetSender(sender);
-            MasterBeat.SetSender(sender);
-            Camera.SetSender(sender);
-            Visibility.SetSender(sender);
-
-            return sender;
+            Transition.SetSender(MessageSender);
+            MasterBeat.SetSender(MessageSender);
+            Camera.SetSender(MessageSender);
+            Visibility.SetSender(MessageSender);
         }
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
 
-            Transition.SetReceiver(this.MessageReceiver);
-            MasterBeat.SetReceiver(this.MessageReceiver);
-            Camera.SetReceiver(this.MessageReceiver);
-            Visibility.SetReceiver(this.MessageReceiver);
+            Transition.SetReceiver(MessageReceiver);
+            MasterBeat.SetReceiver(MessageReceiver);
+            Camera.SetReceiver(MessageReceiver);
+            Visibility.SetReceiver(MessageReceiver);
         }
 
 

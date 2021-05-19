@@ -33,16 +33,14 @@ namespace CMiX.MVVM.ViewModels.Components
             Mask.SetReceiver(MessageReceiver);
         }
 
-        public override IMessageSender SetSender(IMessageSender messageSender)
+        public override void SetSender(IMessageSender messageSender)
         {
-            var sender = base.SetSender(messageSender);
+            base.SetSender(messageSender);
 
-            Fade.SetSender(sender);
-            PostFX.SetSender(sender);
-            BlendMode.SetSender(sender);
-            Mask.SetSender(sender);
-
-            return sender;
+            Fade.SetSender(MessageSender);
+            PostFX.SetSender(MessageSender);
+            BlendMode.SetSender(MessageSender);
+            Mask.SetSender(MessageSender);
         }
 
 

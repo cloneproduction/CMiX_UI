@@ -8,8 +8,10 @@ namespace CMiX.MVVM.ViewModels
     public abstract class Control :  ViewModel, IIDobject
     {
         public Guid ID { get; set; }
-
         public ControlMessageEmitter MessageEmitter { get; set; }
+        public IMessageProcessor MessageProcessor { get; set; }
+        public IMessageReceiver MessageReceiver { get; set; }
+
 
         public virtual void SetSender(IMessageSender messageSender)
         {
@@ -20,10 +22,11 @@ namespace CMiX.MVVM.ViewModels
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            var messageProcessor = new ControlMessageProcessor(this);
-            var receiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterMessageReceiver(receiver);
+            var receiver = new MessageReceiver(this);
+            messageReceiver.RegisterReceiver(receiver);
+            MessageProcessor = new ControlMessageProcessor(this);
         }
+
 
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();

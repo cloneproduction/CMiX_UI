@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.MessageService
@@ -11,18 +12,22 @@ namespace CMiX.MVVM.MessageService
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        public MessageReceiver(IMessageProcessor messageProcessor)
+        public MessageReceiver(IIDobject iDobject)
         {
-            ID = messageProcessor.GetID();
-            MessageProcessor = messageProcessor;
+            ID = iDobject.ID;
+            IDobject = iDobject;
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
 
-        public Guid ID { get; set; }
-        private IMessageProcessor MessageProcessor { get; set; }
+        private Guid ID { get; set; }
+        private IIDobject IDobject { get; set; }
         private Dictionary<Guid, IMessageReceiver> _messageReceivers { get; set; }
 
+        public Guid GetID()
+        {
+            return IDobject.ID;
+        }
 
         private IMessageReceiver GetMessageProcessor(Guid id)
         {
@@ -31,15 +36,15 @@ namespace CMiX.MVVM.MessageService
             return null;
         }
 
-        public void RegisterMessageReceiver(IMessageReceiver receiver)
+        public void RegisterReceiver(IMessageReceiver receiver)
         {
-            if (!_messageReceivers.ContainsKey(receiver.ID))
-                _messageReceivers.Add(receiver.ID, receiver);
+            if (!_messageReceivers.ContainsKey(receiver.GetID()))
+                _messageReceivers.Add(receiver.GetID(), receiver);
         }
 
-        public void UnregisterMessageReceiver(IMessageReceiver receiver)
+        public void UnregisterReceiver(IMessageReceiver receiver)
         {
-            _messageReceivers.Remove(receiver.ID);
+            _messageReceivers.Remove(receiver.GetID());
         }
 
         public void ReceiveMessage(IIDIterator idIterator)
@@ -48,7 +53,7 @@ namespace CMiX.MVVM.MessageService
 
             if (idIterator.IsDone)
             {
-                MessageProcessor?.ProcessMessage(idIterator.Message);
+                IDobject?.MessageProcessor.ProcessMessage(idIterator.Message);
                 return;
             }
 

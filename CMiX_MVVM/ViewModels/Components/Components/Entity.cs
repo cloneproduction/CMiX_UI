@@ -38,17 +38,15 @@ namespace CMiX.MVVM.ViewModels.Components
             Visibility.SetReceiver(MessageReceiver);
         }
 
-        public override IMessageSender SetSender(IMessageSender messageSender)
+        public override void SetSender(IMessageSender messageSender)
         {
-            var sender = base.SetSender(messageSender);
+            base.SetSender(messageSender);
 
-            BeatModifier.SetSender(sender);
-            Geometry.SetSender(sender);
-            Texture.SetSender(sender);
-            Coloration.SetSender(sender);
-            Visibility.SetSender(sender);
-
-            return sender;
+            BeatModifier.SetSender(MessageSender);
+            Geometry.SetSender(MessageSender);
+            Texture.SetSender(MessageSender);
+            Coloration.SetSender(MessageSender);
+            Visibility.SetSender(MessageSender);
         }
 
 

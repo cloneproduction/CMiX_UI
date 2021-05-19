@@ -14,11 +14,6 @@ namespace CMiX.MVVM.MessageService
 
         private Component Component { get; set; }
 
-        public Guid GetID()
-        {
-            return this.Component.ID;
-        }
-
         public void ProcessMessage(Message message)
         {
             if (message is MessageAddComponent)
@@ -45,7 +40,7 @@ namespace CMiX.MVVM.MessageService
         private void ReceiveMessageRemoveComponent(MessageRemoveComponent message)
         {
             Component componentToRemove = Component.Components.ElementAt(message.Index);
-            Component.MessageReceiver.UnregisterMessageReceiver(componentToRemove.MessageReceiver);
+            Component.MessageReceiver.UnregisterReceiver(componentToRemove.MessageReceiver);
             Component.RemoveComponent(componentToRemove);
             Console.WriteLine("ReceiveMessageRemoveComponent Count is " + Component.Components.Count);
         }
