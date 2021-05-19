@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             MasterBeat = new MasterBeat(new MasterBeatModel());
             Camera = new Camera(MasterBeat, compositionModel.CameraModel);
-            //Visibility = new Visibility(project.Visibility, compositionModel.VisibilityModel);
+            Visibility = new Visibility(project.Visibility, compositionModel.VisibilityModel);
             ComponentFactory = new LayerFactory(this);
         }
 
@@ -31,11 +31,11 @@ namespace CMiX.MVVM.ViewModels.Components
             var sender = base.SetSender(messageSender);
 
             Transition.SetSender(sender);
+            MasterBeat.SetSender(sender);
+            Camera.SetSender(sender);
+            Visibility.SetSender(sender);
 
             return sender;
-            //MasterBeat.SetSender(MessageSender);
-            //Camera.SetSender(MessageSender);
-            //Visibility.SetSender(MessageSender);
         }
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
@@ -43,9 +43,9 @@ namespace CMiX.MVVM.ViewModels.Components
             base.SetReceiver(messageReceiver);
 
             Transition.SetReceiver(this.MessageReceiver);
-            //MasterBeat.SetReceiver(MessageReceiver);
-            //Camera.SetReceiver(MessageReceiver);
-            //Visibility.SetReceiver(MessageReceiver);
+            MasterBeat.SetReceiver(this.MessageReceiver);
+            Camera.SetReceiver(this.MessageReceiver);
+            Visibility.SetReceiver(this.MessageReceiver);
         }
 
 

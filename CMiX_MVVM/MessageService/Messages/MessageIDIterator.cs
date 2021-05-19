@@ -24,10 +24,6 @@ namespace CMiX.MVVM.MessageService
         public void Next()
         {
             _current += _step;
-            //if (!IsDone)
-            //    CurrentID = Message.GetID(_current);
-            //else
-            //    return Guid.Empty;
         }
 
         public Guid CurrentID

@@ -10,10 +10,9 @@ namespace CMiX.MVVM.MessageService
 
         }
 
-        public MessageUpdateViewModel(Guid id, IModel model)
+        public MessageUpdateViewModel(IModel model)
         {
             Model = model;
-            this.AddID(id);
         }
 
         public IModel Model { get; set; }

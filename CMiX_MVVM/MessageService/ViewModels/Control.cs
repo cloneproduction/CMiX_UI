@@ -5,16 +5,17 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Control : ViewModel
+    public abstract class Control :  ViewModel, IIDobject
     {
         public Guid ID { get; set; }
-
 
         public ControlMessageEmitter MessageEmitter { get; set; }
 
         public virtual void SetSender(IMessageSender messageSender)
         {
-            MessageEmitter = new ControlMessageEmitter(messageSender);
+            var sender = new MessageSender(this);
+            sender.SetSender(messageSender);
+            MessageEmitter = new ControlMessageEmitter(sender);
         }
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)

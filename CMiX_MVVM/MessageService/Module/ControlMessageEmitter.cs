@@ -17,13 +17,13 @@ namespace CMiX.MVVM.MessageService.Module
             return MessageSender;
         }
 
-        public void SendMessageUpdateViewModel(Guid id, Control module)
+        public void SendMessageUpdateViewModel(Control module)
         {
             if(MessageSender != null)
             {
-                Console.WriteLine("ModuleSender SendMessageUpdateViewModel ModuleAddress" + id);
+                Console.WriteLine("ControlMessageEmitter SendMessageUpdateViewModel");
 
-                var message = new MessageUpdateViewModel(module.ID, module.GetModel());
+                var message = new MessageUpdateViewModel(module.GetModel());
                 MessageSender.SendMessage(message);
             }
         }

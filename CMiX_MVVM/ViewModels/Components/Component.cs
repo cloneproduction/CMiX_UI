@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IDisposable
+    public abstract class Component : ViewModel, IIDobject, IDisposable
     {
         public Component(IComponentModel componentModel)
         {
@@ -76,7 +76,11 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void AddComponent(Component component)
         {
+            if(MessageReceiver != null)
+                component.SetReceiver(this.MessageReceiver);
+
             Components.Add(component);
+
             IsExpanded = true;
 
             MessageEmitter?.SendMessageAddComponent(component);
@@ -84,9 +88,13 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void RemoveComponent(Component component)
         {
+            if(MessageReceiver != null)
+                this.MessageReceiver.UnregisterMessageReceiver(component.ID);
+
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
+
             MessageEmitter?.SendMessageRemoveComponent(index);
         }
 
@@ -126,7 +134,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual IMessageSender SetSender(IMessageSender messageSender)
         {
-            var sender = new MessageSender(this.ID);
+            var sender = new MessageSender(this);
             sender.SetSender(messageSender);
             MessageEmitter = new ComponentMessageEmitter(sender);
 
