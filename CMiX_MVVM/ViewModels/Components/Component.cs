@@ -23,7 +23,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
 
         public ComponentMessageEmitter MessageEmitter { get; set; }
-        internal IMessageReceiver MessageReceiver { get; set; }
+        public IMessageReceiver MessageReceiver { get; set; }
 
 
         public Visibility Visibility { get; set; }
@@ -119,7 +119,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
             var messageProcessor = new ComponentMessageProcessor(this);
-            MessageReceiver = new MessageReceiver(this.ID, messageProcessor);
+            MessageReceiver = new MessageReceiver(messageProcessor);
             messageReceiver.RegisterMessageReceiver(MessageReceiver);
         }
 

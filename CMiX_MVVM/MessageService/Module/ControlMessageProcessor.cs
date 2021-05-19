@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels;
+using System;
 
 namespace CMiX.MVVM.MessageService
 {
@@ -10,6 +11,11 @@ namespace CMiX.MVVM.MessageService
         }
 
         private Control Control { get; set; }
+
+        public Guid GetID()
+        {
+            return Control.ID;
+        }
 
         public void ProcessMessage(Message message)
         {
