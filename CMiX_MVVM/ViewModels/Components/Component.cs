@@ -14,10 +14,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public Component(IComponentModel componentModel)
         {
             IsExpanded = false;
-
             Name = $"{this.GetType().Name}";
             ID = componentModel.ID;
-
             Components = new ObservableCollection<Component>();
         }
 
@@ -113,7 +111,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();
-
 
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
