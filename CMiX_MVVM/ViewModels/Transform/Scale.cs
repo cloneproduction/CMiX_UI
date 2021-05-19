@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
@@ -36,15 +37,24 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        //public override void SetReceiver(ModuleReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            base.SetReceiver(messageReceiver);
 
-        //    Uniform.SetReceiver(messageReceiver);
-        //    X.SetReceiver(messageReceiver);
-        //    Y.SetReceiver(messageReceiver);
-        //    Z.SetReceiver(messageReceiver);
-        //}
+            X.SetReceiver(messageReceiver);
+            Y.SetReceiver(messageReceiver);
+            Z.SetReceiver(messageReceiver);
+        }
+
+        public override void SetSender(IMessageSender messageSender)
+        {
+            base.SetSender(messageSender);
+
+            X.SetSender(messageSender);
+            Y.SetSender(messageSender);
+            Z.SetSender(messageSender);
+        }
+
 
         public override void SetViewModel(IModel model)
         {

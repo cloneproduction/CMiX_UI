@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
@@ -12,18 +13,29 @@ namespace CMiX.MVVM.ViewModels
             Z = new Slider(nameof(Z), rotationModel.Z);
         }
 
+
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
 
-        //    X.SetReceiver(messageReceiver);
-        //    Y.SetReceiver(messageReceiver);
-        //    Z.SetReceiver(messageReceiver);
-        //}
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            base.SetReceiver(messageReceiver);
+
+            X.SetReceiver(messageReceiver);
+            Y.SetReceiver(messageReceiver);
+            Z.SetReceiver(messageReceiver);
+        }
+
+        public override void SetSender(IMessageSender messageSender)
+        {
+            base.SetSender(messageSender);
+
+            X.SetSender(messageSender);
+            Y.SetSender(messageSender);
+            Z.SetSender(messageSender);
+        }
 
         public override IModel GetModel()
         {

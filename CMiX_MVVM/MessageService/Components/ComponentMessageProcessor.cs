@@ -14,11 +14,6 @@ namespace CMiX.MVVM.MessageService
 
         private Component Component { get; set; }
 
-        public void DispatchIterator(IIDIterator messageIterator)
-        {
-            Component.MessageReceiver.ReceiveMessage(messageIterator);
-        }
-
         public void ProcessMessage(Message message)
         {
             if (message is MessageAddComponent)
