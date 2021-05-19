@@ -76,21 +76,13 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void AddComponent(Component component)
         {
-            if(MessageReceiver != null)
-                component.SetReceiver(this.MessageReceiver);
-
             Components.Add(component);
-
             IsExpanded = true;
-
             MessageEmitter?.SendMessageAddComponent(component);
         }
 
         public void RemoveComponent(Component component)
         {
-            if(MessageReceiver != null)
-                this.MessageReceiver.UnregisterMessageReceiver(component.ID);
-
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
@@ -127,8 +119,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
             var messageProcessor = new ComponentMessageProcessor(this);
-            MessageReceiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterMessageReceiver(this.ID, MessageReceiver);
+            MessageReceiver = new MessageReceiver(this.ID, messageProcessor);
+            messageReceiver.RegisterMessageReceiver(MessageReceiver);
         }
 
 

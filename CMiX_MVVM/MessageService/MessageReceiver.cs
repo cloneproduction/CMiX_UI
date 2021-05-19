@@ -5,18 +5,21 @@ namespace CMiX.MVVM.MessageService
 {
     public class MessageReceiver : IMessageReceiver
     {
-        public MessageReceiver()
+        public MessageReceiver(Guid id)
         {
+            ID = id;
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        public MessageReceiver(IMessageProcessor messageProcessor)
+        public MessageReceiver(Guid id, IMessageProcessor messageProcessor)
         {
+            ID = id;
             MessageProcessor = messageProcessor;
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
 
+        public Guid ID { get; set; }
         private IMessageProcessor MessageProcessor { get; set; }
         private Dictionary<Guid, IMessageReceiver> _messageReceivers { get; set; }
 
@@ -27,15 +30,15 @@ namespace CMiX.MVVM.MessageService
             return null;
         }
 
-        public void RegisterMessageReceiver(Guid id, IMessageReceiver receiver)
+        public void RegisterMessageReceiver(IMessageReceiver receiver)
         {
-            if (!_messageReceivers.ContainsKey(id))
-                _messageReceivers.Add(id, receiver);
+            if (!_messageReceivers.ContainsKey(receiver.ID))
+                _messageReceivers.Add(receiver.ID, receiver);
         }
 
-        public void UnregisterMessageReceiver(Guid id)
+        public void UnregisterMessageReceiver(IMessageReceiver receiver)
         {
-            _messageReceivers.Remove(id);
+            _messageReceivers.Remove(receiver.ID);
         }
 
         public void ReceiveMessage(IIDIterator idIterator)

@@ -21,8 +21,8 @@ namespace CMiX.MVVM.ViewModels
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
             var messageProcessor = new ControlMessageProcessor(this);
-            var receiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterMessageReceiver(this.ID, receiver);
+            var receiver = new MessageReceiver(this.ID, messageProcessor);
+            messageReceiver.RegisterMessageReceiver(receiver);
         }
 
         public abstract void SetViewModel(IModel model);

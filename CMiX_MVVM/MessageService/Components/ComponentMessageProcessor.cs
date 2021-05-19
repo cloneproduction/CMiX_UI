@@ -32,6 +32,7 @@ namespace CMiX.MVVM.MessageService
         private void ReceiveMessageAddComponent(MessageAddComponent message)
         {
             Component newComponent = Component.ComponentFactory.CreateComponent(message.ComponentModel);
+            newComponent.SetReceiver(Component.MessageReceiver);
             Component.AddComponent(newComponent);
             Console.WriteLine("ReceiveMessageAddComponent Count is " + Component.Components.Count);
         }
@@ -39,6 +40,7 @@ namespace CMiX.MVVM.MessageService
         private void ReceiveMessageRemoveComponent(MessageRemoveComponent message)
         {
             Component componentToRemove = Component.Components.ElementAt(message.Index);
+            Component.MessageReceiver.UnregisterMessageReceiver(componentToRemove.MessageReceiver);
             Component.RemoveComponent(componentToRemove);
             Console.WriteLine("ReceiveMessageRemoveComponent Count is " + Component.Components.Count);
         }
