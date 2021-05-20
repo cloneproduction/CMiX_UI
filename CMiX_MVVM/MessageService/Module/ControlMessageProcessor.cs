@@ -18,7 +18,7 @@ namespace CMiX.MVVM.MessageService
 
             var msg = message as IViewModelMessage;
 
-            if (msg != null && Control != null)
+            if (msg != null)
                 Control.SetViewModel(msg.Model);
         }
     }

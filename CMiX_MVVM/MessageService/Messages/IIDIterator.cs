@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.MessageService
 {
@@ -9,5 +10,7 @@ namespace CMiX.MVVM.MessageService
         bool IsDone { get; }
         Guid CurrentID { get; }
         Message Message { get; set; }
+
+        List<Guid> IDs { get; }
     }
 }

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public abstract class Component : ViewModel, IIDobject, IDisposable
+    public abstract class Component : ViewModel, IIDObject, IDisposable
     {
         public Component(IComponentModel componentModel)
         {

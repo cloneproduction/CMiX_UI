@@ -5,7 +5,7 @@ namespace CMiX.MVVM.MessageService
 {
     public class MessageSender : IMessageSender
     {
-        public MessageSender(IIDobject idObject)
+        public MessageSender(IIDObject idObject)
         {
             _id = idObject.ID;
         }

@@ -8,6 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public ColorationModel()
         {
+            ID = Guid.NewGuid();
             BeatModifierModel = new BeatModifierModel();
             ColorSelectorModel = new ColorSelectorModel();
             HueModel = new RangeControlModel();

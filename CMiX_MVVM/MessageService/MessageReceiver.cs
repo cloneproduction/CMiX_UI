@@ -12,7 +12,7 @@ namespace CMiX.MVVM.MessageService
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        public MessageReceiver(IIDobject iDobject)
+        public MessageReceiver(IIDObject iDobject)
         {
             ID = iDobject.ID;
             IDobject = iDobject;
@@ -21,7 +21,7 @@ namespace CMiX.MVVM.MessageService
 
 
         private Guid ID { get; set; }
-        private IIDobject IDobject { get; set; }
+        private IIDObject IDobject { get; set; }
         private Dictionary<Guid, IMessageReceiver> _messageReceivers { get; set; }
 
         public Guid GetID()
@@ -50,13 +50,16 @@ namespace CMiX.MVVM.MessageService
         public void ReceiveMessage(IIDIterator idIterator)
         {
             idIterator.Next();
+            
 
             if (idIterator.IsDone)
             {
+                Console.WriteLine("idIterator.IsDone");
                 IDobject?.MessageProcessor.ProcessMessage(idIterator.Message);
                 return;
             }
 
+            Console.WriteLine("IDIterator CurrentID is " + idIterator.CurrentID);
             IMessageReceiver messageReceiver = GetMessageProcessor(idIterator.CurrentID);
 
             if (messageReceiver != null)

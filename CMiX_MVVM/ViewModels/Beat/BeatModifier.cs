@@ -88,21 +88,21 @@ namespace CMiX.MVVM.ViewModels.Beat
 
         public override void SetViewModel(IModel model)
         {
-            BeatModifierModel beatModifierModel = model as BeatModifierModel;
-            this.BeatIndex = beatModifierModel.BeatIndex;
-            this.Multiplier = beatModifierModel.Multiplier;
-            this.Period = beatModifierModel.Period;
-            this.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
+            //BeatModifierModel beatModifierModel = model as BeatModifierModel;
+            ////this.BeatIndex = beatModifierModel.BeatIndex;
+            //this.Multiplier = beatModifierModel.Multiplier;
+            //this.Period = beatModifierModel.Period;
+            //this.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
         }
 
         public override IModel GetModel()
         {
             BeatModifierModel model = new BeatModifierModel();
-            model.Period = this.Period;
-            model.Multiplier = this.Multiplier;
-            model.BeatIndex = this.BeatIndex;
-            model.ChanceToHit = (SliderModel)this.ChanceToHit.GetModel();
-            model.Multiplier = this.Multiplier;
+            //model.Period = this.Period;
+            //model.Multiplier = this.Multiplier;
+            ////model.BeatIndex = this.BeatIndex;
+            //model.ChanceToHit = (SliderModel)this.ChanceToHit.GetModel();
+            //model.Multiplier = this.Multiplier;
             return model;
         }
 

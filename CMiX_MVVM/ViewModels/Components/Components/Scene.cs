@@ -8,8 +8,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(Layer layer, SceneModel sceneModel) 
-            : base (sceneModel)
+        public Scene(Layer layer, SceneModel sceneModel) : base (sceneModel)
         {
             MasterBeat = layer.MasterBeat;
 

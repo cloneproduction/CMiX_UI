@@ -9,22 +9,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorPicker : Control
     {
-        //public ColorPicker(IMessageProcessor parentSender) : base (parentSender)
-        //{
-        //    SelectedColor = Color.FromArgb(255, 0, 255, 0);
-        //    Red = SelectedColor.R;
-        //    Green = SelectedColor.G;
-        //    Blue = SelectedColor.B;
-        //    MouseDown = false;
-
-        //    PreviewMouseDownCommand = new RelayCommand(p => PreviewMouseDown());
-        //    PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());
-        //    PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
-        //}
-
         public ColorPicker(ColorPickerModel colorPickerModel)
         {
-            SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
+            //SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
+            this.ID = colorPickerModel.ID;
             Red = SelectedColor.R;
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
@@ -35,10 +23,6 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
 
         public ICommand PreviewMouseDownCommand { get; set; }
         public ICommand PreviewMouseUpCommand { get; set; }
@@ -53,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-
+                MessageEmitter.SendMessageUpdateViewModel(this);
             }
         }
 
@@ -82,8 +66,6 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.R = value;
                 Notify(nameof(SelectedColor));
-
-
             }
         }
 
@@ -106,8 +88,6 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.G = value;
                 Notify(nameof(SelectedColor));
-
-
             }
         }
 
@@ -130,8 +110,6 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.B = value;
                 Notify(nameof(SelectedColor));
-
-
             }
         }
 
@@ -157,8 +135,6 @@ namespace CMiX.MVVM.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
-
-
             }
         }
 
@@ -186,8 +162,6 @@ namespace CMiX.MVVM.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
-
-
             }
         }
 
@@ -222,8 +196,6 @@ namespace CMiX.MVVM.ViewModels
                     SelectedColor = Color.FromRgb(0, 0, 0);
                 }
                 Notify(nameof(SelectedColor));
-
-
             }
         }
 
@@ -246,6 +218,7 @@ namespace CMiX.MVVM.ViewModels
         {
             ColorPickerModel colorPickerModel = model as ColorPickerModel;
             this.SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
+            System.Console.WriteLine("ColorPicker SetViewModel Color " + SelectedColor);
         }
 
         public override IModel GetModel()

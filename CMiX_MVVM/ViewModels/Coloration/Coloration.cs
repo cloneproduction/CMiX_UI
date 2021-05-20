@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 
@@ -8,17 +9,26 @@ namespace CMiX.MVVM.ViewModels
     {
         public Coloration(MasterBeat masterBeat, ColorationModel colorationModel) 
         {
-            BeatModifier = new BeatModifier(masterBeat, colorationModel.BeatModifierModel);
+            this.ID = colorationModel.ID;
+            //BeatModifier = new BeatModifier(masterBeat, colorationModel.BeatModifierModel);
             ColorSelector = new ColorSelector(colorationModel.ColorSelectorModel);
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            base.SetReceiver(messageReceiver);
 
-        //    BeatModifier.SetReceiver(messageReceiver);
-        //    ColorSelector.SetReceiver(messageReceiver);
-        //}
+            //BeatModifier.SetReceiver(messageReceiver);
+            ColorSelector.SetReceiver(messageReceiver);
+        }
+
+        public override void SetSender(IMessageSender messageSender)
+        {
+            base.SetSender(messageSender);
+
+            //BeatModifier.SetSender(messageSender);
+            ColorSelector.SetSender(messageSender);
+        }
 
         public ColorSelector ColorSelector { get; set; }
         public BeatModifier BeatModifier { get; set; }
@@ -28,22 +38,15 @@ namespace CMiX.MVVM.ViewModels
         {
             ColorationModel colorationModel = model as ColorationModel;
             this.ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
-            this.BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
+            //this.BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
         }
 
         public override IModel GetModel()
         {
             ColorationModel colorationModel = new ColorationModel();
             colorationModel.ColorSelectorModel = (ColorSelectorModel)this.ColorSelector.GetModel();
-            colorationModel.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
+            //colorationModel.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
             return colorationModel;
         }
-
-        //public override void Dispose()
-        //{
-        //    BeatModifier.Dispose();
-        //    ColorSelector.Dispose();
-        //    base.Dispose();
-        //}
     }
 }

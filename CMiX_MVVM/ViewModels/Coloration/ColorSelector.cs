@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using System.Windows.Media;
 
@@ -8,16 +9,22 @@ namespace CMiX.MVVM.ViewModels
     {
         public ColorSelector(ColorSelectorModel colorSelectorModel) 
         {
+            this.ID = colorSelectorModel.ID;
             ColorPicker = new ColorPicker(colorSelectorModel.ColorPickerModel);
             //this.SelectedColor = Utils.HexStringToColor(colorSelectorModel.ColorPickerModel.SelectedColor);
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            base.SetReceiver(messageReceiver);
+            ColorPicker.SetReceiver(messageReceiver);
+        }
 
-        //    ColorPicker.SetReceiver(messageReceiver);
-        //}
+        public override void SetSender(IMessageSender messageSender)
+        {
+            base.SetSender(messageSender);
+            ColorPicker.SetSender(messageSender);
+        }
 
         public ColorPicker ColorPicker { get; set; }
 
@@ -28,8 +35,6 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-
-
             }
         }
 

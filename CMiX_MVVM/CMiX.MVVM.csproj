@@ -183,7 +183,7 @@
     <Compile Include="MessageService\IMessageSender.cs" />
     <Compile Include="MessageService\IMessageReceiver.cs" />
     <Compile Include="MessageService\Module\ControlMessageProcessor.cs" />
-    <Compile Include="ViewModels\IIDobject.cs" />
+    <Compile Include="ViewModels\IIDObject.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />

@@ -7,6 +7,7 @@ namespace CMiX.MVVM.Models
     {
         public ColorPickerModel()
         {
+            ID = Guid.NewGuid();
             SelectedColor = "#ff00ff";
         }
 

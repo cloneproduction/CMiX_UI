@@ -8,6 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public ColorSelectorModel()
         {
+            ID = Guid.NewGuid();
             ColorPickerModel = new ColorPickerModel();
         }
 
