@@ -8,6 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public GeometryModel()
         {
+            this.ID = Guid.NewGuid();
             GeometryFXModel = new GeometryFXModel();
             TransformModel = new TransformModel();
             InstancerModel = new InstancerModel();

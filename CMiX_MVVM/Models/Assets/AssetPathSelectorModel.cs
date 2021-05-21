@@ -11,7 +11,7 @@ namespace CMiX.MVVM.Models
     {
         public AssetPathSelectorModel()
         {
-
+            this.ID = Guid.NewGuid();
         }
         public IAssetModel SelectedAsset { get; set; }
     }

@@ -38,6 +38,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedColor, value);
                 MessageEmitter?.SendMessageUpdateViewModel(this);
+
             }
         }
 
@@ -53,20 +54,21 @@ namespace CMiX.MVVM.ViewModels
             get => _red;
             set
             {
-                UpdateMementor(nameof(Red));
-                SetAndNotify(ref _red, value);
+                if (_red != value)
+                {
+                    SetAndNotify(ref _red, value);
 
-                var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
+                    var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
 
-                _hue = hsv.H;
-                Notify(nameof(Hue));
-                _sat = hsv.S;
-                Notify(nameof(Sat));
-                _val = hsv.V;
-                Notify(nameof(Val));
+                    _hue = hsv.H;
+                    Notify(nameof(Hue));
+                    _sat = hsv.S;
+                    Notify(nameof(Sat));
+                    _val = hsv.V;
+                    Notify(nameof(Val));
 
-                this._selectedColor.R = value;
-                Notify(nameof(SelectedColor));
+                    SelectedColor = Color.FromRgb(_red, _green, _blue);
+                }
             }
         }
 
@@ -76,19 +78,20 @@ namespace CMiX.MVVM.ViewModels
             get => _green;
             set
             {
-                UpdateMementor(nameof(Green));
-                SetAndNotify(ref _green, value);
+                if (_green != value)
+                {
+                    SetAndNotify(ref _green, value);
 
-                var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
-                _hue = hsv.H;
-                Notify(nameof(Hue));
-                _sat = hsv.S;
-                Notify(nameof(Sat));
-                _val = hsv.V;
-                Notify(nameof(Val));
+                    var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
+                    _hue = hsv.H;
+                    Notify(nameof(Hue));
+                    _sat = hsv.S;
+                    Notify(nameof(Sat));
+                    _val = hsv.V;
+                    Notify(nameof(Val));
 
-                this._selectedColor.G = value;
-                Notify(nameof(SelectedColor));
+                    SelectedColor = Color.FromRgb(_red, _green, _blue);
+                }
             }
         }
 
@@ -98,19 +101,21 @@ namespace CMiX.MVVM.ViewModels
             get => _blue;
             set
             {
-                UpdateMementor(nameof(Blue));
-                SetAndNotify(ref _blue, value);
+                if (_blue != value)
+                {
+                    SetAndNotify(ref _blue, value);
 
-                var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
-                _hue = hsv.H;
-                Notify(nameof(Hue));
-                _sat = hsv.S;
-                Notify(nameof(Sat));
-                _val = hsv.V;
-                Notify(nameof(Val));
+                    var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
 
-                this._selectedColor.B = value;
-                Notify(nameof(SelectedColor));
+                    _hue = hsv.H;
+                    Notify(nameof(Hue));
+                    _sat = hsv.S;
+                    Notify(nameof(Sat));
+                    _val = hsv.V;
+                    Notify(nameof(Val));
+
+                    SelectedColor = Color.FromRgb(_red, _green, _blue);
+                }
             }
         }
 
@@ -120,68 +125,13 @@ namespace CMiX.MVVM.ViewModels
             get => _hue;
             set
             {
-                UpdateMementor(nameof(Hue));
-                SetAndNotify(ref _hue, value);
-
-                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
-                hsv.H = value;
-
-                var rgb = hsv.To<Rgb>();
-                _red = (byte)rgb.R;
-                Notify(nameof(Red));
-                _green = (byte)rgb.G;
-                Notify(nameof(Green));
-                _blue = (byte)rgb.B;
-                Notify(nameof(Blue));
-
-                SelectedColor = Color.FromRgb(_red, _green, _blue);
-                Notify(nameof(SelectedColor));
-            }
-        }
-
-        private double _sat;
-        public double Sat
-        {
-            get => _sat;
-            set
-            {
-                UpdateMementor(nameof(Sat));
-                SetAndNotify(ref _sat, value);
-
-                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
-                hsv.V = _val;
-                hsv.S = value;
-                hsv.H = _hue;
-                
-                var rgb = hsv.To<Rgb>();
-                _red = (byte)rgb.R;
-                Notify(nameof(Red));
-                _green = (byte)rgb.G;
-                Notify(nameof(Green));
-                _blue = (byte)rgb.B;
-                Notify(nameof(Blue));
-
-                SelectedColor = Color.FromRgb(_red, _green, _blue);
-                Notify(nameof(SelectedColor));
-            }
-        }
-
-        private double _val;
-        public double Val
-        {
-            get => _val;
-            set
-            {
-                UpdateMementor(nameof(Val));
-                SetAndNotify(ref _val, value);
-
-                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
-                hsv.V = value;
-                hsv.S = _sat;
-                hsv.H = _hue;
-
-                if (value > 0)
+                if (_hue != value)
                 {
+                    SetAndNotify(ref _hue, value);
+
+                    var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
+                    hsv.H = value;
+
                     var rgb = hsv.To<Rgb>();
                     _red = (byte)rgb.R;
                     Notify(nameof(Red));
@@ -192,11 +142,69 @@ namespace CMiX.MVVM.ViewModels
 
                     SelectedColor = Color.FromRgb(_red, _green, _blue);
                 }
-                else
+            }
+        }
+
+        private double _sat;
+        public double Sat
+        {
+            get => _sat;
+            set
+            {
+                if (_sat != value)
                 {
-                    SelectedColor = Color.FromRgb(0, 0, 0);
+                    SetAndNotify(ref _sat, value);
+
+                    var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
+                    hsv.V = _val;
+                    hsv.S = value;
+                    hsv.H = _hue;
+
+                    var rgb = hsv.To<Rgb>();
+                    _red = (byte)rgb.R;
+                    Notify(nameof(Red));
+                    _green = (byte)rgb.G;
+                    Notify(nameof(Green));
+                    _blue = (byte)rgb.B;
+                    Notify(nameof(Blue));
+
+                    SelectedColor = Color.FromRgb(_red, _green, _blue);
                 }
-                Notify(nameof(SelectedColor));
+            }
+        }
+
+        private double _val;
+        public double Val
+        {
+            get => _val;
+            set
+            {
+                if (_val != value)
+                {
+                    SetAndNotify(ref _val, value);
+
+                    var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
+                    hsv.V = value;
+                    hsv.S = _sat;
+                    hsv.H = _hue;
+
+                    if (value > 0)
+                    {
+                        var rgb = hsv.To<Rgb>();
+                        _red = (byte)rgb.R;
+                        Notify(nameof(Red));
+                        _green = (byte)rgb.G;
+                        Notify(nameof(Green));
+                        _blue = (byte)rgb.B;
+                        Notify(nameof(Blue));
+
+                        SelectedColor = Color.FromRgb(_red, _green, _blue);
+                    }
+                    else
+                    {
+                        SelectedColor = Color.FromRgb(0, 0, 0);
+                    }
+                }
             }
         }
 

@@ -33,7 +33,7 @@ namespace CMiX.MVVM.Controls
             if (xycontroller != null)
             {
                 xycontroller.m_thumbTransform.X = Utils.Map(xycontroller.ValueX, xycontroller.XMin, xycontroller.XMax, 0, xycontroller.ActualWidth);
-                xycontroller.m_thumbTransform.Y = Utils.Map(xycontroller.ValueY, xycontroller.YMin, xycontroller.YMax, 0, xycontroller.ActualHeight);
+                xycontroller.m_thumbTransform.Y = Utils.Map(xycontroller.ValueY, xycontroller.YMin, xycontroller.YMax, xycontroller.ActualHeight, 0);
             }
         }
 
@@ -73,7 +73,7 @@ namespace CMiX.MVVM.Controls
         public static readonly DependencyProperty ValueXProperty =
         DependencyProperty.Register("ValueX", typeof(double), typeof(XYController),
             new FrameworkPropertyMetadata(0.5,
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnThumbPosChanged)));
 
 
         public double ValueY
@@ -84,7 +84,7 @@ namespace CMiX.MVVM.Controls
         public static readonly DependencyProperty ValueYProperty =
         DependencyProperty.Register("ValueY", typeof(double), typeof(XYController),
             new FrameworkPropertyMetadata(0.5,
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnThumbPosChanged)));
 
 
         public double BackgroundOpacity

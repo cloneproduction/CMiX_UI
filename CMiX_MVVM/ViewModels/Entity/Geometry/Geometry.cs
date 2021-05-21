@@ -10,6 +10,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Geometry(MasterBeat beat, GeometryModel geometryModel) 
         {
+            this.ID = geometryModel.ID;
             Instancer = new Instancer(beat, geometryModel.InstancerModel);
             Transform = new Transform(geometryModel.TransformModel);
             GeometryFX = new GeometryFX(geometryModel.GeometryFXModel);
@@ -46,6 +47,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             GeometryModel model = new GeometryModel();
+            model.ID = this.ID;
             model.TransformModel = (TransformModel)this.Transform.GetModel();
             model.GeometryFXModel = (GeometryFXModel)this.GeometryFX.GetModel();
             model.InstancerModel = (InstancerModel)this.Instancer.GetModel();
@@ -56,6 +58,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             GeometryModel geometryModel = model as GeometryModel;
+            this.ID = geometryModel.ID;
             this.Transform.SetViewModel(geometryModel.TransformModel);
             this.GeometryFX.SetViewModel(geometryModel.GeometryFXModel);
             this.Instancer.SetViewModel(geometryModel.InstancerModel);

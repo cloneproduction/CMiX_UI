@@ -9,6 +9,7 @@ namespace CMiX.MVVM.ViewModels.Assets
     {
         public AssetPathSelector(Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel) 
         {
+            this.ID = assetPathSelectorModel.ID;
             SelectedAsset = defaultAsset;
         }
 
@@ -43,6 +44,8 @@ namespace CMiX.MVVM.ViewModels.Assets
         public override void SetViewModel(IModel model)
         {
             AssetPathSelectorModel assetPathSelectorModel = model as AssetPathSelectorModel;
+            assetPathSelectorModel.ID = this.ID;
+
             if (this.SelectedAsset == null)
             {
                 if (model is AssetTextureModel)
@@ -58,6 +61,7 @@ namespace CMiX.MVVM.ViewModels.Assets
         public override IModel GetModel()
         {
             AssetPathSelectorModel model = new AssetPathSelectorModel();
+            model.ID = this.ID;
             if (this.SelectedAsset != null)
                 model.SelectedAsset = (IAssetModel)this.SelectedAsset.GetModel();
             return model;

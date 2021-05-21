@@ -51,8 +51,8 @@
             <local:XYController x:Name="HueColorControl"
                 Style="{StaticResource HueController}"
                 SelectedColor="{Binding Hue, Converter={StaticResource ColorToHueOnly}}"
-                ValueX="{Binding Sat, UpdateSourceTrigger=PropertyChanged}"
-                ValueY="{Binding Val, UpdateSourceTrigger=PropertyChanged}"
+                ValueX="{Binding Sat}"
+                ValueY="{Binding Val}"
                 Height="200"/>
         </DockPanel>
         <DockPanel
@@ -72,7 +72,7 @@
                 x:Name="SatColorControl"
                 Style="{StaticResource SatController}"
                 SelectedColor="{Binding SelectedColor}"
-                ValueX="{Binding Val, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ValueX="{Binding Val}"
                 Margin="0, 4" 
                 Height="200">
                 <local:XYController.ValueY>

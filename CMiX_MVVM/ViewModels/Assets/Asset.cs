@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using System;
 using System.IO;
 
 namespace CMiX.MVVM.ViewModels.Assets
