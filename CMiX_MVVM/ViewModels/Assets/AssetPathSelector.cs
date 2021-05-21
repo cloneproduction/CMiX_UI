@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
@@ -13,10 +14,21 @@ namespace CMiX.MVVM.ViewModels.Assets
             SelectedAsset = defaultAsset;
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
+        public AssetSelectorMessageEmitter AssetSelectorMessageEmitter { get; set; }
+
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            var receiver = new MessageReceiver(this);
+            messageReceiver.RegisterReceiver(receiver);
+            MessageProcessor = new AssetSelectorMessageProcessor(this);
+        }
+
+        public override void SetSender(IMessageSender messageSender)
+        {
+            var sender = new MessageSender(this);
+            sender.SetSender(messageSender);
+            AssetSelectorMessageEmitter = new AssetSelectorMessageEmitter(sender);
+        }
 
 
         private Asset _selectedAsset;
@@ -26,7 +38,9 @@ namespace CMiX.MVVM.ViewModels.Assets
             set
             {
                 SetAndNotify(ref _selectedAsset, value);
-
+                AssetSelectorMessageEmitter?.SendMessageAsset(value);
+                if (value != null)
+                    System.Console.WriteLine("SelectedAsset Name is " + SelectedAsset.Name);
             }
         }
 

@@ -141,7 +141,11 @@
     <Compile Include="Services\DataEventArgs.cs" />
     <Compile Include="Tools\HighResolutionTimer.cs" />
     <Compile Include="ViewModels\Assets\AssetFactory.cs" />
+    <Compile Include="ViewModels\Assets\AssetSelectorMessageProcessor.cs" />
+    <Compile Include="ViewModels\Assets\AssetSelectorMessageEmitter.cs" />
     <Compile Include="ViewModels\Assets\AssetTemplateSelector.cs" />
+    <Compile Include="ViewModels\Assets\IAssetSelectorMessage.cs" />
+    <Compile Include="ViewModels\Assets\MessageAsset.cs" />
     <Compile Include="ViewModels\Beat\IBeat.cs" />
     <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
