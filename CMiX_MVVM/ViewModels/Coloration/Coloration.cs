@@ -37,16 +37,18 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             ColorationModel colorationModel = model as ColorationModel;
+            colorationModel.ID = this.ID;
             this.ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
             //this.BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
         }
 
         public override IModel GetModel()
         {
-            ColorationModel colorationModel = new ColorationModel();
-            colorationModel.ColorSelectorModel = (ColorSelectorModel)this.ColorSelector.GetModel();
+            ColorationModel model = new ColorationModel();
+            model.ColorSelectorModel = (ColorSelectorModel)this.ColorSelector.GetModel();
+            model.ID = this.ID;
             //colorationModel.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
-            return colorationModel;
+            return model;
         }
     }
 }

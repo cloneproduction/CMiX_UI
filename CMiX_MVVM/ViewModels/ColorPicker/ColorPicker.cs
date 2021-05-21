@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public ColorPicker(ColorPickerModel colorPickerModel)
         {
-            //SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
+            SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
             this.ID = colorPickerModel.ID;
             Red = SelectedColor.R;
             Green = SelectedColor.G;
@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                MessageEmitter.SendMessageUpdateViewModel(this);
+                MessageEmitter?.SendMessageUpdateViewModel(this);
             }
         }
 
@@ -57,6 +57,7 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _red, value);
 
                 var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
+
                 _hue = hsv.H;
                 Notify(nameof(Hue));
                 _sat = hsv.S;
@@ -217,6 +218,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             ColorPickerModel colorPickerModel = model as ColorPickerModel;
+            this.ID = colorPickerModel.ID;
             this.SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
             System.Console.WriteLine("ColorPicker SetViewModel Color " + SelectedColor);
         }
@@ -224,6 +226,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             ColorPickerModel model = new ColorPickerModel();
+            model.ID = this.ID;
             model.SelectedColor = Utils.ColorToHexString(this.SelectedColor);
             return model;
         }

@@ -41,14 +41,16 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
+            this.ID = colorSelectorModel.ID;
             this.ColorPicker.SetViewModel(colorSelectorModel.ColorPickerModel);
         }
 
         public override IModel GetModel()
         {
-            ColorSelectorModel colorSelectorModel = new ColorSelectorModel();
-            colorSelectorModel.ColorPickerModel = (ColorPickerModel)ColorPicker.GetModel();
-            return colorSelectorModel;
+            ColorSelectorModel model = new ColorSelectorModel();
+            model.ID = this.ID;
+            model.ColorPickerModel = (ColorPickerModel)ColorPicker.GetModel();
+            return model;
         }
     }
 }

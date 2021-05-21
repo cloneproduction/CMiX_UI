@@ -5,6 +5,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Tools="clr-namespace:CMiX.MVVM.Tools.Converters"
+             xmlns:local="clr-namespace:CMiX.MVVM.Controls" xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DesignHeight="4145.5"
              d:DesignWidth="566.5"
@@ -36,10 +37,9 @@
 
     <!--<StackPanel>
         <local:ColorPicker Style="{StaticResource ColorPickerStyle}"/>
-
     </StackPanel>-->
 
-    <!--<StackPanel>
+    <StackPanel>
         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=HueRadio, Converter={StaticResource BoolToVisibility}}">
             <local:ColorSlider
                 Minimum="0"
@@ -50,10 +50,9 @@
                 Margin="0, 4, 8, 4"/>
             <local:XYController x:Name="HueColorControl"
                 Style="{StaticResource HueController}"
-                SelectedColor="{Binding SelectedColor}"
-                ThumbPosX="{Binding Sat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                ThumbPosY="{Binding Val, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="0, 4" 
+                SelectedColor="{Binding Hue, Converter={StaticResource ColorToHueOnly}}"
+                ValueX="{Binding Sat, UpdateSourceTrigger=PropertyChanged}"
+                ValueY="{Binding Val, UpdateSourceTrigger=PropertyChanged}"
                 Height="200"/>
         </DockPanel>
         <DockPanel
@@ -64,7 +63,7 @@
                 Orientation="Vertical"
                 Margin="0, 4, 8, 4"
                 Style="{StaticResource HSVSliderVertical}"
-                Value="{Binding Sat}"
+                Value="{Binding Sat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Width="20"
                 RightColor="White"
                 LeftColor="{Binding Hue, Converter={StaticResource HueToColor}}">
@@ -73,17 +72,16 @@
                 x:Name="SatColorControl"
                 Style="{StaticResource SatController}"
                 SelectedColor="{Binding SelectedColor}"
-                ThumbPosX="{Binding Val, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ValueX="{Binding Val, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="0, 4" 
-                Height="200" 
-                Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
-                <local:XYController.ThumbPosY>
+                Height="200">
+                <local:XYController.ValueY>
                     <Binding Path="Hue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DoubleToDivided}">
                         <Binding.ConverterParameter>
                             <sys:Double>360</sys:Double>
                         </Binding.ConverterParameter>
                     </Binding>
-                </local:XYController.ThumbPosY>
+                </local:XYController.ValueY>
             </local:XYController>
         </DockPanel>
         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=ValRadio, Converter={StaticResource BoolToVisibility}}">
@@ -93,7 +91,7 @@
                 Orientation="Vertical"
                 Margin="0, 4, 8, 4"
                 Style="{StaticResource HSVSliderVertical}"
-                Value="{Binding Val}"
+                Value="{Binding Val, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Width="20"
                 RightColor="Black"
                 LeftColor="White">
@@ -101,17 +99,16 @@
             <local:XYController x:Name="ValColorControl"
                     Style="{StaticResource ValController}"
                     SelectedColor="{Binding SelectedColor}"
-                    ThumbPosX="{Binding Sat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0, 4" 
-                    Height="200" 
-                    Visibility="{Binding Path=IsChecked, ElementName=ValRadio, Converter={StaticResource BoolToVisibility}}">
-                <local:XYController.ThumbPosY>
+                    ValueX="{Binding Sat}"
+                    Margin="0, 4"
+                    Height="200">
+                <local:XYController.ValueY>
                     <Binding Path="Hue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DoubleToDivided}">
                         <Binding.ConverterParameter>
                             <sys:Double>360</sys:Double>
                         </Binding.ConverterParameter>
                     </Binding>
-                </local:XYController.ThumbPosY>
+                </local:XYController.ValueY>
             </local:XYController>
         </DockPanel>
         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=RedRadio, Converter={StaticResource BoolToVisibility}}">
@@ -133,12 +130,12 @@
                 Margin="0, 4" 
                 Height="200" 
                 Visibility="{Binding Path=IsChecked, ElementName=RedRadio, Converter={StaticResource BoolToVisibility}}">
-                <local:XYController.ThumbPosX>
+                <local:XYController.ValueX>
                     <Binding Path="Blue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
-                </local:XYController.ThumbPosX>
-                <local:XYController.ThumbPosY>
+                </local:XYController.ValueX>
+                <local:XYController.ValueY>
                     <Binding Path="Green" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
-                </local:XYController.ThumbPosY>
+                </local:XYController.ValueY>
             </local:XYController>
         </DockPanel>
         <DockPanel
@@ -161,12 +158,12 @@
                 Margin="0, 4" 
                 Height="200" 
                 Visibility="{Binding Path=IsChecked, ElementName=GreenRadio, Converter={StaticResource BoolToVisibility}}">
-                <local:XYController.ThumbPosX>
+                <local:XYController.ValueX>
                     <Binding Path="Blue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
-                </local:XYController.ThumbPosX>
-                <local:XYController.ThumbPosY>
+                </local:XYController.ValueX>
+                <local:XYController.ValueY>
                     <Binding Path="Red" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
-                </local:XYController.ThumbPosY>
+                </local:XYController.ValueY>
             </local:XYController>
         </DockPanel>
         <DockPanel
@@ -186,8 +183,8 @@
                 x:Name="BlueColorControl"
                 Style="{StaticResource BlueController}"
                 SelectedColor="{Binding SelectedColor}"
-                ThumbPosX="{Binding Green, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}}"
-                ThumbPosY="{Binding Red, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}}"
+                ValueX="{Binding Green, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}}"
+                ValueY="{Binding Red, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}}"
                 Margin="0, 4" 
                 Height="200" 
                 Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}"
@@ -392,7 +389,7 @@
                 Height="20"
                 LeftColor="{Binding Val, Converter={StaticResource ValToColor}}">
                 <local:ColorSlider.RightColor>
-                    <MultiBinding Converter="{StaticResource HueValToColor}">
+                    <MultiBinding Converter="{StaticResource ColorToHueValueOnly}">
                         <Binding Path= "Hue" />
                         <Binding Path="Val" />
                     </MultiBinding>
@@ -437,7 +434,7 @@
                 Height="20"
                 LeftColor="Black">
                 <local:ColorSlider.RightColor>
-                    <MultiBinding Converter="{StaticResource HueSatToColor}">
+                    <MultiBinding Converter="{StaticResource ColorToHueSatOnly}">
                         <Binding Path= "Hue" />
                         <Binding Path="Sat" />
                     </MultiBinding>
@@ -470,5 +467,5 @@
                 Foreground="{StaticResource TextBase}"
                 Text="{Binding SelectedColor, Converter={StaticResource ColorToHex}}"/>
         </Grid>
-    </StackPanel>-->
+    </StackPanel>
 </UserControl>

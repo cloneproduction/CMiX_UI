@@ -7,7 +7,7 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Colors.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    
+
     <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="PreviewMouseDown">
             <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}"/>
@@ -20,6 +20,12 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>-->
 
+
+    
+
+    <!-- STYLE FOR COLORPICKER -->
+    
+    
     <Style x:Key="ColorPickerStyle" TargetType="{x:Type Controls:ColorPicker}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
@@ -37,7 +43,7 @@
                                 Margin="0, 4, 8, 4"/>
                             <Controls:XYController x:Name="HueColorControl"
                                 Style="{DynamicResource HueController}"
-                                SelectedColor="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHueOnly}}"
+                                SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHueOnly}}"
                                 ValueX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
                                 ValueY="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 XMin="0"
