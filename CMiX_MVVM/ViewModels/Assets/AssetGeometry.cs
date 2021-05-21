@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public override void SetViewModel(IModel model)
         {
-            AssetGeometryModel assetGeometryModel = new AssetGeometryModel();
+            AssetGeometryModel assetGeometryModel = model as  AssetGeometryModel;
             this.Name = assetGeometryModel.Name;
             this.Path = assetGeometryModel.Path;
             this.Ponderation = assetGeometryModel.Ponderation;

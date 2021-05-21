@@ -28,7 +28,7 @@ namespace CMiX.MVVM.MessageService
                     var asset = new AssetGeometry();
                     asset.SetViewModel(model);
                     AssetPathSelector.SelectedAsset = asset;
-                    Console.WriteLine(AssetPathSelector.SelectedAsset.Name);
+                    Console.WriteLine(AssetPathSelector.SelectedAsset.Path);
                 }
 
                 if(model is AssetTextureModel)

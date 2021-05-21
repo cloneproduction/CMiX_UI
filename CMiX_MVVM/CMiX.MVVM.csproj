@@ -159,7 +159,6 @@
     <Compile Include="ViewModels\Components\Visibility.cs" />
     <Compile Include="MessageService\Messages\MessageRemoveTransformModifier.cs" />
     <Compile Include="MessageService\Messages\MessageAddTransformModifier.cs" />
-    <Compile Include="MessageService\Messages\IMessage.cs" />
     <Compile Include="Services\ClientShimHandler.cs" />
     <Compile Include="Services\NetMQMessageEventArgs.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
