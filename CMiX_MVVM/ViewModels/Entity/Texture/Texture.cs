@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Beat;
@@ -38,20 +39,43 @@ namespace CMiX.MVVM.ViewModels
         public Slider Rotate { get; set; }
         public Inverter Inverter { get; set; }
 
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            base.SetReceiver(messageReceiver);
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    Brightness.SetReceiver(messageReceiver);
-        //    Contrast.SetReceiver(messageReceiver);
-        //    Hue.SetReceiver(messageReceiver);
-        //    Saturation.SetReceiver(messageReceiver);
-        //    Luminosity.SetReceiver(messageReceiver);
-        //    Keying.SetReceiver(messageReceiver);
-        //    Scale.SetReceiver(messageReceiver);
-        //    Rotate.SetReceiver(messageReceiver);
-        //    Pan.SetReceiver(messageReceiver);
-        //    Tilt.SetReceiver(messageReceiver);
-        //}
+            AssetPathSelector.SetReceiver(messageReceiver);
+            Inverter.SetReceiver(messageReceiver);
+
+            Brightness.SetReceiver(messageReceiver);
+            Contrast.SetReceiver(messageReceiver);
+            Hue.SetReceiver(messageReceiver);
+            Saturation.SetReceiver(messageReceiver);
+            Luminosity.SetReceiver(messageReceiver);
+            Keying.SetReceiver(messageReceiver);
+            Scale.SetReceiver(messageReceiver);
+            Rotate.SetReceiver(messageReceiver);
+            Pan.SetReceiver(messageReceiver);
+            Tilt.SetReceiver(messageReceiver);
+        }
+
+        public override void SetSender(IMessageSender messageSender)
+        {
+            base.SetSender(messageSender);
+
+            AssetPathSelector.SetSender(messageSender);
+            Inverter.SetSender(messageSender);
+
+            Brightness.SetSender(messageSender);
+            Contrast.SetSender(messageSender);
+            Hue.SetSender(messageSender);
+            Saturation.SetSender(messageSender);
+            Luminosity.SetSender(messageSender);
+            Keying.SetSender(messageSender);
+            Scale.SetSender(messageSender);
+            Rotate.SetSender(messageSender);
+            Pan.SetSender(messageSender);
+            Tilt.SetSender(messageSender);
+        }
 
 
         public override IModel GetModel()
