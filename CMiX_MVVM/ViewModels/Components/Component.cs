@@ -84,6 +84,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             int index = Components.IndexOf(component);
             component.Dispose();
+            MessageReceiver.UnregisterReceiver(component.MessageReceiver);
             Components.Remove(component);
 
             MessageSender?.SendMessage(new MessageRemoveComponent(index));
@@ -92,11 +93,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public void RemoveComponentAtIndex(int index)
         {
             Component component = Components.ElementAt(index);
-            if(component != null)
-            {
-                component.Dispose();
-                Components.Remove(component);
-            }
+            RemoveComponent(component);
         }
 
         public void InsertComponent(int index, Component component)

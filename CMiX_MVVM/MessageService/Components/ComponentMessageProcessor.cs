@@ -46,7 +46,7 @@ namespace CMiX.MVVM.MessageService
         {
             Component componentToRemove = Component.Components.ElementAt(message.Index);
             Component.MessageReceiver.UnregisterReceiver(componentToRemove.MessageReceiver);
-            Component.RemoveComponent(componentToRemove);
+            Component.RemoveComponentAtIndex(message.Index);
             Console.WriteLine("ReceiveMessageRemoveComponent Count is " + Component.Components.Count);
         }
     }

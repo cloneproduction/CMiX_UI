@@ -33,15 +33,15 @@ namespace CMiX.MVVM.MessageService
             return null;
         }
 
-        public void RegisterReceiver(IMessageReceiver receiver)
+        public void RegisterReceiver(IMessageReceiver messageReceiver)
         {
-            if (!_messageReceivers.ContainsKey(receiver.GetID()))
-                _messageReceivers.Add(receiver.GetID(), receiver);
+            if (!_messageReceivers.ContainsKey(messageReceiver.GetID()))
+                _messageReceivers.Add(messageReceiver.GetID(), messageReceiver);
         }
 
-        public void UnregisterReceiver(IMessageReceiver receiver)
+        public void UnregisterReceiver(IMessageReceiver messageReceiver)
         {
-            _messageReceivers.Remove(receiver.GetID());
+            _messageReceivers.Remove(messageReceiver.GetID());
         }
 
         public void ReceiveMessage(IIDIterator idIterator)
