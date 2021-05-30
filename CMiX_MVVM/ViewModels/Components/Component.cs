@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public Component(IComponentModel componentModel)
         {
             IsExpanded = false;
-            Name = $"{this.GetType().Name}";
+            Name = this.GetType().Name;
             ID = componentModel.ID;
             Components = new ObservableCollection<Component>();
         }
@@ -76,6 +76,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Components.Add(component);
             IsExpanded = true;
+
             MessageSender?.SendMessage(new MessageAddComponent(component));
         }
 
@@ -84,8 +85,8 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             int index = Components.IndexOf(component);
             component.Dispose();
-            MessageReceiver.UnregisterReceiver(component.MessageReceiver);
             Components.Remove(component);
+            MessageReceiver?.UnregisterReceiver(component.MessageReceiver);
 
             MessageSender?.SendMessage(new MessageRemoveComponent(index));
         }
@@ -116,7 +117,6 @@ namespace CMiX.MVVM.ViewModels.Components
             var messageProcessor = new ComponentMessageProcessor(this);
             MessageReceiver = new MessageReceiver(messageProcessor);
             messageReceiver.RegisterReceiver(MessageReceiver);
-
         }
 
         public virtual void SetSender(IMessageSender messageSender)
