@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using System.Windows.Input;
 
@@ -39,7 +40,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                MessageEmitter?.SendMessageUpdateViewModel(this);;
+                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));;
             }
         }
 

@@ -117,9 +117,7 @@
     <Compile Include="Controls\Counter\Counter.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
-    <Compile Include="MessageService\Components\ComponentMessageEmitter.cs" />
     <Compile Include="MessageService\IMessageEmitter.cs" />
-    <Compile Include="MessageService\Module\ControlMessageEmitter.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\IAnimModeModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\LFOModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\NoneModel.cs" />

@@ -12,6 +12,11 @@ namespace CMiX.MVVM.MessageService
 
         private Control Control { get; set; }
 
+        public Guid GetID()
+        {
+            return Control.ID;
+        }
+
         public void ProcessMessage(Message message)
         {
             Console.WriteLine("ModuleMessageProcessor ProcessMessage");

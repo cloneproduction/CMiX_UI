@@ -14,6 +14,11 @@ namespace CMiX.MVVM.MessageService
 
         private Component Component { get; set; }
 
+        public Guid GetID()
+        {
+            return Component.ID;
+        }
+
         public void ProcessMessage(Message message)
         {
             if (message is MessageAddComponent)

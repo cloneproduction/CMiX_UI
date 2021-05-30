@@ -13,9 +13,9 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         }
 
-        public MessageAddComponent(IComponentModel componentModel)
+        public MessageAddComponent(Component component)
         {
-            ComponentModel = componentModel;
+            ComponentModel = component.GetModel() as IComponentModel;
         }
 
         public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...

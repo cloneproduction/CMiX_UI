@@ -1,32 +1,29 @@
-﻿using CMiX.MVVM.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.MessageService
 {
     public class MessageReceiver : IMessageReceiver
     {
-        public MessageReceiver(Guid id)
+        public MessageReceiver()
         {
-            ID = id;
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        public MessageReceiver(IIDObject iDobject)
+        public MessageReceiver(IMessageProcessor messageProcessor)
         {
-            ID = iDobject.ID;
-            IDobject = iDobject;
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
+            _messageProcessor = messageProcessor;
         }
 
 
-        private Guid ID { get; set; }
-        private IIDObject IDobject { get; set; }
         private Dictionary<Guid, IMessageReceiver> _messageReceivers { get; set; }
+        private IMessageProcessor _messageProcessor { get; set; }
+
 
         public Guid GetID()
         {
-            return IDobject.ID;
+            return _messageProcessor.GetID();
         }
 
         private IMessageReceiver GetMessageProcessor(Guid id)
@@ -51,11 +48,10 @@ namespace CMiX.MVVM.MessageService
         {
             idIterator.Next();
             
-
             if (idIterator.IsDone)
             {
                 Console.WriteLine("idIterator.IsDone");
-                IDobject?.MessageProcessor.ProcessMessage(idIterator.Message);
+                _messageProcessor.ProcessMessage(idIterator.Message);
                 return;
             }
 

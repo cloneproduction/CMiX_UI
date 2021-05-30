@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
 using ColorMine.ColorSpaces;
@@ -37,8 +38,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                MessageEmitter?.SendMessageUpdateViewModel(this);
-
+                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
             }
         }
 
@@ -47,6 +47,7 @@ namespace CMiX.MVVM.ViewModels
             //if (MouseDown)
                // Mementor.PropertyChange(this, propertyname);
         }
+
 
         private byte _red;
         public byte Red
@@ -72,6 +73,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+
         private byte _green;
         public byte Green
         {
@@ -94,6 +96,7 @@ namespace CMiX.MVVM.ViewModels
                 }
             }
         }
+
 
         private byte _blue;
         public byte Blue
@@ -118,6 +121,7 @@ namespace CMiX.MVVM.ViewModels
                 }
             }
         }
+
 
         private double _hue;
         public double Hue
@@ -144,6 +148,7 @@ namespace CMiX.MVVM.ViewModels
                 }
             }
         }
+
 
         private double _sat;
         public double Sat
@@ -172,6 +177,7 @@ namespace CMiX.MVVM.ViewModels
                 }
             }
         }
+
 
         private double _val;
         public double Val

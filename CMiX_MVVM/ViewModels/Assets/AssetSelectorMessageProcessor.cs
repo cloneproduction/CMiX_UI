@@ -13,6 +13,12 @@ namespace CMiX.MVVM.MessageService
 
         private AssetPathSelector AssetPathSelector { get; set; }
 
+        public Guid GetID()
+        {
+            return AssetPathSelector.ID;
+        }
+
+
         public void ProcessMessage(Message message)
         {
             Console.WriteLine("AssetSelectorMessageProcessor ProcessMessage");

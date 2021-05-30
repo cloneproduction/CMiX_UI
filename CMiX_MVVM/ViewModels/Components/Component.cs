@@ -1,7 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
-using CMiX.MVVM.MessageService.Components;
 using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.MVVM.ViewModels.Components.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,8 +20,6 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public ComponentMessageEmitter MessageEmitter { get; set; }
-        public IMessageProcessor MessageProcessor { get; set; }
         public IMessageReceiver MessageReceiver { get; set; }
         public IMessageSender MessageSender { get; set; }
 
@@ -78,8 +76,9 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Components.Add(component);
             IsExpanded = true;
-            MessageEmitter?.SendMessageAddComponent(component);
+            MessageSender?.SendMessage(new MessageAddComponent(component));
         }
+
 
         public void RemoveComponent(Component component)
         {
@@ -87,7 +86,7 @@ namespace CMiX.MVVM.ViewModels.Components
             component.Dispose();
             Components.Remove(component);
 
-            MessageEmitter?.SendMessageRemoveComponent(index);
+            MessageSender?.SendMessage(new MessageRemoveComponent(index));
         }
 
         public void RemoveComponentAtIndex(int index)
@@ -117,16 +116,16 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {
-            MessageReceiver = new MessageReceiver(this);
+            var messageProcessor = new ComponentMessageProcessor(this);
+            MessageReceiver = new MessageReceiver(messageProcessor);
             messageReceiver.RegisterReceiver(MessageReceiver);
-            MessageProcessor = new ComponentMessageProcessor(this);
+
         }
 
         public virtual void SetSender(IMessageSender messageSender)
         {
             MessageSender = new MessageSender(this);
             MessageSender.SetSender(messageSender);
-            MessageEmitter = new ComponentMessageEmitter(MessageSender);
         }
 
 

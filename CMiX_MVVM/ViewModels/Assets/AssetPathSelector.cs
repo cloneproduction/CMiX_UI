@@ -18,9 +18,9 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            var receiver = new MessageReceiver(this);
+            var messageProcessor = new AssetSelectorMessageProcessor(this);
+            var receiver = new MessageReceiver(messageProcessor);
             messageReceiver.RegisterReceiver(receiver);
-            MessageProcessor = new AssetSelectorMessageProcessor(this);
         }
 
         public override void SetSender(IMessageSender messageSender)
