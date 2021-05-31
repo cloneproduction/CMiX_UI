@@ -18,24 +18,22 @@
                             </MenuItem.Icon>
                             <MenuItem 
                                 Command="{Binding StartServerCommand}"
-                                Template="{StaticResource SubMenuItemBase}"
                                 Header="Start">
                                 <MenuItem.Icon>
                                     <Image Margin="1" Opacity="0.75" Source="{StaticResource Play}"/>
                                 </MenuItem.Icon>
                             </MenuItem>
-                            <MenuItem Template="{StaticResource SubMenuItemBase}" Command="{Binding StopServerCommand}" Header="Stop">
+                            <MenuItem Command="{Binding StopServerCommand}" Header="Stop">
                                 <MenuItem.Icon>
                                     <Image Margin="3" Opacity="0.75" Source="{StaticResource Stop}"/>
                                 </MenuItem.Icon>
                             </MenuItem>
-                            <MenuItem Template="{StaticResource SubMenuItemBase}" Command="{Binding RestartServerCommand}" Header="Restart">
+                            <MenuItem Command="{Binding RestartServerCommand}" Header="Restart">
                                 <MenuItem.Icon>
                                     <Image Opacity="0.75" Margin="2" Source="{StaticResource Reset}"/>
                                 </MenuItem.Icon>
                             </MenuItem>
                             <MenuItem 
-                                Template="{StaticResource SubMenuItemBase}"
                                 Header="Settings"
                                 Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.EditMessengerSettingsCommand}"
                                 CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
@@ -45,7 +43,6 @@
                             </MenuItem>
                             <Separator BorderThickness="0.5" Margin="4" BorderBrush="{StaticResource DarkColor}"/>
                             <MenuItem 
-                                Template="{StaticResource SubMenuItemBase}"
                                 Header="Delete"
                                 Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.DeleteMessengerCommand}"
                                 CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
@@ -135,7 +132,7 @@
                             Foreground="{StaticResource TextBase}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"/>
-                        <ComboBox 
+                        <ComboBox
                             Grid.Column="1"
                             SelectedItem="{Binding SelectedComponent}"
                             ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CurrentProject.Components}">

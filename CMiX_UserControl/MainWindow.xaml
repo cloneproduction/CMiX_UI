@@ -42,6 +42,7 @@
             BorderThickness="0, 0, 0, 2"
             Background="{DynamicResource HighHighDarkerColor}" >
             <Menu
+                Style="{StaticResource MenuDefault}"
                 Margin="16, 0, 0, 0"
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center">
@@ -51,27 +52,23 @@
                     VerticalContentAlignment="center"
                     Header="File">
                     <MenuItem
+                        Style="{StaticResource SubMenuItemBase}"
                         Header="New"
-                        Command="{Binding NewProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" >
+                        Command="{Binding NewProjectCommand}">
                     </MenuItem>
                     <MenuItem
                         Header="Open"
-                        Command="{Binding OpenProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Command="{Binding OpenProjectCommand}"/>
                     <MenuItem
                         Header="Save"
-                        Command="{Binding SaveProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Command="{Binding SaveProjectCommand}"/>
                     <MenuItem
                         Header="Save As"
-                        Command="{Binding SaveAsProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Command="{Binding SaveAsProjectCommand}"/>
                     <MenuItem
                         Header="Quit"
                         Command="{Binding CloseWindowCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                        Template="{StaticResource SubMenuItemBase}" />
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
                 </MenuItem>
                 <MenuItem
                         Padding="8,0"
@@ -80,11 +77,9 @@
                         Header="Edit">
                     <MenuItem
                         Header="Undo    Ctrl + Z"
-                        Template="{StaticResource SubMenuItemBase}"
                         Command="{Binding UndoCommand}"/>
                     <MenuItem
                         Header="Redo    Ctrl + Y"
-                        Template="{StaticResource SubMenuItemBase}" 
                         Command="{Binding RedoCommand}"/>
                 </MenuItem>
                 <MenuItem
@@ -94,26 +89,17 @@
                         Header="Compo">
                     <MenuItem
                         Header="Add Composition"
-                        Command="{Binding AddCompositionCommand}"
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Command="{Binding AddCompositionCommand}"/>
                     <MenuItem
-                        Header="Delete"
-
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Header="Delete"/>
                     <MenuItem
-                        Header="Duplicate"
-
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Header="Duplicate"/>
                     <Separator BorderThickness="0.5" Margin="0, 8, 8, 8" BorderBrush="{StaticResource DarkColor}"/>
                     <MenuItem
-                        Header="Import"
-
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Header="Import"/>
                     <MenuItem
-                        Header="Export"
-
-                        Template="{StaticResource SubMenuItemBase}" />
-                </MenuItem>
+                        Header="Export"/>
+                    </MenuItem>
             </Menu>
         </Border>
         <Border 

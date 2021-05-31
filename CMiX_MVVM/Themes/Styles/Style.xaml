@@ -9,8 +9,12 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TextBlock.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/GridSplitter.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Button.xaml"/>
-        
 
+
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Menu/Menu.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Menu/ContextMenu.xaml"/>
+        
+        
         <!--BeatController-->
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/BeatController/BeatTapButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/BeatController/MasterBeatController.xaml"/>
@@ -29,8 +33,8 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/ToggleButton.xaml"/>
 
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Label.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Menu.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/ContextMenu.xaml"/>
+        
+
 
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/RadioButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/ListBox.xaml"/>

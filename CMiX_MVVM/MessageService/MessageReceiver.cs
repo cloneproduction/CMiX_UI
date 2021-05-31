@@ -10,9 +10,8 @@ namespace CMiX.MVVM.MessageService
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        public MessageReceiver(IMessageProcessor messageProcessor)
+        public MessageReceiver(IMessageProcessor messageProcessor) : this()
         {
-            _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
             _messageProcessor = messageProcessor;
         }
 

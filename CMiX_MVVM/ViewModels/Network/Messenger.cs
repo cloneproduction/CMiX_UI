@@ -21,7 +21,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand StopServerCommand { get; }
         public ICommand RestartServerCommand { get; }
 
-        private Server Server { get; set; }
+        public Server Server { get; set; }
 
 
         private string _name;

@@ -80,7 +80,6 @@ namespace CMiX.MVVM.ViewModels.Components
             MessageSender?.SendMessage(new MessageAddComponent(component));
         }
 
-
         public void RemoveComponent(Component component)
         {
             int index = Components.IndexOf(component);
