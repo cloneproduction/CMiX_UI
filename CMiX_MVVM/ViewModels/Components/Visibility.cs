@@ -17,14 +17,14 @@ namespace CMiX.MVVM.ViewModels.Components
         public Visibility(Visibility parentVisibility, VisibilityModel visibilityModel)
         {
             IsVisible = true;
-            //ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
+            ParentIsVisible = parentVisibility.ParentIsVisible && parentVisibility.IsVisible;
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            //messageReceiver?.RegisterReceiver(this, ID);
-        }
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    //messageReceiver?.RegisterReceiver(this, ID);
+        //}
 
         //public Visibility(MessageDispatcher messageDispatcher, Visibility parentVisibility, VisibilityModel visibilityModel) : base (messageDispatcher, visibilityModel)
         //{
@@ -43,7 +43,8 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _isVisible, value);
-
+                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
+                System.Console.WriteLine("Visibility Is " + IsVisible);
             } 
         }
 
@@ -51,11 +52,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public bool ParentIsVisible
         {
             get => _parentIsVisible;
-            set
-            {
-                SetAndNotify(ref _parentIsVisible, value);
-
-            }
+            set => SetAndNotify(ref _parentIsVisible, value);
         }
 
         public void SetVisibility(Component component)
@@ -84,12 +81,16 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override IModel GetModel()
         {
-            return null;
+            VisibilityModel visibilityModel = new VisibilityModel();
+            visibilityModel.ID = this.ID;
+            visibilityModel.IsVisible = this.IsVisible;
+            return visibilityModel;
         }
 
         public override void SetViewModel(IModel model)
         {
-            //throw new NotImplementedException();
+            var visibilityModel = model as VisibilityModel;
+            this.IsVisible = visibilityModel.IsVisible;
         }
     }
 }

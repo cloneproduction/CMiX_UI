@@ -116,12 +116,14 @@ namespace CMiX.MVVM.ViewModels.Components
             var messageProcessor = new ComponentMessageProcessor(this);
             MessageReceiver = new MessageReceiver(messageProcessor);
             messageReceiver.RegisterReceiver(MessageReceiver);
+            Visibility.SetReceiver(MessageReceiver);
         }
 
         public virtual void SetSender(IMessageSender messageSender)
         {
             MessageSender = new MessageSender(this);
             MessageSender.SetSender(messageSender);
+            Visibility.SetSender(MessageSender);
         }
 
 

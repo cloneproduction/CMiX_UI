@@ -16,9 +16,9 @@
                 Background="{StaticResource DarkColor}">
                 <DockPanel>
                     <Menu DockPanel.Dock="Right" Background="{DynamicResource DarkColor}">
-                        <MenuItem Width="30" Style="{DynamicResource TopMenuItem}">
+                        <MenuItem  Width="30" Style="{DynamicResource TopMenuItem}">
                             <MenuItem.Icon>
-                                <Image Source="{StaticResource Menu}"/>
+                                <Image Margin="2" Source="{StaticResource Menu}"/>
                             </MenuItem.Icon>
                             <MenuItem 
                                 Command="{Binding StartServerCommand}"

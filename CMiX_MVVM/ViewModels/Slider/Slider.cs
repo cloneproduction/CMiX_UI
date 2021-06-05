@@ -40,7 +40,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));;
+                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
             }
         }
 

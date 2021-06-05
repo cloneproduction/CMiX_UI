@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Fade = new Slider(nameof(Fade), layerModel.Fade);
 
             MasterBeat = composition.MasterBeat;
-            //Visibility = new Visibility(this.MessageDispatcher, composition.Visibility, layerModel.VisibilityModel);
+            Visibility = new Visibility(composition.Visibility, layerModel.VisibilityModel);
 
             PostFX = new PostFX(layerModel.PostFXModel);
             BlendMode = new BlendMode(layerModel.BlendMode);

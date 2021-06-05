@@ -35,7 +35,6 @@ namespace CMiX.MVVM.ViewModels.Components
             Geometry.SetReceiver(MessageReceiver);
             Texture.SetReceiver(MessageReceiver);
             Coloration.SetReceiver(MessageReceiver);
-            Visibility.SetReceiver(MessageReceiver);
         }
 
         public override void SetSender(IMessageSender messageSender)
@@ -46,7 +45,6 @@ namespace CMiX.MVVM.ViewModels.Components
             Geometry.SetSender(MessageSender);
             Texture.SetSender(MessageSender);
             Coloration.SetSender(MessageSender);
-            Visibility.SetSender(MessageSender);
         }
 
 

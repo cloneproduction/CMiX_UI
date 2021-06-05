@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Models.Component;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using MvvmDialogs;
@@ -17,7 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
 
-            //Visibility = new Visibility(new VisibilityModel());
+            Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
         }
 
@@ -80,14 +81,11 @@ namespace CMiX.MVVM.ViewModels.Components
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);
-
-            //Visibility.SetReceiver(MessageReceiver);
         }
 
         public override void SetSender(IMessageSender messageSender)
         {
             base.SetSender(messageSender);
-            //Visibility.SetSender(MessageSender);
         }
     }
 }
