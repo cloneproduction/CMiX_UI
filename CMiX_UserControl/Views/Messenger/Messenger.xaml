@@ -9,10 +9,14 @@
 
     <Border Style="{DynamicResource BorderShadow}">
         <StackPanel>
-            <Border Height="30" CornerRadius="4, 4, 0, 0" HorizontalAlignment="Stretch" Background="{StaticResource DarkColor}">
+            <Border 
+                Height="30" 
+                CornerRadius="4, 4, 0, 0"
+                HorizontalAlignment="Stretch"
+                Background="{StaticResource DarkColor}">
                 <DockPanel>
-                    <Menu DockPanel.Dock="Right">
-                        <MenuItem Width="30">
+                    <Menu DockPanel.Dock="Right" Background="{DynamicResource DarkColor}">
+                        <MenuItem Width="30" Style="{DynamicResource TopMenuItem}">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource Menu}"/>
                             </MenuItem.Icon>

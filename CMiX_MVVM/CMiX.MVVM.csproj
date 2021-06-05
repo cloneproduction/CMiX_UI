@@ -115,6 +115,7 @@
     <Compile Include="Controls\ColorPicker\XYColorControl.cs" />
     <Compile Include="Controls\ColorPicker\XYController.cs" />
     <Compile Include="Controls\Counter\Counter.cs" />
+    <Compile Include="Controls\TextBox\SelectTextOnFocus.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="MessageService\IMessageEmitter.cs" />

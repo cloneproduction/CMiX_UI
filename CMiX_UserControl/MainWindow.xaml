@@ -39,21 +39,23 @@
             Padding="2"
             DockPanel.Dock="Top"
             BorderBrush="{DynamicResource SuperHighDarkerColor}"
-            BorderThickness="0, 0, 0, 2"
+            Margin="0, 0, 0, 2"
             Background="{DynamicResource HighHighDarkerColor}" >
             <Menu
+                Height="32"
                 Style="{StaticResource MenuDefault}"
-                Margin="16, 0, 0, 0"
+                Margin="0, 0, 0, 0"
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center">
                 <MenuItem
+                    Style="{DynamicResource TopMenuItem}"
                     Padding="8,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
                     Header="File">
                     <MenuItem
-                        Style="{StaticResource SubMenuItemBase}"
                         Header="New"
+                        Padding="0, 0, 64, 0"
                         Command="{Binding NewProjectCommand}">
                     </MenuItem>
                     <MenuItem
@@ -71,6 +73,7 @@
                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
                 </MenuItem>
                 <MenuItem
+                        Style="{DynamicResource TopMenuItem}"
                         Padding="8,0"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="center"
@@ -83,6 +86,7 @@
                         Command="{Binding RedoCommand}"/>
                 </MenuItem>
                 <MenuItem
+                    Style="{DynamicResource TopMenuItem}"
                         Padding="8,0"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="center"
@@ -149,7 +153,6 @@
             </Border>
 
             <GridSplitter Grid.Column="1" Background="Transparent" Width="4"/>
-
 
             <Border Margin="0, 2" Grid.Column="2" x:Name="borderMaskGridColumn2" Background="{DynamicResource HighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusLeftLarge}"/>
             <Border Margin="0, 2" Grid.Column="2">

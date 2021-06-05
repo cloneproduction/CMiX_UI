@@ -33,13 +33,9 @@
         <Label 
             Content="." 
             Grid.Column="1" 
-            Grid.Row="0"   
-            BorderThickness="0"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Background="{StaticResource HighHighDarkerColor}"
-            Foreground="{StaticResource TextBase}"
-            />
+            Grid.Row="0" 
+            Background="{StaticResource SuperHighDarkerColor}"
+            Foreground="{StaticResource TextBase}"/>
         <TextBox 
             Name="txtboxSecondPart" 
             LostFocus="TextBox_LostFocus"
@@ -48,13 +44,7 @@
             MaxLength="3" 
             TextChanged="txtbox_TextChanged" 
             TabIndex="2" 
-            KeyDown="txtboxSecondPart_KeyDown" 
-            BorderThickness="0"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Background="{StaticResource HighHighDarkerColor}"
-            Foreground="{StaticResource TextBase}"
-            />
+            KeyDown="txtboxSecondPart_KeyDown" />
         <Label 
             Content="." 
             Grid.Column="3" 
@@ -62,9 +52,8 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighHighDarkerColor}"
-            Foreground="{StaticResource TextBase}"
-            />
+            Background="{StaticResource SuperHighDarkerColor}"
+            Foreground="{StaticResource TextBase}"/>
         <TextBox  
             Name="txtboxThridPart" 
             LostFocus="TextBox_LostFocus"
@@ -76,10 +65,7 @@
             KeyDown="txtboxThridPart_KeyDown" 
             BorderThickness="0"
             HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Background="{StaticResource HighHighDarkerColor}"
-            Foreground="{StaticResource TextBase}"
-            />
+            VerticalContentAlignment="Center"/>
         <Label 
             Content="." 
             Grid.Column="5" 
@@ -87,9 +73,8 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighHighDarkerColor}"
-            Foreground="{StaticResource TextBase}"
-            />
+            Background="{StaticResource SuperHighDarkerColor}"
+            Foreground="{StaticResource TextBase}"/>
         <TextBox 
             x:Name="txtboxFourthPart" 
             Grid.Column="6" 

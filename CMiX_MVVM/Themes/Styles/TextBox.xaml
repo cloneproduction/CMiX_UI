@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
-    <Style x:Key="BaseTextBoxStyle" TargetType="{x:Type TextBox}">
+    <Style TargetType="{x:Type TextBox}">
+        
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -21,43 +22,48 @@
                 </Style>
             </Setter.Value>
         </Setter>
+        
         <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
-        <Setter Property="Background" Value="{DynamicResource DarkColor}" />
+        <Setter Property="Background" Value="{DynamicResource SuperHighDarkerColor}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Controls:SelectTextOnFocus.Active" Value="True"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource TextBase}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBase}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Border
                         x:Name="border"
-                        Margin="1"
-                        Background="{DynamicResource DarkerColor}"
-                        BorderBrush="Black"
+                        Margin="0"
+                        Background="{DynamicResource SuperHighDarkerColor}"
+                        BorderBrush="{DynamicResource SuperHighDarkerColor}"
                         BorderThickness="1"
+                        Padding="4"
+                        VerticalAlignment="Center"
                         SnapsToDevicePixels="True">
                         <ScrollViewer
                             x:Name="PART_ContentHost"
+                            Margin="0"
+                            Padding="0"
                             Focusable="False"
                             HorizontalScrollBarVisibility="Hidden"
                             VerticalScrollBarVisibility="Hidden" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="True">
-                            <Setter Property="TextElement.Foreground" Value="{DynamicResource TextBase}" />
-                            <Setter Property="TextElement.FontSize" Value="5" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource DarkColor}" />
-                            <Setter Property="TextElement.Foreground" Value="{DynamicResource OverText}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SuperHighDarkerColor}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource LightColor}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Color}" />
                             <Setter Property="TextElement.Foreground" Value="{DynamicResource TextBase}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -78,8 +84,7 @@
                                     SnapsToDevicePixels="True"
                                     Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
                                     StrokeDashArray="1 2"
-                                    StrokeThickness="1" 
-                                    />
+                                    StrokeThickness="1" />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

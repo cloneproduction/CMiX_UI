@@ -62,7 +62,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"/>
                     <TextBox
-                        KeyboardNavigation.TabIndex="0"
+                        TabIndex="1"
                         Padding="4"
                         Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                         Grid.Column="1"
@@ -83,7 +83,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"/>
                     <TextBox
-                        KeyboardNavigation.TabIndex="1"
+                        TabIndex="1"
                         Padding="4"
                         Text="{Binding Topic, UpdateSourceTrigger=PropertyChanged}"
                         Grid.Column="1"
@@ -104,7 +104,7 @@
                         Margin="0, 0, 8, 0"
                         VerticalAlignment="Center"/>
                     <Controls:IPBox 
-                        KeyboardNavigation.TabIndex="2"
+                        TabIndex="3"
                         Grid.Column="1" 
                         IPAddress="{Binding IP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
@@ -120,7 +120,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"/>
                     <TextBox
-                        KeyboardNavigation.TabIndex="3"
+                        TabIndex="4"
                         Padding="4"
                         Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}"
                         Grid.Column="1"
@@ -130,7 +130,12 @@
                         Background="{StaticResource HighHighDarkerColor}"/>
                 </Grid>
                 <Border Height="50" VerticalAlignment="Center" Margin="0, 8">
-                    <TextBlock TextWrapping="WrapWithOverflow"  Padding="8, 0" VerticalAlignment="Center" Text="{Binding ErrorMessage}" Foreground="{StaticResource TextBase}"/>
+                    <TextBlock 
+                        TextWrapping="WrapWithOverflow"  
+                        Padding="8, 0" 
+                        VerticalAlignment="Center" 
+                        Text="{Binding ErrorMessage}" 
+                        Foreground="{StaticResource TextBase}"/>
                 </Border>
             </StackPanel>
             
