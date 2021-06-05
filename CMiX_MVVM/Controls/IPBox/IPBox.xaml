@@ -17,38 +17,32 @@
         </Grid.ColumnDefinitions>
         <TextBox
             Name="txtboxFirstPart" 
+            Style="{DynamicResource TextBoxNumbersOnly}"
             LostFocus="TextBox_LostFocus"
             TextChanged="txtbox_TextChanged" 
             Grid.Column="0" 
-            Grid.Row="0"  
             MaxLength="3" 
             TabIndex="1" 
-            PreviewKeyDown="txtboxFirstPart_PreviewKeyDown" 
-            BorderThickness="0"
             HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Background="{StaticResource HighHighDarkerColor}"
-            Foreground="{StaticResource TextBase}"
-            />
+            PreviewKeyDown="txtboxFirstPart_PreviewKeyDown" />
         <Label 
             Content="." 
             Grid.Column="1" 
-            Grid.Row="0" 
             Background="{StaticResource SuperHighDarkerColor}"
             Foreground="{StaticResource TextBase}"/>
         <TextBox 
             Name="txtboxSecondPart" 
+            Style="{DynamicResource TextBoxNumbersOnly}"
             LostFocus="TextBox_LostFocus"
             Grid.Column="2" 
-            Grid.Row="0" 
             MaxLength="3" 
             TextChanged="txtbox_TextChanged" 
             TabIndex="2" 
+            HorizontalContentAlignment="Center"
             KeyDown="txtboxSecondPart_KeyDown" />
         <Label 
             Content="." 
             Grid.Column="3" 
-            Grid.Row="0" 
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
@@ -56,20 +50,17 @@
             Foreground="{StaticResource TextBase}"/>
         <TextBox  
             Name="txtboxThridPart" 
+            Style="{DynamicResource TextBoxNumbersOnly}"
             LostFocus="TextBox_LostFocus"
             Grid.Column="4" 
-            Grid.Row="0" 
             MaxLength="3" 
             TextChanged="txtbox_TextChanged" 
             TabIndex="3" 
-            KeyDown="txtboxThridPart_KeyDown" 
-            BorderThickness="0"
             HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"/>
+            KeyDown="txtboxThridPart_KeyDown" />
         <Label 
             Content="." 
             Grid.Column="5" 
-            Grid.Row="0" 
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
@@ -77,17 +68,12 @@
             Foreground="{StaticResource TextBase}"/>
         <TextBox 
             x:Name="txtboxFourthPart" 
+            Style="{DynamicResource TextBoxNumbersOnly}"
             Grid.Column="6" 
-            Grid.Row="0" 
             MaxLength="3" 
             TextChanged="txtbox_TextChanged" 
             LostFocus="TextBox_LostFocus"
-            TabIndex="4" 
-            BorderThickness="0"
             HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Background="{StaticResource HighHighDarkerColor}"
-            Foreground="{StaticResource TextBase}" 
-            />
+            TabIndex="4" />
     </Grid>
 </UserControl>

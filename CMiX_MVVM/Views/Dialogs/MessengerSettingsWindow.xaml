@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:CMiX.MVVM.Controls"
+        xmlns:Behavior="clr-namespace:CMiX.MVVM.Behaviors"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -28,6 +29,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button 
+                    Behavior:FocusBehavior.IsFocused="{Binding OkIsFocused}"
                     Margin="2"
                     Grid.Column="0"
                     Content="OK"
@@ -62,6 +64,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"/>
                     <TextBox
+                        Behavior:FocusBehavior.IsFocused="True"
                         TabIndex="1"
                         Padding="4"
                         Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
@@ -120,6 +123,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"/>
                     <TextBox
+                        Style="{DynamicResource TextBoxNumbersOnly}"
                         TabIndex="4"
                         Padding="4"
                         Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}"

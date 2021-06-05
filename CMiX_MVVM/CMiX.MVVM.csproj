@@ -91,11 +91,11 @@
     <Compile Include="Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
     <Compile Include="Behaviors\ClickBehavior.cs" />
     <Compile Include="Behaviors\ContextMenuMouseDownBehavior.cs" />
+    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
     <Compile Include="Behaviors\ClosePopupBehavior.cs" />
     <Compile Include="Behaviors\SliderBehavior.cs" />
-    <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
     <Compile Include="Controls\Beat\BeatAnimations.cs" />
@@ -115,6 +115,7 @@
     <Compile Include="Controls\ColorPicker\XYColorControl.cs" />
     <Compile Include="Controls\ColorPicker\XYController.cs" />
     <Compile Include="Controls\Counter\Counter.cs" />
+    <Compile Include="Controls\TextBox\InputNumbersOnly.cs" />
     <Compile Include="Controls\TextBox\SelectTextOnFocus.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />

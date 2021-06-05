@@ -17,6 +17,19 @@ namespace CMiX.MVVM.Controls
             typeof(SelectTextOnFocus),
             new PropertyMetadata(false, ActivePropertyChanged));
 
+        [AttachedPropertyBrowsableForChildrenAttribute(IncludeDescendants = false)]
+        [AttachedPropertyBrowsableForType(typeof(TextBox))]
+        public static bool GetActive(DependencyObject @object)
+        {
+            return (bool)@object.GetValue(ActiveProperty);
+        }
+
+        public static void SetActive(DependencyObject @object, bool value)
+        {
+            @object.SetValue(ActiveProperty, value);
+        }
+
+
         private static void ActivePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is TextBox)
@@ -72,16 +85,6 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        [AttachedPropertyBrowsableForChildrenAttribute(IncludeDescendants = false)]
-        [AttachedPropertyBrowsableForType(typeof(TextBox))]
-        public static bool GetActive(DependencyObject @object)
-        {
-            return (bool)@object.GetValue(ActiveProperty);
-        }
 
-        public static void SetActive(DependencyObject @object, bool value)
-        {
-            @object.SetValue(ActiveProperty, value);
-        }
     }
 }

@@ -38,7 +38,16 @@ namespace CMiX.MVVM.ViewModels
         public ICommand ApplyCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
 
+
         public bool? DialogResult { get; set; }
+
+
+        private bool _okIsFocused;
+        public bool OkIsFocused
+        {
+            get => _okIsFocused;
+            set => SetAndNotify(ref _okIsFocused, value);
+        }
 
         private bool _canApply;
         public bool CanApply
@@ -116,6 +125,7 @@ namespace CMiX.MVVM.ViewModels
                 ErrorMessage = "Settings applied succefully !";
                 CanApply = false;
                 DialogResult = true;
+                OkIsFocused = true;
             }
         }
 
