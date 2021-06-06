@@ -20,12 +20,13 @@ namespace CMiX.MVVM.Models
             PostFXModel = new PostFXModel();
             Fade = new SliderModel();
             MaskModel = new MaskModel();
+            VisibilityModel = new VisibilityModel();
             ComponentModels = new ObservableCollection<IComponentModel>();
         }
 
+        public Guid ID { get; set; }
         public bool Enabled { get; set; }
         public string Name { get; set; }
-        public Guid ID { get; set; }
         public bool Out { get; set; }
         public string Address { get; set; }
         public bool IsVisible { get; set; }

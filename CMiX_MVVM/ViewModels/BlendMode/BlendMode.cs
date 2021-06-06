@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
@@ -7,15 +8,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public BlendMode(BlendModeModel blendModeModel)
         {
+            this.ID = blendModeModel.ID;
             Mode = blendModeModel.Mode;
         }
-
-
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
-
 
         private string _mode;
         public string Mode
@@ -24,7 +19,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _mode, value);
-
+                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
+                System.Console.WriteLine("BlendModel is " + Mode);
             }
         }
 
@@ -37,6 +33,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             BlendModeModel model = new BlendModeModel();
+            model.ID = this.ID;
             model.Mode = this.Mode;
             return model;
         }

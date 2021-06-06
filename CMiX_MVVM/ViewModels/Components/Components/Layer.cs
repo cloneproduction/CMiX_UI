@@ -91,8 +91,8 @@ namespace CMiX.MVVM.ViewModels.Components
             foreach (var componentModel in layerModel.ComponentModels)
             {
                 var newComponent = this.ComponentFactory.CreateComponent(componentModel);
-                //newComponent.SetReceiver(MessageReceiver);
-                //newComponent.SetSender(MessageSender);
+                newComponent.SetReceiver(MessageReceiver);
+                newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);
             }
         }

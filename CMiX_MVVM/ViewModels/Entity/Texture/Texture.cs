@@ -39,6 +39,7 @@ namespace CMiX.MVVM.ViewModels
         public Slider Rotate { get; set; }
         public Inverter Inverter { get; set; }
 
+
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             base.SetReceiver(messageReceiver);

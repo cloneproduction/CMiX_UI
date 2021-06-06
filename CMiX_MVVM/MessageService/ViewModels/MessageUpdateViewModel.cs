@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using System;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.MessageService
 {
@@ -13,6 +13,11 @@ namespace CMiX.MVVM.MessageService
         public MessageUpdateViewModel(IModel model)
         {
             Model = model;
+        }
+
+        public MessageUpdateViewModel(Control control)
+        {
+            Model = control.GetModel();
         }
 
         public IModel Model { get; set; }

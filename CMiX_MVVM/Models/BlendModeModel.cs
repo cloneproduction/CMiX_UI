@@ -4,11 +4,11 @@ using System;
 
 namespace CMiX.MVVM.Models
 {
-    [Serializable]
     public class BlendModeModel : Model, IModel
     {
         public BlendModeModel()
         {
+            this.ID = Guid.NewGuid();
             Mode = ((BlendModeEnum)0).ToString();
         }
 
