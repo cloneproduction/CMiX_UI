@@ -14,22 +14,12 @@ namespace CMiX.MVVM.ViewModels.Assets
             SelectedAsset = defaultAsset;
         }
 
-        public AssetSelectorMessageEmitter AssetSelectorMessageEmitter { get; set; }
-
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
             var messageProcessor = new AssetSelectorMessageProcessor(this);
-            var receiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterReceiver(receiver);
+            MessageReceiver = new MessageReceiver(messageProcessor);
+            messageReceiver.RegisterReceiver(MessageReceiver);
         }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            var sender = new MessageSender(this);
-            sender.SetSender(messageSender);
-            AssetSelectorMessageEmitter = new AssetSelectorMessageEmitter(sender);
-        }
-
 
         private Asset _selectedAsset;
         public Asset SelectedAsset
@@ -38,7 +28,7 @@ namespace CMiX.MVVM.ViewModels.Assets
             set
             {
                 SetAndNotify(ref _selectedAsset, value);
-                AssetSelectorMessageEmitter?.SendMessageAsset(value);
+                MessageSender?.SendMessage(new MessageAsset(SelectedAsset.GetModel() as IAssetModel));
                 if (value != null)
                     System.Console.WriteLine("SelectedAsset Name is " + SelectedAsset.Name);
             }
