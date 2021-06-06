@@ -25,9 +25,6 @@ namespace CMiX.Engine.Testing
             Project Project = new Project(projectModel);
             Project.SetReceiver(messageReceiver);
 
-            var projects = new ObservableCollection<Component>();
-            projects.Add(Project);
-
             Console.ReadLine();
         }
     }
