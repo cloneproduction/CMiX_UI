@@ -1,0 +1,19 @@
+[Summary("Draws geometry in the given color.")]
+shader CMiXColor_DrawFX : VS_PS_Base, Texturing
+{
+    [Color]
+    float4 Color = float4(1, 0, 0, 1);
+    float Invert;
+
+    override stage void VSMain()
+    {
+        streams.ShadingPosition = mul(streams.Position, WorldViewProjection);
+    }
+
+    override stage void PSMain() 
+    {
+        float4 texColor = Texture0.Sample(LinearSampler, streams.TexCoord); 
+        float4 inverted = lerp(1 - texColor, texColor, Invert);
+        streams.ColorTarget = Color * inverted;
+    }
+};

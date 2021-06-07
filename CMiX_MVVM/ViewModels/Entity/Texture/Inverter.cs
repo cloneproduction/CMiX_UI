@@ -7,15 +7,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public Inverter(string name, InverterModel inverterModel) 
         {
+            this.ID = inverterModel.ID;
             Invert = new Slider(nameof(Invert), inverterModel.Invert);
             InvertMode = inverterModel.InvertMode;
         }
-
-        //public override void SetReceiver(ModuleReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //    Invert.SetReceiver(messageReceiver);
-        //}
 
         public Slider Invert { get; set; }
 

@@ -6,6 +6,7 @@ namespace CMiX.MVVM.Models
     {
         public InverterModel()
         {
+            ID = Guid.NewGuid();
             Invert = new SliderModel();
         }
 
