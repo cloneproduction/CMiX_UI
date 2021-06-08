@@ -1,19 +1,23 @@
-[Summary("Draws geometry in the given color.")]
-shader CMiXColor_DrawFX : VS_PS_Base, Texturing
+[Summary("CMiX")]
+
+shader CMiXColor_DrawFX : VS_PS_Base, Texturing, TransformationInstancing  
 {
     [Color]
     float4 Color = float4(1, 0, 0, 1);
     float Invert;
 
+
     override stage void VSMain()
     {
-        streams.ShadingPosition = mul(streams.Position, WorldViewProjection);
+        float4x4 w = InstanceWorld[streams.InstanceID].Matrix;
+        w = mul(w, World);
+        streams.ShadingPosition = mul(streams.Position, mul(w, ViewProjection));
     }
 
     override stage void PSMain() 
     {
         float4 texColor = Texture0.Sample(LinearSampler, streams.TexCoord); 
-        float4 inverted = lerp(1 - texColor, texColor, Invert);
-        streams.ColorTarget = Color * inverted;
+        float3 inverted = lerp(1 - texColor, texColor, Invert).rgb;
+        streams.ColorTarget = Color * float4(inverted, texColor.a);
     }
 };
