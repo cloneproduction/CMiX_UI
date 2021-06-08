@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
@@ -7,14 +8,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public ComboBox(ComboBoxModel<T> comboBoxModel) 
         {
-
+            this.ID = comboBoxModel.ID;
         }
 
-
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
 
         private T _selection;
         public T Selection
@@ -23,13 +19,15 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selection, value);
-
+                MessageSender?.SendMessage(new MessageUpdateViewModel(this));
+                System.Console.WriteLine("Combobox Selection is " + Selection.ToString());
             }
         }
 
         public override IModel GetModel()
         {
             ComboBoxModel<T> model = new ComboBoxModel<T>();
+            model.ID = this.ID;
             model.Selection = this.Selection;
             return model;
         }
@@ -37,6 +35,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             ComboBoxModel<T> comboBoxModel = model as ComboBoxModel<T>;
+            this.ID = comboBoxModel.ID;
             this.Selection = comboBoxModel.Selection;
         }
     }

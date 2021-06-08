@@ -10,6 +10,8 @@ namespace CMiX.MVVM.ViewModels
     {
         public Texture(MasterBeat beat, TextureModel textureModel)
         {
+            this.ID = textureModel.ID;
+
             AssetPathSelector = new AssetPathSelector(new AssetTexture(), textureModel.AssetPathSelectorModel);
             Inverter = new Inverter(nameof(Inverter), textureModel.InverterModel);
 
@@ -45,8 +47,8 @@ namespace CMiX.MVVM.ViewModels
             base.SetReceiver(messageReceiver);
 
             AssetPathSelector.SetReceiver(messageReceiver);
-            Inverter.SetReceiver(messageReceiver);
 
+            Inverter.SetReceiver(messageReceiver);
             Brightness.SetReceiver(messageReceiver);
             Contrast.SetReceiver(messageReceiver);
             Hue.SetReceiver(messageReceiver);
@@ -64,8 +66,8 @@ namespace CMiX.MVVM.ViewModels
             base.SetSender(messageSender);
 
             AssetPathSelector.SetSender(messageSender);
-            Inverter.SetSender(messageSender);
 
+            Inverter.SetSender(messageSender);
             Brightness.SetSender(messageSender);
             Contrast.SetSender(messageSender);
             Hue.SetSender(messageSender);
@@ -82,6 +84,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             TextureModel model = new TextureModel();
+
             model.AssetPathSelectorModel = (AssetPathSelectorModel)this.AssetPathSelector.GetModel();
             model.InverterModel = (InverterModel)this.Inverter.GetModel();
             model.Brightness = (SliderModel)this.Brightness.GetModel();
@@ -94,6 +97,7 @@ namespace CMiX.MVVM.ViewModels
             model.Scale = (SliderModel)this.Scale.GetModel();
             model.Rotate = (SliderModel)this.Rotate.GetModel();
             model.Keying = (SliderModel)this.Keying.GetModel();
+
             return model;
         }
 
@@ -101,6 +105,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             TextureModel textureModel = model as TextureModel;
+
             this.AssetPathSelector.SetViewModel(textureModel.AssetPathSelectorModel);
             this.Inverter.SetViewModel(textureModel.InverterModel);
             this.Brightness.SetViewModel(textureModel.Brightness);

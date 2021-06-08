@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels;
+using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -8,9 +9,10 @@ namespace CMiX.MVVM.Models
         {
             ID = Guid.NewGuid();
             Invert = new SliderModel();
+            InvertMode = new ComboBoxModel<TextureInvertMode>();
         }
 
         public SliderModel Invert { get; set; }
-        public string InvertMode { get; set; }
+        public ComboBoxModel<TextureInvertMode> InvertMode { get; set; }
     }
 }

@@ -8,6 +8,8 @@ namespace CMiX.MVVM.Models
     {
         public TextureModel()
         {
+            this.ID = Guid.NewGuid();
+
             AssetPathSelectorModel = new AssetPathSelectorModel();
             InverterModel = new InverterModel();
             Brightness = new SliderModel();
@@ -24,9 +26,9 @@ namespace CMiX.MVVM.Models
 
         public AssetPathSelectorModel AssetPathSelectorModel { get; set; }
         public InverterModel InverterModel { get; set; }
+
         public SliderModel Brightness { get; set; }
         public SliderModel Contrast { get; set; }
-
         public SliderModel Hue { get; set; }
         public SliderModel Saturation { get; set; }
         public SliderModel Luminosity { get; set; }
