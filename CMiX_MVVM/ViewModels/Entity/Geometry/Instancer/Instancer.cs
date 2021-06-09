@@ -1,6 +1,8 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
+using CMiX.MVVM.ViewModels.Modifiers;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -8,25 +10,32 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Instancer : Control
     {
-        public Instancer(MasterBeat beat, InstancerModel instancerModel) 
+        public Instancer(MasterBeat beat, InstancerModel instancerModel)
         {
+            this.ID = instancerModel.ID;
+
             Factory = new TransformModifierFactory(beat);
             Transform = new Transform(instancerModel.Transform);
 
             NoAspectRatio = false;
             TransformModifiers = new ObservableCollection<ITransformModifier>();
 
-            AddTransformModifierCommand = new RelayCommand(p => AddTransformModifier((TransformModifierNames)p));
+            CreateTransformModifierCommand = new RelayCommand(p => CreateTransformModifier((TransformModifierNames)p));
             RemoveTransformModifierCommand = new RelayCommand(p => RemoveTransformModifier(p as ITransformModifier));
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(ID, this);
-        //    Transform.SetReceiver(messageReceiver);
-        //}
+
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            var messageProcessor = new TransformModifierMessageProcessor(this);
+            MessageReceiver = new MessageReceiver(messageProcessor);
+            messageReceiver.RegisterReceiver(MessageReceiver);
+        }
 
 
+
+
+        public ICommand CreateTransformModifierCommand { get; set; }
         public ICommand AddTransformModifierCommand { get; set; }
         public ICommand RemoveTransformModifierCommand { get; set; }
         public TransformModifierFactory Factory { get; set; }
@@ -49,18 +58,25 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _transformModifiers, value);
         }
 
-        public void AddTransformModifier(TransformModifierNames transformModifierNames)
+
+
+        public void CreateTransformModifier(TransformModifierNames transformModifierNames)
         {
-            var transformModifier = Factory.CreateTransformModifier(transformModifierNames, this);
+            ITransformModifier transformModifier = Factory.CreateTransformModifier(transformModifierNames);
+            transformModifier.SetSender(MessageSender);
+            AddTransformModifier(transformModifier);
+        }
+
+
+        public void AddTransformModifier(ITransformModifier transformModifier)
+        {
             TransformModifiers.Add(transformModifier);
-            //var message = new MessageAddTransformModifier(this.ID, transformModifierNames, transformModifier.GetModel() as ITransformModifierModel);
-            //this.MessageDispatcher.NotifyOut(message);
+            MessageSender?.SendMessage(new MessageAddTransformModifier(transformModifier.GetModel() as ITransformModifierModel));
         }
 
 
         public void RemoveTransformModifier(ITransformModifier transformModifier)
         {
-            //transformModifier.Dispose();
             this.TransformModifiers.Remove(transformModifier);
         }
 
@@ -69,16 +85,18 @@ namespace CMiX.MVVM.ViewModels
         {
             for (int i = TransformModifiers.Count - 1; i >= 0; i--)
             {
-                if(TransformModifiers[i].SelectedModifierType == ModifierType.GROUP)
+                if (TransformModifiers[i].SelectedModifierType == ModifierType.GROUP)
                 {
 
                 }
             }
         }
 
+
         public override void SetViewModel(IModel model)
         {
             InstancerModel instancerModel = model as InstancerModel;
+            this.ID = instancerModel.ID;
             this.Transform.SetViewModel(instancerModel.Transform);
             this.NoAspectRatio = instancerModel.NoAspectRatio;
         }
@@ -86,6 +104,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             InstancerModel model = new InstancerModel();
+            model.ID = model.ID;
             model.Transform = (TransformModel)this.Transform.GetModel();
             model.NoAspectRatio = this.NoAspectRatio;
             return model;

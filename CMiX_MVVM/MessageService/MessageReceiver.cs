@@ -46,7 +46,7 @@ namespace CMiX.MVVM.MessageService
         public void ReceiveMessage(IIDIterator idIterator)
         {
             idIterator.Next();
-            
+
             if (idIterator.IsDone)
             {
                 Console.WriteLine("idIterator.IsDone");

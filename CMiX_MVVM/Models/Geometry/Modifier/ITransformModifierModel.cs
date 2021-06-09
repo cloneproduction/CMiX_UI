@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels;
 using System;
 
 namespace CMiX.MVVM.Models
 {
     public interface ITransformModifierModel : IModel
     {
-        string Name { get; set; }
+        TransformModifierNames Name { get; set; }
         Guid ID { get; set; }
         int Count { get; set; }
     }

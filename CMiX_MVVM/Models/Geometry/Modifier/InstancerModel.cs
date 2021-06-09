@@ -8,6 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public InstancerModel()
         {
+            ID = Guid.NewGuid();
             Transform = new TransformModel();
             Counter = new CounterModel();
             TranslateModifierModel = new XYZModifierModel();

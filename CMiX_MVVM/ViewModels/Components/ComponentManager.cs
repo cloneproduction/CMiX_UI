@@ -33,6 +33,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set => SetAndNotify(ref _selectedComponent, value);
         }
 
+
         public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
 
 
@@ -87,7 +88,7 @@ namespace CMiX.MVVM.ViewModels.Components
             Component result = null;
             foreach (Component component in components)
             {
-                if(component.Components.Any(c => c.IsSelected))
+                if (component.Components.Any(c => c.IsSelected))
                 {
                     result = component;
                     break;

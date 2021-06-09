@@ -189,8 +189,10 @@
     <Compile Include="MessageService\Module\ControlMessageProcessor.cs" />
     <Compile Include="ViewModels\IIDObject.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\IModifier.cs" />
+    <Compile Include="ViewModels\Transform\Modifiers\Messages\ITransformModifierMessage.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />
+    <Compile Include="ViewModels\Transform\Modifiers\Messages\TransformModifierMessageProcessor.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierNames.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\ModifierType.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RotationModifier.cs" />

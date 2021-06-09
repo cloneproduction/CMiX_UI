@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using System;
 using System.Windows.Input;
@@ -7,17 +8,14 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Counter : Control
     {
-        public Counter(CounterModel counterModel) 
+        public Counter(CounterModel counterModel)
         {
+            this.ID = counterModel.ID;
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //   // messageReceiver?.RegisterReceiver(this, ID);
-        //}
 
         public event EventHandler<CounterEventArgs> CounterChangeEvent;
         public void OnCountChange()
@@ -37,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-
+                MessageSender?.SendMessage(new MessageUpdateViewModel(this));
             }
         }
 

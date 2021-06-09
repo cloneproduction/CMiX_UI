@@ -10,42 +10,47 @@ namespace CMiX.MVVM.ViewModels
             this.MasterBeat = masterBeat;
         }
 
-        private static int ID = 0;
-
         public MasterBeat MasterBeat { get; set; }
 
-        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, Control parentSender)
+        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames)
         {
             ITransformModifier transformModifier = null;
 
             switch (transformModifierNames)
             {
                 case TransformModifierNames.Randomized:
-                    transformModifier = CreateRandomized(parentSender);
+                    transformModifier = CreateRandomized();
                     break;
             }
 
             return transformModifier;
         }
 
-        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel, Control parentSender)
+        public ITransformModifier CreateTransformModifier(ITransformModifierModel transformModifierModel)
         {
             ITransformModifier transformModifier = null;
 
-            switch (transformModifierNames)
+            switch (transformModifierModel.Name)
             {
                 case TransformModifierNames.Randomized:
-                    transformModifier = CreateRandomized(parentSender);
+                    transformModifier = CreateRandomized(transformModifierModel as RandomXYZModel);
                     break;
             }
 
             return transformModifier;
         }
 
-        private RandomXYZ CreateRandomized(Control parentSender)
+
+        private RandomXYZ CreateRandomized()
         {
-            ID++;
-            return null; //return new RandomXYZ(nameof(TranslateModifier), parentSender.me, ID, this.MasterBeat, new RandomXYZModel());
+            var randomized = new RandomXYZ(new RandomXYZModel(), this.MasterBeat);
+            return randomized;
+        }
+
+        private RandomXYZ CreateRandomized(RandomXYZModel randomXYZModel)
+        {
+            var randomized = new RandomXYZ(randomXYZModel, this.MasterBeat);
+            return randomized;
         }
     }
 }

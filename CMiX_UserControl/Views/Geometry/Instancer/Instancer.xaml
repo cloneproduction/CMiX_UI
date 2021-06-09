@@ -91,29 +91,29 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Button 
-                                Command="{Binding AddTransformModifierCommand}" 
-                                CommandParameter="{x:Static ViewModels:TransformModifierNames.TranslateXYZ}" 
-                                Grid.Column="0"
-                                VerticalAlignment="Center" 
-                                Width="100" 
-                                Height="20" 
-                                Content="TranslateXYZ"/>
+                                    Command="{Binding CreateTransformModifierCommand}" 
+                                    CommandParameter="{x:Static ViewModels:TransformModifierNames.TranslateXYZ}" 
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center" 
+                                    Width="100" 
+                                    Height="20" 
+                                    Content="TranslateXYZ"/>
                                 <Button 
-                                Command="{Binding AddTransformModifierCommand}" 
-                                CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}" 
-                                Grid.Column="1"
-                                VerticalAlignment="Center" 
-                                Width="100" 
-                                Height="20" 
-                                Content="Randomized"/>
+                                    Command="{Binding CreateTransformModifierCommand}" 
+                                    CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}" 
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center" 
+                                    Width="100" 
+                                    Height="20" 
+                                    Content="Randomized"/>
                                 <Button                         
-                                Command="{Binding AddTransformModifierCommand}" 
-                                CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}"
-                                Grid.Column="2"
-                                VerticalAlignment="Center" 
-                                Width="100" 
-                                Height="20" 
-                                Content="RotateXYZ"/>
+                                    Command="{Binding CreateTransformModifierCommand}" 
+                                    CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center" 
+                                    Width="100" 
+                                    Height="20" 
+                                    Content="RotateXYZ"/>
                             </Grid>
                         </Border>
 

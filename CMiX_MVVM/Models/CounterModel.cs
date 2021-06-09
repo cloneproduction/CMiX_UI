@@ -7,7 +7,7 @@ namespace CMiX.MVVM.Models
     {
         public CounterModel()
         {
-
+            this.ID = Guid.NewGuid();
         }
 
         public int Count { get; set; }

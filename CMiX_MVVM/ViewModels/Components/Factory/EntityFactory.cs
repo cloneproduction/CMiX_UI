@@ -11,15 +11,12 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
             ParentScene = parentScene;
         }
 
-        private static int ID = 0;
         private Scene ParentScene { get; set; }
-
 
         public Component CreateComponent()
         {
             EntityModel entityModel = new EntityModel(Guid.NewGuid());
             Component component = new Entity(ParentScene, entityModel);
-            ID++;
             return component;
         }
 

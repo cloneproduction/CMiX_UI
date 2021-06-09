@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" Id="AYdpGJPdVxuLtdoDdNpenr" LanguageVersion="2021.3.1.89" Version="0.128">
-  <NugetDependency Id="B8J27VV4mxdM9zRzFwGsQB" Location="VL.CoreLib" Version="2021.3.1" />
+<Document xmlns:p="property" Id="AYdpGJPdVxuLtdoDdNpenr" LanguageVersion="2021.4.0.22" Version="0.128">
+  <NugetDependency Id="B8J27VV4mxdM9zRzFwGsQB" Location="VL.CoreLib" Version="2021.4.0-0022-gda00c6f9e5" />
   <Patch Id="IByu8kMQ1kAQaSxzjQ4yDf">
     <Canvas Id="PCxZ4Z4TDcqLozBfq0w2IS" DefaultCategory="Main" CanvasType="FullCategory">
       <!--
@@ -1632,7 +1632,7 @@
               <Pin Id="CkQxMbkwFNnMcTcLWLLKtf" Name="Already Loaded" Kind="OutputPin" />
             </Node>
             <ControlPoint Id="OkWkm7sa6FfM1oALn79VAS" Bounds="302,268" />
-            <ControlPoint Id="FcCWEHfJfYwMdAhChiMpa5" Bounds="302,698" />
+            <ControlPoint Id="FcCWEHfJfYwMdAhChiMpa5" Bounds="302,795" />
             <Node Bounds="532,402,51,26" Id="V0Yy5HBJx7QNkGy6bRLtTW">
               <p:NodeReference LastCategoryFullName="CMiX.MVVM.ViewModels.Texture" LastSymbolSource="CMiX.MVVM.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
@@ -1677,7 +1677,44 @@
               <Pin Id="LyciRFQfWFLMJU2K8b4zp7" Name="Input" Kind="InputPin" />
               <Pin Id="Kkh2SShiPDKMvR0fKdZzcX" Name="Result" Kind="OutputPin" />
             </Node>
-            <Pad Id="IEFY1vR9wlHNdHt3Tegawy" Comment="" Bounds="559,635,35,15" ShowValueBox="true" isIOBox="true" />
+            <Node Bounds="300,722,165,19" Id="KrtLYtml3V3MsRAKDL2MhJ">
+              <p:NodeReference LastCategoryFullName="Stride.Textures.TextureFX" LastSymbolSource="VL.Stride.Rendering.EffectShaderNodes">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="Category" Name="Textures" />
+                <CategoryReference Kind="Category" Name="TextureFX" />
+                <Choice Kind="ProcessNode" Name="Invert" />
+              </p:NodeReference>
+              <Pin Id="OM1DEeCHFz4Pgij94or4jO" Name="Texture" Kind="InputPin" />
+              <Pin Id="GN12kSzsJS6OZ80h7seNzr" Name="Factor" Kind="InputPin" DefaultValue="0">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="Egkl8QQGcfNP8ogxOnqqn9" Name="Invert" Kind="InputPin" DefaultValue="True">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Boolean" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="KTCXcvFDxbeNVpYOmbQwIg" Name="Invert RGB" Kind="InputPin" DefaultValue="False">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Boolean" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="AKofXAFhp6QPWgsSTInbVD" Name="Invert Test" Kind="InputPin" DefaultValue="False">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Boolean" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="K3TleidcH7wOBi7Qzveja4" Name="Invert Alpha" Kind="InputPin" DefaultValue="False">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Boolean" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="OjvxBOIFaStQXYiUukTXOU" Name="Linear Sampler" Kind="InputPin" />
+              <Pin Id="L4bFzq8p4xVLTHsFdoAOog" Name="Output Texture" Kind="InputPin" />
+              <Pin Id="UR8BzHsqjguMLRMIom97oE" Name="Enabled" Kind="InputPin" />
+              <Pin Id="QO0mU3NA7STPb1JyPw3RT8" Name="Output" Kind="OutputPin" />
+            </Node>
           </Canvas>
           <Patch Id="PiGIZaQO45OLbIPNJJOAQA" Name="Create" />
           <Patch Id="MkXuzdt7OUnLe8pPNkXCNK" Name="Update">
@@ -1695,7 +1732,6 @@
           <Link Id="RWReblFLckKMrK7yGwUgRv" Ids="SW3KnfY0kg1MxT7tEiJE9g,DUuDhRiaicNPfh1MZRynLF" />
           <Link Id="S86aawqednuNzG3mmGzG0e" Ids="OkWkm7sa6FfM1oALn79VAS,TnHZzIiujoZPWidzS5xo3X" />
           <Link Id="Ie5D7ytVyFnP0ApSKjp4a5" Ids="JfKCRU4XP30LTiEg8H0CYP,OkWkm7sa6FfM1oALn79VAS" IsHidden="true" />
-          <Link Id="TQitTeZmXlcOKKJKRHcDj3" Ids="U17rRgiJL8DNTzalyEp3NF,FcCWEHfJfYwMdAhChiMpa5" />
           <Link Id="FhtwNUhUEY7O7sRGcXyedw" Ids="FcCWEHfJfYwMdAhChiMpa5,LeCTiO8s3kRLGn5h0qHpba" IsHidden="true" />
           <Link Id="On4FsxhMPABLmg4CxKTso8" Ids="VMhNtqJw9oSP1YikD39su0,C4xEShe3DXmLpxYDusiFgS" />
           <Link Id="NdpRJ99JlEMNxKPMSTCzSf" Ids="FQolOkmjaMzNwaLYbsX3Fl,JVNOkeop7s9NLR7aKJV0xK" />
@@ -1704,7 +1740,9 @@
           <Link Id="UymzNv6pneyPgQKxSFPYoi" Ids="I0DUS6aPhBkLRIFjvVudH7,LyciRFQfWFLMJU2K8b4zp7" />
           <Link Id="MgWFN5u38fTQNbK0ENy1fK" Ids="Kkh2SShiPDKMvR0fKdZzcX,LSCcbA3vUJYLSjSPsqZOQp" />
           <Link Id="UEX6tJtlQBDNCtWdFmHDKd" Ids="QEWTGOboTuuPQqK6XAc4zM,B82eZs27HYPQOezgh6rf8M" />
-          <Link Id="A83YH30dItNPoqoceOUAo5" Ids="Kkh2SShiPDKMvR0fKdZzcX,IEFY1vR9wlHNdHt3Tegawy" />
+          <Link Id="CkNSIQvAyvwLF54r0NLfZ5" Ids="U17rRgiJL8DNTzalyEp3NF,OM1DEeCHFz4Pgij94or4jO" />
+          <Link Id="QQZO6rlW10ULmsP0HqBx3T" Ids="QO0mU3NA7STPb1JyPw3RT8,FcCWEHfJfYwMdAhChiMpa5" />
+          <Link Id="BMkBtnZAMbaOR7CfbeiRZq" Ids="Kkh2SShiPDKMvR0fKdZzcX,GN12kSzsJS6OZ80h7seNzr" />
         </Patch>
       </Node>
       <!--
@@ -2302,7 +2340,7 @@
               <CategoryReference Kind="Category" Name="Stride" />
               <Choice Kind="ProcessAppFlag" Name="RenderWindow" />
             </p:NodeReference>
-            <Pin Id="Ag3ysa4HbkaM4njOiAZbtV" Name="Bounds" Kind="InputPin" DefaultValue="1550.667, 770.6667, 766.6667, 511.3333">
+            <Pin Id="Ag3ysa4HbkaM4njOiAZbtV" Name="Bounds" Kind="InputPin" DefaultValue="1466.667, 798.6667, 766.6667, 511.3333">
               <p:TypeAnnotation LastCategoryFullName="2D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Rectangle" />
               </p:TypeAnnotation>
@@ -2370,12 +2408,12 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="K3Z6DkVi4tCN2aikfu2hwt" Location="VL.CoreLib" Version="2021.3.1" />
+  <NugetDependency Id="K3Z6DkVi4tCN2aikfu2hwt" Location="VL.CoreLib" Version="2021.4.0-0022-gda00c6f9e5" />
   <PlatformDependency Id="IeGGFhFoD15OvRZrdBOyVY" Location="../CMiX_UserControl/bin/Debug/CMiX.MVVM.dll" />
   <PlatformDependency Id="OZPYhcyfbtLNRZZlo5l6AW" Location="PresentationCore" />
-  <NugetDependency Id="PzwsZA9aWTOOaUQurvfdPb" Location="VL.Stride" Version="0.9.90-g7445968757" />
-  <NugetDependency Id="Jh9gy2xisT9MspbEzw8ngx" Location="VL.CoreLib.Windows" Version="2021.3.1" />
-  <NugetDependency Id="CrgL92B7DtXQLcszhOZHRu" Location="VL.Stride.Windows" Version="0.9.90-g7445968757" />
+  <NugetDependency Id="PzwsZA9aWTOOaUQurvfdPb" Location="VL.Stride" Version="0.9.96-g5960125e5d" />
+  <NugetDependency Id="Jh9gy2xisT9MspbEzw8ngx" Location="VL.CoreLib.Windows" Version="2021.4.0-0022-gda00c6f9e5" />
+  <NugetDependency Id="CrgL92B7DtXQLcszhOZHRu" Location="VL.Stride.Windows" Version="0.9.96-g5960125e5d" />
   <DocumentDependency Id="RFBI4AzTQB4NJb84KfwuQR" Location="./VL.Stride.Extensions.vl" />
   <PlatformDependency Id="BRpQWimNovTLbI8Vj9KtRS" Location="System.Windows.Presentation" />
 </Document>

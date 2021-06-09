@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Tools;
@@ -10,12 +11,15 @@ namespace CMiX.MVVM.ViewModels
 {
     public class RandomXYZ : Control, ITransformModifier
     {
-        public RandomXYZ(string name, int id, MasterBeat masterBeat, RandomXYZModel randomXYZModel)
+        public RandomXYZ(RandomXYZModel randomXYZModel, MasterBeat masterBeat)
         {
+            this.ID = randomXYZModel.ID;
+            this.Name = randomXYZModel.Name;
+
             Counter = new Counter(randomXYZModel.CounterModel);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
 
-            Easing = new Easing(randomXYZModel.EasingModel); 
+            Easing = new Easing(randomXYZModel.EasingModel);
             BeatModifier = new BeatModifier(masterBeat, randomXYZModel.BeatModifierModel);
             Transforms = new ObservableCollection<Transform>();
 
@@ -38,12 +42,21 @@ namespace CMiX.MVVM.ViewModels
             RandomizeRotation = true;
         }
 
-        //public override void SetReceiver(ModuleReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
 
-        //    LocationX.SetReceiver(messageReceiver);
-        //}
+        public override void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            base.SetReceiver(messageReceiver);
+
+            Counter.SetReceiver(messageReceiver);
+        }
+
+        public override void SetSender(IMessageSender messageSender)
+        {
+            base.SetSender(messageSender);
+
+            Counter.SetSender(messageSender);
+        }
+
 
         private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
         {
@@ -54,7 +67,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public string Name { get; set; }
+        public TransformModifierNames Name { get; set; }
         public ObservableCollection<Transform> Transforms { get; set; }
 
         public BeatModifier BeatModifier { get; set; }
@@ -216,7 +229,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void UpdateOnGameLoop(double period)
         {
-            if(Transforms.Count != PreviousLocation.Length)
+            if (Transforms.Count != PreviousLocation.Length)
             {
 
             }
@@ -285,8 +298,8 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             RandomXYZModel randomXYZModel = model as RandomXYZModel;
-            this.Name = randomXYZModel.Name;
             this.ID = randomXYZModel.ID;
+            this.Name = randomXYZModel.Name;
             this.SetViewModel(model);
         }
 

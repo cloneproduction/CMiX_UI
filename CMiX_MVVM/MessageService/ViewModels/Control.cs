@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Control :  ViewModel, IIDObject
+    public abstract class Control : ViewModel, IIDObject
     {
         public Guid ID { get; set; }
         public IMessageSender MessageSender { get; set; }
