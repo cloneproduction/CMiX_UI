@@ -48,6 +48,9 @@ namespace CMiX.MVVM.ViewModels
             base.SetReceiver(messageReceiver);
 
             Counter.SetReceiver(messageReceiver);
+            LocationX.SetReceiver(messageReceiver);
+            LocationY.SetReceiver(messageReceiver);
+            LocationZ.SetReceiver(messageReceiver);
         }
 
         public override void SetSender(IMessageSender messageSender)
@@ -55,6 +58,9 @@ namespace CMiX.MVVM.ViewModels
             base.SetSender(messageSender);
 
             Counter.SetSender(messageSender);
+            LocationX.SetSender(messageSender);
+            LocationY.SetSender(messageSender);
+            LocationZ.SetSender(messageSender);
         }
 
 
@@ -300,13 +306,18 @@ namespace CMiX.MVVM.ViewModels
             RandomXYZModel randomXYZModel = model as RandomXYZModel;
             this.ID = randomXYZModel.ID;
             this.Name = randomXYZModel.Name;
-            this.SetViewModel(model);
+            this.LocationX.SetViewModel(randomXYZModel.LocationX);
+            this.LocationY.SetViewModel(randomXYZModel.LocationY);
+            this.LocationZ.SetViewModel(randomXYZModel.LocationZ);
         }
 
         public override IModel GetModel()
         {
             RandomXYZModel model = new RandomXYZModel();
             model.ID = this.ID;
+            model.LocationX = (SliderModel)this.LocationX.GetModel();
+            model.LocationY = (SliderModel)this.LocationY.GetModel();
+            model.LocationZ = (SliderModel)this.LocationZ.GetModel();
             return model;
         }
     }

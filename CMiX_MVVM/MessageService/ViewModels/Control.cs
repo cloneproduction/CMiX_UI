@@ -1,14 +1,17 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
+using CMiX.MVVM.Models;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Control : ViewModel, IIDObject
+    public abstract class Control : ViewModel, IIDObject, IGetSetModel<IModel>
     {
         public Guid ID { get; set; }
         public IMessageSender MessageSender { get; set; }
         public IMessageReceiver MessageReceiver { get; set; }
+
+
 
         public virtual void SetReceiver(IMessageReceiver messageReceiver)
         {

@@ -3,9 +3,9 @@ using System;
 
 namespace CMiX.MVVM.ViewModels.Modifiers
 {
-    public class TransformModifierMessageProcessor : IMessageProcessor
+    public class InstancerMessageProcessor : IMessageProcessor
     {
-        public TransformModifierMessageProcessor(Instancer instancer)
+        public InstancerMessageProcessor(Instancer instancer)
         {
             Instancer = instancer;
         }

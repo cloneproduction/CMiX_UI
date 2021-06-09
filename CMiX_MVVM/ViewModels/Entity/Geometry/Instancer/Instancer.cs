@@ -27,12 +27,10 @@ namespace CMiX.MVVM.ViewModels
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            var messageProcessor = new TransformModifierMessageProcessor(this);
+            var messageProcessor = new InstancerMessageProcessor(this);
             MessageReceiver = new MessageReceiver(messageProcessor);
             messageReceiver.RegisterReceiver(MessageReceiver);
         }
-
-
 
 
         public ICommand CreateTransformModifierCommand { get; set; }
@@ -57,7 +55,6 @@ namespace CMiX.MVVM.ViewModels
             get => _transformModifiers;
             set => SetAndNotify(ref _transformModifiers, value);
         }
-
 
 
         public void CreateTransformModifier(TransformModifierNames transformModifierNames)
@@ -104,7 +101,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             InstancerModel model = new InstancerModel();
-            model.ID = model.ID;
+            model.ID = this.ID;
             model.Transform = (TransformModel)this.Transform.GetModel();
             model.NoAspectRatio = this.NoAspectRatio;
             return model;

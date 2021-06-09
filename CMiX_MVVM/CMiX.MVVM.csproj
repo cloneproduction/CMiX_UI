@@ -121,6 +121,7 @@
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="MessageService\IMessageEmitter.cs" />
     <Compile Include="MessageService\IMessageTerminal.cs" />
+    <Compile Include="MessageService\ViewModels\IGetSetModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\IAnimModeModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\LFOModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\NoneModel.cs" />
@@ -192,7 +193,7 @@
     <Compile Include="ViewModels\Transform\Modifiers\Messages\ITransformModifierMessage.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />
-    <Compile Include="ViewModels\Transform\Modifiers\Messages\TransformModifierMessageProcessor.cs" />
+    <Compile Include="ViewModels\Transform\Modifiers\Messages\InstancerMessageProcessor.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\TransformModifierNames.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\ModifierType.cs" />
     <Compile Include="ViewModels\Transform\Modifiers\RotationModifier.cs" />
