@@ -17,11 +17,32 @@ namespace CMiX.MVVM.ViewModels.Components
             Name = this.GetType().Name;
             ID = componentModel.ID;
             Components = new ObservableCollection<Component>();
+            Communicator = new ComponentCommunicator();
         }
 
-
+        public ComponentCommunicator Communicator { get; set; }
         public IMessageReceiver MessageReceiver { get; set; }
         public IMessageSender MessageSender { get; set; }
+
+
+        public virtual void SetReceiver(IMessageReceiver messageReceiver)
+        {
+            Communicator.SetReceiver(this, messageReceiver);
+            //var messageProcessor = new ComponentMessageProcessor(this);
+            //MessageReceiver = new MessageReceiver(messageProcessor);
+            //messageReceiver.RegisterReceiver(MessageReceiver);
+
+            //Visibility.SetReceiver(MessageReceiver);
+        }
+
+        public virtual void SetSender(IMessageSender messageSender)
+        {
+            MessageSender = new MessageSender(this);
+            MessageSender.SetSender(messageSender);
+
+            Visibility.SetSender(MessageSender);
+        }
+
 
 
         public Visibility Visibility { get; set; }
@@ -76,7 +97,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Components.Add(component);
             IsExpanded = true;
-
+            Communicator.SendMessageAddComponent(component);
             MessageSender?.SendMessage(new MessageAddComponent(component));
         }
 
@@ -111,22 +132,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public abstract IModel GetModel();
 
 
-        public virtual void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            var messageProcessor = new ComponentMessageProcessor(this);
-            MessageReceiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterReceiver(MessageReceiver);
 
-            Visibility.SetReceiver(MessageReceiver);
-        }
-
-        public virtual void SetSender(IMessageSender messageSender)
-        {
-            MessageSender = new MessageSender(this);
-            MessageSender.SetSender(messageSender);
-
-            Visibility.SetSender(MessageSender);
-        }
 
 
         public void Dispose()

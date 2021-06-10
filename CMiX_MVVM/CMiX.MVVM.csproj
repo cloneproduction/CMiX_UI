@@ -153,6 +153,7 @@
     <Compile Include="ViewModels\Beat\IBeat.cs" />
     <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
+    <Compile Include="ViewModels\Components\ComponentCommunicator.cs" />
     <Compile Include="ViewModels\Components\ComponentStyleSelector.cs" />
     <Compile Include="MessageService\Messages\IIDAggregator.cs" />
     <Compile Include="MessageService\Messages\IIDIterator.cs" />

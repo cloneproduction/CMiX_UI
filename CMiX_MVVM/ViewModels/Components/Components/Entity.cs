@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetReceiver(IMessageReceiver messageReceiver)
         {
-            base.SetReceiver(messageReceiver);
+            Communicator.SetReceiver(this, messageReceiver);
 
             BeatModifier.SetReceiver(MessageReceiver);
             Geometry.SetReceiver(MessageReceiver);
