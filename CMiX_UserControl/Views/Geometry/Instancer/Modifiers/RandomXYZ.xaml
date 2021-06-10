@@ -77,12 +77,12 @@
                         Dock="Left"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        IsChecked="{Binding RandomizeLocation}"/>
+                        IsChecked="{Binding RandomizeLocation.IsChecked}"/>
                     <TextBlock Text="Randomize Location" Foreground="{DynamicResource TextBase}"/>
                 </DockPanel>
             </Expander.Header>
-            
-            <Border Margin="8" IsEnabled="{Binding RandomizeLocation}">
+
+            <Border Margin="8" IsEnabled="{Binding RandomizeLocation.IsChecked}">
                 <StackPanel>
                     <Grid Height="20">
                         <Grid.ColumnDefinitions>
@@ -148,11 +148,11 @@
                         Dock="Left"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
-                        IsChecked="{Binding RandomizeScale}"/>
+                        IsChecked="{Binding RandomizeScale.IsChecked}"/>
                     <TextBlock Text="Randomize Scale" Foreground="{DynamicResource TextBase}"/>
                 </DockPanel>
             </Expander.Header>
-            <Border Margin="8" IsEnabled="{Binding RandomizeScale}">
+            <Border Margin="8" IsEnabled="{Binding RandomizeScale.IsChecked}">
                 <StackPanel>
                     <Grid Height="20" >
                         <Grid.ColumnDefinitions>
@@ -165,11 +165,11 @@
                             Style="{StaticResource DistanceSliderStyle}" 
                             Value="{Binding ScaleX.Amount}"/>
                         <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Scale X" 
-                    Foreground="{StaticResource TextBase}"/>
+                            Grid.Column="0" 
+                            Padding="4" 
+                            HorizontalAlignment="Right" 
+                            Text="Scale X" 
+                            Foreground="{StaticResource TextBase}"/>
                     </Grid>
                     <Grid Height="20" Margin="0, 1">
                         <Grid.ColumnDefinitions>
@@ -199,11 +199,11 @@
                             Style="{StaticResource DistanceSliderStyle}" 
                             Value="{Binding ScaleZ.Amount}"/>
                         <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Z" 
-                    Foreground="{StaticResource TextBase}"/>
+                            Grid.Column="0" 
+                            Padding="4" 
+                            HorizontalAlignment="Right" 
+                            Text="Z" 
+                            Foreground="{StaticResource TextBase}"/>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -217,13 +217,13 @@
                         Dock="Left"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
-                        IsChecked="{Binding RandomizeRotation}"/>
+                        IsChecked="{Binding Path=RandomizeRotation.IsChecked}"/>
                     <TextBlock Text="Randomize Rotation" Foreground="{DynamicResource TextBase}"/>
                 </DockPanel>
 
             </Expander.Header>
-            
-            <Border Margin="8" IsEnabled="{Binding RandomizeRotation}">
+
+            <Border Margin="8" IsEnabled="{Binding RandomizeRotation.IsChecked}">
                 <StackPanel>
                     <Grid Height="20" >
                         <Grid.ColumnDefinitions>
@@ -236,11 +236,11 @@
                             Style="{StaticResource DistanceSliderStyle}" 
                             Value="{Binding RotationX.Amount}"/>
                         <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Rotate X" 
-                    Foreground="{StaticResource TextBase}"/>
+                            Grid.Column="0" 
+                            Padding="4" 
+                            HorizontalAlignment="Right" 
+                            Text="Rotate X" 
+                            Foreground="{StaticResource TextBase}"/>
                     </Grid>
                     <Grid Height="20" Margin="0, 1">
                         <Grid.ColumnDefinitions>
@@ -253,11 +253,11 @@
                             Style="{StaticResource DistanceSliderStyle}" 
                             Value="{Binding RotationY.Amount}"/>
                         <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Y" 
-                    Foreground="{StaticResource TextBase}"/>
+                            Grid.Column="0" 
+                            Padding="4" 
+                            HorizontalAlignment="Right" 
+                            Text="Y" 
+                            Foreground="{StaticResource TextBase}"/>
                     </Grid>
                     <Grid Height="20">
                         <Grid.ColumnDefinitions>
@@ -270,11 +270,11 @@
                             Style="{StaticResource DistanceSliderStyle}" 
                             Value="{Binding RotationZ.Amount}"/>
                         <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Z" 
-                    Foreground="{StaticResource TextBase}"/>
+                            Grid.Column="0" 
+                            Padding="4" 
+                            HorizontalAlignment="Right" 
+                            Text="Z" 
+                            Foreground="{StaticResource TextBase}"/>
                     </Grid>
                 </StackPanel>
             </Border>

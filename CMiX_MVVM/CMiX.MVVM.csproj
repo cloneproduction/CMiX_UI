@@ -129,6 +129,7 @@
     <Compile Include="Models\AnimParameter\AnimMode\SteadyModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\StepperModel.cs" />
     <Compile Include="Models\AnimParameter\EasingModel.cs" />
+    <Compile Include="Models\BaseControls\ToggleButtonModel.cs" />
     <Compile Include="Models\Beat\MasterBeatModel.cs" />
     <Compile Include="Models\Beat\ResyncModel.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="ViewModels\Assets\AssetTemplateSelector.cs" />
     <Compile Include="ViewModels\Assets\IAssetSelectorMessage.cs" />
     <Compile Include="ViewModels\Assets\MessageAsset.cs" />
+    <Compile Include="ViewModels\BaseControl\ToggleButton.cs" />
     <Compile Include="ViewModels\Beat\IBeat.cs" />
     <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
@@ -214,7 +216,7 @@
     <Compile Include="Resources\Easings.cs" />
     <Compile Include="ViewModels\Beat\Resync.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
-    <Compile Include="ViewModels\Combobox\ComboBox.cs" />
+    <Compile Include="ViewModels\BaseControl\ComboBox.cs" />
     <Compile Include="ViewModels\Components\Factory\IComponentFactory.cs" />
     <Compile Include="ViewModels\Counter\CounterEventArgs.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\IModifier.cs" />

@@ -25,21 +25,23 @@ namespace CMiX.MVVM.ViewModels
 
             SelectedModifierType = ModifierType.OBJECT;
 
+            RandomizeLocation = new ToggleButton(randomXYZModel.RandomizeLocation);
+            RandomizeLocation.IsChecked = true;
             LocationX = new Slider(nameof(LocationX), randomXYZModel.LocationX);
             LocationY = new Slider(nameof(LocationY), randomXYZModel.LocationY);
             LocationZ = new Slider(nameof(LocationZ), randomXYZModel.LocationZ);
 
+            RandomizeScale = new ToggleButton(randomXYZModel.RandomizeScale);
+            RandomizeScale.IsChecked = true;
             ScaleX = new Slider(nameof(ScaleX), randomXYZModel.ScaleX);
             ScaleY = new Slider(nameof(ScaleY), randomXYZModel.ScaleY);
             ScaleZ = new Slider(nameof(ScaleZ), randomXYZModel.ScaleZ);
 
+            RandomizeRotation = new ToggleButton(randomXYZModel.RandomizeScale);
+            RandomizeRotation.IsChecked = true;
             RotationX = new Slider(nameof(RotationX), randomXYZModel.RotationX);
             RotationY = new Slider(nameof(RotationY), randomXYZModel.RotationY);
             RotationZ = new Slider(nameof(RotationZ), randomXYZModel.RotationZ);
-
-            RandomizeLocation = true;
-            RandomizeScale = true;
-            RandomizeRotation = true;
         }
 
 
@@ -48,9 +50,21 @@ namespace CMiX.MVVM.ViewModels
             base.SetReceiver(messageReceiver);
 
             Counter.SetReceiver(messageReceiver);
+
+            RandomizeLocation.SetReceiver(messageReceiver);
             LocationX.SetReceiver(messageReceiver);
             LocationY.SetReceiver(messageReceiver);
             LocationZ.SetReceiver(messageReceiver);
+
+            RandomizeScale.SetReceiver(messageReceiver);
+            ScaleX.SetReceiver(messageReceiver);
+            ScaleY.SetReceiver(messageReceiver);
+            ScaleZ.SetReceiver(messageReceiver);
+
+            RandomizeRotation.SetReceiver(messageReceiver);
+            RotationX.SetReceiver(messageReceiver);
+            RotationY.SetReceiver(messageReceiver);
+            RotationZ.SetReceiver(messageReceiver);
         }
 
         public override void SetSender(IMessageSender messageSender)
@@ -58,9 +72,21 @@ namespace CMiX.MVVM.ViewModels
             base.SetSender(messageSender);
 
             Counter.SetSender(messageSender);
+
+            RandomizeLocation.SetSender(messageSender);
             LocationX.SetSender(messageSender);
             LocationY.SetSender(messageSender);
             LocationZ.SetSender(messageSender);
+
+            RandomizeScale.SetSender(messageSender);
+            ScaleX.SetSender(messageSender);
+            ScaleY.SetSender(messageSender);
+            ScaleZ.SetSender(messageSender);
+
+            RandomizeLocation.SetSender(messageSender);
+            RotationX.SetSender(messageSender);
+            RotationY.SetSender(messageSender);
+            RotationZ.SetSender(messageSender);
         }
 
 
@@ -88,26 +114,11 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isExpanded, value);
         }
 
-
-        private bool _randomizeLocation;
-        public bool RandomizeLocation
-        {
-            get => _randomizeLocation;
-            set => SetAndNotify(ref _randomizeLocation, value);
-        }
-
         private bool _randomizeLocationIsExpanded;
         public bool RandomizeLocationIsExpanded
         {
             get => _randomizeLocationIsExpanded;
             set => SetAndNotify(ref _randomizeLocationIsExpanded, value);
-        }
-
-        private bool _randomizeScale;
-        public bool RandomizeScale
-        {
-            get => _randomizeScale;
-            set => SetAndNotify(ref _randomizeScale, value);
         }
 
         private bool _randomizeScaleIsExpanded;
@@ -125,14 +136,6 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _randomizeRotationIsExpanded, value);
         }
 
-        private bool _randomizeRotation;
-        public bool RandomizeRotation
-        {
-            get => _randomizeRotation;
-            set => SetAndNotify(ref _randomizeRotation, value);
-        }
-
-
         private ModifierType _selectedModifierType;
         public ModifierType SelectedModifierType
         {
@@ -140,15 +143,18 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _selectedModifierType, value);
         }
 
+
+        public ToggleButton RandomizeLocation { get; set; }
         public Slider LocationX { get; set; }
         public Slider LocationY { get; set; }
         public Slider LocationZ { get; set; }
 
+        public ToggleButton RandomizeScale { get; set; }
         public Slider ScaleX { get; set; }
         public Slider ScaleY { get; set; }
         public Slider ScaleZ { get; set; }
 
-
+        public ToggleButton RandomizeRotation { get; set; }
         public Slider RotationX { get; set; }
         public Slider RotationY { get; set; }
         public Slider RotationZ { get; set; }
@@ -179,7 +185,7 @@ namespace CMiX.MVVM.ViewModels
                     NextScale[index] = new Vector3D(1.0, 1.0, 1.0);
                     NextRotation[index] = new Vector3D(0.0, 0.0, 0.0);
 
-                    if (RandomizeLocation)
+                    if (RandomizeLocation.IsChecked)
                     {
                         var org_X = transform.Translate.X.Amount;
                         var org_Y = transform.Translate.Y.Amount;
@@ -196,7 +202,7 @@ namespace CMiX.MVVM.ViewModels
                         NextLocation[index] = new Vector3D(aX, aY, aZ);
                     }
 
-                    if (RandomizeScale)
+                    if (RandomizeScale.IsChecked)
                     {
                         var org_X = transform.Scale.X.Amount;
                         var org_Y = transform.Scale.Y.Amount;
@@ -213,7 +219,7 @@ namespace CMiX.MVVM.ViewModels
                         NextScale[index] = new Vector3D(aX, aY, aZ);
                     }
 
-                    if (RandomizeRotation)
+                    if (RandomizeRotation.IsChecked)
                     {
                         var org_X = transform.Rotation.X.Amount;
                         var org_Y = transform.Rotation.Y.Amount;
@@ -253,21 +259,21 @@ namespace CMiX.MVVM.ViewModels
                     Vector3D lerpedScale = Utils.Lerp(PreviousScale[index], NextScale[index], eased);
                     Vector3D lerpedRotation = Utils.Lerp(PreviousRotation[index], NextRotation[index], eased);
 
-                    if (RandomizeLocation)
+                    if (RandomizeLocation.IsChecked)
                     {
                         transform.Translate.X.Amount = lerpedLocation.X;
                         transform.Translate.Y.Amount = lerpedLocation.Y;
                         transform.Translate.Z.Amount = lerpedLocation.Z;
                     }
 
-                    if (RandomizeScale)
+                    if (RandomizeScale.IsChecked)
                     {
                         transform.Scale.X.Amount = lerpedScale.X;
                         transform.Scale.Y.Amount = lerpedScale.Y;
                         transform.Scale.Z.Amount = lerpedScale.Z;
                     }
 
-                    if (RandomizeScale)
+                    if (RandomizeScale.IsChecked)
                     {
                         transform.Rotation.X.Amount = lerpedRotation.X;
                         transform.Rotation.Y.Amount = lerpedRotation.Y;
@@ -276,21 +282,21 @@ namespace CMiX.MVVM.ViewModels
                 }
                 else
                 {
-                    if (RandomizeLocation)
+                    if (RandomizeLocation.IsChecked)
                     {
                         transform.Translate.X.Amount = NextLocation[index].X;
                         transform.Translate.Y.Amount = NextLocation[index].Y;
                         transform.Translate.Z.Amount = NextLocation[index].Z;
                     }
 
-                    if (RandomizeScale)
+                    if (RandomizeScale.IsChecked)
                     {
                         transform.Scale.X.Amount = NextScale[index].X;
                         transform.Scale.Y.Amount = NextScale[index].Y;
                         transform.Scale.Z.Amount = NextScale[index].Z;
                     }
 
-                    if (RandomizeScale)
+                    if (RandomizeScale.IsChecked)
                     {
                         transform.Rotation.X.Amount = NextRotation[index].X;
                         transform.Rotation.Y.Amount = NextRotation[index].Y;
@@ -306,18 +312,22 @@ namespace CMiX.MVVM.ViewModels
             RandomXYZModel randomXYZModel = model as RandomXYZModel;
             this.ID = randomXYZModel.ID;
             this.Name = randomXYZModel.Name;
+            this.Counter.SetViewModel(randomXYZModel.CounterModel);
             this.LocationX.SetViewModel(randomXYZModel.LocationX);
             this.LocationY.SetViewModel(randomXYZModel.LocationY);
             this.LocationZ.SetViewModel(randomXYZModel.LocationZ);
+            this.RandomizeLocation.SetViewModel(randomXYZModel.RandomizeLocation);
         }
 
         public override IModel GetModel()
         {
             RandomXYZModel model = new RandomXYZModel();
             model.ID = this.ID;
+            model.CounterModel = (CounterModel)this.Counter.GetModel();
             model.LocationX = (SliderModel)this.LocationX.GetModel();
             model.LocationY = (SliderModel)this.LocationY.GetModel();
             model.LocationZ = (SliderModel)this.LocationZ.GetModel();
+            model.RandomizeLocation = (ToggleButtonModel)this.RandomizeLocation.GetModel();
             return model;
         }
     }

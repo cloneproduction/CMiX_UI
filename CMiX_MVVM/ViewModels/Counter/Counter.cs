@@ -36,6 +36,7 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _count, value);
                 OnCountChange();
                 MessageSender?.SendMessage(new MessageUpdateViewModel(this));
+                Console.WriteLine("Count is : " + Count);
             }
         }
 
@@ -50,12 +51,14 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             CounterModel counterModel = model as CounterModel;
+            this.ID = counterModel.ID;
             this.Count = counterModel.Count;
         }
 
         public override IModel GetModel()
         {
             CounterModel model = new CounterModel();
+            model.ID = this.ID;
             model.Count = this.Count;
             return model;
         }
