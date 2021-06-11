@@ -10,6 +10,7 @@ namespace CMiX.MVVM.MessageService
             _id = idObject.ID;
         }
 
+
         private Guid _id { get; set; }
 
         private IMessageSender _messageSender;
@@ -22,7 +23,7 @@ namespace CMiX.MVVM.MessageService
 
         public void SendMessage(Message message)
         {
-            if(_messageSender != null)
+            if (_messageSender != null)
             {
                 Console.WriteLine("MessageSender SendMessage with ID " + _id);
                 message.AddID(_id);

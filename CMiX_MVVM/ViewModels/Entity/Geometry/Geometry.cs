@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Geometry : Control, ITransform
     {
-        public Geometry(MasterBeat beat, GeometryModel geometryModel) 
+        public Geometry(MasterBeat beat, GeometryModel geometryModel)
         {
             this.ID = geometryModel.ID;
             Instancer = new Instancer(beat, geometryModel.InstancerModel);
@@ -24,25 +24,16 @@ namespace CMiX.MVVM.ViewModels
         public GeometryFX GeometryFX { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetReceiver(messageReceiver);
+            base.SetCommunicator(communicator);
 
-            Instancer.SetReceiver(messageReceiver);
-            Transform.SetReceiver(messageReceiver);
-            GeometryFX.SetReceiver(messageReceiver);
-            AssetPathSelector.SetReceiver(messageReceiver);
+            Instancer.SetCommunicator(Communicator);
+            Transform.SetCommunicator(Communicator);
+            GeometryFX.SetCommunicator(Communicator);
+            AssetPathSelector.SetCommunicator(Communicator);
         }
 
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            Instancer.SetSender(messageSender);
-            Transform.SetSender(messageSender);
-            GeometryFX.SetSender(messageSender);
-            AssetPathSelector.SetSender(messageSender);
-        }
 
         public override IModel GetModel()
         {

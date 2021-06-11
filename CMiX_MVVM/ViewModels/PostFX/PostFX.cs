@@ -16,21 +16,6 @@ namespace CMiX.MVVM.ViewModels
             View = postFXModel.View;
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            //base.SetReceiver(messageReceiver);
-
-            Feedback.SetReceiver(messageReceiver);
-            Blur.SetReceiver(messageReceiver);
-        }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            //base.SetSender(messageSender);
-
-            Feedback.SetSender(messageSender);
-            Blur.SetSender(messageSender);
-        }
 
         public Slider Feedback { get; set; }
         public Slider Blur { get; set; }
@@ -56,6 +41,14 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _view, value);
 
             }
+        }
+
+        public override void SetCommunicator(ICommunicator communicator)
+        {
+            base.SetCommunicator(communicator);
+
+            Feedback.SetCommunicator(Communicator);
+            Blur.SetCommunicator(Communicator);
         }
 
         public override void SetViewModel(IModel model)

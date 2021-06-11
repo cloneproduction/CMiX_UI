@@ -29,6 +29,7 @@ namespace CMiX.MVVM.ViewModels
         public Slider Z { get; set; }
         public Slider Uniform { get; set; }
 
+
         private bool _isUniform;
         public bool IsUniform
         {
@@ -37,24 +38,14 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetReceiver(messageReceiver);
+            base.SetCommunicator(communicator);
 
-            X.SetReceiver(messageReceiver);
-            Y.SetReceiver(messageReceiver);
-            Z.SetReceiver(messageReceiver);
+            X.SetCommunicator(Communicator);
+            Y.SetCommunicator(Communicator);
+            Z.SetCommunicator(Communicator);
         }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            X.SetSender(messageSender);
-            Y.SetSender(messageSender);
-            Z.SetSender(messageSender);
-        }
-
 
         public override void SetViewModel(IModel model)
         {

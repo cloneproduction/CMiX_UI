@@ -1,6 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
-using CMiX.MVVM.Models;
+using CMiX.MVVM.MessageService.ViewModels;
 using System;
 
 namespace CMiX.MVVM.ViewModels
@@ -8,23 +8,17 @@ namespace CMiX.MVVM.ViewModels
     public abstract class Control : ViewModel, IIDObject, IGetSetModel<IModel>
     {
         public Guid ID { get; set; }
-        public IMessageSender MessageSender { get; set; }
-        public IMessageReceiver MessageReceiver { get; set; }
+        public IMessageProcessor MessageProcessor { get; set; }
+        public ICommunicator Communicator { get; set; }
 
 
-
-        public virtual void SetReceiver(IMessageReceiver messageReceiver)
+        public virtual void SetCommunicator(ICommunicator communicator)
         {
-            var messageProcessor = new ControlMessageProcessor(this);
-            MessageReceiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterReceiver(MessageReceiver);
+            MessageProcessor = new ControlMessageProcessor(this);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetNextCommunicator(communicator);
         }
 
-        public virtual void SetSender(IMessageSender messageSender)
-        {
-            MessageSender = new MessageSender(this);
-            MessageSender.SetSender(messageSender);
-        }
 
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();

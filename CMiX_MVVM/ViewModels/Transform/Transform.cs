@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels
         public Scale Scale { get; set; }
         public Rotation Rotation { get; set; }
 
-       
+
         private bool _is3D;
         public bool Is3D
         {
@@ -37,22 +37,14 @@ namespace CMiX.MVVM.ViewModels
             //this.Count = count;
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetReceiver(messageReceiver);
+            base.SetCommunicator(communicator);
 
-            Translate.SetReceiver(messageReceiver);
-            Scale.SetReceiver(messageReceiver);
-            Rotation.SetReceiver(messageReceiver);
-        }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            Translate.SetSender(messageSender);
-            Scale.SetSender(messageSender);
-            Rotation.SetSender(messageSender);
+            Translate.SetCommunicator(Communicator);
+            Scale.SetCommunicator(Communicator);
+            Rotation.SetCommunicator(Communicator);
         }
 
 

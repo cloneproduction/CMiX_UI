@@ -8,8 +8,8 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(Composition composition, LayerModel layerModel) 
-            : base (layerModel)
+        public Layer(Composition composition, LayerModel layerModel)
+            : base(layerModel)
         {
             Fade = new Slider(nameof(Fade), layerModel.Fade);
 
@@ -23,25 +23,37 @@ namespace CMiX.MVVM.ViewModels.Components
             ComponentFactory = new SceneFactory(this);
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            base.SetReceiver(messageReceiver);
 
-            Fade.SetReceiver(MessageReceiver);
-            PostFX.SetReceiver(MessageReceiver);
-            BlendMode.SetReceiver(MessageReceiver);
-            Mask.SetReceiver(MessageReceiver);
+        public override void SetCommunicator(ICommunicator communicator)
+        {
+            Communicator.SetNextCommunicator(communicator);
+
+            Fade.SetCommunicator(Communicator);
+            PostFX.SetCommunicator(Communicator);
+            BlendMode.SetCommunicator(Communicator);
+            Mask.SetCommunicator(Communicator);
         }
 
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
 
-            Fade.SetSender(MessageSender);
-            PostFX.SetSender(MessageSender);
-            BlendMode.SetSender(MessageSender);
-            Mask.SetSender(MessageSender);
-        }
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    base.SetReceiver(messageReceiver);
+
+        //    Fade.SetReceiver(MessageReceiver);
+        //    PostFX.SetReceiver(MessageReceiver);
+        //    BlendMode.SetReceiver(MessageReceiver);
+        //    Mask.SetReceiver(MessageReceiver);
+        //}
+
+        //public override void SetSender(IMessageSender messageSender)
+        //{
+        //    base.SetSender(messageSender);
+
+        //    Fade.SetSender(MessageSender);
+        //    PostFX.SetSender(MessageSender);
+        //    BlendMode.SetSender(MessageSender);
+        //    Mask.SetSender(MessageSender);
+        //}
 
 
         private bool _out;
@@ -91,8 +103,8 @@ namespace CMiX.MVVM.ViewModels.Components
             foreach (var componentModel in layerModel.ComponentModels)
             {
                 var newComponent = this.ComponentFactory.CreateComponent(componentModel);
-                newComponent.SetReceiver(MessageReceiver);
-                newComponent.SetSender(MessageSender);
+                //newComponent.SetReceiver(MessageReceiver);
+                //newComponent.SetSender(MessageSender);
                 this.AddComponent(newComponent);
             }
         }

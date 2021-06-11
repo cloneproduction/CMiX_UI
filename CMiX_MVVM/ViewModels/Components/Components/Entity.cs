@@ -7,8 +7,8 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Entity : Component
     {
-        public Entity(Scene scene, EntityModel entityModel) 
-            : base (entityModel)
+        public Entity(Scene scene, EntityModel entityModel)
+            : base(entityModel)
         {
             MasterBeat = scene.MasterBeat;
 
@@ -26,25 +26,15 @@ namespace CMiX.MVVM.ViewModels.Components
         public Coloration Coloration { get; set; }
         public MasterBeat MasterBeat { get; set; }
 
-
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator.SetReceiver(this, messageReceiver);
+            Communicator = new ComponentCommunicator(this);
+            Communicator.SetNextCommunicator(communicator);
 
-            BeatModifier.SetReceiver(MessageReceiver);
-            Geometry.SetReceiver(MessageReceiver);
-            Texture.SetReceiver(MessageReceiver);
-            Coloration.SetReceiver(MessageReceiver);
-        }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            BeatModifier.SetSender(MessageSender);
-            Geometry.SetSender(MessageSender);
-            Texture.SetSender(MessageSender);
-            Coloration.SetSender(MessageSender);
+            BeatModifier.SetCommunicator(Communicator);
+            Geometry.SetCommunicator(Communicator);
+            Texture.SetCommunicator(Communicator);
+            Coloration.SetCommunicator(Communicator);
         }
 
 

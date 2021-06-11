@@ -42,42 +42,21 @@ namespace CMiX.MVVM.ViewModels
         public Inverter Inverter { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetReceiver(messageReceiver);
+            base.SetCommunicator(communicator);
 
-            AssetPathSelector.SetReceiver(messageReceiver);
-
-            Inverter.SetReceiver(messageReceiver);
-            Brightness.SetReceiver(messageReceiver);
-            Contrast.SetReceiver(messageReceiver);
-            Hue.SetReceiver(messageReceiver);
-            Saturation.SetReceiver(messageReceiver);
-            Luminosity.SetReceiver(messageReceiver);
-            Keying.SetReceiver(messageReceiver);
-            Scale.SetReceiver(messageReceiver);
-            Rotate.SetReceiver(messageReceiver);
-            Pan.SetReceiver(messageReceiver);
-            Tilt.SetReceiver(messageReceiver);
-        }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            AssetPathSelector.SetSender(messageSender);
-
-            Inverter.SetSender(messageSender);
-            Brightness.SetSender(messageSender);
-            Contrast.SetSender(messageSender);
-            Hue.SetSender(messageSender);
-            Saturation.SetSender(messageSender);
-            Luminosity.SetSender(messageSender);
-            Keying.SetSender(messageSender);
-            Scale.SetSender(messageSender);
-            Rotate.SetSender(messageSender);
-            Pan.SetSender(messageSender);
-            Tilt.SetSender(messageSender);
+            Inverter.SetCommunicator(Communicator);
+            Brightness.SetCommunicator(Communicator);
+            Contrast.SetCommunicator(Communicator);
+            Hue.SetCommunicator(Communicator);
+            Saturation.SetCommunicator(Communicator);
+            Luminosity.SetCommunicator(Communicator);
+            Keying.SetCommunicator(Communicator);
+            Scale.SetCommunicator(Communicator);
+            Rotate.SetCommunicator(Communicator);
+            Pan.SetCommunicator(Communicator);
+            Tilt.SetCommunicator(Communicator);
         }
 
 

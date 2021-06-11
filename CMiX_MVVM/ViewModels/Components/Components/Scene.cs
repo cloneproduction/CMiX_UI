@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(Layer layer, SceneModel sceneModel) : base (sceneModel)
+        public Scene(Layer layer, SceneModel sceneModel) : base(sceneModel)
         {
             MasterBeat = layer.MasterBeat;
 
@@ -29,27 +29,39 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetReceiver(messageReceiver);
+            Communicator = new ComponentCommunicator(this);
+            Communicator.SetNextCommunicator(communicator);
 
-            Transform.SetReceiver(MessageReceiver);
-            Mask.SetReceiver(MessageReceiver);
-            PostFX.SetReceiver(MessageReceiver);
-            BeatModifier.SetReceiver(MessageReceiver);
-            MasterBeat.SetReceiver(MessageReceiver);
+            Transform.SetCommunicator(Communicator);
+            Mask.SetCommunicator(Communicator);
+            PostFX.SetCommunicator(Communicator);
+            BeatModifier.SetCommunicator(Communicator);
+            MasterBeat.SetCommunicator(Communicator);
         }
 
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    base.SetReceiver(messageReceiver);
 
-            Transform.SetSender(MessageSender);
-            Mask.SetSender(MessageSender);
-            PostFX.SetSender(MessageSender);
-            BeatModifier.SetSender(MessageSender);
-            MasterBeat.SetSender(MessageSender);
-        }
+        //    Transform.SetReceiver(MessageReceiver);
+        //    Mask.SetReceiver(MessageReceiver);
+        //    PostFX.SetReceiver(MessageReceiver);
+        //    BeatModifier.SetReceiver(MessageReceiver);
+        //    MasterBeat.SetReceiver(MessageReceiver);
+        //}
+
+        //public override void SetSender(IMessageSender messageSender)
+        //{
+        //    base.SetSender(messageSender);
+
+        //    Transform.SetSender(MessageSender);
+        //    Mask.SetSender(MessageSender);
+        //    PostFX.SetSender(MessageSender);
+        //    BeatModifier.SetSender(MessageSender);
+        //    MasterBeat.SetSender(MessageSender);
+        //}
 
 
         public override IModel GetModel()

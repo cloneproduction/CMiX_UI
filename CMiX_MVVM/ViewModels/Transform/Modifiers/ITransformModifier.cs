@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.MessageService;
 using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
@@ -13,8 +12,6 @@ namespace CMiX.MVVM.ViewModels
         void UpdateOnBeatTick(double period);
         void UpdateOnGameLoop(double period);
 
-        void SetReceiver(IMessageReceiver messageReceiver);
-        void SetSender(IMessageSender messageSender);
 
         IModel GetModel();
         void SetViewModel(IModel model);

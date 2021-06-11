@@ -8,18 +8,20 @@ namespace CMiX.MVVM.ViewModels.Assets
 {
     public class AssetPathSelector : Control, IDropTarget
     {
-        public AssetPathSelector(Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel) 
+        public AssetPathSelector(Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel)
         {
             this.ID = assetPathSelectorModel.ID;
             SelectedAsset = defaultAsset;
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            var messageProcessor = new AssetSelectorMessageProcessor(this);
-            MessageReceiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterReceiver(MessageReceiver);
+            MessageProcessor = new AssetSelectorMessageProcessor(this);
+            Communicator = new AssetPathSelectorCommunicator(this);
+            Communicator.SetNextCommunicator(communicator);
         }
+
+
 
         private Asset _selectedAsset;
         public Asset SelectedAsset
@@ -28,7 +30,8 @@ namespace CMiX.MVVM.ViewModels.Assets
             set
             {
                 SetAndNotify(ref _selectedAsset, value);
-                MessageSender?.SendMessage(new MessageAsset(SelectedAsset.GetModel() as IAssetModel));
+
+                Communicator?.SendMessage(this);
                 if (value != null)
                     System.Console.WriteLine("SelectedAsset Name is " + SelectedAsset.Name);
             }

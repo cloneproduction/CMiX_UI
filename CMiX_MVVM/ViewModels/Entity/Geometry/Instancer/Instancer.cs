@@ -2,7 +2,6 @@
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
-using CMiX.MVVM.ViewModels.Modifiers;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -25,11 +24,11 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            var messageProcessor = new InstancerMessageProcessor(this);
-            MessageReceiver = new MessageReceiver(messageProcessor);
-            messageReceiver.RegisterReceiver(MessageReceiver);
+            base.SetCommunicator(communicator);
+
+            Transform.SetCommunicator(Communicator);
         }
 
 
@@ -60,7 +59,7 @@ namespace CMiX.MVVM.ViewModels
         public void CreateTransformModifier(TransformModifierNames transformModifierNames)
         {
             ITransformModifier transformModifier = Factory.CreateTransformModifier(transformModifierNames);
-            transformModifier.SetSender(MessageSender);
+            //transformModifier.SetSender(MessageSender);
             AddTransformModifier(transformModifier);
         }
 
@@ -68,7 +67,7 @@ namespace CMiX.MVVM.ViewModels
         public void AddTransformModifier(ITransformModifier transformModifier)
         {
             TransformModifiers.Add(transformModifier);
-            MessageSender?.SendMessage(new MessageAddTransformModifier(transformModifier.GetModel() as ITransformModifierModel));
+            //MessageSender?.SendMessage(new MessageAddTransformModifier(transformModifier.GetModel() as ITransformModifierModel));
         }
 
 

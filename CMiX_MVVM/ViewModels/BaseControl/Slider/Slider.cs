@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using System.Windows.Input;
 
@@ -7,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Slider : Control
     {
-        public Slider(string name, SliderModel sliderModel) 
+        public Slider(string name, SliderModel sliderModel)
         {
             Name = name;
 
@@ -40,7 +39,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
+                //MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
+                Communicator?.SendMessage(this);
             }
         }
 
@@ -48,17 +48,17 @@ namespace CMiX.MVVM.ViewModels
         private double _minimum = 0.0;
         public double Minimum
         {
-            get => _minimum; 
+            get => _minimum;
             set => SetAndNotify(ref _minimum, value);
         }
 
         private double _maximum = 1.0;
         public double Maximum
         {
-            get => _maximum; 
+            get => _maximum;
             set => SetAndNotify(ref _maximum, value);
         }
-        
+
 
         private void Add() => Amount = Amount >= Maximum ? Maximum : Amount += 0.01;
         private void Sub() => Amount = Amount <= Minimum ? Minimum : Amount -= 0.01;

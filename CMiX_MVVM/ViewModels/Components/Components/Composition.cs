@@ -25,26 +25,32 @@ namespace CMiX.MVVM.ViewModels.Components
         public Slider Transition { get; set; }
         public MasterBeat MasterBeat { get; set; }
 
-
-        public override void SetSender(IMessageSender messageSender)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetSender(messageSender);
+            Communicator.SetNextCommunicator(communicator);
 
-            Transition.SetSender(MessageSender);
-            MasterBeat.SetSender(MessageSender);
-            Camera.SetSender(MessageSender);
-            Visibility.SetSender(MessageSender);
+            Transition.SetCommunicator(this.Communicator);
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            base.SetReceiver(messageReceiver);
+        //public override void SetSender(IMessageSender messageSender)
+        //{
+        //    base.SetSender(messageSender);
 
-            Transition.SetReceiver(MessageReceiver);
-            MasterBeat.SetReceiver(MessageReceiver);
-            Camera.SetReceiver(MessageReceiver);
-            Visibility.SetReceiver(MessageReceiver);
-        }
+        //    //Transition.SetSender(MessageSender);
+        //    //MasterBeat.SetSender(MessageSender);
+        //    //Camera.SetSender(MessageSender);
+        //    //Visibility.SetSender(MessageSender);
+        //}
+
+        //public override void SetReceiver(IMessageReceiver messageReceiver)
+        //{
+        //    base.SetReceiver(messageReceiver);
+
+        //    //Transition.SetReceiver(MessageReceiver);
+        //    //MasterBeat.SetReceiver(MessageReceiver);
+        //    //Camera.SetReceiver(MessageReceiver);
+        //    //Visibility.SetReceiver(MessageReceiver);
+        //}
 
 
         public override IModel GetModel()

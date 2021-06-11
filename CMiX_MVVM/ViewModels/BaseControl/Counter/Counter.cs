@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using System;
 using System.Windows.Input;
@@ -35,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-                MessageSender?.SendMessage(new MessageUpdateViewModel(this));
+                Communicator?.SendMessage(this);
                 Console.WriteLine("Count is : " + Count);
             }
         }

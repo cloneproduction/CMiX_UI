@@ -119,8 +119,10 @@
     <Compile Include="Controls\TextBox\SelectTextOnFocus.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
+    <Compile Include="MessageService\ICommunicator.cs" />
     <Compile Include="MessageService\IMessageEmitter.cs" />
     <Compile Include="MessageService\IMessageTerminal.cs" />
+    <Compile Include="MessageService\ViewModels\ControlCommunicator.cs" />
     <Compile Include="MessageService\ViewModels\IGetSetModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\IAnimModeModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\LFOModel.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Services\DataEventArgs.cs" />
     <Compile Include="Tools\HighResolutionTimer.cs" />
     <Compile Include="ViewModels\Assets\AssetFactory.cs" />
+    <Compile Include="ViewModels\Assets\AssetPathSelectorCommunicator.cs" />
     <Compile Include="ViewModels\Assets\AssetSelectorMessageProcessor.cs" />
     <Compile Include="ViewModels\Assets\AssetSelectorMessageEmitter.cs" />
     <Compile Include="ViewModels\Assets\AssetTemplateSelector.cs" />
@@ -211,15 +214,15 @@
     <Compile Include="MessageService\ViewModels\MessageUpdateViewModel.cs" />
     <Compile Include="ViewModels\Observer\IObserver.cs" />
     <Compile Include="ViewModels\Observer\ISubject.cs" />
-    <Compile Include="ViewModels\Range\IRange.cs" />
-    <Compile Include="ViewModels\Range\Range.cs" />
+    <Compile Include="ViewModels\BaseControl\Range\IRange.cs" />
+    <Compile Include="ViewModels\BaseControl\Range\Range.cs" />
     <Compile Include="Models\InverterModel.cs" />
     <Compile Include="Resources\Easings.cs" />
     <Compile Include="ViewModels\Beat\Resync.cs" />
-    <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
+    <Compile Include="ViewModels\BaseControl\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\BaseControl\ComboBox.cs" />
     <Compile Include="ViewModels\Components\Factory\IComponentFactory.cs" />
-    <Compile Include="ViewModels\Counter\CounterEventArgs.cs" />
+    <Compile Include="ViewModels\BaseControl\Counter\CounterEventArgs.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\IModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\XYZModifier.cs" />
     <Compile Include="ViewModels\Transform\ITransform.cs" />
@@ -285,7 +288,7 @@
     <Compile Include="ViewModels\Outliner\Outliner.cs" />
     <Compile Include="ViewModels\Components\Components\Project.cs" />
     <Compile Include="ViewModels\Components\Components\Scene.cs" />
-    <Compile Include="ViewModels\Counter\Counter.cs" />
+    <Compile Include="ViewModels\BaseControl\Counter\Counter.cs" />
     <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
     <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
     <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
@@ -321,7 +324,7 @@
     <Compile Include="ViewModels\Network\Settings.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
     <Compile Include="MessageService\ViewModels\Control.cs" />
-    <Compile Include="ViewModels\Slider\Slider.cs" />
+    <Compile Include="ViewModels\BaseControl\Slider\Slider.cs" />
     <Compile Include="ViewModels\AnimParameter\Easing\EasingTypes.cs" />
     <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
       <DependentUpon>CustomWindowDialog.xaml</DependentUpon>

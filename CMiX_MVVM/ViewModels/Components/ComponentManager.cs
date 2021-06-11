@@ -40,7 +40,8 @@ namespace CMiX.MVVM.ViewModels.Components
         public void CreateComponent(Component component)
         {
             var newComponent = component.ComponentFactory.CreateComponent();
-            newComponent.SetSender(component.MessageSender);
+            newComponent.SetCommunicator(component.Communicator);
+            //newComponent.SetSender(component.MessageSender);
             component.AddComponent(newComponent);
         }
 

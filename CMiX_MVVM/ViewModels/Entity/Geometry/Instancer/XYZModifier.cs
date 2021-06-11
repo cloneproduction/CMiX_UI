@@ -25,12 +25,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            //messageReceiver?.RegisterReceiver(this, ID);
-        }
-
-
         private List<IObserver> Observers { get; set; }
 
         public void Attach(IObserver observer)

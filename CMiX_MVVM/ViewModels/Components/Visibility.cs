@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models.Component;
 using System.Windows.Input;
 
@@ -31,9 +30,9 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _isVisible, value);
-                MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
+                Communicator?.SendMessage(this);
                 System.Console.WriteLine("Visibility Is " + IsVisible);
-            } 
+            }
         }
 
         private bool _parentIsVisible;
@@ -49,7 +48,7 @@ namespace CMiX.MVVM.ViewModels.Components
                 IsVisible = true;
             else
                 IsVisible = false;
-            
+
             if (ParentIsVisible)
                 this.SetChildVisibility(component, this.IsVisible);
         }

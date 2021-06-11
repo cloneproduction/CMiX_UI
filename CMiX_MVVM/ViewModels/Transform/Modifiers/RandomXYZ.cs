@@ -45,48 +45,24 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetReceiver(messageReceiver);
+            base.SetCommunicator(communicator);
 
-            Counter.SetReceiver(messageReceiver);
+            RandomizeLocation.SetCommunicator(Communicator);
+            LocationX.SetCommunicator(Communicator);
+            LocationY.SetCommunicator(Communicator);
+            LocationZ.SetCommunicator(Communicator);
 
-            RandomizeLocation.SetReceiver(messageReceiver);
-            LocationX.SetReceiver(messageReceiver);
-            LocationY.SetReceiver(messageReceiver);
-            LocationZ.SetReceiver(messageReceiver);
+            RandomizeScale.SetCommunicator(Communicator);
+            ScaleX.SetCommunicator(Communicator);
+            ScaleY.SetCommunicator(Communicator);
+            ScaleZ.SetCommunicator(Communicator);
 
-            RandomizeScale.SetReceiver(messageReceiver);
-            ScaleX.SetReceiver(messageReceiver);
-            ScaleY.SetReceiver(messageReceiver);
-            ScaleZ.SetReceiver(messageReceiver);
-
-            RandomizeRotation.SetReceiver(messageReceiver);
-            RotationX.SetReceiver(messageReceiver);
-            RotationY.SetReceiver(messageReceiver);
-            RotationZ.SetReceiver(messageReceiver);
-        }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            Counter.SetSender(messageSender);
-
-            RandomizeLocation.SetSender(messageSender);
-            LocationX.SetSender(messageSender);
-            LocationY.SetSender(messageSender);
-            LocationZ.SetSender(messageSender);
-
-            RandomizeScale.SetSender(messageSender);
-            ScaleX.SetSender(messageSender);
-            ScaleY.SetSender(messageSender);
-            ScaleZ.SetSender(messageSender);
-
-            RandomizeLocation.SetSender(messageSender);
-            RotationX.SetSender(messageSender);
-            RotationY.SetSender(messageSender);
-            RotationZ.SetSender(messageSender);
+            RandomizeRotation.SetCommunicator(Communicator);
+            RotationX.SetCommunicator(Communicator);
+            RotationY.SetCommunicator(Communicator);
+            RotationZ.SetCommunicator(Communicator);
         }
 
 

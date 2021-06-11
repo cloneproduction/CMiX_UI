@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.ViewModels.Components;
 using System;
-using System.Collections.ObjectModel;
 
 namespace CMiX.Engine.Testing
 {
@@ -11,10 +10,12 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
             Guid g = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
             var projectModel = new ProjectModel(g);
+            Project Project = new Project(projectModel);
+
 
             MessageReceiver messageReceiver = new MessageReceiver();
 
@@ -22,8 +23,10 @@ namespace CMiX.Engine.Testing
             dataReceiver.RegisterReceiver(messageReceiver);
             dataReceiver.Start(settings);
 
-            Project Project = new Project(projectModel);
-            Project.SetReceiver(messageReceiver);
+
+            var componentCommunicator = new ComponentCommunicator(Project);
+            componentCommunicator.MessageReceiver = messageReceiver;
+            Project.SetCommunicator(componentCommunicator);
 
             Console.ReadLine();
         }

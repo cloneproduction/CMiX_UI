@@ -13,25 +13,17 @@ namespace CMiX.MVVM.ViewModels
             InvertMode = new ComboBox<TextureInvertMode>(inverterModel.InvertMode);
         }
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
-        {
-            base.SetReceiver(messageReceiver);
-
-            Invert.SetReceiver(messageReceiver);
-            InvertMode.SetReceiver(messageReceiver);
-        }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            Invert.SetSender(messageSender);
-            InvertMode.SetSender(messageSender);
-        }
-
         public Slider Invert { get; set; }
         public ComboBox<TextureInvertMode> InvertMode { get; set; }
 
+
+        public override void SetCommunicator(ICommunicator communicator)
+        {
+            base.SetCommunicator(communicator);
+
+            Invert.SetCommunicator(Communicator);
+            InvertMode.SetCommunicator(Communicator);
+        }
 
         public override void SetViewModel(IModel model)
         {

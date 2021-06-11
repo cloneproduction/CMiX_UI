@@ -1,12 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class ComboBox<T> : Control
     {
-        public ComboBox(ComboBoxModel<T> comboBoxModel) 
+        public ComboBox(ComboBoxModel<T> comboBoxModel)
         {
             this.ID = comboBoxModel.ID;
         }
@@ -19,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selection, value);
-                MessageSender?.SendMessage(new MessageUpdateViewModel(this));
+                Communicator?.SendMessage(this);
                 System.Console.WriteLine("Combobox Selection is " + Selection.ToString());
             }
         }

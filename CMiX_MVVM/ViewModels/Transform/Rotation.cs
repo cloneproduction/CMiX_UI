@@ -19,22 +19,13 @@ namespace CMiX.MVVM.ViewModels
         public Slider Z { get; set; }
 
 
-        public override void SetReceiver(IMessageReceiver messageReceiver)
+        public override void SetCommunicator(ICommunicator communicator)
         {
-            base.SetReceiver(messageReceiver);
+            base.SetCommunicator(communicator);
 
-            X.SetReceiver(messageReceiver);
-            Y.SetReceiver(messageReceiver);
-            Z.SetReceiver(messageReceiver);
-        }
-
-        public override void SetSender(IMessageSender messageSender)
-        {
-            base.SetSender(messageSender);
-
-            X.SetSender(messageSender);
-            Y.SetSender(messageSender);
-            Z.SetSender(messageSender);
+            X.SetCommunicator(Communicator);
+            Y.SetCommunicator(Communicator);
+            Z.SetCommunicator(Communicator);
         }
 
         public override IModel GetModel()

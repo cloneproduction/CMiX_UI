@@ -1,31 +1,28 @@
-﻿using CMiX.MVVM.MessageService;
-using CMiX.MVVM.ViewModels.Components.Messages;
+﻿using CMiX.MVVM.ViewModels;
 
-namespace CMiX.MVVM.ViewModels.Components
+namespace CMiX.MVVM.MessageService.ViewModels
 {
-    public class ComponentCommunicator : ICommunicator
+    public class ControlCommunicator : ICommunicator
     {
-        public ComponentCommunicator(Component component)
+        public ControlCommunicator(Control control)
         {
-            Component = component;
+            Control = control;
         }
 
-
-        private Component Component { get; set; }
+        private Control Control { get; set; }
         public IMessageReceiver MessageReceiver { get; set; }
         public IMessageSender MessageSender { get; set; }
 
 
         private void SetReceiver(IMessageReceiver messageReceiver)
         {
-            MessageReceiver = new MessageReceiver(Component.MessageProcessor);
+            MessageReceiver = new MessageReceiver(Control.MessageProcessor);
             messageReceiver?.RegisterReceiver(MessageReceiver);
         }
 
-
         private void SetSender(IMessageSender messageSender)
         {
-            MessageSender = new MessageSender(Component);
+            MessageSender = new MessageSender(Control);
             MessageSender.SetSender(messageSender);
         }
 
@@ -36,14 +33,10 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        public void SendMessageAddComponent(Component component)
-        {
-            MessageSender?.SendMessage(new MessageAddComponent(component));
-        }
-
         public void SendMessage<T>(T obj)
         {
-            throw new System.NotImplementedException();
+            var control = obj as Control;
+            MessageSender?.SendMessage(new MessageUpdateViewModel(control));
         }
     }
 }

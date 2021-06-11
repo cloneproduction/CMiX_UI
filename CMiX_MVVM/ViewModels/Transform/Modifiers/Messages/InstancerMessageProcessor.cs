@@ -34,7 +34,7 @@ namespace CMiX.MVVM.ViewModels.Modifiers
         private void ReceiveMessageAddTransformModifier(MessageAddTransformModifier messageAddTransformModifier)
         {
             ITransformModifier transformModifier = Instancer.Factory.CreateTransformModifier(messageAddTransformModifier.TransformModifierModel);
-            transformModifier.SetReceiver(Instancer.MessageReceiver);
+            //transformModifier.SetReceiver(Instancer.MessageReceiver);
             Instancer.AddTransformModifier(transformModifier);
             Console.WriteLine("ReceiveMessageAddTransformModifier Count is " + Instancer.TransformModifiers.Count);
         }

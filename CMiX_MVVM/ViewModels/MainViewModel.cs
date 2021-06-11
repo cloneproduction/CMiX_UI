@@ -29,7 +29,12 @@ namespace CMiX.MVVM.ViewModels
             CurrentProject = new Project(model);
 
 
-            CurrentProject.SetSender(DataSender);
+
+            var componentCommunicator = new ComponentCommunicator(CurrentProject);
+            componentCommunicator.MessageSender = DataSender;
+            CurrentProject.SetCommunicator(componentCommunicator);
+
+            //CurrentProject.SetSender(DataSender);
             AssetManager = new AssetManager(CurrentProject);
 
 
