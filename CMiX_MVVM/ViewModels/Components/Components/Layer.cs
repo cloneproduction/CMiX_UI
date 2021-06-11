@@ -24,6 +24,14 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
+        public MasterBeat MasterBeat { get; set; }
+        public Slider Fade { get; set; }
+        public Mask Mask { get; set; }
+        public PostFX PostFX { get; set; }
+        public BlendMode BlendMode { get; set; }
+        public ToggleButton Out { get; set; }
+
+
         public override void SetCommunicator(ICommunicator communicator)
         {
             Communicator.SetNextCommunicator(communicator);
@@ -35,49 +43,13 @@ namespace CMiX.MVVM.ViewModels.Components
         }
 
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    base.SetReceiver(messageReceiver);
-
-        //    Fade.SetReceiver(MessageReceiver);
-        //    PostFX.SetReceiver(MessageReceiver);
-        //    BlendMode.SetReceiver(MessageReceiver);
-        //    Mask.SetReceiver(MessageReceiver);
-        //}
-
-        //public override void SetSender(IMessageSender messageSender)
-        //{
-        //    base.SetSender(messageSender);
-
-        //    Fade.SetSender(MessageSender);
-        //    PostFX.SetSender(MessageSender);
-        //    BlendMode.SetSender(MessageSender);
-        //    Mask.SetSender(MessageSender);
-        //}
-
-
-        private bool _out;
-        public bool Out
-        {
-            get => _out;
-            set => SetAndNotify(ref _out, value);
-        }
-
-
-        public MasterBeat MasterBeat { get; set; }
-        public Slider Fade { get; set; }
-        public Mask Mask { get; set; }
-        public PostFX PostFX { get; set; }
-        public BlendMode BlendMode { get; set; }
-
-
         public override IModel GetModel()
         {
             LayerModel model = new LayerModel(this.ID);
 
             model.Enabled = this.Enabled;
             model.Name = this.Name;
-            model.Out = this.Out;
+            //model.Out = this.Out;
 
             model.Fade = (SliderModel)this.Fade.GetModel();
             model.BlendMode = (BlendModeModel)this.BlendMode.GetModel();
@@ -89,12 +61,11 @@ namespace CMiX.MVVM.ViewModels.Components
             return model;
         }
 
-
         public override void SetViewModel(IModel model)
         {
             LayerModel layerModel = model as LayerModel;
 
-            this.Out = layerModel.Out;
+            //this.Out = layerModel.Out;
             this.Fade.SetViewModel(layerModel.Fade);
             this.BlendMode.SetViewModel(layerModel.BlendMode);
             this.PostFX.SetViewModel(layerModel.PostFXModel);

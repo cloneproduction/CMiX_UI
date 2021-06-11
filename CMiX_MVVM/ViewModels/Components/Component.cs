@@ -17,40 +17,11 @@ namespace CMiX.MVVM.ViewModels.Components
             ID = componentModel.ID;
             Components = new ObservableCollection<Component>();
             Communicator = new ComponentCommunicator(this);
-
         }
 
         public ComponentCommunicator Communicator { get; set; }
-        public ComponentMessageProcessor MessageProcessor { get; set; }
-        //public IMessageReceiver MessageReceiver { get; set; }
-        //public IMessageSender MessageSender { get; set; }
-
 
         public abstract void SetCommunicator(ICommunicator communicator);
-        //{
-        //    Communicator.SetNextCommunicator(communicator);
-        //}
-
-        //public virtual void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    Communicator.SetReceiver(messageReceiver);
-        //    //var messageProcessor = new ComponentMessageProcessor(this);
-        //    //MessageReceiver = new MessageReceiver(messageProcessor);
-        //    //messageReceiver.RegisterReceiver(MessageReceiver);
-
-        //    //Visibility.SetReceiver(MessageReceiver);
-        //}
-
-        //public virtual void SetSender(IMessageSender messageSender)
-        //{
-        //    Communicator.SetSender(messageSender);
-        //    //MessageSender = new MessageSender(this);
-        //    //MessageSender.SetSender(messageSender);
-
-        //    //Visibility.SetSender(MessageSender);
-        //}
-
-
 
         public Visibility Visibility { get; set; }
         public ICommand VisibilityCommand { get; set; }
@@ -105,7 +76,6 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Add(component);
             IsExpanded = true;
             Communicator.SendMessageAddComponent(component);
-            //MessageSender?.SendMessage(new MessageAddComponent(component));
         }
 
         public void RemoveComponent(Component component)
@@ -114,8 +84,7 @@ namespace CMiX.MVVM.ViewModels.Components
             component.Dispose();
             Components.Remove(component);
             //MessageReceiver?.UnregisterReceiver(component.MessageReceiver);
-            Communicator?.SendMessageAddComponent(component);
-            //MessageSender?.SendMessage(new MessageRemoveComponent(index));
+            //Communicator?.SendMessageAddComponent(component);
         }
 
         public void RemoveComponentAtIndex(int index)
@@ -134,13 +103,8 @@ namespace CMiX.MVVM.ViewModels.Components
             Components.Move(oldIndex, newIndex);
         }
 
-
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();
-
-
-
-
 
         public void Dispose()
         {

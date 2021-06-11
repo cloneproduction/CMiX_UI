@@ -31,7 +31,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator = new ComponentCommunicator(this);
             Communicator.SetNextCommunicator(communicator);
 
             Transform.SetCommunicator(Communicator);
@@ -40,28 +39,6 @@ namespace CMiX.MVVM.ViewModels.Components
             BeatModifier.SetCommunicator(Communicator);
             MasterBeat.SetCommunicator(Communicator);
         }
-
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    base.SetReceiver(messageReceiver);
-
-        //    Transform.SetReceiver(MessageReceiver);
-        //    Mask.SetReceiver(MessageReceiver);
-        //    PostFX.SetReceiver(MessageReceiver);
-        //    BeatModifier.SetReceiver(MessageReceiver);
-        //    MasterBeat.SetReceiver(MessageReceiver);
-        //}
-
-        //public override void SetSender(IMessageSender messageSender)
-        //{
-        //    base.SetSender(messageSender);
-
-        //    Transform.SetSender(MessageSender);
-        //    Mask.SetSender(MessageSender);
-        //    PostFX.SetSender(MessageSender);
-        //    BeatModifier.SetSender(MessageSender);
-        //    MasterBeat.SetSender(MessageSender);
-        //}
 
 
         public override IModel GetModel()

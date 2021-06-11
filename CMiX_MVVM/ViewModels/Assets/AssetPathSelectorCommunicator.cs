@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public void SetNextCommunicator(ICommunicator communicator)
         {
-            throw new NotImplementedException();
+            var messageProcessor = new AssetSelectorMessageProcessor(AssetPathSelector);
         }
 
         public void SendMessage(AssetPathSelector assetPathSelector)

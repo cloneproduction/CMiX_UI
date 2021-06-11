@@ -18,10 +18,10 @@ namespace CMiX.MVVM.ViewModels.Components
 
         private void SetReceiver(IMessageReceiver messageReceiver)
         {
-            MessageReceiver = new MessageReceiver(Component.MessageProcessor);
+            var messageProcessor = new ComponentMessageProcessor(Component);
+            MessageReceiver = new MessageReceiver(messageProcessor);
             messageReceiver?.RegisterReceiver(MessageReceiver);
         }
-
 
         private void SetSender(IMessageSender messageSender)
         {

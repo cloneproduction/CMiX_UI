@@ -25,32 +25,13 @@ namespace CMiX.MVVM.ViewModels.Components
         public Slider Transition { get; set; }
         public MasterBeat MasterBeat { get; set; }
 
+
         public override void SetCommunicator(ICommunicator communicator)
         {
             Communicator.SetNextCommunicator(communicator);
 
             Transition.SetCommunicator(this.Communicator);
         }
-
-        //public override void SetSender(IMessageSender messageSender)
-        //{
-        //    base.SetSender(messageSender);
-
-        //    //Transition.SetSender(MessageSender);
-        //    //MasterBeat.SetSender(MessageSender);
-        //    //Camera.SetSender(MessageSender);
-        //    //Visibility.SetSender(MessageSender);
-        //}
-
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    base.SetReceiver(messageReceiver);
-
-        //    //Transition.SetReceiver(MessageReceiver);
-        //    //MasterBeat.SetReceiver(MessageReceiver);
-        //    //Camera.SetReceiver(MessageReceiver);
-        //    //Visibility.SetReceiver(MessageReceiver);
-        //}
 
 
         public override IModel GetModel()
@@ -68,8 +49,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
             return model;
         }
-
-
         public override void SetViewModel(IModel model)
         {
             CompositionModel compositionModel = model as CompositionModel;

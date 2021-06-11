@@ -26,9 +26,9 @@ namespace CMiX.MVVM.ViewModels.Components
         public Coloration Coloration { get; set; }
         public MasterBeat MasterBeat { get; set; }
 
+
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator = new ComponentCommunicator(this);
             Communicator.SetNextCommunicator(communicator);
 
             BeatModifier.SetCommunicator(Communicator);
@@ -52,7 +52,6 @@ namespace CMiX.MVVM.ViewModels.Components
 
             return model;
         }
-
         public override void SetViewModel(IModel model)
         {
             EntityModel entityModel = model as EntityModel;

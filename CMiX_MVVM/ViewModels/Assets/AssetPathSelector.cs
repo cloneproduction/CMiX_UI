@@ -16,7 +16,6 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            MessageProcessor = new AssetSelectorMessageProcessor(this);
             Communicator = new AssetPathSelectorCommunicator(this);
             Communicator.SetNextCommunicator(communicator);
         }
