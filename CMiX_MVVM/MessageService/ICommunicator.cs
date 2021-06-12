@@ -5,7 +5,8 @@
         IMessageReceiver MessageReceiver { get; set; }
         IMessageSender MessageSender { get; set; }
 
-        void SetNextCommunicator(ICommunicator communicator);
+        void SetCommunicator(ICommunicator communicator);
+        void UnsetCommunicator(ICommunicator communicator);
         void SendMessage<T>(T obj);
     }
 }

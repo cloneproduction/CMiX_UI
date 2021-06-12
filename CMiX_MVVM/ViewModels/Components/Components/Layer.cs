@@ -34,12 +34,17 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator.SetNextCommunicator(communicator);
+            Communicator.SetCommunicator(communicator);
 
             Fade.SetCommunicator(Communicator);
             PostFX.SetCommunicator(Communicator);
             BlendMode.SetCommunicator(Communicator);
             Mask.SetCommunicator(Communicator);
+        }
+
+        public override void UnsetCommunicator(ICommunicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
 
 

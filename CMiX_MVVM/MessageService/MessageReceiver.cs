@@ -41,6 +41,7 @@ namespace CMiX.MVVM.MessageService
         public void UnregisterReceiver(IMessageReceiver messageReceiver)
         {
             _messageReceivers.Remove(messageReceiver.GetID());
+            Console.WriteLine("MessageReceiver Count is " + _messageReceivers.Count);
         }
 
         public void ReceiveMessage(IIDIterator idIterator)

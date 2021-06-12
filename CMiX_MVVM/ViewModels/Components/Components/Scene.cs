@@ -31,13 +31,18 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator.SetNextCommunicator(communicator);
+            Communicator.SetCommunicator(communicator);
 
             Transform.SetCommunicator(Communicator);
             Mask.SetCommunicator(Communicator);
             PostFX.SetCommunicator(Communicator);
             BeatModifier.SetCommunicator(Communicator);
             MasterBeat.SetCommunicator(Communicator);
+        }
+
+        public override void UnsetCommunicator(ICommunicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
 
 

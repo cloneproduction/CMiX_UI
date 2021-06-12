@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator.SetNextCommunicator(communicator);
+            Communicator.SetCommunicator(communicator);
 
             BeatModifier.SetCommunicator(Communicator);
             Geometry.SetCommunicator(Communicator);
@@ -37,6 +37,15 @@ namespace CMiX.MVVM.ViewModels.Components
             Coloration.SetCommunicator(Communicator);
         }
 
+        public override void UnsetCommunicator(ICommunicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+
+            BeatModifier.UnsetCommunicator(Communicator);
+            Geometry.UnsetCommunicator(Communicator);
+            Texture.UnsetCommunicator(Communicator);
+            Coloration.UnsetCommunicator(Communicator);
+        }
 
         public override IModel GetModel()
         {

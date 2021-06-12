@@ -19,9 +19,11 @@ namespace CMiX.MVVM.ViewModels.Components
             Communicator = new ComponentCommunicator(this);
         }
 
-        public ComponentCommunicator Communicator { get; set; }
+        internal ComponentCommunicator Communicator { get; set; }
 
         public abstract void SetCommunicator(ICommunicator communicator);
+        public abstract void UnsetCommunicator(ICommunicator communicator);
+
 
         public Visibility Visibility { get; set; }
         public ICommand VisibilityCommand { get; set; }
@@ -73,18 +75,21 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void AddComponent(Component component)
         {
+            component.SetCommunicator(this.Communicator);
             Components.Add(component);
             IsExpanded = true;
-            Communicator.SendMessageAddComponent(component);
+
+            Communicator?.SendMessageAddComponent(component);
         }
 
         public void RemoveComponent(Component component)
         {
             int index = Components.IndexOf(component);
             component.Dispose();
+            component.UnsetCommunicator(this.Communicator);
             Components.Remove(component);
-            //MessageReceiver?.UnregisterReceiver(component.MessageReceiver);
-            //Communicator?.SendMessageAddComponent(component);
+
+            Communicator?.SendMessageRemoveComponent(index);
         }
 
         public void RemoveComponentAtIndex(int index)

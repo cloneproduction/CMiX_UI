@@ -11,18 +11,30 @@ namespace CMiX.MVVM.ViewModels.Assets
             AssetPathSelector = assetPathSelector;
         }
 
+
         private AssetPathSelector AssetPathSelector { get; set; }
         public IMessageReceiver MessageReceiver { get; set; }
         public IMessageSender MessageSender { get; set; }
 
-        public void SetNextCommunicator(ICommunicator communicator)
+        public void SetCommunicator(ICommunicator communicator)
         {
             var messageProcessor = new AssetSelectorMessageProcessor(AssetPathSelector);
+            MessageReceiver = new MessageReceiver(messageProcessor);
+            communicator.MessageReceiver?.RegisterReceiver(MessageReceiver);
+
+            MessageSender = new MessageSender(AssetPathSelector);
+            MessageSender.SetSender(communicator.MessageSender);
         }
 
-        public void SendMessage(AssetPathSelector assetPathSelector)
+        public void UnsetCommunicator(ICommunicator communicator)
         {
-            MessageSender?.SendMessage(new MessageAsset(assetPathSelector.SelectedAsset.GetModel() as IAssetModel));
+            communicator.MessageReceiver?.UnregisterReceiver(MessageReceiver);
+        }
+
+
+        public void SendMessageSelectedAsset(Asset selectedAsset)
+        {
+            MessageSender?.SendMessage(new MessageAsset(selectedAsset.GetModel() as IAssetModel));
         }
 
         public void SendMessage<T>(T obj)

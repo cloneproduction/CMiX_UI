@@ -16,29 +16,30 @@ namespace CMiX.MVVM.ViewModels.Components
         public IMessageSender MessageSender { get; set; }
 
 
-        private void SetReceiver(IMessageReceiver messageReceiver)
+        public void SetCommunicator(ICommunicator communicator)
         {
             var messageProcessor = new ComponentMessageProcessor(Component);
             MessageReceiver = new MessageReceiver(messageProcessor);
-            messageReceiver?.RegisterReceiver(MessageReceiver);
-        }
+            communicator.MessageReceiver?.RegisterReceiver(MessageReceiver);
 
-        private void SetSender(IMessageSender messageSender)
-        {
             MessageSender = new MessageSender(Component);
-            MessageSender.SetSender(messageSender);
+            MessageSender.SetSender(communicator.MessageSender);
         }
 
-        public void SetNextCommunicator(ICommunicator communicator)
+        public void UnsetCommunicator(ICommunicator communicator)
         {
-            this.SetReceiver(communicator.MessageReceiver);
-            this.SetSender(communicator.MessageSender);
+            communicator.MessageReceiver?.UnregisterReceiver(MessageReceiver);
         }
 
 
         public void SendMessageAddComponent(Component component)
         {
             MessageSender?.SendMessage(new MessageAddComponent(component));
+        }
+
+        public void SendMessageRemoveComponent(int index)
+        {
+            MessageSender?.SendMessage(new MessageRemoveComponent(index));
         }
 
         public void SendMessage<T>(T obj)

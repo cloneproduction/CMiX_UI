@@ -5,20 +5,22 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Control : ViewModel, IIDObject, IGetSetModel<IModel>
+    public abstract class Control : ViewModel, IIDObject
     {
         public Guid ID { get; set; }
-        public IMessageProcessor MessageProcessor { get; set; }
         public ICommunicator Communicator { get; set; }
 
 
         public virtual void SetCommunicator(ICommunicator communicator)
         {
-            MessageProcessor = new ControlMessageProcessor(this);
             Communicator = new ControlCommunicator(this);
-            Communicator.SetNextCommunicator(communicator);
+            Communicator.SetCommunicator(communicator);
         }
 
+        public virtual void UnsetCommunicator(ICommunicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
 
         public abstract void SetViewModel(IModel model);
         public abstract IModel GetModel();

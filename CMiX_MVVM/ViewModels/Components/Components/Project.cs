@@ -80,7 +80,12 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator.SetNextCommunicator(communicator);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public override void UnsetCommunicator(ICommunicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
     }
 }

@@ -16,10 +16,18 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator = new AssetPathSelectorCommunicator(this);
-            Communicator.SetNextCommunicator(communicator);
+            AssetPathSelectorCommunicator = new AssetPathSelectorCommunicator(this);
+            AssetPathSelectorCommunicator.SetCommunicator(communicator);
         }
 
+        public override void UnsetCommunicator(ICommunicator communicator)
+        {
+            base.UnsetCommunicator(communicator);
+
+            AssetPathSelectorCommunicator.UnsetCommunicator(communicator);
+        }
+
+        public AssetPathSelectorCommunicator AssetPathSelectorCommunicator { get; set; }
 
 
         private Asset _selectedAsset;
@@ -30,7 +38,7 @@ namespace CMiX.MVVM.ViewModels.Assets
             {
                 SetAndNotify(ref _selectedAsset, value);
 
-                Communicator?.SendMessage(this);
+                AssetPathSelectorCommunicator?.SendMessageSelectedAsset(SelectedAsset);
                 if (value != null)
                     System.Console.WriteLine("SelectedAsset Name is " + SelectedAsset.Name);
             }

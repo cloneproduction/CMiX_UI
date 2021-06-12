@@ -34,6 +34,16 @@ namespace CMiX.MVVM.ViewModels
             AssetPathSelector.SetCommunicator(Communicator);
         }
 
+        public override void UnsetCommunicator(ICommunicator communicator)
+        {
+            base.UnsetCommunicator(communicator);
+
+            Instancer.UnsetCommunicator(Communicator);
+            Transform.UnsetCommunicator(Communicator);
+            GeometryFX.UnsetCommunicator(Communicator);
+            AssetPathSelector.UnsetCommunicator(Communicator);
+        }
+
 
         public override IModel GetModel()
         {

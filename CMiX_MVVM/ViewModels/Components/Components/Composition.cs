@@ -28,9 +28,14 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public override void SetCommunicator(ICommunicator communicator)
         {
-            Communicator.SetNextCommunicator(communicator);
+            Communicator.SetCommunicator(communicator);
 
             Transition.SetCommunicator(this.Communicator);
+        }
+
+        public override void UnsetCommunicator(ICommunicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
 
 
@@ -49,6 +54,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             return model;
         }
+
         public override void SetViewModel(IModel model)
         {
             CompositionModel compositionModel = model as CompositionModel;

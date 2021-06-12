@@ -14,24 +14,20 @@ namespace CMiX.MVVM.MessageService.ViewModels
         public IMessageSender MessageSender { get; set; }
 
 
-        private void SetReceiver(IMessageReceiver messageReceiver)
+        public void SetCommunicator(ICommunicator communicator)
         {
-            MessageReceiver = new MessageReceiver(Control.MessageProcessor);
-            messageReceiver?.RegisterReceiver(MessageReceiver);
-        }
+            var messageProcessor = new ControlMessageProcessor(Control);
+            MessageReceiver = new MessageReceiver(messageProcessor);
+            communicator.MessageReceiver?.RegisterReceiver(MessageReceiver);
 
-        private void SetSender(IMessageSender messageSender)
-        {
             MessageSender = new MessageSender(Control);
-            MessageSender.SetSender(messageSender);
+            MessageSender.SetSender(communicator.MessageSender);
         }
 
-        public void SetNextCommunicator(ICommunicator communicator)
+        public void UnsetCommunicator(ICommunicator communicator)
         {
-            this.SetReceiver(communicator.MessageReceiver);
-            this.SetSender(communicator.MessageSender);
+            communicator.MessageReceiver?.UnregisterReceiver(MessageReceiver);
         }
-
 
         public void SendMessage<T>(T obj)
         {
