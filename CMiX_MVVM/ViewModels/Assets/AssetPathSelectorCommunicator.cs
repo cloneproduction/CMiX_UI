@@ -18,8 +18,8 @@ namespace CMiX.MVVM.ViewModels.Assets
 
         public void SetCommunicator(ICommunicator communicator)
         {
-            var messageProcessor = new AssetSelectorMessageProcessor(AssetPathSelector);
-            MessageReceiver = new MessageReceiver(messageProcessor);
+            //var messageProcessor = new AssetSelectorMessageProcessor(AssetPathSelector);
+            MessageReceiver = new MessageReceiver(AssetPathSelector);
             communicator.MessageReceiver?.RegisterReceiver(MessageReceiver);
 
             MessageSender = new MessageSender(AssetPathSelector);

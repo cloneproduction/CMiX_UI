@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _isChecked, value);
-                Communicator?.SendMessage(this);
+                Communicator?.SendMessageUpdateViewModel(this);
                 System.Console.WriteLine("ToggleButton Is Checked : " + IsChecked);
             }
         }

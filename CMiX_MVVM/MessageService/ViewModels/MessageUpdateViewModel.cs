@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels;
+using System;
 
 namespace CMiX.MVVM.MessageService
 {
@@ -21,5 +22,12 @@ namespace CMiX.MVVM.MessageService
         }
 
         public IModel Model { get; set; }
+
+        public override void Process<T>(T receiver)
+        {
+            Console.WriteLine("MessageUpdateViewModel ProcessMessage");
+            var control = receiver as Control;
+            control.SetViewModel(Model);
+        }
     }
 }

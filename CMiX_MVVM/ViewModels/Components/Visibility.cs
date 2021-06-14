@@ -30,7 +30,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set
             {
                 SetAndNotify(ref _isVisible, value);
-                Communicator?.SendMessage(this);
+                Communicator?.SendMessageUpdateViewModel(this);
                 System.Console.WriteLine("Visibility Is " + IsVisible);
             }
         }

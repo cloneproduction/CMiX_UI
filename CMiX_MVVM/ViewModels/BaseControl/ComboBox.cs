@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selection, value);
-                Communicator?.SendMessage(this);
+                Communicator?.SendMessageUpdateViewModel(this);
                 System.Console.WriteLine("Combobox Selection is " + Selection.ToString());
             }
         }

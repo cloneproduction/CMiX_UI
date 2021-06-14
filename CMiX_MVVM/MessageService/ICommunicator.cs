@@ -7,6 +7,5 @@
 
         void SetCommunicator(ICommunicator communicator);
         void UnsetCommunicator(ICommunicator communicator);
-        void SendMessage<T>(T obj);
     }
 }

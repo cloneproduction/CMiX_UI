@@ -33,5 +33,7 @@ namespace CMiX.MVVM.MessageService
         {
             IDs.Insert(0, id);
         }
+
+        public abstract void Process<T>(T receiver);
     }
 }

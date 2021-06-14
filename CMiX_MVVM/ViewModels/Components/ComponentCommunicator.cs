@@ -18,8 +18,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void SetCommunicator(ICommunicator communicator)
         {
-            var messageProcessor = new ComponentMessageProcessor(Component);
-            MessageReceiver = new MessageReceiver(messageProcessor);
+            MessageReceiver = new MessageReceiver(Component);
             communicator.MessageReceiver?.RegisterReceiver(MessageReceiver);
 
             MessageSender = new MessageSender(Component);

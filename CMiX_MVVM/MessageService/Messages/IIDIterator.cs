@@ -9,8 +9,8 @@ namespace CMiX.MVVM.MessageService
         void Next();
         bool IsDone { get; }
         Guid CurrentID { get; }
-        Message Message { get; set; }
 
+        Message Message { get; }
         List<Guid> IDs { get; }
     }
 }

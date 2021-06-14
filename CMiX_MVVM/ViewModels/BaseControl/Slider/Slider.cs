@@ -39,11 +39,9 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                //MessageSender?.SendMessage(new MessageUpdateViewModel(this.GetModel()));
-                Communicator?.SendMessage(this);
+                Communicator?.SendMessageUpdateViewModel(this);
             }
         }
-
 
         private double _minimum = 0.0;
         public double Minimum

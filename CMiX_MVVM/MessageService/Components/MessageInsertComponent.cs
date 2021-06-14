@@ -18,5 +18,10 @@ namespace CMiX.MVVM.ViewModels.Components.Messages
 
         public int Index { get; set; }
         public IComponentModel ComponentModel { get; set; }
+
+        public override void Process<T>(T receiver)
+        {
+            var component = receiver as Component;
+        }
     }
 }

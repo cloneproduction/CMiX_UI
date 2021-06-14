@@ -1,16 +1,21 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.MessageService
 {
     public class MessageRemoveTransformModifier : Message
     {
-        public MessageRemoveTransformModifier(Guid id, int index)
+        public MessageRemoveTransformModifier(int index)
         {
             Index = index;
-            this.AddID(id);
         }
 
         public int Index { get; set; }
+
+        public override void Process<T>(T receiver)
+        {
+            ITransformModifier transformModifier = receiver as ITransformModifier;
+        }
     }
 }

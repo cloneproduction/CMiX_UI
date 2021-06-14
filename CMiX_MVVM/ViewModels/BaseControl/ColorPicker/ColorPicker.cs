@@ -38,7 +38,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                Communicator?.SendMessage(this);
+                Communicator?.SendMessageUpdateViewModel(this);
             }
         }
 

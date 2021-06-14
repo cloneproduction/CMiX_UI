@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _mode, value);
-                Communicator?.SendMessage(this);
+                Communicator?.SendMessageUpdateViewModel(this);
                 System.Console.WriteLine("BlendModel is " + Mode);
             }
         }
