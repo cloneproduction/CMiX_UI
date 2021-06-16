@@ -11,19 +11,20 @@ namespace CMiX.MVVM.MessageService
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        public MessageReceiver(IIDObject idObject) : this()
+        public MessageReceiver(Guid id) : this()
         {
-            IDObject = idObject;
+            //IDObject = idObject;
+            ID = id;
         }
 
 
         private Dictionary<Guid, IMessageReceiver> _messageReceivers { get; set; }
         private IIDObject IDObject { get; set; }
-
+        private Guid ID { get; set; }
 
         public Guid GetID()
         {
-            return IDObject.ID;
+            return ID;
         }
 
         private IMessageReceiver GetMessageProcessor(Guid id)

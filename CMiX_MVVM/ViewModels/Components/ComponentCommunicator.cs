@@ -18,10 +18,10 @@ namespace CMiX.MVVM.ViewModels.Components
 
         public void SetCommunicator(ICommunicator communicator)
         {
-            MessageReceiver = new MessageReceiver(Component);
+            MessageReceiver = new MessageReceiver(Component.ID);
             communicator.MessageReceiver?.RegisterReceiver(MessageReceiver);
 
-            MessageSender = new MessageSender(Component);
+            MessageSender = new MessageSender(Component.ID);
             MessageSender.SetSender(communicator.MessageSender);
         }
 

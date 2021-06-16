@@ -1,13 +1,12 @@
-﻿using CMiX.MVVM.ViewModels;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.MessageService
 {
     public class MessageSender : IMessageSender
     {
-        public MessageSender(IIDObject idObject)
+        public MessageSender(Guid id)
         {
-            _id = idObject.ID;
+            _id = id;
         }
 
 

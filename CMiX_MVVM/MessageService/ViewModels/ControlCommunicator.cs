@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -6,13 +7,14 @@ namespace CMiX.MVVM.ViewModels
     {
         public ControlCommunicator(Control control)
         {
-            Control = control;
+            ID = control.ID;
         }
 
 
-        private Control Control { get; set; }
+        private Guid ID { get; set; }
         public IMessageReceiver MessageReceiver { get; set; }
         public IMessageSender MessageSender { get; set; }
+
 
         //public IMessageProcessor MessageProcessor { get; set; }
 
@@ -24,6 +26,12 @@ namespace CMiX.MVVM.ViewModels
         //    MessageSender.SendMessage(message);
         //}
 
+        public void SetMessageProcessor(IMessageProcessor messageProcessor)
+        {
+
+        }
+
+
         public void SendMessageUpdateViewModel(Control control)
         {
             var message = new MessageUpdateViewModel(control);
@@ -32,10 +40,10 @@ namespace CMiX.MVVM.ViewModels
 
         public void SetCommunicator(ICommunicator communicator)
         {
-            MessageReceiver = new MessageReceiver(Control);
+            MessageReceiver = new MessageReceiver(ID);
             MessageReceiver.SetReceiver(communicator.MessageReceiver);
 
-            MessageSender = new MessageSender(Control);
+            MessageSender = new MessageSender(ID);
             MessageSender.SetSender(communicator.MessageSender);
         }
 
