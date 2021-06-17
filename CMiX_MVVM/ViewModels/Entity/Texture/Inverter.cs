@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels
         public ComboBox<TextureInvertMode> InvertMode { get; set; }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
 

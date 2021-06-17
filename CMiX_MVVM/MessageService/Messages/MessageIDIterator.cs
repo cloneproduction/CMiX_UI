@@ -36,6 +36,11 @@ namespace CMiX.MVVM.MessageService
             _current += _step;
         }
 
+        public void Process<T>(T receiver)
+        {
+            Message.Process(receiver);
+        }
+
         public Guid CurrentID
         {
             get { return _message.GetID(_current); }

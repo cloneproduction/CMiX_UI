@@ -9,6 +9,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Translate(string name, TranslateModel translateModel)
         {
+            this.ID = translateModel.ID;
             X = new Slider(nameof(X), translateModel.X);
             Y = new Slider(nameof(Y), translateModel.Y);
             Z = new Slider(nameof(Z), translateModel.Z);
@@ -24,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
             //XYZ = new Vector3D[count];
         }
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
 
@@ -36,6 +37,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             TranslateModel model = new TranslateModel();
+            model.ID = this.ID;
             model.X = (SliderModel)this.X.GetModel();
             model.Y = (SliderModel)this.Y.GetModel();
             model.Z = (SliderModel)this.Z.GetModel();
@@ -45,6 +47,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             TranslateModel translateModel = model as TranslateModel;
+            this.ID = translateModel.ID;
             this.X.SetViewModel(translateModel.X);
             this.Y.SetViewModel(translateModel.Y);
             this.Z.SetViewModel(translateModel.Z);

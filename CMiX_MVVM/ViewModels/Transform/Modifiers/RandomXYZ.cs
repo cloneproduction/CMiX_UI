@@ -45,9 +45,11 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
+
+            Counter.SetCommunicator(Communicator);
 
             RandomizeLocation.SetCommunicator(Communicator);
             LocationX.SetCommunicator(Communicator);

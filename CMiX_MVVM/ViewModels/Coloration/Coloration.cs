@@ -7,14 +7,14 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Coloration : Control
     {
-        public Coloration(MasterBeat masterBeat, ColorationModel colorationModel) 
+        public Coloration(MasterBeat masterBeat, ColorationModel colorationModel)
         {
             this.ID = colorationModel.ID;
             //BeatModifier = new BeatModifier(masterBeat, colorationModel.BeatModifierModel);
             ColorSelector = new ColorSelector(colorationModel.ColorSelectorModel);
         }
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
 

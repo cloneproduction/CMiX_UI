@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
         public GeometryFX GeometryFX { get; set; }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
 
@@ -34,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
             AssetPathSelector.SetCommunicator(Communicator);
         }
 
-        public override void UnsetCommunicator(ICommunicator communicator)
+        public override void UnsetCommunicator(Communicator communicator)
         {
             base.UnsetCommunicator(communicator);
 

@@ -19,10 +19,10 @@ namespace CMiX.MVVM.ViewModels.Components
             Communicator = new ComponentCommunicator(this);
         }
 
-        internal ComponentCommunicator Communicator { get; set; }
+        public ComponentCommunicator Communicator { get; set; }
 
-        public abstract void SetCommunicator(ICommunicator communicator);
-        public abstract void UnsetCommunicator(ICommunicator communicator);
+        public abstract void SetCommunicator(Communicator communicator);
+        public abstract void UnsetCommunicator(Communicator communicator);
 
 
         public Visibility Visibility { get; set; }

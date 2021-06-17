@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
 
             this.ID = sliderModel.ID;
             this.Amount = sliderModel.Amount;
-
+            IsReceiving = false;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             ResetCommand = new RelayCommand(p => Reset());
@@ -39,7 +39,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                Communicator?.SendMessageUpdateViewModel(this);
+                if (!IsReceiving)
+                    Communicator?.SendMessageUpdateViewModel(this);
             }
         }
 

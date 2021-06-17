@@ -12,7 +12,6 @@ namespace CMiX.MVVM.ViewModels
         {
             this.ID = textureModel.ID;
 
-            AssetPathSelector = new AssetPathSelector(new AssetTexture(), textureModel.AssetPathSelectorModel);
             Inverter = new Inverter(nameof(Inverter), textureModel.InverterModel);
 
             Brightness = new Slider(nameof(Brightness), textureModel.Brightness) { Minimum = -1.0, Maximum = 1.0 };
@@ -25,6 +24,7 @@ namespace CMiX.MVVM.ViewModels
             Rotate = new Slider(nameof(Rotate), textureModel.Rotate) { Minimum = -1.0, Maximum = 1.0 };
             Pan = new Slider(nameof(Pan), textureModel.Pan) { Minimum = -1.0, Maximum = 1.0 };
             Tilt = new Slider(nameof(Tilt), textureModel.Tilt) { Minimum = -1.0, Maximum = 1.0 };
+            AssetPathSelector = new AssetPathSelector(new AssetTexture(), textureModel.AssetPathSelectorModel);
         }
 
 
@@ -42,9 +42,11 @@ namespace CMiX.MVVM.ViewModels
         public Inverter Inverter { get; set; }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
+
+            AssetPathSelector.SetCommunicator(Communicator);
 
             Inverter.SetCommunicator(Communicator);
             Brightness.SetCommunicator(Communicator);
@@ -59,11 +61,30 @@ namespace CMiX.MVVM.ViewModels
             Tilt.SetCommunicator(Communicator);
         }
 
+        public override void UnsetCommunicator(Communicator communicator)
+        {
+            base.UnsetCommunicator(communicator);
+
+            AssetPathSelector.UnsetCommunicator(Communicator);
+
+            Inverter.UnsetCommunicator(Communicator);
+            Brightness.UnsetCommunicator(Communicator);
+            Contrast.UnsetCommunicator(Communicator);
+            Hue.UnsetCommunicator(Communicator);
+            Saturation.UnsetCommunicator(Communicator);
+            Luminosity.UnsetCommunicator(Communicator);
+            Keying.UnsetCommunicator(Communicator);
+            Scale.UnsetCommunicator(Communicator);
+            Rotate.UnsetCommunicator(Communicator);
+            Pan.UnsetCommunicator(Communicator);
+            Tilt.UnsetCommunicator(Communicator);
+        }
 
         public override IModel GetModel()
         {
             TextureModel model = new TextureModel();
 
+            model.ID = this.ID;
             model.AssetPathSelectorModel = (AssetPathSelectorModel)this.AssetPathSelector.GetModel();
             model.InverterModel = (InverterModel)this.Inverter.GetModel();
             model.Brightness = (SliderModel)this.Brightness.GetModel();
@@ -85,6 +106,7 @@ namespace CMiX.MVVM.ViewModels
         {
             TextureModel textureModel = model as TextureModel;
 
+            this.ID = textureModel.ID;
             this.AssetPathSelector.SetViewModel(textureModel.AssetPathSelectorModel);
             this.Inverter.SetViewModel(textureModel.InverterModel);
             this.Brightness.SetViewModel(textureModel.Brightness);

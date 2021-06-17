@@ -27,7 +27,9 @@ namespace CMiX.MVVM.MessageService
         {
             Console.WriteLine("MessageUpdateViewModel ProcessMessage");
             var control = receiver as Control;
+            control.IsReceiving = true;
             control.SetViewModel(Model);
+            control.IsReceiving = false;
         }
     }
 }

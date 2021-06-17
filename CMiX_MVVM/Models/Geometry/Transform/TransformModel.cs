@@ -3,11 +3,11 @@ using System;
 
 namespace CMiX.MVVM.Models
 {
-    [Serializable]
     public class TransformModel : Model, IModel
     {
         public TransformModel()
         {
+            this.ID = Guid.NewGuid();
             GeometryTranslateModel = new GeometryTranslateModel();
             GeometryScaleModel = new GeometryScaleModel();
             GeometryRotationModel = new GeometryRotationModel();

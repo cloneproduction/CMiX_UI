@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
 
@@ -59,7 +59,8 @@ namespace CMiX.MVVM.ViewModels
         public void CreateTransformModifier(TransformModifierNames transformModifierNames)
         {
             ITransformModifier transformModifier = Factory.CreateTransformModifier(transformModifierNames);
-            //transformModifier.SetSender(MessageSender);
+            transformModifier.SetCommunicator(Communicator);
+
             AddTransformModifier(transformModifier);
         }
 
@@ -67,7 +68,7 @@ namespace CMiX.MVVM.ViewModels
         public void AddTransformModifier(ITransformModifier transformModifier)
         {
             TransformModifiers.Add(transformModifier);
-            //MessageSender?.SendMessage(new MessageAddTransformModifier(transformModifier.GetModel() as ITransformModifierModel));
+            Communicator?.SendMessage(new MessageAddTransformModifier(transformModifier.GetModel() as ITransformModifierModel));
         }
 
 

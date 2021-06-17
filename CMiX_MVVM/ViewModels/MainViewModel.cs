@@ -30,8 +30,8 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-            var componentCommunicator = new ComponentCommunicator(CurrentProject);
-            componentCommunicator.MessageSender = DataSender;
+            var componentCommunicator = new DataSenderCommunicator(DataSender);
+            //componentCommunicator.MessageSender = DataSender;
             CurrentProject.SetCommunicator(componentCommunicator);
 
             //CurrentProject.SetSender(DataSender);
@@ -91,7 +91,7 @@ namespace CMiX.MVVM.ViewModels
         private ObservableCollection<double> _animatedDouble;
         public ObservableCollection<double> AnimatedDouble
         {
-            get => _animatedDouble; 
+            get => _animatedDouble;
             set => SetAndNotify(ref _animatedDouble, value);
         }
 
@@ -172,7 +172,7 @@ namespace CMiX.MVVM.ViewModels
             //ComponentFactory.CreateComposition(CurrentProject);
         }
         public void Undo()
-        { 
+        {
             //Mementor.Undo();
         }
 

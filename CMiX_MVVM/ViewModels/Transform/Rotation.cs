@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels
         public Slider Z { get; set; }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
 

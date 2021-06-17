@@ -8,15 +8,15 @@ namespace CMiX.MVVM.ViewModels
     {
         public Guid ID { get; set; }
         public ControlCommunicator Communicator { get; set; }
+        public bool IsReceiving { get; set; }
 
-
-        public virtual void SetCommunicator(ICommunicator communicator)
+        public virtual void SetCommunicator(Communicator communicator)
         {
             Communicator = new ControlCommunicator(this);
             Communicator.SetCommunicator(communicator);
         }
 
-        public virtual void UnsetCommunicator(ICommunicator communicator)
+        public virtual void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
         }

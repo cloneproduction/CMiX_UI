@@ -9,6 +9,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Transform(TransformModel transformModel)
         {
+            this.ID = transformModel.ID;
             Translate = new Translate(nameof(Translate), transformModel.TranslateModel);
             Scale = new Scale(nameof(Scale), transformModel.ScaleModel);
             Rotation = new Rotation(nameof(Rotation), transformModel.RotationModel);
@@ -38,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             base.SetCommunicator(communicator);
 
@@ -51,6 +52,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             TransformModel transformModel = model as TransformModel;
+            this.ID = transformModel.ID;
             this.Translate.SetViewModel(transformModel.TranslateModel);
             this.Scale.SetViewModel(transformModel.ScaleModel);
             this.Rotation.SetViewModel(transformModel.RotationModel);
@@ -59,6 +61,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             TransformModel model = new TransformModel();
+            model.ID = this.ID;
             model.TranslateModel = (TranslateModel)this.Translate.GetModel();
             model.ScaleModel = (ScaleModel)this.Scale.GetModel();
             model.RotationModel = (RotationModel)this.Rotation.GetModel();

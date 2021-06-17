@@ -10,7 +10,8 @@ namespace CMiX.MVVM.MessageService
         bool IsDone { get; }
         Guid CurrentID { get; }
 
-        Message Message { get; }
+        void Process<T>(T receiver);
+        //Message Message { get; }
         List<Guid> IDs { get; }
     }
 }

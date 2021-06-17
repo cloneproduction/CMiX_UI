@@ -3,11 +3,11 @@ using System;
 
 namespace CMiX.MVVM.Models
 {
-    [Serializable]
     public class TranslateModel : Model, IModel
     {
         public TranslateModel()
         {
+            this.ID = Guid.NewGuid();
             X = new SliderModel();
             Y = new SliderModel();
             Z = new SliderModel();

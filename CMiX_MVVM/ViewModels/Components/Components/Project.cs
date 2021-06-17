@@ -12,8 +12,7 @@ namespace CMiX.MVVM.ViewModels.Components
 {
     public class Project : Component
     {
-        public Project(ProjectModel projectModel)
-            : base(projectModel)
+        public Project(ProjectModel projectModel) : base(projectModel)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
@@ -78,12 +77,12 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             Communicator.SetCommunicator(communicator);
         }
 
-        public override void UnsetCommunicator(ICommunicator communicator)
+        public override void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
         }

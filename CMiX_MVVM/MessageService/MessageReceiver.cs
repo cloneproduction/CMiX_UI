@@ -11,10 +11,10 @@ namespace CMiX.MVVM.MessageService
             _messageReceivers = new Dictionary<Guid, IMessageReceiver>();
         }
 
-        public MessageReceiver(Guid id) : this()
+        public MessageReceiver(IIDObject obj) : this()
         {
-            //IDObject = idObject;
-            ID = id;
+            ID = obj.ID;
+            IDObject = obj;
         }
 
 
@@ -64,7 +64,7 @@ namespace CMiX.MVVM.MessageService
             if (idIterator.IsDone)
             {
                 Console.WriteLine("idIterator.IsDone");
-                idIterator.Message.Process(IDObject);
+                idIterator.Process(IDObject);
                 return;
             }
 

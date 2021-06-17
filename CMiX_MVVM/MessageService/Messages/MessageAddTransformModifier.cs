@@ -19,7 +19,9 @@ namespace CMiX.MVVM.MessageService
 
         public override void Process<T>(T receiver)
         {
-            ITransformModifier transformModifier = receiver as ITransformModifier;
+            Instancer instancer = receiver as Instancer;
+            instancer.CreateTransformModifier(TransformModifierModel.Name);
+
         }
     }
 }

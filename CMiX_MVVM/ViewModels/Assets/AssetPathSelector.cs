@@ -14,13 +14,14 @@ namespace CMiX.MVVM.ViewModels.Assets
             SelectedAsset = defaultAsset;
         }
 
-        public override void SetCommunicator(ICommunicator communicator)
+
+        public override void SetCommunicator(Communicator communicator)
         {
             AssetPathSelectorCommunicator = new AssetPathSelectorCommunicator(this);
             AssetPathSelectorCommunicator.SetCommunicator(communicator);
         }
 
-        public override void UnsetCommunicator(ICommunicator communicator)
+        public override void UnsetCommunicator(Communicator communicator)
         {
             base.UnsetCommunicator(communicator);
 

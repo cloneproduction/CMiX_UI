@@ -17,16 +17,15 @@ namespace CMiX.Engine.Testing
             Project Project = new Project(projectModel);
 
 
-            MessageReceiver messageReceiver = new MessageReceiver();
-
             var dataReceiver = new DataReceiver();
-            dataReceiver.RegisterReceiver(messageReceiver);
+
             dataReceiver.Start(settings);
 
 
             var componentCommunicator = new ComponentCommunicator(Project);
-            componentCommunicator.MessageReceiver = messageReceiver;
+            //componentCommunicator.MessageReceiver = messageReceiver;
             Project.SetCommunicator(componentCommunicator);
+            dataReceiver.RegisterReceiver(componentCommunicator);
 
             Console.ReadLine();
         }

@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels.Components
         public MasterBeat MasterBeat { get; set; }
 
 
-        public override void SetCommunicator(ICommunicator communicator)
+        public override void SetCommunicator(Communicator communicator)
         {
             Communicator.SetCommunicator(communicator);
 
@@ -40,7 +40,7 @@ namespace CMiX.MVVM.ViewModels.Components
             MasterBeat.SetCommunicator(Communicator);
         }
 
-        public override void UnsetCommunicator(ICommunicator communicator)
+        public override void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
         }
