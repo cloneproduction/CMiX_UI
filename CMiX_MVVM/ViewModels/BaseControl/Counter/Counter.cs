@@ -35,7 +35,6 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _count, value);
                 OnCountChange();
                 Communicator?.SendMessageUpdateViewModel(this);
-                Console.WriteLine("Count is : " + Count);
             }
         }
 

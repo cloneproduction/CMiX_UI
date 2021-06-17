@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
 
             NoAspectRatio = false;
             TransformModifiers = new ObservableCollection<ITransformModifier>();
-
+            Factory = new TransformModifierFactory(beat);
             CreateTransformModifierCommand = new RelayCommand(p => CreateTransformModifier((TransformModifierNames)p));
             RemoveTransformModifierCommand = new RelayCommand(p => RemoveTransformModifier(p as ITransformModifier));
         }
@@ -56,17 +56,23 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public void CreateTransformModifier(TransformModifierNames transformModifierNames)
+        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames)
         {
             ITransformModifier transformModifier = Factory.CreateTransformModifier(transformModifierNames);
-            transformModifier.SetCommunicator(Communicator);
-
             AddTransformModifier(transformModifier);
+            return transformModifier;
         }
 
+        public ITransformModifier CreateTransformModifier(ITransformModifierModel transformModifierModel)
+        {
+            ITransformModifier transformModifier = Factory.CreateTransformModifier(transformModifierModel);
+            AddTransformModifier(transformModifier);
+            return transformModifier;
+        }
 
         public void AddTransformModifier(ITransformModifier transformModifier)
         {
+            transformModifier.SetCommunicator(Communicator);
             TransformModifiers.Add(transformModifier);
             Communicator?.SendMessage(new MessageAddTransformModifier(transformModifier.GetModel() as ITransformModifierModel));
         }

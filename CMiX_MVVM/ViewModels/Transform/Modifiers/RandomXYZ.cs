@@ -301,6 +301,7 @@ namespace CMiX.MVVM.ViewModels
         {
             RandomXYZModel model = new RandomXYZModel();
             model.ID = this.ID;
+            model.Name = this.Name;
             model.CounterModel = (CounterModel)this.Counter.GetModel();
             model.LocationX = (SliderModel)this.LocationX.GetModel();
             model.LocationY = (SliderModel)this.LocationY.GetModel();

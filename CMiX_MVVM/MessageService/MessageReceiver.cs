@@ -22,6 +22,7 @@ namespace CMiX.MVVM.MessageService
         private IIDObject IDObject { get; set; }
         private Guid ID { get; set; }
 
+
         public Guid GetID()
         {
             return ID;

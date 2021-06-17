@@ -11,7 +11,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         private bool _isChecked;
-
         public bool IsChecked
         {
             get => _isChecked;
@@ -19,7 +18,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _isChecked, value);
                 Communicator?.SendMessageUpdateViewModel(this);
-                System.Console.WriteLine("ToggleButton Is Checked : " + IsChecked);
             }
         }
 
