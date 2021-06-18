@@ -8,6 +8,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Scale(string name, ScaleModel scaleModel)
         {
+            this.ID = scaleModel.ID;
             Uniform = new Slider(nameof(Uniform), scaleModel.Uniform);
             Uniform.Amount = 1.0;
 
@@ -50,6 +51,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             ScaleModel scaleModel = new ScaleModel();
+            this.ID = scaleModel.ID;
             this.X.SetViewModel(scaleModel.X);
             this.Y.SetViewModel(scaleModel.Y);
             this.Z.SetViewModel(scaleModel.Z);
@@ -59,6 +61,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             ScaleModel model = new ScaleModel();
+            model.ID = this.ID;
             model.X = (SliderModel)this.X.GetModel();
             model.Y = (SliderModel)this.Y.GetModel();
             model.Z = (SliderModel)this.Z.GetModel();

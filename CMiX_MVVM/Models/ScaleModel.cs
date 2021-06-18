@@ -8,6 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public ScaleModel()
         {
+            ID = Guid.NewGuid();
             X = new SliderModel();
             Y = new SliderModel();
             Z = new SliderModel();

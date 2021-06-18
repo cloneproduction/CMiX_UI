@@ -3,11 +3,11 @@ using System;
 
 namespace CMiX.MVVM.Models
 {
-    [Serializable]
     public class RotationModel : Model, IModel
     {
         public RotationModel()
         {
+            this.ID = Guid.NewGuid();
             X = new SliderModel();
             Y = new SliderModel();
             Z = new SliderModel();

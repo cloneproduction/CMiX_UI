@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
 
-            MasterBeat = new MasterBeat(new MasterBeatModel());
+            MasterBeat = new MasterBeat(compositionModel.MasterBeatModel);
             Camera = new Camera(MasterBeat, compositionModel.CameraModel);
             Visibility = new Visibility(project.Visibility, compositionModel.VisibilityModel);
             ComponentFactory = new LayerFactory(this);
@@ -30,12 +30,17 @@ namespace CMiX.MVVM.ViewModels.Components
         {
             Communicator.SetCommunicator(communicator);
 
-            Transition.SetCommunicator(this.Communicator);
+            Transition.SetCommunicator(Communicator);
+            MasterBeat.SetCommunicator(Communicator);
+
         }
 
         public override void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
+
+            Transition.UnsetCommunicator(Communicator);
+            MasterBeat.UnsetCommunicator(Communicator);
         }
 
 

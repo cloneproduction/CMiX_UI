@@ -22,13 +22,6 @@ namespace CMiX.MVVM.MessageService
             return IIDObject.ID;
         }
 
-        private Communicator GetMessageProcessor(Guid id)
-        {
-            if (_childCommunicator.ContainsKey(id))
-                return _childCommunicator[id];
-            return null;
-        }
-
 
         private void RegisterReceiver(Communicator communicator)
         {
@@ -42,6 +35,13 @@ namespace CMiX.MVVM.MessageService
             Console.WriteLine("MessageReceiver Count is " + _childCommunicator.Count);
         }
 
+
+        private Communicator GetMessageProcessor(Guid id)
+        {
+            if (_childCommunicator.ContainsKey(id))
+                return _childCommunicator[id];
+            return null;
+        }
 
         public void ReceiveMessage(IIDIterator idIterator)
         {
@@ -59,7 +59,6 @@ namespace CMiX.MVVM.MessageService
             GetMessageProcessor(idIterator.CurrentID).ReceiveMessage(idIterator);
             this.CanSend = true;
         }
-
 
 
         public void SetCommunicator(Communicator communicator)

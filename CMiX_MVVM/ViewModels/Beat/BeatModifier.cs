@@ -7,9 +7,11 @@ namespace CMiX.MVVM.ViewModels.Beat
 {
     public class BeatModifier : Beat, IBeatObserver
     {
-        public BeatModifier(MasterBeat masterBeat, BeatModifierModel beatModifierModel) 
-            : base (beatModifierModel)
+        public BeatModifier(MasterBeat masterBeat, BeatModifierModel beatModifierModel)
+            : base(beatModifierModel)
         {
+            this.ID = beatModifierModel.ID;
+
             ChanceToHit = new Slider(nameof(ChanceToHit), beatModifierModel.ChanceToHit) { Minimum = 0, Maximum = 100 };
             Multiplier = beatModifierModel.Multiplier;
 
@@ -19,7 +21,6 @@ namespace CMiX.MVVM.ViewModels.Beat
 
             SetAnimatedDouble();
         }
-
 
 
         public MasterBeat MasterBeat { get; set; }
@@ -83,26 +84,28 @@ namespace CMiX.MVVM.ViewModels.Beat
             Period = MasterBeat.Periods[Index + MasterBeat.BeatIndex];
             AnimatedDouble = MasterBeat.BeatAnimations.AnimatedDoubles[Index + MasterBeat.BeatIndex];
             Notify(nameof(BPM));
-            //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+            Communicator?.SendMessageUpdateViewModel(this);
         }
 
         public override void SetViewModel(IModel model)
         {
-            //BeatModifierModel beatModifierModel = model as BeatModifierModel;
-            ////this.BeatIndex = beatModifierModel.BeatIndex;
-            //this.Multiplier = beatModifierModel.Multiplier;
-            //this.Period = beatModifierModel.Period;
-            //this.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
+            BeatModifierModel beatModifierModel = model as BeatModifierModel;
+            this.ID = beatModifierModel.ID;
+            this.BeatIndex = beatModifierModel.BeatIndex;
+            this.Multiplier = beatModifierModel.Multiplier;
+            this.Period = beatModifierModel.Period;
+            this.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
         }
 
         public override IModel GetModel()
         {
             BeatModifierModel model = new BeatModifierModel();
-            //model.Period = this.Period;
-            //model.Multiplier = this.Multiplier;
-            ////model.BeatIndex = this.BeatIndex;
-            //model.ChanceToHit = (SliderModel)this.ChanceToHit.GetModel();
-            //model.Multiplier = this.Multiplier;
+            model.ID = this.ID;
+            model.Period = this.Period;
+            model.Multiplier = this.Multiplier;
+            model.BeatIndex = this.BeatIndex;
+            model.ChanceToHit = (SliderModel)this.ChanceToHit.GetModel();
+            model.Multiplier = this.Multiplier;
             return model;
         }
 

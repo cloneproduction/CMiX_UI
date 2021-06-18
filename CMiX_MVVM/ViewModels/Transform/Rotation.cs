@@ -8,6 +8,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Rotation(string name, RotationModel rotationModel)
         {
+            this.ID = rotationModel.ID;
             X = new Slider(nameof(X), rotationModel.X);
             Y = new Slider(nameof(Y), rotationModel.Y);
             Z = new Slider(nameof(Z), rotationModel.Z);
@@ -31,6 +32,7 @@ namespace CMiX.MVVM.ViewModels
         public override IModel GetModel()
         {
             RotationModel model = new RotationModel();
+            model.ID = this.ID;
             model.X = (SliderModel)this.X.GetModel();
             model.Y = (SliderModel)this.Y.GetModel();
             model.Z = (SliderModel)this.Z.GetModel();
@@ -40,6 +42,7 @@ namespace CMiX.MVVM.ViewModels
         public override void SetViewModel(IModel model)
         {
             RotationModel rotationModel = model as RotationModel;
+            this.ID = rotationModel.ID;
             this.X.SetViewModel(rotationModel.X);
             this.Y.SetViewModel(rotationModel.Y);
             this.Z.SetViewModel(rotationModel.Z);

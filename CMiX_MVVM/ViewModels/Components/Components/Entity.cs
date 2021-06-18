@@ -46,13 +46,13 @@ namespace CMiX.MVVM.ViewModels.Components
             Coloration.UnsetCommunicator(Communicator);
         }
 
+
         public override IModel GetModel()
         {
             EntityModel model = new EntityModel(this.ID);
 
             model.Enabled = this.Enabled;
             model.Name = this.Name;
-
             model.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
             model.TextureModel = (TextureModel)this.Texture.GetModel();
             model.GeometryModel = (GeometryModel)this.Geometry.GetModel();
@@ -60,6 +60,7 @@ namespace CMiX.MVVM.ViewModels.Components
 
             return model;
         }
+
         public override void SetViewModel(IModel model)
         {
             EntityModel entityModel = model as EntityModel;

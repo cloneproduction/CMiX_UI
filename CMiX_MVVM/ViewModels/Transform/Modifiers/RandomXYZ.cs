@@ -50,6 +50,7 @@ namespace CMiX.MVVM.ViewModels
             base.SetCommunicator(communicator);
 
             Counter.SetCommunicator(Communicator);
+            BeatModifier.SetCommunicator(Communicator);
 
             RandomizeLocation.SetCommunicator(Communicator);
             LocationX.SetCommunicator(Communicator);
@@ -65,6 +66,29 @@ namespace CMiX.MVVM.ViewModels
             RotationX.SetCommunicator(Communicator);
             RotationY.SetCommunicator(Communicator);
             RotationZ.SetCommunicator(Communicator);
+        }
+
+        public override void UnsetCommunicator(Communicator communicator)
+        {
+            base.UnsetCommunicator(communicator);
+
+            Counter.UnsetCommunicator(Communicator);
+            BeatModifier.UnsetCommunicator(Communicator);
+
+            RandomizeLocation.UnsetCommunicator(Communicator);
+            LocationX.UnsetCommunicator(Communicator);
+            LocationY.UnsetCommunicator(Communicator);
+            LocationZ.UnsetCommunicator(Communicator);
+
+            RandomizeScale.UnsetCommunicator(Communicator);
+            ScaleX.UnsetCommunicator(Communicator);
+            ScaleY.UnsetCommunicator(Communicator);
+            ScaleZ.UnsetCommunicator(Communicator);
+
+            RandomizeRotation.UnsetCommunicator(Communicator);
+            RotationX.UnsetCommunicator(Communicator);
+            RotationY.UnsetCommunicator(Communicator);
+            RotationZ.UnsetCommunicator(Communicator);
         }
 
 
@@ -290,11 +314,23 @@ namespace CMiX.MVVM.ViewModels
             RandomXYZModel randomXYZModel = model as RandomXYZModel;
             this.ID = randomXYZModel.ID;
             this.Name = randomXYZModel.Name;
+            this.BeatModifier.SetViewModel(randomXYZModel.BeatModifierModel);
             this.Counter.SetViewModel(randomXYZModel.CounterModel);
+
             this.LocationX.SetViewModel(randomXYZModel.LocationX);
             this.LocationY.SetViewModel(randomXYZModel.LocationY);
             this.LocationZ.SetViewModel(randomXYZModel.LocationZ);
             this.RandomizeLocation.SetViewModel(randomXYZModel.RandomizeLocation);
+
+            this.ScaleX.SetViewModel(randomXYZModel.LocationX);
+            this.ScaleY.SetViewModel(randomXYZModel.LocationY);
+            this.ScaleZ.SetViewModel(randomXYZModel.LocationZ);
+            this.RandomizeScale.SetViewModel(randomXYZModel.RandomizeLocation);
+
+            this.RotationX.SetViewModel(randomXYZModel.LocationX);
+            this.RotationY.SetViewModel(randomXYZModel.LocationY);
+            this.RotationZ.SetViewModel(randomXYZModel.LocationZ);
+            this.RandomizeRotation.SetViewModel(randomXYZModel.RandomizeLocation);
         }
 
         public override IModel GetModel()
@@ -302,11 +338,23 @@ namespace CMiX.MVVM.ViewModels
             RandomXYZModel model = new RandomXYZModel();
             model.ID = this.ID;
             model.Name = this.Name;
+            model.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
             model.CounterModel = (CounterModel)this.Counter.GetModel();
+
             model.LocationX = (SliderModel)this.LocationX.GetModel();
             model.LocationY = (SliderModel)this.LocationY.GetModel();
             model.LocationZ = (SliderModel)this.LocationZ.GetModel();
             model.RandomizeLocation = (ToggleButtonModel)this.RandomizeLocation.GetModel();
+
+            model.ScaleX = (SliderModel)this.ScaleX.GetModel();
+            model.ScaleY = (SliderModel)this.ScaleY.GetModel();
+            model.ScaleZ = (SliderModel)this.ScaleZ.GetModel();
+            model.RandomizeScale = (ToggleButtonModel)this.RandomizeLocation.GetModel();
+
+            model.RotationX = (SliderModel)this.RotationX.GetModel();
+            model.RotationY = (SliderModel)this.RotationY.GetModel();
+            model.RotationZ = (SliderModel)this.RotationZ.GetModel();
+            model.RandomizeRotation = (ToggleButtonModel)this.RandomizeLocation.GetModel();
             return model;
         }
     }

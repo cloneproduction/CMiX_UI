@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
 {
-    [Serializable]
     public class CompositionModel : IComponentModel
     {
         public CompositionModel()

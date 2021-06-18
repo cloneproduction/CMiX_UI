@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Controls;
 using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models.Beat;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,16 @@ namespace CMiX.MVVM.ViewModels.Beat
 {
     public class MasterBeat : Beat, IBeatSubject
     {
-        public MasterBeat(MasterBeatModel masterBeatModel) 
-            : base (masterBeatModel)
+        public MasterBeat(MasterBeatModel masterBeatModel) : base(masterBeatModel)
         {
+            this.ID = masterBeatModel.ID;
+
             BeatObservers = new List<IBeatObserver>();
             Index = 0;
             Period = 1000;
             Multiplier = 1;
             Periods = new double[15];
-            
+
             BeatAnimations = new BeatAnimations();
             Resync = new Resync(BeatAnimations, masterBeatModel.ResyncModel);
 
@@ -27,24 +29,23 @@ namespace CMiX.MVVM.ViewModels.Beat
 
             tapPeriods = new List<double>();
             tapTime = new List<double>();
-            
+
             TapCommand = new RelayCommand(p => Tap());
         }
 
+        public override void SetCommunicator(Communicator communicator)
+        {
+            base.SetCommunicator(communicator);
 
-        //public override void SetReceiver(ModuleReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
+        }
 
-        public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
 
         private double CurrentTime => (DateTime.UtcNow - DateTime.MinValue).TotalMilliseconds;
-        
+
         private int maxIndex = 3;
         private int minIndex = -3;
 
@@ -98,6 +99,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             set => SetAndNotify(ref _animatedDouble, value);
         }
 
+
         private void SetAnimatedDouble()
         {
             BeatIndex = Index + (Periods.Length - 1) / 2;
@@ -105,8 +107,9 @@ namespace CMiX.MVVM.ViewModels.Beat
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (Periods.Length - 1) / 2];
             this.NotifyBeatChange(Period);
             Notify(nameof(BPM));
-            //this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
+            Communicator?.SendMessageUpdateViewModel(this);
         }
+
 
         protected override void Multiply()
         {
@@ -166,9 +169,12 @@ namespace CMiX.MVVM.ViewModels.Beat
             }
         }
 
+
         public override void SetViewModel(IModel model)
         {
             MasterBeatModel masterBeatModel = model as MasterBeatModel;
+            this.ID = masterBeatModel.ID;
+            this.Period = masterBeatModel.Period;
             this.Periods = masterBeatModel.Periods;
             this.Multiplier = masterBeatModel.Multiplier;
         }
@@ -176,6 +182,8 @@ namespace CMiX.MVVM.ViewModels.Beat
         public override IModel GetModel()
         {
             MasterBeatModel model = new MasterBeatModel();
+            model.ID = this.ID;
+            model.Period = this.Period;
             model.Periods = this.Periods;
             model.Multiplier = this.Multiplier;
             return model;

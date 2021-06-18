@@ -3,11 +3,11 @@ using System;
 
 namespace CMiX.MVVM.Models
 {
-    [Serializable]
     public class BeatModifierModel : BeatModel, IModel
     {
         public BeatModifierModel()
         {
+            this.ID = Guid.NewGuid();
             ChanceToHit = new SliderModel { Amount = 100.0 };
         }
 

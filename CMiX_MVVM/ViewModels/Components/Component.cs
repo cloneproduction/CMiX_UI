@@ -12,9 +12,11 @@ namespace CMiX.MVVM.ViewModels.Components
     {
         public Component(IComponentModel componentModel)
         {
+            ID = componentModel.ID;
+
             IsExpanded = false;
             Name = this.GetType().Name;
-            ID = componentModel.ID;
+
             Components = new ObservableCollection<Component>();
             Communicator = new ComponentCommunicator(this);
         }

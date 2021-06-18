@@ -39,8 +39,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                if (!IsReceiving)
-                    Communicator?.SendMessageUpdateViewModel(this);
+                Communicator?.SendMessageUpdateViewModel(this);
             }
         }
 
