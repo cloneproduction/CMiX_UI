@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AnimParameter : Control, IObserver
+    public class AnimParameter : ViewModel, IControl, IObserver
     {
         public AnimParameter(string name, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) 
         {
@@ -19,10 +20,7 @@ namespace CMiX.MVVM.ViewModels
             SelectedModeType = ModeType.None;
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    Width.SetReceiver(messageReceiver);
-        //}
+
 
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
@@ -65,9 +63,11 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _animMode, value);
-
             }
         }
+
+        public ControlCommunicator Communicator { get; set; }
+        public System.Guid ID { get; set; }
 
         private void SetAnimMode()
         {
@@ -104,7 +104,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             AnimParameterModel animParameterModel = model as AnimParameterModel;
             this.SelectedModeType = animParameterModel.SelectedModeType;
@@ -116,7 +116,7 @@ namespace CMiX.MVVM.ViewModels
             this.AnimMode.SetViewModel(animParameterModel.AnimModeModel);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             AnimParameterModel model = new AnimParameterModel();
 
@@ -129,6 +129,16 @@ namespace CMiX.MVVM.ViewModels
             model.AnimModeModel = (AnimModeModel)this.AnimMode.GetModel();
 
             return model;
+        }
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

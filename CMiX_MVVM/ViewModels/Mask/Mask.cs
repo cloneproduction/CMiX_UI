@@ -1,9 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Mask : Control
+    public class Mask : ViewModel, IControl
     {
         public Mask(MaskModel maskModel) 
         {
@@ -12,10 +14,10 @@ namespace CMiX.MVVM.ViewModels
             Enabled = maskModel.Enabled;
         }
 
-        //public override void SetReceiver(ModuleReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
+
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
+
 
         private bool _IsMask;
         public bool IsMask
@@ -27,7 +29,6 @@ namespace CMiX.MVVM.ViewModels
 
             }
         }
-
 
         private string _masktype;
         public string MaskType
@@ -51,18 +52,33 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void SetViewModel(IModel model)
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             MaskModel maskModel = model as MaskModel;
+            this.ID = maskModel.ID;
             this.IsMask = maskModel.IsMask;
             this.MaskType = maskModel.MaskType;
             this.MaskControlType = maskModel.MaskControlType;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             MaskModel maskModel = new MaskModel();
 
+            maskModel.ID = this.ID;
             maskModel.IsMask = this.IsMask;
             maskModel.MaskType = this.MaskType;
             maskModel.MaskControlType = this.MaskControlType;

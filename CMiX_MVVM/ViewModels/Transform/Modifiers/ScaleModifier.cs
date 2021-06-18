@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ScaleModifier : Control, IModifier
+    public class ScaleModifier : ViewModel, IControl, IModifier
     {
         public ScaleModifier(string name, Scale scale, MasterBeat beat, ScaleModifierModel scaleModifierModel) 
         {
@@ -20,12 +21,22 @@ namespace CMiX.MVVM.ViewModels
         //    //messageReceiver?.RegisterReceiver(this, ID);
         //}
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             throw new NotImplementedException();
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
         {
             throw new NotImplementedException();
         }
@@ -40,5 +51,7 @@ namespace CMiX.MVVM.ViewModels
             get => _isUniform;
             set => SetAndNotify(ref _isUniform, value);
         }
+        public ControlCommunicator Communicator { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

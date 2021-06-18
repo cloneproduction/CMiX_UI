@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class TransformModifier : Control
+    public class TransformModifier : ViewModel, IControl
     {
         public TransformModifier(MasterBeat beat)
         {
@@ -32,7 +32,8 @@ namespace CMiX.MVVM.ViewModels
             get => _transformModifiers;
             set => SetAndNotify(ref _transformModifiers, value);
         }
-
+        public ControlCommunicator Communicator { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void CreateTransformModifier(TransformModifierNames transformModifierNames)
         {
@@ -54,13 +55,23 @@ namespace CMiX.MVVM.ViewModels
             this.TransformModifiers.Remove(transformModifier);
         }
 
-
-        public override IModel GetModel()
+        public void SetCommunicator(Communicator communicator)
         {
             throw new NotImplementedException();
         }
 
-        public override void SetViewModel(IModel model)
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public IModel GetModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetViewModel(IModel model)
         {
             throw new NotImplementedException();
         }

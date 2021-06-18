@@ -3,12 +3,13 @@ using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
 using ColorMine.ColorSpaces;
+using System;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorPicker : Control
+    public class ColorPicker : ViewModel, IControl
     {
         public ColorPicker(ColorPickerModel colorPickerModel)
         {
@@ -25,6 +26,8 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public ICommand PreviewMouseDownCommand { get; set; }
         public ICommand PreviewMouseUpCommand { get; set; }
         public ICommand PreviewMouseLeaveCommand { get; set; }
@@ -42,10 +45,16 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private void UpdateMementor(string propertyname)
+
+        public void SetCommunicator(Communicator communicator)
         {
-            //if (MouseDown)
-               // Mementor.PropertyChange(this, propertyname);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
 
 
@@ -214,6 +223,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+
         public void PreviewMouseDown()
         {
             MouseDown = true;
@@ -229,7 +239,8 @@ namespace CMiX.MVVM.ViewModels
             MouseDown = false;
         }
 
-        public override void SetViewModel(IModel model)
+
+        public void SetViewModel(IModel model)
         {
             ColorPickerModel colorPickerModel = model as ColorPickerModel;
             this.ID = colorPickerModel.ID;
@@ -237,7 +248,7 @@ namespace CMiX.MVVM.ViewModels
             System.Console.WriteLine("ColorPicker SetViewModel Color " + SelectedColor);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             ColorPickerModel model = new ColorPickerModel();
             model.ID = this.ID;

@@ -3,11 +3,11 @@ using System;
 
 namespace CMiX.MVVM.Models
 {
-    [Serializable]
     public class GeometryFXModel : Model, IModel
     {
         public GeometryFXModel()
         {
+            this.ID = Guid.NewGuid();
             Explode = new SliderModel();
         }
 

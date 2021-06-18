@@ -16,7 +16,7 @@ namespace CMiX.MVVM.MessageService
             Model = model;
         }
 
-        public MessageUpdateViewModel(Control control)
+        public MessageUpdateViewModel(IControl control)
         {
             Model = control.GetModel();
         }
@@ -26,10 +26,8 @@ namespace CMiX.MVVM.MessageService
         public override void Process<T>(T receiver)
         {
             Console.WriteLine("MessageUpdateViewModel ProcessMessage");
-            var control = receiver as Control;
-            control.IsReceiving = true;
+            var control = receiver as IControl;
             control.SetViewModel(Model);
-            control.IsReceiving = false;
         }
     }
 }

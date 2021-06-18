@@ -1,10 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class PostFX : Control
+    public class PostFX : ViewModel, IControl
     {
         public PostFX(PostFXModel postFXModel)
         {
@@ -17,9 +18,10 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public Slider Feedback { get; set; }
         public Slider Blur { get; set; }
-
 
         private string _transforms;
         public string Transforms
@@ -43,15 +45,26 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void SetCommunicator(Communicator communicator)
+
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             Feedback.SetCommunicator(Communicator);
             Blur.SetCommunicator(Communicator);
         }
 
-        public override void SetViewModel(IModel model)
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+
+            Feedback.UnsetCommunicator(Communicator);
+            Blur.UnsetCommunicator(Communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             PostFXModel postFXModel = model as PostFXModel;
             this.ID = postFXModel.ID;
@@ -61,7 +74,7 @@ namespace CMiX.MVVM.ViewModels
             this.Blur.SetViewModel(postFXModel.Blur);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             PostFXModel postFXModel = new PostFXModel();
             postFXModel.ID = this.ID;

@@ -1,33 +1,32 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Camera : Control
+    public class Camera : ViewModel, IControl
     {
         public Camera(MasterBeat beat, CameraModel cameraModel) 
         {
+            this.ID = cameraModel.ID;
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
             BeatModifier = new BeatModifier(beat, new BeatModifierModel());
-            //FOV = new Slider(nameof(FOV), messageDispatcher, cameraModel.FOV);
-            //Zoom = new Slider(nameof(Zoom), messageDispatcher, cameraModel.Zoom);
+            FOV = new Slider(nameof(FOV), cameraModel.FOV);
+            Zoom = new Slider(nameof(Zoom), cameraModel.Zoom);
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //    BeatModifier.SetReceiver(messageReceiver);
-        //}
 
-
-
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public BeatModifier BeatModifier { get; set; }
         public Slider FOV { get; set; }
         public Slider Zoom { get; set; }
+
 
         private string _rotation;
         public string Rotation
@@ -50,26 +49,38 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _view, value);
         }
 
-        public override void SetViewModel(IModel model)
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             CameraModel cameraModel = model as CameraModel;
+            this.ID = cameraModel.ID;
             this.Rotation = cameraModel.Rotation;
             this.LookAt = cameraModel.LookAt;
             this.View = cameraModel.View;
-
             this.BeatModifier.SetViewModel(cameraModel.BeatModifierModel);
             this.FOV.SetViewModel(cameraModel.FOV);
             this.Zoom.SetViewModel(cameraModel.Zoom);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             CameraModel cameraModel = new CameraModel();
-
+            cameraModel.ID = this.ID;
             cameraModel.Rotation = this.Rotation;
             cameraModel.LookAt = this.LookAt;
             cameraModel.View = this.View;
-
             return cameraModel;
         }
     }

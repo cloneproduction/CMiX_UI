@@ -3,10 +3,11 @@ using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : Control, ITransform
+    public class Geometry : ViewModel, IControl, ITransform
     {
         public Geometry(MasterBeat beat, GeometryModel geometryModel)
         {
@@ -18,15 +19,18 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public AssetPathSelector AssetPathSelector { get; set; }
         public Transform Transform { get; set; }
         public Instancer Instancer { get; set; }
         public GeometryFX GeometryFX { get; set; }
 
 
-        public override void SetCommunicator(Communicator communicator)
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             Instancer.SetCommunicator(Communicator);
             Transform.SetCommunicator(Communicator);
@@ -34,9 +38,9 @@ namespace CMiX.MVVM.ViewModels
             AssetPathSelector.SetCommunicator(Communicator);
         }
 
-        public override void UnsetCommunicator(Communicator communicator)
+        public void UnsetCommunicator(Communicator communicator)
         {
-            base.UnsetCommunicator(communicator);
+            Communicator.UnsetCommunicator(communicator);
 
             Instancer.UnsetCommunicator(Communicator);
             Transform.UnsetCommunicator(Communicator);
@@ -45,7 +49,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             GeometryModel model = new GeometryModel();
             model.ID = this.ID;
@@ -56,7 +60,7 @@ namespace CMiX.MVVM.ViewModels
             return model;
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             GeometryModel geometryModel = model as GeometryModel;
             this.ID = geometryModel.ID;

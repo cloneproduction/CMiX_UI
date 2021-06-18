@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
@@ -6,15 +7,52 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Steady : Control, IAnimMode
+    public class Steady : ViewModel, IControl, IAnimMode
     {
         public Steady(SteadyModel steadyModel)
         {
+            this.ID = steadyModel.ID;
             SteadyType = SteadyType.Linear;
             LinearType = LinearType.Center;
             Seed = 0;
         }
 
+
+        public ControlCommunicator Communicator { get; set; }
+        public Guid ID { get; set; }
+
+        private int _seed;
+        public int Seed
+        {
+            get => _seed;
+            set
+            {
+                SetAndNotify(ref _seed, value);
+
+            }
+        }
+
+        private SteadyType _steadyType;
+        public SteadyType SteadyType
+        {
+            get => _steadyType;
+            set
+            {
+                SetAndNotify(ref _steadyType, value);
+
+            }
+        }
+
+        private LinearType _linearType;
+        public LinearType LinearType
+        {
+            get => _linearType;
+            set
+            {
+                SetAndNotify(ref _linearType, value);
+
+            }
+        }
 
 
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
@@ -68,50 +106,32 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private int _seed;
-        public int Seed
-        {
-            get => _seed;
-            set
-            {
-                SetAndNotify(ref _seed, value);
 
-            }
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
         }
 
-        private SteadyType _steadyType;
-        public SteadyType SteadyType
+        public void UnsetCommunicator(Communicator communicator)
         {
-            get => _steadyType;
-            set
-            {
-                SetAndNotify(ref _steadyType, value);
-
-            }
+            Communicator.UnsetCommunicator(communicator);
         }
 
-        private LinearType _linearType;
-        public LinearType LinearType
-        {
-            get => _linearType;
-            set 
-            {
-                SetAndNotify(ref _linearType, value);
 
-            }
-        }
-
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             SteadyModel animModeModel = model as SteadyModel;
+            this.ID = animModeModel.ID;
             this.SteadyType = animModeModel.SteadyType;
             this.LinearType = animModeModel.LinearType;
             this.Seed = animModeModel.Seed;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             SteadyModel model = new SteadyModel();
+            model.ID = this.ID;
             model.SteadyType = this.SteadyType;
             model.LinearType = this.LinearType;
             model.Seed = this.Seed;

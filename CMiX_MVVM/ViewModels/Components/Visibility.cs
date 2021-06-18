@@ -1,10 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models.Component;
+using System;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Components
 {
-    public class Visibility : Control
+    public class Visibility : ViewModel, IControl
     {
         public Visibility(VisibilityModel visibilityModel)
         {
@@ -20,8 +22,10 @@ namespace CMiX.MVVM.ViewModels.Components
             SetVisibilityCommand = new RelayCommand(p => SetVisibility(p as Component));
         }
 
-        public ICommand SetVisibilityCommand { get; set; }
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
+        public ICommand SetVisibilityCommand { get; set; }
 
         private bool _isVisible;
         public bool IsVisible
@@ -42,6 +46,7 @@ namespace CMiX.MVVM.ViewModels.Components
             set => SetAndNotify(ref _parentIsVisible, value);
         }
 
+
         public void SetVisibility(Component component)
         {
             if (!IsVisible)
@@ -52,7 +57,6 @@ namespace CMiX.MVVM.ViewModels.Components
             if (ParentIsVisible)
                 this.SetChildVisibility(component, this.IsVisible);
         }
-
 
         public void SetChildVisibility(Component component, bool parentVisibility)
         {
@@ -66,7 +70,20 @@ namespace CMiX.MVVM.ViewModels.Components
             }
         }
 
-        public override IModel GetModel()
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public IModel GetModel()
         {
             VisibilityModel visibilityModel = new VisibilityModel();
             visibilityModel.ID = this.ID;
@@ -74,9 +91,10 @@ namespace CMiX.MVVM.ViewModels.Components
             return visibilityModel;
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             var visibilityModel = model as VisibilityModel;
+            this.ID = visibilityModel.ID;
             this.IsVisible = visibilityModel.IsVisible;
         }
     }

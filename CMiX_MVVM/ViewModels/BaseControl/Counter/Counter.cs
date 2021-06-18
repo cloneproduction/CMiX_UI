@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using System;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Counter : Control
+    public class Counter : ViewModel, IControl
     {
         public Counter(CounterModel counterModel)
         {
@@ -38,6 +39,9 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
+
         private void Add() => Count += 1;
 
         private void Sub()
@@ -46,19 +50,30 @@ namespace CMiX.MVVM.ViewModels
                 Count -= 1;
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             CounterModel counterModel = model as CounterModel;
             this.ID = counterModel.ID;
             this.Count = counterModel.Count;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             CounterModel model = new CounterModel();
             model.ID = this.ID;
             model.Count = this.Count;
             return model;
+        }
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
     }
 }

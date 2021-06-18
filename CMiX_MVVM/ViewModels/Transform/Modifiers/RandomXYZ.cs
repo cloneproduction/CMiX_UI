@@ -4,12 +4,13 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RandomXYZ : Control, ITransformModifier
+    public class RandomXYZ : ViewModel, IControl, ITransformModifier
     {
         public RandomXYZ(RandomXYZModel randomXYZModel, MasterBeat masterBeat)
         {
@@ -45,69 +46,28 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetCommunicator(Communicator communicator)
-        {
-            base.SetCommunicator(communicator);
-
-            Counter.SetCommunicator(Communicator);
-            BeatModifier.SetCommunicator(Communicator);
-
-            RandomizeLocation.SetCommunicator(Communicator);
-            LocationX.SetCommunicator(Communicator);
-            LocationY.SetCommunicator(Communicator);
-            LocationZ.SetCommunicator(Communicator);
-
-            RandomizeScale.SetCommunicator(Communicator);
-            ScaleX.SetCommunicator(Communicator);
-            ScaleY.SetCommunicator(Communicator);
-            ScaleZ.SetCommunicator(Communicator);
-
-            RandomizeRotation.SetCommunicator(Communicator);
-            RotationX.SetCommunicator(Communicator);
-            RotationY.SetCommunicator(Communicator);
-            RotationZ.SetCommunicator(Communicator);
-        }
-
-        public override void UnsetCommunicator(Communicator communicator)
-        {
-            base.UnsetCommunicator(communicator);
-
-            Counter.UnsetCommunicator(Communicator);
-            BeatModifier.UnsetCommunicator(Communicator);
-
-            RandomizeLocation.UnsetCommunicator(Communicator);
-            LocationX.UnsetCommunicator(Communicator);
-            LocationY.UnsetCommunicator(Communicator);
-            LocationZ.UnsetCommunicator(Communicator);
-
-            RandomizeScale.UnsetCommunicator(Communicator);
-            ScaleX.UnsetCommunicator(Communicator);
-            ScaleY.UnsetCommunicator(Communicator);
-            ScaleZ.UnsetCommunicator(Communicator);
-
-            RandomizeRotation.UnsetCommunicator(Communicator);
-            RotationX.UnsetCommunicator(Communicator);
-            RotationY.UnsetCommunicator(Communicator);
-            RotationZ.UnsetCommunicator(Communicator);
-        }
-
-
-        private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
-        {
-            Transforms.Clear();
-            for (int i = 0; i < e.Value; i++)
-            {
-                //Transforms.Add(new Transform("Transform" + i, this));
-            }
-        }
-
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public TransformModifierNames Name { get; set; }
-        public ObservableCollection<Transform> Transforms { get; set; }
-
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
         public Counter Counter { get; set; }
+        public ObservableCollection<Transform> Transforms { get; set; }
 
+        public ToggleButton RandomizeLocation { get; set; }
+        public Slider LocationX { get; set; }
+        public Slider LocationY { get; set; }
+        public Slider LocationZ { get; set; }
+
+        public ToggleButton RandomizeScale { get; set; }
+        public Slider ScaleX { get; set; }
+        public Slider ScaleY { get; set; }
+        public Slider ScaleZ { get; set; }
+
+        public ToggleButton RandomizeRotation { get; set; }
+        public Slider RotationX { get; set; }
+        public Slider RotationY { get; set; }
+        public Slider RotationZ { get; set; }
 
         private bool _isExpanded;
         public bool IsExpanded
@@ -130,7 +90,6 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _randomizeScaleIsExpanded, value);
         }
 
-
         private bool _randomizeRotationIsExpanded;
         public bool RandomizeRotationIsExpanded
         {
@@ -146,20 +105,62 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public ToggleButton RandomizeLocation { get; set; }
-        public Slider LocationX { get; set; }
-        public Slider LocationY { get; set; }
-        public Slider LocationZ { get; set; }
+        private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
+        {
+            Transforms.Clear();
+            for (int i = 0; i < e.Value; i++)
+            {
+                //Transforms.Add(new Transform("Transform" + i, this));
+            }
+        }
 
-        public ToggleButton RandomizeScale { get; set; }
-        public Slider ScaleX { get; set; }
-        public Slider ScaleY { get; set; }
-        public Slider ScaleZ { get; set; }
 
-        public ToggleButton RandomizeRotation { get; set; }
-        public Slider RotationX { get; set; }
-        public Slider RotationY { get; set; }
-        public Slider RotationZ { get; set; }
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+
+            Counter.SetCommunicator(Communicator);
+            BeatModifier.SetCommunicator(Communicator);
+
+            RandomizeLocation.SetCommunicator(Communicator);
+            LocationX.SetCommunicator(Communicator);
+            LocationY.SetCommunicator(Communicator);
+            LocationZ.SetCommunicator(Communicator);
+
+            RandomizeScale.SetCommunicator(Communicator);
+            ScaleX.SetCommunicator(Communicator);
+            ScaleY.SetCommunicator(Communicator);
+            ScaleZ.SetCommunicator(Communicator);
+
+            RandomizeRotation.SetCommunicator(Communicator);
+            RotationX.SetCommunicator(Communicator);
+            RotationY.SetCommunicator(Communicator);
+            RotationZ.SetCommunicator(Communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+
+            Counter.UnsetCommunicator(Communicator);
+            BeatModifier.UnsetCommunicator(Communicator);
+
+            RandomizeLocation.UnsetCommunicator(Communicator);
+            LocationX.UnsetCommunicator(Communicator);
+            LocationY.UnsetCommunicator(Communicator);
+            LocationZ.UnsetCommunicator(Communicator);
+
+            RandomizeScale.UnsetCommunicator(Communicator);
+            ScaleX.UnsetCommunicator(Communicator);
+            ScaleY.UnsetCommunicator(Communicator);
+            ScaleZ.UnsetCommunicator(Communicator);
+
+            RandomizeRotation.UnsetCommunicator(Communicator);
+            RotationX.UnsetCommunicator(Communicator);
+            RotationY.UnsetCommunicator(Communicator);
+            RotationZ.UnsetCommunicator(Communicator);
+        }
 
 
         private Vector3D[] PreviousLocation { get; set; }
@@ -309,7 +310,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             RandomXYZModel randomXYZModel = model as RandomXYZModel;
             this.ID = randomXYZModel.ID;
@@ -333,7 +334,7 @@ namespace CMiX.MVVM.ViewModels
             this.RandomizeRotation.SetViewModel(randomXYZModel.RandomizeLocation);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             RandomXYZModel model = new RandomXYZModel();
             model.ID = this.ID;

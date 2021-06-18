@@ -1,6 +1,6 @@
 ﻿using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
-
+using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -8,7 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public EasingModel()
         {
-
+            this.ID = Guid.NewGuid();
         }
 
         public bool IsEnabled { get; set; }

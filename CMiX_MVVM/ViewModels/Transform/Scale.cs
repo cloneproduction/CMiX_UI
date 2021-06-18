@@ -1,10 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scale : Control
+    public class Scale : ViewModel, IControl
     {
         public Scale(string name, ScaleModel scaleModel)
         {
@@ -25,11 +26,12 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
         public Slider Uniform { get; set; }
-
 
         private bool _isUniform;
         public bool IsUniform
@@ -39,16 +41,27 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetCommunicator(Communicator communicator)
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             X.SetCommunicator(Communicator);
             Y.SetCommunicator(Communicator);
             Z.SetCommunicator(Communicator);
         }
 
-        public override void SetViewModel(IModel model)
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+
+            X.UnsetCommunicator(Communicator);
+            Y.UnsetCommunicator(Communicator);
+            Z.UnsetCommunicator(Communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             ScaleModel scaleModel = new ScaleModel();
             this.ID = scaleModel.ID;
@@ -58,7 +71,7 @@ namespace CMiX.MVVM.ViewModels
             this.Uniform.SetViewModel(scaleModel.Uniform);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             ScaleModel model = new ScaleModel();
             model.ID = this.ID;

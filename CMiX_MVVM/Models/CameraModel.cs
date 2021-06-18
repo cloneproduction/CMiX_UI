@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -6,6 +7,7 @@ namespace CMiX.MVVM.Models
     {
         public CameraModel()
         {
+            this.ID = Guid.NewGuid();
             BeatModifierModel = new BeatModifierModel();
             FOV = new SliderModel();
             Zoom = new SliderModel();

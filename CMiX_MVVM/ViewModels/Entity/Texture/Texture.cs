@@ -3,10 +3,11 @@ using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Assets;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Texture : Control
+    public class Texture : ViewModel, IControl
     {
         public Texture(MasterBeat beat, TextureModel textureModel)
         {
@@ -28,6 +29,8 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public AssetPathSelector AssetPathSelector { get; set; }
         public Slider Brightness { get; set; }
         public Slider Contrast { get; set; }
@@ -42,9 +45,10 @@ namespace CMiX.MVVM.ViewModels
         public Inverter Inverter { get; set; }
 
 
-        public override void SetCommunicator(Communicator communicator)
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             AssetPathSelector.SetCommunicator(Communicator);
 
@@ -61,9 +65,9 @@ namespace CMiX.MVVM.ViewModels
             Tilt.SetCommunicator(Communicator);
         }
 
-        public override void UnsetCommunicator(Communicator communicator)
+        public void UnsetCommunicator(Communicator communicator)
         {
-            base.UnsetCommunicator(communicator);
+            Communicator.UnsetCommunicator(communicator);
 
             AssetPathSelector.UnsetCommunicator(Communicator);
 
@@ -80,7 +84,7 @@ namespace CMiX.MVVM.ViewModels
             Tilt.UnsetCommunicator(Communicator);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             TextureModel model = new TextureModel();
 
@@ -102,7 +106,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             TextureModel textureModel = model as TextureModel;
 

@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models.Beat;
 using System;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class Resync : Control
+    public class Resync : ViewModel, IControl
     {
         public Resync(BeatAnimations beatAnimations, ResyncModel resyncModel) 
         {
@@ -13,7 +14,11 @@ namespace CMiX.MVVM.ViewModels.Beat
             ResyncCommand = new RelayCommand(p => DoResync());
         }
 
+
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public BeatAnimations BeatAnimations { get; set; }
+        public ICommand ResyncCommand { get; }
 
         private bool _resynced;
         public bool Resynced
@@ -22,14 +27,13 @@ namespace CMiX.MVVM.ViewModels.Beat
             set { _resynced = value; }
         }
 
+
         public void DoResync()
         {
             BeatAnimations.ResetAnimation();
             OnBeatResync();
-
         }
 
-        public ICommand ResyncCommand { get; }
 
         public event EventHandler BeatResync;
         public void OnBeatResync()
@@ -38,20 +42,30 @@ namespace CMiX.MVVM.ViewModels.Beat
             if (null != handler) handler(this, EventArgs.Empty);
         }
 
-        public override void SetViewModel(IModel model)
+
+        public void SetCommunicator(Communicator communicator)
         {
-            throw new NotImplementedException();
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
         }
 
-        public override IModel GetModel()
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
+        {
+            ResyncModel resyncModel = model as ResyncModel;
+            this.ID = resyncModel.ID;
+        }
+
+        public IModel GetModel()
         {
             ResyncModel model = new ResyncModel();
+            model.ID = this.ID;
             return model;
         }
-
-        //public override void SetReceiver(ModuleReceiver messageReceiver)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

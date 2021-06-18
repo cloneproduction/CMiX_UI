@@ -1,10 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Control
+    public class Slider : ViewModel, IControl
     {
         public Slider(string name, SliderModel sliderModel)
         {
@@ -12,12 +14,14 @@ namespace CMiX.MVVM.ViewModels
 
             this.ID = sliderModel.ID;
             this.Amount = sliderModel.Amount;
-            IsReceiving = false;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             ResetCommand = new RelayCommand(p => Reset());
         }
 
+
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
 
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
@@ -63,7 +67,19 @@ namespace CMiX.MVVM.ViewModels
         public void Reset() => Amount = 0.0;
 
 
-        public override void SetViewModel(IModel model)
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             SliderModel sliderModel = model as SliderModel;
             this.ID = sliderModel.ID;
@@ -71,7 +87,7 @@ namespace CMiX.MVVM.ViewModels
             System.Console.WriteLine("Slider SetViewModel Amount " + Amount);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             SliderModel model = new SliderModel();
             model.ID = this.ID;

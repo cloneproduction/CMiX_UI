@@ -2,12 +2,13 @@
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : Control
+    public class Instancer : ViewModel, IControl
     {
         public Instancer(MasterBeat beat, InstancerModel instancerModel)
         {
@@ -24,18 +25,29 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetCommunicator(Communicator communicator)
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             Transform.SetCommunicator(Communicator);
         }
+        
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+
+            Transform.UnsetCommunicator(Communicator);
+        }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
+        public TransformModifierFactory Factory { get; set; }
+        public Transform Transform { get; set; }
         public ICommand CreateTransformModifierCommand { get; set; }
         public ICommand AddTransformModifierCommand { get; set; }
         public ICommand RemoveTransformModifierCommand { get; set; }
-        public TransformModifierFactory Factory { get; set; }
 
 
         private bool _noAspectRatio;
@@ -44,9 +56,6 @@ namespace CMiX.MVVM.ViewModels
             get => _noAspectRatio;
             set => SetAndNotify(ref _noAspectRatio, value);
         }
-
-        public Transform Transform { get; set; }
-
 
         private ObservableCollection<ITransformModifier> _transformModifiers;
         public ObservableCollection<ITransformModifier> TransformModifiers
@@ -70,6 +79,7 @@ namespace CMiX.MVVM.ViewModels
             return transformModifier;
         }
 
+
         public void AddTransformModifier(ITransformModifier transformModifier)
         {
             transformModifier.SetCommunicator(Communicator);
@@ -77,26 +87,13 @@ namespace CMiX.MVVM.ViewModels
             Communicator?.SendMessage(new MessageAddTransformModifier(transformModifier.GetModel() as ITransformModifierModel));
         }
 
-
         public void RemoveTransformModifier(ITransformModifier transformModifier)
         {
             this.TransformModifiers.Remove(transformModifier);
         }
 
 
-        public void UpdateOnBeatTick(double period)
-        {
-            for (int i = TransformModifiers.Count - 1; i >= 0; i--)
-            {
-                if (TransformModifiers[i].SelectedModifierType == ModifierType.GROUP)
-                {
-
-                }
-            }
-        }
-
-
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             InstancerModel instancerModel = model as InstancerModel;
             this.ID = instancerModel.ID;
@@ -104,7 +101,7 @@ namespace CMiX.MVVM.ViewModels
             this.NoAspectRatio = instancerModel.NoAspectRatio;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             InstancerModel model = new InstancerModel();
             model.ID = this.ID;

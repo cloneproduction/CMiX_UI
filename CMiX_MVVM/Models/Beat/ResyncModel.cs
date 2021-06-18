@@ -10,7 +10,7 @@ namespace CMiX.MVVM.Models.Beat
     {
         public ResyncModel()
         {
-
+            this.ID = Guid.NewGuid();
         }
     }
 }

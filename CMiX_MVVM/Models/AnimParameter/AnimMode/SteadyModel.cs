@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels;
+using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -6,7 +7,7 @@ namespace CMiX.MVVM.Models
     {
         public SteadyModel()
         {
-
+            this.ID = Guid.NewGuid();
         }
 
         public SteadyType SteadyType { get; set; }

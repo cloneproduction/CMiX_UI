@@ -3,15 +3,17 @@ using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
 using CMiX.MVVM.ViewModels.Observer;
+using System;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class XYZModifier : Control, IModifier, ISubject, IObserver
+    public class XYZModifier : ViewModel, IControl, IModifier, ISubject, IObserver
     {
         public XYZModifier(string name, Vector3D vector3D, MasterBeat beat, XYZModifierModel xYZModifierModel)
         {
+            this.ID = xYZModifierModel.ID;
             Name = name;
             Observers = new List<IObserver>();
 
@@ -53,25 +55,35 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             XYZModifierModel XYZModifierModel = model as XYZModifierModel;
+            this.ID = XYZModifierModel.ID;
             this.Name = XYZModifierModel.Name;
             this.X.SetViewModel(XYZModifierModel.X);
             this.Y.SetViewModel(XYZModifierModel.Y);
             this.Z.SetViewModel(XYZModifierModel.Z);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             XYZModifierModel model = new XYZModifierModel();
-
+            model.ID = this.ID;
             model.Name = this.Name;
             model.X = (AnimParameterModel)this.X.GetModel();
             model.Y = (AnimParameterModel)this.Y.GetModel();
             model.Z = (AnimParameterModel)this.Z.GetModel();
-
             return model;
+        }
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
         }
 
         private int _isExpanded;
@@ -112,5 +124,7 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter X { get; set; }
         public AnimParameter Y { get; set; }
         public AnimParameter Z { get; set; }
+        public ControlCommunicator Communicator { get; set; }
+        public Guid ID { get; set; }
     }
 }

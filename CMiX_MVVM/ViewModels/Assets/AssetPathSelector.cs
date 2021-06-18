@@ -2,11 +2,12 @@
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using GongSolutions.Wpf.DragDrop;
+using System;
 using System.Windows;
 
 namespace CMiX.MVVM.ViewModels.Assets
 {
-    public class AssetPathSelector : Control, IDropTarget
+    public class AssetPathSelector : ViewModel, IControl, IDropTarget
     {
         public AssetPathSelector(Asset defaultAsset, AssetPathSelectorModel assetPathSelectorModel)
         {
@@ -15,19 +16,7 @@ namespace CMiX.MVVM.ViewModels.Assets
         }
 
 
-        public override void SetCommunicator(Communicator communicator)
-        {
-            AssetPathSelectorCommunicator = new AssetPathSelectorCommunicator(this);
-            AssetPathSelectorCommunicator.SetCommunicator(communicator);
-        }
-
-        public override void UnsetCommunicator(Communicator communicator)
-        {
-            base.UnsetCommunicator(communicator);
-
-            AssetPathSelectorCommunicator.UnsetCommunicator(communicator);
-        }
-
+        public Guid ID { get; set; }
         public AssetPathSelectorCommunicator AssetPathSelectorCommunicator { get; set; }
 
 
@@ -45,6 +34,19 @@ namespace CMiX.MVVM.ViewModels.Assets
             }
         }
 
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            AssetPathSelectorCommunicator = new AssetPathSelectorCommunicator(this);
+            AssetPathSelectorCommunicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            AssetPathSelectorCommunicator.UnsetCommunicator(communicator);
+        }
+
+
         public void DragOver(IDropInfo dropInfo)
         {
             if (dropInfo.DragInfo != null && dropInfo.DragInfo.SourceItem != null)
@@ -56,7 +58,7 @@ namespace CMiX.MVVM.ViewModels.Assets
             //SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             AssetPathSelectorModel assetPathSelectorModel = model as AssetPathSelectorModel;
             assetPathSelectorModel.ID = this.ID;
@@ -73,7 +75,7 @@ namespace CMiX.MVVM.ViewModels.Assets
                 this.SelectedAsset.SetViewModel(assetPathSelectorModel.SelectedAsset);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             AssetPathSelectorModel model = new AssetPathSelectorModel();
             model.ID = this.ID;

@@ -1,22 +1,22 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Range : Control, IRange
+    public class Range : ViewModel, IControl, IRange
     {
         public Range(RangeModel rangeModel) 
         {
+            this.ID = rangeModel.ID;
             Minimum = rangeModel.Minimum;
             Maximum = rangeModel.Maximum;
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
 
         private double _width;
         public double Width
@@ -33,7 +33,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _minimum, value);
                 Width = Math.Abs(Maximum - Minimum);
-
             }
         }
 
@@ -45,20 +44,34 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _maximum, value);
                 Width = Math.Abs(Maximum - Minimum);
-
             }
         }
 
-        public override void SetViewModel(IModel model)
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             RangeModel rangeModel = model as RangeModel;
+            this.ID = rangeModel.ID;
             this.Minimum = rangeModel.Minimum;
             this.Maximum = rangeModel.Maximum;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             IRangeModel model = new RangeModel();
+            model.ID = this.ID;
             model.Minimum = this.Minimum;
             model.Maximum = this.Maximum;
             return model;

@@ -1,14 +1,26 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : Control, IAnimMode
+    public class None : ViewModel, IControl, IAnimMode
     {
         public None(AnimParameter animParameter, NoneModel noneModel)
         {
 
+        }
+
+
+        public ControlCommunicator Communicator { get; set; }
+        public Guid ID { get; set; }
+        private bool _IsEnabled;
+        public bool IsEnabled
+        {
+            get => _IsEnabled;
+            set => SetAndNotify(ref _IsEnabled, value);
         }
 
 
@@ -22,19 +34,24 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        private bool _IsEnabled;
-        public bool IsEnabled
+
+        public void SetCommunicator(Communicator communicator)
         {
-            get => _IsEnabled;
-            set => SetAndNotify(ref _IsEnabled, value);
+            throw new NotImplementedException();
         }
 
-        public override void SetViewModel(IModel model)
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             throw new System.NotImplementedException();
         }

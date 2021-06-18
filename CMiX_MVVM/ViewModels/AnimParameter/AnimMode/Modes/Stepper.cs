@@ -1,19 +1,24 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Stepper : Control, IAnimMode
+    public class Stepper : ViewModel, IControl, IAnimMode
     {
         public Stepper(StepperModel stepperModel)
         {
+            this.ID = stepperModel.ID;
             StepCount = 2;
             nextStep = 0.0;
         }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
 
         private double nextStep;
 
@@ -66,15 +71,29 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             StepperModel stepperModel = model as StepperModel;
+            this.ID = stepperModel.ID;
             this.StepCount = stepperModel.StepCount;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             StepperModel model = new StepperModel();
+            model.ID = this.ID;
             model.StepCount = this.StepCount;
             return model;
         }

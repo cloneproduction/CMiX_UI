@@ -4,24 +4,12 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Control : ViewModel, IIDObject
+    public interface IControl : IIDObject
     {
-        public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
-        public bool IsReceiving { get; set; }
+        void SetCommunicator(Communicator communicator);
+        void UnsetCommunicator(Communicator communicator);
 
-        public virtual void SetCommunicator(Communicator communicator)
-        {
-            Communicator = new ControlCommunicator(this);
-            Communicator.SetCommunicator(communicator);
-        }
-
-        public virtual void UnsetCommunicator(Communicator communicator)
-        {
-            Communicator.UnsetCommunicator(communicator);
-        }
-
-        public abstract void SetViewModel(IModel model);
-        public abstract IModel GetModel();
+        void SetViewModel(IModel model);
+        IModel GetModel();
     }
 }

@@ -1,31 +1,47 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryFX : Control
+    public class GeometryFX : ViewModel, IControl
     {
         public GeometryFX(GeometryFXModel geometryFXModel) 
         {
+            this.ID = geometryFXModel.ID;
             Explode = new Slider(nameof(Explode), geometryFXModel.Explode);
         }
 
-        //public override void SetReceiver(ModuleReceiver messageReceiver)
-        //{
-        //    Explode.SetReceiver(messageReceiver);
-        //}
 
+        public Guid ID { get; set; }
         public Slider Explode { get; set; }
+        public ControlCommunicator Communicator { get; set; }
 
-        public override void SetViewModel(IModel model)
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             GeometryFXModel geometryFXModel = model as GeometryFXModel;
+            this.ID = geometryFXModel.ID;
             this.Explode.SetViewModel(geometryFXModel.Explode);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             GeometryFXModel geometryFXModel = new GeometryFXModel();
+            geometryFXModel.ID = this.ID;
             geometryFXModel.Explode = (SliderModel)this.Explode.GetModel();
             return geometryFXModel;
         }

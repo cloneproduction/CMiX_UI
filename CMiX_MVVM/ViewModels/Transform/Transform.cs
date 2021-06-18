@@ -2,10 +2,11 @@
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Observer;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Transform : Control, IObserver
+    public class Transform : ViewModel, IControl, IObserver
     {
         public Transform(TransformModel transformModel)
         {
@@ -16,10 +17,12 @@ namespace CMiX.MVVM.ViewModels
             Is3D = false;
         }
 
+
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public Translate Translate { get; set; }
         public Scale Scale { get; set; }
         public Rotation Rotation { get; set; }
-
 
         private bool _is3D;
         public bool Is3D
@@ -39,17 +42,27 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override void SetCommunicator(Communicator communicator)
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             Translate.SetCommunicator(Communicator);
             Scale.SetCommunicator(Communicator);
             Rotation.SetCommunicator(Communicator);
         }
 
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
 
-        public override void SetViewModel(IModel model)
+            Translate.UnsetCommunicator(Communicator);
+            Scale.UnsetCommunicator(Communicator);
+            Rotation.UnsetCommunicator(Communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             TransformModel transformModel = model as TransformModel;
             this.ID = transformModel.ID;
@@ -58,7 +71,7 @@ namespace CMiX.MVVM.ViewModels
             this.Rotation.SetViewModel(transformModel.RotationModel);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             TransformModel model = new TransformModel();
             model.ID = this.ID;

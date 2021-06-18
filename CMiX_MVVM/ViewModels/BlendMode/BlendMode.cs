@@ -1,15 +1,20 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BlendMode : Control
+    public class BlendMode : ViewModel, IControl
     {
         public BlendMode(BlendModeModel blendModeModel)
         {
             this.ID = blendModeModel.ID;
             Mode = blendModeModel.Mode;
         }
+
+        public ControlCommunicator Communicator { get; set; }
+        public Guid ID { get; set; }
 
         private string _mode;
         public string Mode
@@ -19,17 +24,28 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _mode, value);
                 Communicator?.SendMessageUpdateViewModel(this);
-                System.Console.WriteLine("BlendModel is " + Mode);
+                Console.WriteLine("BlendModel is " + Mode);
             }
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetViewModel(IModel model)
         {
             BlendModeModel blendModeModel = model as BlendModeModel;
             this.Mode = blendModeModel.Mode;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             BlendModeModel model = new BlendModeModel();
             model.ID = this.ID;

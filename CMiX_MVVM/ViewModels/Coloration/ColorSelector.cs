@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorSelector : Control
+    public class ColorSelector : ViewModel, IControl
     {
         public ColorSelector(ColorSelectorModel colorSelectorModel)
         {
@@ -14,14 +15,23 @@ namespace CMiX.MVVM.ViewModels
             //this.SelectedColor = Utils.HexStringToColor(colorSelectorModel.ColorPickerModel.SelectedColor);
         }
 
-        public override void SetCommunicator(Communicator communicator)
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             ColorPicker.SetCommunicator(Communicator);
         }
 
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
 
+            ColorPicker.UnsetCommunicator(Communicator);
+        }
+
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public ColorPicker ColorPicker { get; set; }
 
         private Color _selectedColor;
@@ -34,14 +44,14 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
             this.ID = colorSelectorModel.ID;
             this.ColorPicker.SetViewModel(colorSelectorModel.ColorPickerModel);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             ColorSelectorModel model = new ColorSelectorModel();
             model.ID = this.ID;

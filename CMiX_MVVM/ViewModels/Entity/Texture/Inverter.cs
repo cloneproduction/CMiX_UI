@@ -1,10 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Inverter : Control
+    public class Inverter : ViewModel, IControl
     {
         public Inverter(string name, InverterModel inverterModel)
         {
@@ -13,19 +14,32 @@ namespace CMiX.MVVM.ViewModels
             InvertMode = new ComboBox<TextureInvertMode>(inverterModel.InvertMode);
         }
 
+
+        public Guid ID{ get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public Slider Invert { get; set; }
         public ComboBox<TextureInvertMode> InvertMode { get; set; }
 
 
-        public override void SetCommunicator(Communicator communicator)
+        public void SetCommunicator(Communicator communicator)
         {
-            base.SetCommunicator(communicator);
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
 
             Invert.SetCommunicator(Communicator);
             InvertMode.SetCommunicator(Communicator);
         }
 
-        public override void SetViewModel(IModel model)
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+
+            Invert.UnsetCommunicator(Communicator);
+            InvertMode.UnsetCommunicator(Communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             InverterModel inverterModel = model as InverterModel;
             this.ID = inverterModel.ID;
@@ -33,7 +47,7 @@ namespace CMiX.MVVM.ViewModels
             this.InvertMode.SetViewModel(inverterModel.InvertMode);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             InverterModel model = new InverterModel();
             model.ID = this.ID;

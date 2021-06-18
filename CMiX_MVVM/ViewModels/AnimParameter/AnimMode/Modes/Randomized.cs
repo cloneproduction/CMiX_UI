@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Tools;
@@ -8,7 +9,7 @@ using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Randomized : Control, IAnimMode
+    public class Randomized : ViewModel, IControl, IAnimMode
     {
         public Randomized(AnimParameter parentSender, RandomizedModel randomizedModel)
         {
@@ -18,15 +19,17 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-
+        public Guid ID { get; set; }
         private Random Random { get; set; }
         public int Count { get; set; }
         public Vector3D[] Location { get; set; }
         public Vector3D[] Scale { get; set; }
         public Vector3D[] Rotation { get; set; }
+        public ControlCommunicator Communicator { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private double[] oldRandom;
         private double[] newRandom;
+
 
         private double[] GetNewRandoms(int count)
         {
@@ -64,15 +67,25 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             throw new NotImplementedException();
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             RandomizedModel model = new RandomizedModel();
             return model;
+        }
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
         }
     }
 }

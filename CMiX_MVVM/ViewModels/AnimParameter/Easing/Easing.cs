@@ -1,22 +1,23 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Easing : Control
+    public class Easing : ViewModel, IControl
     {
         public Easing(EasingModel easingModel)
         {
+            this.ID = easingModel.ID;
             EasingMode = EasingMode.EaseIn;
             EasingFunction = EasingFunction.None;
         }
 
-        //public override void SetReceiver(IMessageReceiver messageReceiver)
-        //{
-        //    //messageReceiver?.RegisterReceiver(this, ID);
-        //}
+
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
 
 
         private bool _isEnabled;
@@ -59,6 +60,7 @@ namespace CMiX.MVVM.ViewModels
             set => _selectedEasing = value;
         }
 
+
         private void SetEasing()
         {
             Easings.Functions myStatus;
@@ -72,18 +74,32 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
+
+        public void SetViewModel(IModel model)
         {
             EasingModel easingModel = model as EasingModel;
+            this.ID = easingModel.ID;
             this.IsEnabled = easingModel.IsEnabled;
             this.EasingFunction = easingModel.EasingFunction;
             this.EasingMode = easingModel.EasingMode;
             this.SelectedEasing = easingModel.SelectedEasing;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             EasingModel model = new EasingModel();
+            model.ID = this.ID;
             model.IsEnabled = this.IsEnabled;
             model.EasingFunction = this.EasingFunction;
             model.EasingMode = this.EasingMode;

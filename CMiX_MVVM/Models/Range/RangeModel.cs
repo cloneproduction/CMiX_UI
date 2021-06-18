@@ -1,9 +1,12 @@
-﻿namespace CMiX.MVVM.Models
+﻿using System;
+
+namespace CMiX.MVVM.Models
 {
     public class RangeModel : Model, IRangeModel
     {
         public RangeModel()
         {
+            this.ID = Guid.NewGuid();
             Minimum = 0.0;
             Maximum = 1.0;
         }

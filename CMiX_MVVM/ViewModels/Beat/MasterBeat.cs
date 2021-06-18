@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class MasterBeat : Beat, IBeatSubject
+    public class MasterBeat : Beat, IControl, IBeatSubject
     {
         public MasterBeat(MasterBeatModel masterBeatModel) : base(masterBeatModel)
         {
@@ -33,13 +33,12 @@ namespace CMiX.MVVM.ViewModels.Beat
             TapCommand = new RelayCommand(p => Tap());
         }
 
-        public override void SetCommunicator(Communicator communicator)
-        {
-            base.SetCommunicator(communicator);
-
-        }
-
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
+        public BeatAnimations BeatAnimations { get; set; }
+        public Resync Resync { get; set; }
         public ICommand TapCommand { get; }
+
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
@@ -67,18 +66,12 @@ namespace CMiX.MVVM.ViewModels.Beat
             set => _beatIndex = value;
         }
 
-
-        public event EventHandler IndexChanged;
-        protected void OnIndexChanged() => IndexChanged?.Invoke(this, null);
-
-
         private double _period;
         public override double Period
         {
             get => _period;
             set => SetAndNotify(ref _period, value);
         }
-
 
         private double[] _periods;
         public double[] Periods
@@ -87,16 +80,27 @@ namespace CMiX.MVVM.ViewModels.Beat
             set => SetAndNotify(ref _periods, value);
         }
 
-
-        public BeatAnimations BeatAnimations { get; set; }
-        public Resync Resync { get; set; }
-
-
         private AnimatedDouble _animatedDouble;
         public AnimatedDouble AnimatedDouble
         {
             get => _animatedDouble;
             set => SetAndNotify(ref _animatedDouble, value);
+        }
+
+
+        public event EventHandler IndexChanged;
+        protected void OnIndexChanged() => IndexChanged?.Invoke(this, null);
+
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
 
 
@@ -170,7 +174,7 @@ namespace CMiX.MVVM.ViewModels.Beat
         }
 
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             MasterBeatModel masterBeatModel = model as MasterBeatModel;
             this.ID = masterBeatModel.ID;
@@ -179,7 +183,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             this.Multiplier = masterBeatModel.Multiplier;
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             MasterBeatModel model = new MasterBeatModel();
             model.ID = this.ID;
@@ -189,8 +193,8 @@ namespace CMiX.MVVM.ViewModels.Beat
             return model;
         }
 
-        private List<IBeatObserver> BeatObservers { get; set; }
 
+        private List<IBeatObserver> BeatObservers { get; set; }
 
         public void Attach(IBeatObserver observer)
         {

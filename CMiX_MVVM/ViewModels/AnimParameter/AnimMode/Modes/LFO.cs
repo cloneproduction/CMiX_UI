@@ -1,16 +1,33 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Tools;
 using CMiX.MVVM.ViewModels.Beat;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : Control, IAnimMode
+    public class LFO : ViewModel, IControl, IAnimMode
     {
         public LFO(LFOModel lfoModel)
         {
 
+        }
+
+
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
+
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -39,14 +56,14 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             LFOModel model = new LFOModel();
 
             return model;
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             LFOModel LFOModel = model as LFOModel;
         }

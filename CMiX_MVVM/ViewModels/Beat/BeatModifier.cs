@@ -1,11 +1,13 @@
 ﻿using CMiX.MVVM.Controls;
 using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.MessageService;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Beat
 {
-    public class BeatModifier : Beat, IBeatObserver
+    public class BeatModifier : Beat, IControl, IBeatObserver
     {
         public BeatModifier(MasterBeat masterBeat, BeatModifierModel beatModifierModel)
             : base(beatModifierModel)
@@ -23,8 +25,11 @@ namespace CMiX.MVVM.ViewModels.Beat
         }
 
 
+        public Guid ID { get; set; }
+        public ControlCommunicator Communicator { get; set; }
         public MasterBeat MasterBeat { get; set; }
         public Slider ChanceToHit { get; set; }
+
 
         private int maxIndex = 4;
         private int minIndex = -4;
@@ -57,6 +62,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             set => SetAndNotify(ref _animatedDouble, value);
         }
 
+
         public bool CheckHitOnBeatTick()
         {
             return (RandomNumbers.RandomDouble(0.0, 1.0) <= this.ChanceToHit.Amount / this.ChanceToHit.Maximum) ? true : false;
@@ -87,7 +93,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             Communicator?.SendMessageUpdateViewModel(this);
         }
 
-        public override void SetViewModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             BeatModifierModel beatModifierModel = model as BeatModifierModel;
             this.ID = beatModifierModel.ID;
@@ -97,7 +103,7 @@ namespace CMiX.MVVM.ViewModels.Beat
             this.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
         }
 
-        public override IModel GetModel()
+        public IModel GetModel()
         {
             BeatModifierModel model = new BeatModifierModel();
             model.ID = this.ID;
@@ -112,6 +118,17 @@ namespace CMiX.MVVM.ViewModels.Beat
         public void UpdatePeriod(double period)
         {
             SetAnimatedDouble();
+        }
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
         }
     }
 }
