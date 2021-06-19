@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.Tools;
+﻿using CMiX.Core.Tools;
 using System;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.Core.Presentation.Controls
 {
     public class CMiXSlider : Slider
     {

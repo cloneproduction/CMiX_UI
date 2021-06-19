@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.Core.Presentation.Controls
 {
     public class MasterBeatController : Control
     {

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CMiX.MVVM.Trash
+namespace CMiX.Core.Trash
 {
     public class EditableTextBox : TextBox
     {

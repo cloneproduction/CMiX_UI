@@ -5,9 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using CMiX.MVVM.Tools;
+using CMiX.Core.Tools;
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.Core.Presentation.Controls
 {
     public class XYController : Control
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.MVVM.Services
+namespace CMiX.Core.Services
 {
     public class NetMQMessageEventArgs : EventArgs
     {

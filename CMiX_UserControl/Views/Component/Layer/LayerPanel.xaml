@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
-            xmlns:Components="clr-namespace:CMiX.MVVM.ViewModels.Components;assembly=CMiX.MVVM"
-             xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
-             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
-             xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
-             xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters;assembly=CMiX.MVVM"
-             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+            xmlns:Components="clr-namespace:CMiX.Core.Presentation.ViewModels.Components;assembly=CMiX.Core"
+             xmlns:ViewModels="clr-namespace:CMiX.Core.Presentation.ViewModels;assembly=CMiX.Core"
+             xmlns:MVVM.Views="clr-namespace:CMiX.Core.Presentation.Views;assembly=CMiX.Core"
+             xmlns:Tools="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
+             xmlns:Converters="clr-namespace:CMiX.Core.Tools.Converters;assembly=CMiX.Core"
+             xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
              
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"

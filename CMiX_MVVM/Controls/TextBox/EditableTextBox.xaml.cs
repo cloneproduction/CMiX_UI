@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.Core.Presentation.Controls
 {
     public partial class EditableTextBox : UserControl
     {

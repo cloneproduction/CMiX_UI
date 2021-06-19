@@ -4,7 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.Core.Presentation.Controls
 {
     /// <summary>
     /// Attached dependency property

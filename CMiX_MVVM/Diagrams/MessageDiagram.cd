@@ -33,14 +33,14 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.MessageService.MessengerFactory">
+  <Class Name="CMiX.Core.ViewModels.MessageService.MessengerFactory">
     <Position X="17" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\MessageService\Messengers\MessengerFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.MessageService.MessageSender">
+  <Class Name="CMiX.Core.ViewModels.MessageService.MessageSender">
     <Position X="16.5" Y="9" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AQACAAAAAACAQQQAgCAAAAAAAAAIAIAAAAAAAAAQAiA=</HashCode>
@@ -53,7 +53,7 @@
       <Property Name="Messengers" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.MessageService.MessageTerminal">
+  <Class Name="CMiX.Core.ViewModels.MessageService.MessageTerminal">
     <Position X="21" Y="7.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAABAAAAQAAAACAAACBAAAAAAAAAAAAAAAAAAEAAAgA=</HashCode>
@@ -65,7 +65,7 @@
       <Property Name="Serializer" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Mediator.MessageDispatcher" BaseTypeListCollapsed="true">
+  <Class Name="CMiX.Core.ViewModels.Mediator.MessageDispatcher" BaseTypeListCollapsed="true">
     <Position X="20.75" Y="10.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAKAAAAAAAABgAAAAAAABEAAAAAAQAAAAAAA=</HashCode>
@@ -76,7 +76,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Module" BaseTypeListCollapsed="true">
+  <Class Name="CMiX.Core.ViewModels.Module" BaseTypeListCollapsed="true">
     <Position X="25.75" Y="10.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACCAAAAAAAAAAgQAAAAAAQACAAAAAAAAAQA=</HashCode>
@@ -87,7 +87,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="CMiX.MVVM.Services.Client">
+  <Class Name="CMiX.Core.Services.Client">
     <Position X="10" Y="4" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAABAQAAAKAAIADACMAAAACAAAAA=</HashCode>

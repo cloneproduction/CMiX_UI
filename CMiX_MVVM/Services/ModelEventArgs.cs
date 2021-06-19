@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.Core.Interfaces;
 using System;
 
-namespace CMiX.MVVM.Services
+namespace CMiX.Core.Services
 {
     public class ModelEventArgs : EventArgs
     {

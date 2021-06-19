@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.MVVM.Resources
+namespace CMiX.Core.Resources
 {
     public class SortableObservableCollection<T> : ObservableCollection<T>
     {

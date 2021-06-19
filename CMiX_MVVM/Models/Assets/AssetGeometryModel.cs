@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class AssetGeometryModel : Model, IAssetModel
     {

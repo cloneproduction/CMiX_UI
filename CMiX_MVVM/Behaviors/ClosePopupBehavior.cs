@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.Behaviors
+namespace CMiX.Core.Behaviors
 {
     public static class ClosePopupBehavior
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Models.Component;
+using CMiX.Core.Interfaces;
+using CMiX.Core.Models.Component;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     [Serializable]
     public class SceneModel : IComponentModel

@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentScheduler;
-using CMiX.MVVM.ViewModels;
+using CMiX.Core.Presentation.ViewModels;
 
 namespace CMiXPlayer.Jobs
 {

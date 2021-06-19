@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.Core.Interfaces;
 using System;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     [Serializable]
     public class GeometryModel : Model, IModel

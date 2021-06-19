@@ -238,9 +238,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CMiX_MVVM\CMiX.MVVM.csproj">
+    <ProjectReference Include="..\CMiX_MVVM\CMiX.Core.csproj">
       <Project>{b49435ef-ef33-47b4-a92d-267566db96d8}</Project>
-      <Name>CMiX.MVVM</Name>
+      <Name>CMiX.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

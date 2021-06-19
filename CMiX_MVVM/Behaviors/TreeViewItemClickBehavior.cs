@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Threading;
 
-namespace CMiX.MVVM.Behaviors
+namespace CMiX.Core.Behaviors
 {
     public static class TreeViewItemClickBehavior
     {

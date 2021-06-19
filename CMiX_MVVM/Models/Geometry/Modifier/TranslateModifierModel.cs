@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     [Serializable]
     public class TranslateModifierModel

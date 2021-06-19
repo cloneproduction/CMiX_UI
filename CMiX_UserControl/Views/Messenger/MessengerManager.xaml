@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
-             xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
+             xmlns:Tools="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
              xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
              md:DialogServiceViews.IsRegistered="True"

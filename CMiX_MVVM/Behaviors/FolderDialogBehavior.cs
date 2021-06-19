@@ -6,7 +6,7 @@ using Button = System.Windows.Controls.Button;
 using System.Windows.Forms;
 using System.Windows.Interactivity;
 
-namespace CMiX.MVVM.Behaviors
+namespace CMiX.Core.Behaviors
 {
     public class FolderDialogBehavior : Behavior<Button>
     {

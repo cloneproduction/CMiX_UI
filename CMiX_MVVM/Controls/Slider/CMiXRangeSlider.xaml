@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="CMiX.MVVM.Controls.CMiXRangeSlider"
+    x:Class="CMiX.Core.Presentation.Controls.CMiXRangeSlider"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Tools="clr-namespace:CMiX.MVVM.Tools.Converters"
+    xmlns:Tools="clr-namespace:CMiX.Core.Tools.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="RangeSlider"

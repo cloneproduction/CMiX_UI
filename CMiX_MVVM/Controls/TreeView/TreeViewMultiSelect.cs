@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System;
 using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.Core.Presentation.Controls
 {
     public class MultiSelectTreeView : TreeView
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Memento;
-using CMiX.MVVM.ViewModels;
+using CMiX.Core.Presentation.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Ceras;
-using CMiX.MVVM.Services;
+using CMiX.Core.Services;
 
 namespace CMiXPlayer.ViewModels
 {

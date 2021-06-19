@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="CMiX.MVVM.ViewModels.ViewModel" Collapsed="true">
+  <Class Name="CMiX.Core.ViewModels.ViewModel" Collapsed="true">
     <Position X="19.75" Y="15.75" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAgAAAAAIAAAAAAAAAAgAAAAABQCAAAAAAAABA=</HashCode>
@@ -8,9 +8,9 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Components" Collapsed="true">
+  <Class Name="CMiX.Core.ViewModels.Components" Collapsed="true">
     <Position X="13.5" Y="18.25" Width="3.5" />
-    <InheritanceLine Type="CMiX.MVVM.ViewModels.ViewModel" ManuallyRouted="true">
+    <InheritanceLine Type="CMiX.Core.ViewModels.ViewModel" ManuallyRouted="true">
       <Path>
         <Point X="21.5" Y="16.312" />
         <Point X="21.5" Y="17.256" />
@@ -27,9 +27,9 @@
     </ShowAsAssociation>
     <Lollipop Position="0.164" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Entity" Collapsed="true">
+  <Class Name="CMiX.Core.ViewModels.Entity" Collapsed="true">
     <Position X="14.25" Y="21.75" Width="2.25" />
-    <InheritanceLine Type="CMiX.MVVM.ViewModels.Components" ManuallyRouted="true">
+    <InheritanceLine Type="CMiX.Core.ViewModels.Components" ManuallyRouted="true">
       <Path>
         <Point X="15.25" Y="18.941" />
         <Point X="15.25" Y="20.126" />
@@ -45,7 +45,7 @@
       <Property Name="BeatModifier" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Mediator.MessageDispatcher" Collapsed="true">
+  <Class Name="CMiX.Core.ViewModels.Mediator.MessageDispatcher" Collapsed="true">
     <Position X="19.25" Y="18.25" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAKAAAAAAAABgAAAAAAABEAAAAAAQAAAAAAA=</HashCode>
@@ -53,16 +53,16 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Beat">
+  <Class Name="CMiX.Core.ViewModels.Beat">
     <Position X="27.25" Y="19.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACQAABAAAAQABAABAAwAAIAAAAAAABAAAAAI=</HashCode>
       <FileName>ViewModels\Beat\Beat.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.BeatModifier">
+  <Class Name="CMiX.Core.ViewModels.BeatModifier">
     <Position X="18.25" Y="21.25" Width="2.75" />
-    <InheritanceLine Type="CMiX.MVVM.ViewModels.Beat" ManuallyRouted="true">
+    <InheritanceLine Type="CMiX.Core.ViewModels.Beat" ManuallyRouted="true">
       <Path>
         <Point X="28.5" Y="23.617" />
         <Point X="28.5" Y="20.294" />
@@ -79,9 +79,9 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.MasterBeat">
+  <Class Name="CMiX.Core.ViewModels.MasterBeat">
     <Position X="22.75" Y="21.25" Width="2.75" />
-    <InheritanceLine Type="CMiX.MVVM.ViewModels.Beat" ManuallyRouted="true">
+    <InheritanceLine Type="CMiX.Core.ViewModels.Beat" ManuallyRouted="true">
       <Path>
         <Point X="27.25" Y="22.433" />
         <Point X="25.5" Y="22.433" />
@@ -93,9 +93,9 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Module" Collapsed="true">
+  <Class Name="CMiX.Core.ViewModels.Module" Collapsed="true">
     <Position X="27" Y="18.25" Width="3" />
-    <InheritanceLine Type="CMiX.MVVM.ViewModels.ViewModel" ManuallyRouted="true">
+    <InheritanceLine Type="CMiX.Core.ViewModels.ViewModel" ManuallyRouted="true">
       <Path>
         <Point X="21.5" Y="16.312" />
         <Point X="21.5" Y="17.288" />

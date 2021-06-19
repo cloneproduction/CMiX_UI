@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using CMiX.MVVM.ViewModels;
+using CMiX.Core.Presentation.ViewModels;
 
 namespace CMiX
 {

@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.Tools;
+﻿using CMiX.Core.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace CMiX.MVVM.Behaviors
+namespace CMiX.Core.Behaviors
 {
     ///
  

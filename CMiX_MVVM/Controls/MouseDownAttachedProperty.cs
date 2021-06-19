@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.Core.Presentation.Controls
 {
     public static class MouseDownHelper
     {

@@ -1,8 +1,8 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Interfaces;
+using CMiX.Core.Presentation.ViewModels;
 using System;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public interface ITransformModifierModel : IModel
     {

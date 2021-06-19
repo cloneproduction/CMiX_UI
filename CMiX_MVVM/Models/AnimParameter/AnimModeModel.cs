@@ -1,6 +1,6 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Presentation.ViewModels;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class AnimModeModel : IAnimModeModel
     {

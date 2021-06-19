@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CMiX.MVVM.MessageService
+namespace CMiX.Core.MessageService
 {
     public class MessageIDIterator : IIDIterator
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Ceras;
-using CMiX.MVVM.ViewModels;
+using CMiX.Core.Presentation.ViewModels;
 using CMiXPlayer.Jobs;
 using FluentScheduler;
 using Memento;

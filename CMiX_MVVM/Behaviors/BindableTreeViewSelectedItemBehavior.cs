@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-namespace CMiX.MVVM.Behaviors
+namespace CMiX.Core.Behaviors
 {
     public class BindableSelectedItemBehavior : Behavior<TreeView>
     {

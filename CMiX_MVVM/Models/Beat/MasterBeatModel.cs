@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.Core.Interfaces;
 using System;
 
-namespace CMiX.MVVM.Models.Beat
+namespace CMiX.Core.Models.Beat
 {
     public class MasterBeatModel : BeatModel, IModel
     {

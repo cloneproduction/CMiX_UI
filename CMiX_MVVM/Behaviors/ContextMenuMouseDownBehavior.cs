@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Interactivity;
 
-namespace CMiX.MVVM.Behaviors
+namespace CMiX.Core.Behaviors
 {
     public class ContextMenuMouseDownBehavior : Behavior<Control>
     {

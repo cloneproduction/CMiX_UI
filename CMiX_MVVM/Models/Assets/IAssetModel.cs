@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.Core.Interfaces;
 using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public interface IAssetModel : IModel
     {

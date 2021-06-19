@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
+using CMiX.Core.Presentation.ViewModels;
+using CMiX.Core.Models;
+using CMiX.Core.Resources;
 
 namespace CMiXPlayer.ViewModels
 {

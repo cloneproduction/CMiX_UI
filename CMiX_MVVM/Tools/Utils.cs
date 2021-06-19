@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace CMiX.MVVM.Tools
+namespace CMiX.Core.Tools
 {
     public static class Utils
     {

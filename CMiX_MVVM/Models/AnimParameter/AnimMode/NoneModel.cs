@@ -1,6 +1,6 @@
 ﻿
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class NoneModel : Model, IAnimModeModel
     {

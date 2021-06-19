@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media.Animation;
-using CMiX.MVVM.Controls;
+using CMiX.Core.Presentation.Controls;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.Core.Presentation.ViewModels
 {
     public class BeatAnimations
     {

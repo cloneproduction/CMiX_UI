@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class AssetDirectoryModel : IAssetModel
     {

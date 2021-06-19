@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CMiX.MVVM.Resources
+namespace CMiX.Core.Resources
 {
     static public class Easings
 	{

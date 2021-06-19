@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.Core.Interfaces;
 using System;
 
-namespace CMiX.MVVM.Models.Component
+namespace CMiX.Core.Models.Component
 {
     public class VisibilityModel : Model, IModel
     {

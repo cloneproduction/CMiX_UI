@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
-             xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
-             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
-             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+             xmlns:ViewModels="clr-namespace:CMiX.Core.Presentation.ViewModels;assembly=CMiX.Core"
+             xmlns:MVVM.Views="clr-namespace:CMiX.Core.Presentation.Views;assembly=CMiX.Core"
+             xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="108.416" d:DesignWidth="380.64">

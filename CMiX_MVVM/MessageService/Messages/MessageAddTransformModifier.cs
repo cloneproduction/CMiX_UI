@@ -1,9 +1,9 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Models;
+using CMiX.Core.Presentation.ViewModels;
 
-namespace CMiX.MVVM.MessageService
+namespace CMiX.Core.MessageService
 {
-    public class MessageAddTransformModifier : Message, ITransformModifierMessage
+    public class MessageAddTransformModifier : Message
     {
         public MessageAddTransformModifier()
         {
@@ -22,7 +22,6 @@ namespace CMiX.MVVM.MessageService
             Instancer instancer = receiver as Instancer;
             var transformModifier = instancer.Factory.CreateTransformModifier(TransformModifierModel);
             instancer.AddTransformModifier(transformModifier);
-            //instancer.CreateTransformModifier(TransformModifierModel.Name);
         }
     }
 }

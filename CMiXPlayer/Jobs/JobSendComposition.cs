@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
+using CMiX.Core.Models;
+using CMiX.Core.Presentation.ViewModels;
 using CMiXPlayer.ViewModels;
 using FluentScheduler;
 

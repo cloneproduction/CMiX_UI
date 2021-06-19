@@ -1,6 +1,6 @@
 ﻿using System;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
+using CMiX.Core.Presentation.ViewModels;
+using CMiX.Core.Models;
 using System.Collections.ObjectModel;
 using Ceras;
 using GongSolutions.Wpf.DragDrop;

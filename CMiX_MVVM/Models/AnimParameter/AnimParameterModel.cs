@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Presentation.ViewModels;
 using System;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     [Serializable]
     public class AnimParameterModel : Model

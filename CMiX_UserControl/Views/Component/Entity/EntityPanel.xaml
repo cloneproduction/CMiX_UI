@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
-             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
-             xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
-             xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
+             xmlns:Tools="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
+             xmlns:Converters="clr-namespace:CMiX.Core.Tools.Converters;assembly=CMiX.Core"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="519.333" d:DesignWidth="369.333">

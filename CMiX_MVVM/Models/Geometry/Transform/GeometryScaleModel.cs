@@ -1,7 +1,7 @@
 ﻿using System;
-using CMiX.MVVM.ViewModels;
+using CMiX.Core.Presentation.ViewModels;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     [Serializable]
     public class GeometryScaleModel

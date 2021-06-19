@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 
 
-namespace CMiX.MVVM.Services
+namespace CMiX.Core.Services
 {
     /// <summary>
     /// Hight precision non overlapping timer

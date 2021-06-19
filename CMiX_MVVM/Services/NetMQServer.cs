@@ -2,7 +2,7 @@
 using NetMQ;
 using NetMQ.Sockets;
 
-namespace CMiX.MVVM.Services
+namespace CMiX.Core.Services
 {
     public class NetMQServer
     {

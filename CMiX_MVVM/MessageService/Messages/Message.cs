@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 
 
-namespace CMiX.MVVM.MessageService
+namespace CMiX.Core.MessageService
 {
     public abstract class Message
     {
-        public Message()
-        {
-            IDs = new List<Guid>();
-        }
-
         public List<Guid> IDs { get; set; }
 
         public IIDIterator CreateIterator()
@@ -31,6 +26,9 @@ namespace CMiX.MVVM.MessageService
 
         public void AddID(Guid id)
         {
+            if(IDs == null)
+                IDs = new List<Guid>();
+
             IDs.Insert(0, id);
         }
 

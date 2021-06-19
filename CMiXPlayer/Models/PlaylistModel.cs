@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.Core.Models;
 using System.Collections.Generic;
 
 namespace CMiXPlayer.Models

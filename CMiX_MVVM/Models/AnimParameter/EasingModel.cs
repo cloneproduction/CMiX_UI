@@ -1,8 +1,8 @@
-﻿using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Resources;
+using CMiX.Core.Presentation.ViewModels;
 using System;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class EasingModel : Model
     {

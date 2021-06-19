@@ -5,7 +5,7 @@
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
+    xmlns:Tools="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
     d:DesignHeight="1870.805"
     d:DesignWidth="349.875"
     mc:Ignorable="d">

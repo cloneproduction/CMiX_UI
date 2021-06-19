@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="CMiX.MVVM.ViewModels.ViewModel">
+  <Class Name="CMiX.Core.ViewModels.ViewModel">
     <Position X="21.25" Y="1.75" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAgAAAAAIAAAAAAAAAAgAAAAABQCAAAAAAAABA=</HashCode>
@@ -8,7 +8,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Components">
+  <Class Name="CMiX.Core.ViewModels.Components">
     <Position X="21.25" Y="6.5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAIYABECCIsIIAAABAAASgAQIAAQQGQQQAIECAAQA=</HashCode>
@@ -20,37 +20,37 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Composition">
+  <Class Name="CMiX.Core.ViewModels.Composition">
     <Position X="19.5" Y="14.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAACAAAAABAAAAAAAAABAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Components\Composition.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Entity">
+  <Class Name="CMiX.Core.ViewModels.Entity">
     <Position X="24.5" Y="14.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAACCAAAAABAAAAAAAAAAAAQAAAAIAAAAAgAA=</HashCode>
       <FileName>ViewModels\Components\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Layer">
+  <Class Name="CMiX.Core.ViewModels.Layer">
     <Position X="22" Y="14.5" Width="2" />
     <TypeIdentifier>
       <HashCode>QQAAAAgAACCAAAAABAAABAAgAAAAAQAAAACAAAAAAAA=</HashCode>
       <FileName>ViewModels\Components\Layer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Project">
+  <Class Name="CMiX.Core.ViewModels.Project">
     <Position X="16.25" Y="14.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAQAAAAAAAAAAAAAAAQAAAAAgAAIAAAA=</HashCode>
       <FileName>ViewModels\Components\Project.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Scene">
+  <Class Name="CMiX.Core.ViewModels.Scene">
     <Position X="27.25" Y="14.5" Width="2.25" />
-    <InheritanceLine Type="CMiX.MVVM.ViewModels.Components" FixedToPoint="true">
+    <InheritanceLine Type="CMiX.Core.ViewModels.Components" FixedToPoint="true">
       <Path>
         <Point X="23" Y="13.828" />
         <Point X="23" Y="14.125" />
@@ -63,14 +63,14 @@
       <FileName>ViewModels\Components\Scene.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.MessageService.MessageTerminal">
+  <Class Name="CMiX.Core.ViewModels.MessageService.MessageTerminal">
     <Position X="31.75" Y="9.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAABAAAAQAAAACAAACBAAAAAAAAAAAAAAAAAAEAAAgA=</HashCode>
       <FileName>ViewModels\MessageService\MessageTerminal.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CMiX.MVVM.ViewModels.Mediator.MessageDispatcher">
+  <Class Name="CMiX.Core.ViewModels.Mediator.MessageDispatcher">
     <Position X="26.5" Y="7.5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAKAAAAAAAABgAAAAAAABEAAAAAAQAAAAAAA=</HashCode>
@@ -81,7 +81,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="CMiX.MVVM.ViewModels.Components.Factories.IComponentFactory">
+  <Interface Name="CMiX.Core.ViewModels.Components.Factories.IComponentFactory">
     <Position X="26.5" Y="11" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>

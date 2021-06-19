@@ -1,8 +1,8 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.Core.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class ComponentModel : Model, IComponentModel
     {

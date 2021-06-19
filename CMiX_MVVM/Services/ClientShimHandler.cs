@@ -2,7 +2,7 @@
 using NetMQ.Sockets;
 using System;
 
-namespace CMiX.MVVM.Services
+namespace CMiX.Core.Services
 {
     public class ClientShimHandler : IShimHandler
     {

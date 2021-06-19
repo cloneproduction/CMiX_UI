@@ -4,10 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
+    xmlns:MVVM.Views="clr-namespace:CMiX.Core.Views;assembly=CMiX.MVVM"
     xmlns:Views="clr-namespace:CMiXPlayer.Views"
-    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
-    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+    xmlns:Controls="clr-namespace:CMiX.Core.Controls;assembly=CMiX.MVVM"
+    xmlns:Resources="clr-namespace:CMiX.Core.Resources;assembly=CMiX.MVVM"
     mc:Ignorable="d" 
     d:DesignHeight="372.823" d:DesignWidth="915.427">
 

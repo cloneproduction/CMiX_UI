@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Presentation.ViewModels;
 using FluentScheduler;
 using System;
 

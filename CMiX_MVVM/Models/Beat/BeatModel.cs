@@ -1,6 +1,6 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.Core.Interfaces;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class BeatModel : Model, IModel
     {

@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.MessageService;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.ViewModels.Components;
+﻿using CMiX.Core.MessageService;
+using CMiX.Core.Models;
+using CMiX.Core.Presentation.ViewModels;
+using CMiX.Core.Presentation.ViewModels.Components;
 using System;
 
 namespace CMiX.Engine.Testing

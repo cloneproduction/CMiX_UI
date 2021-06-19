@@ -1,4 +1,4 @@
-﻿namespace CMiX.MVVM.Interfaces
+﻿namespace CMiX.Core.Interfaces
 {
     public interface IModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CMiX.MVVM.ViewModels;
+using CMiX.Core.Presentation.ViewModels;
 using CMiXPlayer.Jobs;
 using FluentScheduler;
 
@@ -9,7 +9,6 @@ namespace CMiXPlayer.ViewModels
 {
     public class JobEditor : ViewModel
     {
-        #region CONTRUCTORS
         public JobEditor(ObservableCollection<Device> devices, ObservableCollection<Playlist> playlists, ObservableCollection<IJob> runningJob)
         {
             Devices = devices;
@@ -19,9 +18,7 @@ namespace CMiXPlayer.ViewModels
 
             CreateJobCommand = new RelayCommand(p => CreateJob());
         }
-        #endregion
 
-        #region PROPERTIES
         public ICommand CreateJobCommand { get; }
 
         public ObservableCollection<Device> Devices { get; set; }
@@ -55,9 +52,7 @@ namespace CMiXPlayer.ViewModels
             get => _jobName;
             set => SetAndNotify(ref _jobName, value);
         }
-        #endregion
 
-        #region PRIVATE METHODS
         private void CreateJob()
         {
             //PROBLEM WITH OSCMESSENGER !
@@ -68,6 +63,5 @@ namespace CMiXPlayer.ViewModels
             //    JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
             //}
         }
-        #endregion
     }
 }

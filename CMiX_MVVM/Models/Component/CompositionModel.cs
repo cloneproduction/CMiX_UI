@@ -1,10 +1,10 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Models.Beat;
-using CMiX.MVVM.Models.Component;
+﻿using CMiX.Core.Interfaces;
+using CMiX.Core.Models.Beat;
+using CMiX.Core.Models.Component;
 using System;
 using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.Models
+namespace CMiX.Core.Models
 {
     public class CompositionModel : IComponentModel
     {

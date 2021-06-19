@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Presentation.ViewModels;
 using System.Windows.Input;
 
 namespace CMiXPlayer.Jobs

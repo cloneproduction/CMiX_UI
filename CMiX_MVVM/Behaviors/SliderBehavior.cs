@@ -6,7 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 
-namespace CMiX.MVVM.Behaviors
+namespace CMiX.Core.Behaviors
 {
     public static class SliderDragBehaviors
     {

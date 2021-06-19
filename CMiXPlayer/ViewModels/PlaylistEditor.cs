@@ -1,10 +1,10 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.Core.Presentation.ViewModels;
 using Ceras;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
-using CMiX.MVVM.Models;
+using CMiX.Core.Models;
 using System.IO;
 using CMiXPlayer.Models;
 using System.Linq;
