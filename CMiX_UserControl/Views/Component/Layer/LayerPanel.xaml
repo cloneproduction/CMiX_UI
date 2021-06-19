@@ -9,7 +9,7 @@
              xmlns:ViewModels="clr-namespace:CMiX.Core.Presentation.ViewModels;assembly=CMiX.Core"
              xmlns:MVVM.Views="clr-namespace:CMiX.Core.Presentation.Views;assembly=CMiX.Core"
              xmlns:Tools="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
-             xmlns:Converters="clr-namespace:CMiX.Core.Tools.Converters;assembly=CMiX.Core"
+             xmlns:Converters="clr-namespace:CMiX.Core.Presentation.ValueConverters;assembly=CMiX.Core"
              xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
              
              xmlns:System="clr-namespace:System;assembly=mscorlib"

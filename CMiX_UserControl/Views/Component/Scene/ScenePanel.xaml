@@ -7,7 +7,7 @@
              xmlns:Views ="clr-namespace:CMiX.Studio.Views"
              xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
              xmlns:Tools ="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
-             xmlns:Converters="clr-namespace:CMiX.Core.Tools.Converters;assembly=CMiX.Core"
+             xmlns:Converters="clr-namespace:CMiX.Core.Presentation.ValueConverters;assembly=CMiX.Core"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="478" d:DesignWidth="279">

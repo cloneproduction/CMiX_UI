@@ -1,5 +1,5 @@
 ﻿using CMiX.Core.Interfaces;
-using CMiX.Core.MessageService;
+using CMiX.Core.Network.Communicators;
 using System.Collections.ObjectModel;
 
 namespace CMiX.Core.Presentation.ViewModels

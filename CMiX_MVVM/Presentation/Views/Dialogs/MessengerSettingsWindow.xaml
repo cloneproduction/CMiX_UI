@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls"
-        xmlns:Behavior="clr-namespace:CMiX.Core.Behaviors"
+        xmlns:Behavior="clr-namespace:CMiX.Core.Presentation.Behaviors"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"

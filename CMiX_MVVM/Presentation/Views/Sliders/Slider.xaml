@@ -6,7 +6,7 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.Core.Presentation.Views"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls"
-             xmlns:Converters="clr-namespace:CMiX.Core.Tools.Converters"
+             xmlns:Converters="clr-namespace:CMiX.Core.Presentation.ValueConverters"
              xmlns:Tools="clr-namespace:CMiX.Core.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="27.833" d:DesignWidth="387.167">

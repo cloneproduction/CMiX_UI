@@ -1,5 +1,5 @@
 ﻿using CMiX.Core.Interfaces;
-using CMiX.Core.MessageService;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;

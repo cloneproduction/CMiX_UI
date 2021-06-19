@@ -1,5 +1,5 @@
-﻿using CMiX.Core.MessageService;
-using CMiX.Core.Presentation.ViewModels.Components.Messages;
+﻿using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {

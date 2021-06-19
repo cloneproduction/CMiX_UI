@@ -6,7 +6,7 @@
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
              xmlns:Tools="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
-             xmlns:Converters="clr-namespace:CMiX.Core.Tools.Converters;assembly=CMiX.Core"
+             xmlns:Converters="clr-namespace:CMiX.Core.Presentation.ValueConverters;assembly=CMiX.Core"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="519.333" d:DesignWidth="369.333">

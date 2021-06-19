@@ -1,7 +1,8 @@
 ﻿using Ceras;
-using CMiX.Core.Services;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels;
 using CMiX.Core.Presentation.ViewModels.Components;
+using CMiX.Core.Services;
 using System;
 
 namespace CMiX.Core.MessageService

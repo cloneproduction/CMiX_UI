@@ -1,9 +1,9 @@
 ﻿using CMiX.Core.Interfaces;
-using CMiX.Core.MessageService;
 using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Resources;
 using CMiX.Core.Tools;
-using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels

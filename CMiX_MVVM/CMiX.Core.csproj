@@ -88,40 +88,40 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
-    <Compile Include="Behaviors\ClickBehavior.cs" />
-    <Compile Include="Behaviors\ContextMenuMouseDownBehavior.cs" />
-    <Compile Include="Behaviors\FocusBehavior.cs" />
-    <Compile Include="Behaviors\FolderDialogBehavior.cs" />
-    <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
-    <Compile Include="Behaviors\ClosePopupBehavior.cs" />
-    <Compile Include="Behaviors\SliderBehavior.cs" />
-    <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
-    <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
-    <Compile Include="Controls\Beat\BeatAnimations.cs" />
-    <Compile Include="Controls\Beat\BeatMasterController.cs" />
-    <Compile Include="Controls\Beat\AnimatedDouble.cs" />
-    <Compile Include="Controls\ColorPicker\ColorPicker.cs" />
-    <Compile Include="Controls\Popup\CMiXPopup.cs" />
-    <Compile Include="Controls\Slider\CMiXRangeSlider.xaml.cs">
+    <Compile Include="Presentation\Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\ClickBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\ContextMenuMouseDownBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\FocusBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\FolderDialogBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\ListBoxSelectionBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\ClosePopupBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\SliderBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\TreeViewItemClickBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\TreeViewMultiSelectionBehavior.cs" />
+    <Compile Include="Presentation\Controls\Beat\BeatAnimations.cs" />
+    <Compile Include="Presentation\Controls\Beat\BeatMasterController.cs" />
+    <Compile Include="Presentation\Controls\Beat\AnimatedDouble.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\ColorPicker.cs" />
+    <Compile Include="Presentation\Controls\Popup\CMiXPopup.cs" />
+    <Compile Include="Presentation\Controls\Slider\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Slider\CMiXSlider.cs" />
-    <Compile Include="Controls\ColorPicker\ColorHex.cs" />
-    <Compile Include="Controls\ColorPicker\ColorSlider.cs" />
-    <Compile Include="Controls\ColorPicker\HsvSlider.cs" />
-    <Compile Include="Controls\ColorPicker\HueSlider.cs" />
-    <Compile Include="Controls\ColorPicker\HueWheel.cs" />
-    <Compile Include="Controls\ColorPicker\XYColorControl.cs" />
-    <Compile Include="Controls\ColorPicker\XYController.cs" />
-    <Compile Include="Controls\Counter\Counter.cs" />
-    <Compile Include="Controls\TextBox\InputNumbersOnly.cs" />
-    <Compile Include="Controls\TextBox\SelectTextOnFocus.cs" />
-    <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
-    <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
-    <Compile Include="MessageService\Communicators\Communicator.cs" />
-    <Compile Include="MessageService\Communicators\ControlCommunicator.cs" />
-    <Compile Include="MessageService\Communicators\DataSenderCommunicator.cs" />
+    <Compile Include="Presentation\Controls\Slider\CMiXSlider.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\ColorHex.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\ColorSlider.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\HsvSlider.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\HueSlider.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\HueWheel.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\XYColorControl.cs" />
+    <Compile Include="Presentation\Controls\ColorPicker\XYController.cs" />
+    <Compile Include="Presentation\Controls\Counter\Counter.cs" />
+    <Compile Include="Presentation\Controls\TextBox\InputNumbersOnly.cs" />
+    <Compile Include="Presentation\Controls\TextBox\SelectTextOnFocus.cs" />
+    <Compile Include="Presentation\Controls\ToggleButton\CMiXToggleButton.cs" />
+    <Compile Include="Presentation\Controls\ToggleButton\ToggleDockPosition.cs" />
+    <Compile Include="Network\Communicators\Communicator.cs" />
+    <Compile Include="Network\Communicators\ControlCommunicator.cs" />
+    <Compile Include="Network\Communicators\DataSenderCommunicator.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\IAnimModeModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\LFOModel.cs" />
     <Compile Include="Models\AnimParameter\AnimMode\NoneModel.cs" />
@@ -144,22 +144,22 @@
     <Compile Include="Services\DataEventArgs.cs" />
     <Compile Include="Tools\HighResolutionTimer.cs" />
     <Compile Include="Presentation\ViewModels\Assets\AssetFactory.cs" />
-    <Compile Include="MessageService\Communicators\AssetPathSelectorCommunicator.cs" />
+    <Compile Include="Network\Communicators\AssetPathSelectorCommunicator.cs" />
     <Compile Include="Presentation\ViewModels\Assets\AssetTemplateSelector.cs" />
-    <Compile Include="MessageService\Messages\IAssetSelectorMessage.cs" />
-    <Compile Include="MessageService\Messages\MessageAsset.cs" />
+    <Compile Include="Network\Messages\IAssetSelectorMessage.cs" />
+    <Compile Include="Network\Messages\MessageAsset.cs" />
     <Compile Include="Presentation\ViewModels\BaseControl\ToggleButton.cs" />
     <Compile Include="Presentation\ViewModels\Beat\IBeat.cs" />
     <Compile Include="Presentation\ViewModels\Beat\IBeatObserver.cs" />
     <Compile Include="Presentation\ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="Presentation\ViewModels\Components\ComponentCommunicator.cs" />
     <Compile Include="Presentation\ViewModels\Components\ComponentStyleSelector.cs" />
-    <Compile Include="MessageService\Messages\IIDIterator.cs" />
-    <Compile Include="MessageService\Messages\Message.cs" />
-    <Compile Include="MessageService\Messages\MessageRemoveComponent.cs" />
+    <Compile Include="Network\Messages\IIDIterator.cs" />
+    <Compile Include="Network\Messages\Message.cs" />
+    <Compile Include="Network\Messages\MessageRemoveComponent.cs" />
     <Compile Include="Presentation\ViewModels\Components\Visibility.cs" />
-    <Compile Include="MessageService\Messages\MessageRemoveTransformModifier.cs" />
-    <Compile Include="MessageService\Messages\MessageAddTransformModifier.cs" />
+    <Compile Include="Network\Messages\MessageRemoveTransformModifier.cs" />
+    <Compile Include="Network\Messages\MessageAddTransformModifier.cs" />
     <Compile Include="Services\ClientShimHandler.cs" />
     <Compile Include="Services\NetMQMessageEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
@@ -177,7 +177,7 @@
     <Compile Include="Presentation\ViewModels\Components\Factory\EntityFactory.cs" />
     <Compile Include="Presentation\ViewModels\Components\Factory\LayerFactory.cs" />
     <Compile Include="Presentation\ViewModels\Components\Factory\SceneFactory.cs" />
-    <Compile Include="MessageService\Messages\MessageIDIterator.cs" />
+    <Compile Include="Network\Messages\MessageIDIterator.cs" />
     <Compile Include="Presentation\ViewModels\Entity\Geometry\Instancer\TransformModifier.cs" />
     <Compile Include="Presentation\ViewModels\IIDObject.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\IModifier.cs" />
@@ -191,10 +191,10 @@
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\TransformModifierTemplateSelector.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\TranslateModifier.cs" />
     <Compile Include="Presentation\ViewModels\Transform\TransformType.cs" />
-    <Compile Include="MessageService\Messages\MessageAddComponent.cs" />
-    <Compile Include="MessageService\Messages\MessageInsertComponent.cs" />
-    <Compile Include="MessageService\Messages\MessageMoveComponent.cs" />
-    <Compile Include="MessageService\Messages\MessageUpdateViewModel.cs" />
+    <Compile Include="Network\Messages\MessageAddComponent.cs" />
+    <Compile Include="Network\Messages\MessageInsertComponent.cs" />
+    <Compile Include="Network\Messages\MessageMoveComponent.cs" />
+    <Compile Include="Network\Messages\MessageUpdateViewModel.cs" />
     <Compile Include="Presentation\ViewModels\Observer\IObserver.cs" />
     <Compile Include="Presentation\ViewModels\Observer\ISubject.cs" />
     <Compile Include="Presentation\ViewModels\BaseControl\Range\IRange.cs" />
@@ -214,18 +214,18 @@
     <Compile Include="Presentation\Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Slider\DistanceSlider.cs" />
-    <Compile Include="Controls\MouseDownAttachedProperty.cs" />
-    <Compile Include="Controls\TextBox\EditableTextBox.xaml.cs">
+    <Compile Include="Presentation\Controls\Slider\DistanceSlider.cs" />
+    <Compile Include="Presentation\Controls\MouseDownAttachedProperty.cs" />
+    <Compile Include="Presentation\Controls\TextBox\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TextBox\EditableTextBox.cs" />
-    <Compile Include="Controls\TextBox\EditableValue.xaml.cs">
+    <Compile Include="Presentation\Controls\TextBox\EditableTextBox.cs" />
+    <Compile Include="Presentation\Controls\TextBox\EditableValue.xaml.cs">
       <DependentUpon>EditableValue.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Expander\ExpanderLayerList.cs" />
-    <Compile Include="Controls\TreeView\TreeViewMultiSelect.cs" />
-    <Compile Include="Controls\TreeView\TreeViewSelect.cs" />
+    <Compile Include="Presentation\Controls\Expander\ExpanderLayerList.cs" />
+    <Compile Include="Presentation\Controls\TreeView\TreeViewMultiSelect.cs" />
+    <Compile Include="Presentation\Controls\TreeView\TreeViewSelect.cs" />
     <Compile Include="Models\Assets\AssetModel.cs" />
     <Compile Include="Models\Assets\AssetPathSelectorModel.cs" />
     <Compile Include="Models\Assets\AssetManagerModel.cs" />
@@ -243,7 +243,7 @@
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\Component\EntityModel.cs" />
-    <Compile Include="Controls\ControlPositionEnum.cs" />
+    <Compile Include="Presentation\Controls\ControlPositionEnum.cs" />
     <Compile Include="Presentation\Themes\Styles\Windows\MainWindow.xaml.cs" />
     <Compile Include="Presentation\ViewModels\Assets\Asset.cs" />
     <Compile Include="Presentation\ViewModels\Assets\AssetDirectory.cs" />
@@ -318,10 +318,10 @@
     <Compile Include="Presentation\Views\Sliders\SliderInfinite.xaml.cs">
       <DependentUpon>SliderInfinite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\IPBox\IPBox.xaml.cs">
+    <Compile Include="Presentation\Controls\IPBox\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Slider\RangeSlider.cs" />
+    <Compile Include="Presentation\Controls\Slider\RangeSlider.cs" />
     <Compile Include="Models\Beat\BeatModifierModel.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\ColorationModel.cs" />
@@ -348,7 +348,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Presentation\BindingProxy.cs" />
     <Compile Include="Tools\ColorUtils.cs" />
-    <Compile Include="Presentation\Converter.cs" />
+    <Compile Include="Presentation\ValueConverters\Converter.cs" />
     <Compile Include="Tools\MyHelper.cs" />
     <Compile Include="Tools\Utils.cs" />
     <Compile Include="Presentation\ViewModels\BaseViewModel\RelayCommand.cs" />
@@ -401,7 +401,7 @@
     <Resource Include="Presentation\Themes\Basic\Fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\Slider\CMiXRangeSlider.xaml">
+    <Page Include="Presentation\Controls\Slider\CMiXRangeSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -461,15 +461,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\TextBox\EditableTextBox.xaml">
+    <Page Include="Presentation\Controls\TextBox\EditableTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\IPBox\IPBox.xaml">
+    <Page Include="Presentation\Controls\IPBox\IPBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\TextBox\EditableValue.xaml">
+    <Page Include="Presentation\Controls\TextBox\EditableValue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -619,109 +619,109 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\AddTab.png" />
+    <Resource Include="Presentation\Themes\Assets\AddTab.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\BC.png" />
+    <Resource Include="Presentation\Themes\Assets\BC.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\CloseTab.png" />
+    <Resource Include="Presentation\Themes\Assets\CloseTab.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Coloration.png" />
+    <Resource Include="Presentation\Themes\Assets\Coloration.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\colorChart.PNG" />
+    <Resource Include="Presentation\Themes\Assets\colorChart.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Copy.png" />
+    <Resource Include="Presentation\Themes\Assets\Copy.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Cube.png" />
+    <Resource Include="Presentation\Themes\Assets\Cube.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\DeleteLayer.png" />
+    <Resource Include="Presentation\Themes\Assets\DeleteLayer.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Effect.png" />
+    <Resource Include="Presentation\Themes\Assets\Effect.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\HSL.png" />
+    <Resource Include="Presentation\Themes\Assets\HSL.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\HueCircle.png">
+    <Resource Include="Presentation\Themes\Assets\HueCircle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\NewLayer.png" />
+    <Resource Include="Presentation\Themes\Assets\NewLayer.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Paste.png" />
+    <Resource Include="Presentation\Themes\Assets\Paste.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Reset.png" />
+    <Resource Include="Presentation\Themes\Assets\Reset.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Size.png" />
+    <Resource Include="Presentation\Themes\Assets\Size.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Texture.png" />
+    <Resource Include="Presentation\Themes\Assets\Texture.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Edit.png" />
+    <Resource Include="Presentation\Themes\Assets\Edit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Folder.png" />
-    <Resource Include="Assets\Folder_Opened.png" />
+    <Resource Include="Presentation\Themes\Assets\Folder.png" />
+    <Resource Include="Presentation\Themes\Assets\Folder_Opened.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Network.png">
+    <Resource Include="Presentation\Themes\Assets\Network.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Resource.png">
+    <Resource Include="Presentation\Themes\Assets\Resource.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Add.png" />
+    <Resource Include="Presentation\Themes\Assets\Add.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Rename.png" />
+    <Resource Include="Presentation\Themes\Assets\Rename.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\NotVisible.png" />
-    <Resource Include="Assets\Visible.png" />
+    <Resource Include="Presentation\Themes\Assets\NotVisible.png" />
+    <Resource Include="Presentation\Themes\Assets\Visible.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Close.png" />
+    <Resource Include="Presentation\Themes\Assets\Close.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Mask.png" />
+    <Resource Include="Presentation\Themes\Assets\Mask.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\IsChecked.png" />
+    <Resource Include="Presentation\Themes\Assets\IsChecked.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Composition.png" />
+    <Resource Include="Presentation\Themes\Assets\Composition.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Entity.png" />
-    <Resource Include="Assets\Scene.png" />
-    <Resource Include="Assets\Maximize.png" />
-    <Resource Include="Assets\Minimize.png" />
-    <Resource Include="Assets\Warning.png" />
-    <Resource Include="Assets\Settings.png" />
-    <Resource Include="Assets\Menu.png" />
-    <Resource Include="Assets\Play.png" />
-    <Resource Include="Assets\Stop.png" />
-    <Resource Include="Controls\ColorPicker\Assets\HueCircle.png">
+    <Resource Include="Presentation\Themes\Assets\Entity.png" />
+    <Resource Include="Presentation\Themes\Assets\Scene.png" />
+    <Resource Include="Presentation\Themes\Assets\Maximize.png" />
+    <Resource Include="Presentation\Themes\Assets\Minimize.png" />
+    <Resource Include="Presentation\Themes\Assets\Warning.png" />
+    <Resource Include="Presentation\Themes\Assets\Settings.png" />
+    <Resource Include="Presentation\Themes\Assets\Menu.png" />
+    <Resource Include="Presentation\Themes\Assets\Play.png" />
+    <Resource Include="Presentation\Themes\Assets\Stop.png" />
+    <Resource Include="Presentation\Controls\ColorPicker\Assets\HueCircle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Controls\ColorPicker\Assets\RedControllerBg.png" />
-    <Resource Include="Assets\Sub.png" />
+    <Resource Include="Presentation\Controls\ColorPicker\Assets\RedControllerBg.png" />
+    <Resource Include="Presentation\Themes\Assets\Sub.png" />
     <Content Include="Presentation\Themes\Basic\Fonts\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>

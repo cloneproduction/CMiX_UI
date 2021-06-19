@@ -1,11 +1,11 @@
 ﻿<UserControl
     x:Class="CMiX.Studio.Views.Coloration"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Tools="clr-namespace:CMiX.Core.Tools;assembly=CMiX.Core"
+    xmlns:Views="clr-namespace:CMiX.Studio.Views"
     d:DesignHeight="1870.805"
     d:DesignWidth="349.875"
     mc:Ignorable="d">

@@ -1,5 +1,5 @@
 ﻿using Ceras;
-using CMiX.Core.MessageService;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.Views;
 using CMiX.Studio.ViewModels;
 using MvvmDialogs;
