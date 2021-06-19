@@ -1,50 +1,50 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <BitmapImage x:Key="Copy" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Copy.png"/>
-    <BitmapImage x:Key="Paste" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Paste.png"/>
-    <BitmapImage x:Key="Reset" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Reset.png"/>
+    <BitmapImage x:Key="Copy" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Copy.png"/>
+    <BitmapImage x:Key="Paste" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Paste.png"/>
+    <BitmapImage x:Key="Reset" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Reset.png"/>
 
-    <BitmapImage x:Key="NewLayer" UriSource="pack://application:,,,/CMiX.Core;component/Assets/NewLayer.png"/>
-    <BitmapImage x:Key="DeleteLayer" UriSource="pack://application:,,,/CMiX.Core;component/Assets/DeleteLayer.png"/>
+    <BitmapImage x:Key="NewLayer" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/NewLayer.png"/>
+    <BitmapImage x:Key="DeleteLayer" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/DeleteLayer.png"/>
 
-    <BitmapImage x:Key="AddTab" UriSource="pack://application:,,,/CMiX.Core;component/Assets/AddTab.png"/>
-    <BitmapImage x:Key="CloseTab" UriSource="pack://application:,,,/CMiX.Core;component/Assets/CloseTab.png"/>
+    <BitmapImage x:Key="AddTab" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/AddTab.png"/>
+    <BitmapImage x:Key="CloseTab" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/CloseTab.png"/>
 
-    <BitmapImage x:Key="Coloration" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Coloration.png"/>
-    <BitmapImage x:Key="Geometry" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Cube.png"/>
-    <BitmapImage x:Key="PostFX" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Effect.png"/>
+    <BitmapImage x:Key="Coloration" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Coloration.png"/>
+    <BitmapImage x:Key="Geometry" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Cube.png"/>
+    <BitmapImage x:Key="PostFX" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Effect.png"/>
 
-    <BitmapImage x:Key="Texture" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Texture.png"/>
-    <BitmapImage x:Key="HSL" UriSource="pack://application:,,,/CMiX.Core;component/Assets/HSL.png"/>
-    <BitmapImage x:Key="BrightnessContrast" UriSource="pack://application:,,,/CMiX.Core;component/Assets/BC.png"/>
-    <BitmapImage x:Key="TexTransform" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Size.png"/>
-    <BitmapImage x:Key="Edit" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Edit.png"/>
+    <BitmapImage x:Key="Texture" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Texture.png"/>
+    <BitmapImage x:Key="HSL" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/HSL.png"/>
+    <BitmapImage x:Key="BrightnessContrast" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/BC.png"/>
+    <BitmapImage x:Key="TexTransform" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Size.png"/>
+    <BitmapImage x:Key="Edit" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Edit.png"/>
 
-    <BitmapImage x:Key="Folder" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Folder.png"/>
-    <BitmapImage x:Key="Folder_Opened" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Folder_Opened.png"/>
-    <BitmapImage x:Key="Network" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Network.png"/>
-    <BitmapImage x:Key="Resources" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Resource.png"/>
+    <BitmapImage x:Key="Folder" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Folder.png"/>
+    <BitmapImage x:Key="Folder_Opened" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Folder_Opened.png"/>
+    <BitmapImage x:Key="Network" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Network.png"/>
+    <BitmapImage x:Key="Resources" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Resource.png"/>
     
-    <BitmapImage x:Key="Add" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Add.png"/>
-    <BitmapImage x:Key="Sub" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Sub.png"/>
+    <BitmapImage x:Key="Add" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Add.png"/>
+    <BitmapImage x:Key="Sub" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Sub.png"/>
     
-    <BitmapImage x:Key="Rename" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Rename.png"/>
+    <BitmapImage x:Key="Rename" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Rename.png"/>
 
-    <BitmapImage x:Key="Close" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Close.png"/>
-    <BitmapImage x:Key="Mask" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Mask.png"/>
-    <BitmapImage x:Key="Entity" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Entity.png"/>
-    <BitmapImage x:Key="IsChecked" UriSource="pack://application:,,,/CMiX.Core;component/Assets/IsChecked.png"/>
-    <BitmapImage x:Key="Composition" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Composition.png"/>
-    <BitmapImage x:Key="Scene" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Scene.png"/>
-    <BitmapImage x:Key="Maximize" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Maximize.png"/>
-    <BitmapImage x:Key="Minimize" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Minimize.png"/>
-    <BitmapImage x:Key="Warning" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Warning.png"/>
-    <BitmapImage x:Key="Settings" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Settings.png"/>
-    <BitmapImage x:Key="Menu" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Menu.png"/>
-    <BitmapImage x:Key="Play" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Play.png"/>
-    <BitmapImage x:Key="Stop" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Stop.png"/>
+    <BitmapImage x:Key="Close" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Close.png"/>
+    <BitmapImage x:Key="Mask" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Mask.png"/>
+    <BitmapImage x:Key="Entity" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Entity.png"/>
+    <BitmapImage x:Key="IsChecked" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/IsChecked.png"/>
+    <BitmapImage x:Key="Composition" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Composition.png"/>
+    <BitmapImage x:Key="Scene" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Scene.png"/>
+    <BitmapImage x:Key="Maximize" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Maximize.png"/>
+    <BitmapImage x:Key="Minimize" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Minimize.png"/>
+    <BitmapImage x:Key="Warning" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Warning.png"/>
+    <BitmapImage x:Key="Settings" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Settings.png"/>
+    <BitmapImage x:Key="Menu" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Menu.png"/>
+    <BitmapImage x:Key="Play" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Play.png"/>
+    <BitmapImage x:Key="Stop" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Stop.png"/>
 
-    <BitmapImage x:Key="Visible" UriSource="pack://application:,,,/CMiX.Core;component/Assets/Visible.png"/>
-    <BitmapImage x:Key="NotVisible" UriSource="pack://application:,,,/CMiX.Core;component/Assets/NotVisible.png"/>
+    <BitmapImage x:Key="Visible" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/Visible.png"/>
+    <BitmapImage x:Key="NotVisible" UriSource="pack://application:,,,/CMiX.Core;component/Presentation/Themes/Assets/NotVisible.png"/>
 </ResourceDictionary>
