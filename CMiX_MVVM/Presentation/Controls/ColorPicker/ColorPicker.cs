@@ -1,4 +1,7 @@
-﻿using ColorMine.ColorSpaces;
+﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
+// Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
+
+using ColorMine.ColorSpaces;
 using System;
 using System.Windows;
 using System.Windows.Controls;

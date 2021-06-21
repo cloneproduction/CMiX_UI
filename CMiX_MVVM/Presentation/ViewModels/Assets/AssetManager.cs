@@ -1,4 +1,7 @@
-﻿using CMiX.Core.Presentation.Extensions;
+﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
+// Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
+
+using CMiX.Core.Presentation.Extensions;
 using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Tools;
 using GongSolutions.Wpf.DragDrop;

@@ -1,4 +1,7 @@
-﻿using CMiX.Core.Presentation.ViewModels.Beat;
+﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
+// Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
+
+using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Presentation.ViewModels.Observer;
 using System.Linq;
 using System.Windows.Media.Media3D;
