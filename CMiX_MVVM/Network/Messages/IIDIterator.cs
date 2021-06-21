@@ -11,7 +11,7 @@ namespace CMiX.Core.Network.Messages
         Guid CurrentID { get; }
 
         void Process<T>(T receiver);
-        //Message Message { get; }
+
         List<Guid> IDs { get; }
     }
 }

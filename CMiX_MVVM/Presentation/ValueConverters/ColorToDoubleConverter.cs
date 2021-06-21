@@ -1,0 +1,45 @@
+﻿using CMiX.Core.Tools;
+using System;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Media;
+
+namespace CMiX.Core.Presentation.ValueConverters
+{
+    public class ColorToDoubleConverter : IValueConverter
+    {
+        double hue, sat, val;
+        double output = 0.0;
+        Color colorOut = new Color();
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color colorIn = (Color)value;
+            System.Drawing.Color col = System.Drawing.Color.FromArgb(255, colorIn.R, colorIn.G, colorIn.B);
+            ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+
+            if ((string)parameter == "Hue")
+                output = col.GetHue(); ;
+            if ((string)parameter == "Sat")
+                output = col.GetSaturation();
+            if ((string)parameter == "Val")
+                output = col.GetBrightness();
+
+            return output;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double newvalue = (double)value;
+
+            if ((string)parameter == "Hue")
+                colorOut = ColorUtils.ColorFromHSV(newvalue, sat, val);
+            if ((string)parameter == "Sat")
+                colorOut = ColorUtils.ColorFromHSV(hue, newvalue, val);
+            if ((string)parameter == "Val")
+                colorOut = ColorUtils.ColorFromHSV(hue, sat, newvalue);
+
+            return colorOut;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+﻿using ColorMine.ColorSpaces;
+using System;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Media;
+
+namespace CMiX.Core.Presentation.ValueConverters
+{
+    public class ValToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var rgb = new Hsv() { H = 0.0, S = 0.0, V = (double)value }.To<Rgb>();
+            return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

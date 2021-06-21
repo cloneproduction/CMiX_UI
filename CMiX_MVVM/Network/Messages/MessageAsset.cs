@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.Core.Network.Messages
 {
-    public class MessageAsset : Message, IAssetPathSelectorMessage
+    public class MessageAsset : Message
     {
         public MessageAsset()
         {
