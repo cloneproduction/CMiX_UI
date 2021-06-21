@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ViewModels="clr-namespace:CMiX.Core.Presentation.ViewModels;assembly=CMiX.Core"
-             xmlns:Mathematics="Cmix"
              xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
              mc:Ignorable="d" 
              d:DesignHeight="310" 

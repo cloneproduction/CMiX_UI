@@ -11,9 +11,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CMiX.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("CloneProduction Shanghai Company Limited")]
 [assembly: AssemblyProduct("CMiX.Core")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
