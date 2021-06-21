@@ -5,8 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Views="clr-namespace:CMiX.Studio.Views.Scheduler"
              mc:Ignorable="d" 
-             d:DesignHeight="498.751" d:DesignWidth="942.918">
-    
+             d:DesignHeight="444.751" d:DesignWidth="628.918">
+
     <DockPanel>
         <Border 
             DockPanel.Dock="Top"
