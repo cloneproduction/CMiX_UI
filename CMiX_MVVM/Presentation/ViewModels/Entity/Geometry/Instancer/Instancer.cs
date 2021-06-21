@@ -1,5 +1,4 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Models;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Beat;
@@ -33,7 +32,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
             Transform.SetCommunicator(Communicator);
         }
-        
+
         public void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);

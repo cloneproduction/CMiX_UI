@@ -1,8 +1,6 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
-using CMiX.Core.Resources;
-using CMiX.Core.Tools;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 using System.Windows.Media.Media3D;
@@ -57,12 +55,12 @@ namespace CMiX.Core.Presentation.ViewModels
                 if (ease)
                 {
                     double eased = Easings.Interpolate((float)period, easing.SelectedEasing);
-                    double lerped = Utils.Lerp(oldRandom[i], newRandom[i], eased);
-                    doubleToAnimate[i] = Utils.Map(lerped, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
+                    double lerped = MathUtils.Lerp(oldRandom[i], newRandom[i], eased);
+                    doubleToAnimate[i] = MathUtils.Map(lerped, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
                 }
                 else
                 {
-                    doubleToAnimate[i] = Utils.Map(newRandom[i], 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
+                    doubleToAnimate[i] = MathUtils.Map(newRandom[i], 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
                 }
             }
         }

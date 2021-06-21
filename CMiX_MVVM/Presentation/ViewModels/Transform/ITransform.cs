@@ -1,6 +1,4 @@
-﻿using CMiX.Core.Presentation.ViewModels;
-
-namespace CMiX.Core.Interfaces
+﻿namespace CMiX.Core.Presentation.ViewModels
 {
     public interface ITransform
     {

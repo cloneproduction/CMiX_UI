@@ -1,13 +1,12 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
     public class Range : ViewModel, IControl, IRange
     {
-        public Range(RangeModel rangeModel) 
+        public Range(RangeModel rangeModel)
         {
             this.ID = rangeModel.ID;
             Minimum = rangeModel.Minimum;

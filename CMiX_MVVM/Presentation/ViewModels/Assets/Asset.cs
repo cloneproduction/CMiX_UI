@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using System.IO;
 
 namespace CMiX.Core.Presentation.ViewModels.Assets

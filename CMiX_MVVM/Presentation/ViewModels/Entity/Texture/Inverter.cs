@@ -1,6 +1,5 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels
@@ -15,7 +14,7 @@ namespace CMiX.Core.Presentation.ViewModels
         }
 
 
-        public Guid ID{ get; set; }
+        public Guid ID { get; set; }
         public ControlCommunicator Communicator { get; set; }
         public Slider Invert { get; set; }
         public ComboBox<TextureInvertMode> InvertMode { get; set; }

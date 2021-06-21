@@ -1,5 +1,4 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Models;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;

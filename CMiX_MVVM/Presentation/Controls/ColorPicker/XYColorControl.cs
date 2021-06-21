@@ -1,11 +1,9 @@
-﻿using System;
+﻿using CMiX.Core.Mathematics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-
-using CMiX.Core.Tools;
 
 namespace CMiX.Core.Presentation.Controls
 {
@@ -150,12 +148,12 @@ namespace CMiX.Core.Presentation.Controls
             m_thumbTransform.Y = positionY;
 
             double hue, sat, val, none;
-            ColorUtils.ColorToHSV(SelectedColor, out hue, out none, out none);
+            ColorExtensions.ColorToHSV(SelectedColor, out hue, out none, out none);
 
             sat = positionX / ActualWidth;
             val = 1 - positionY / ActualHeight;
 
-            SelectedColor = ColorUtils.ColorFromHSV(hue, sat, val);
+            SelectedColor = ColorExtensions.ColorFromHSV(hue, sat, val);
         }
 
 
@@ -163,7 +161,7 @@ namespace CMiX.Core.Presentation.Controls
         {
             double hue, sat, val;
 
-            ColorUtils.ColorToHSV(SelectedColor, out hue, out sat, out val);
+            ColorExtensions.ColorToHSV(SelectedColor, out hue, out sat, out val);
 
             m_thumbTransform.X = sat * ActualWidth;
             m_thumbTransform.Y = (1 - val) * ActualHeight;

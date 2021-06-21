@@ -1,5 +1,4 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Models;
+﻿using CMiX.Core.Models;
 
 namespace CMiX.Core.Presentation.ViewModels.Assets
 {
@@ -29,7 +28,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
 
         public override void SetViewModel(IModel model)
         {
-            AssetGeometryModel assetGeometryModel = model as  AssetGeometryModel;
+            AssetGeometryModel assetGeometryModel = model as AssetGeometryModel;
             this.Name = assetGeometryModel.Name;
             this.Path = assetGeometryModel.Path;
             this.Ponderation = assetGeometryModel.Ponderation;

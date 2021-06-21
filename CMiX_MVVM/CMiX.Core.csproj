@@ -88,6 +88,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mathematics\ColorExtensions.cs" />
+    <Compile Include="Mathematics\MathUtils.cs" />
     <Compile Include="Presentation\Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
     <Compile Include="Presentation\Behaviors\ClickBehavior.cs" />
     <Compile Include="Presentation\Behaviors\ContextMenuMouseDownBehavior.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Models\Geometry\Modifier\RandomXYZModel.cs" />
     <Compile Include="Models\Range\IRangeModel.cs" />
     <Compile Include="Models\Range\RangeModel.cs" />
+    <Compile Include="Presentation\Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Presentation\ValueConverters\AltBackgroundConverter.cs" />
     <Compile Include="Presentation\ValueConverters\AlwaysVisibleConverter.cs" />
     <Compile Include="Presentation\ValueConverters\BoolInverterConverter.cs" />
@@ -191,9 +194,7 @@
     <Compile Include="Presentation\ValueConverters\RangeValueToStringConverter.cs" />
     <Compile Include="Presentation\ValueConverters\ValToColorConverter.cs" />
     <Compile Include="Presentation\ValueConverters\ValueAngleConverter.cs" />
-    <Compile Include="Resources\RandomNumbers.cs" />
-    <Compile Include="Services\DataEventArgs.cs" />
-    <Compile Include="Tools\HighResolutionTimer.cs" />
+    <Compile Include="Presentation\ViewModels\Network\DataEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\Assets\AssetFactory.cs" />
     <Compile Include="Network\Communicators\AssetPathSelectorCommunicator.cs" />
     <Compile Include="Presentation\ViewModels\Assets\AssetTemplateSelector.cs" />
@@ -210,8 +211,8 @@
     <Compile Include="Presentation\ViewModels\Components\Visibility.cs" />
     <Compile Include="Network\Messages\MessageRemoveTransformModifier.cs" />
     <Compile Include="Network\Messages\MessageAddTransformModifier.cs" />
-    <Compile Include="Services\ClientShimHandler.cs" />
-    <Compile Include="Services\NetMQMessageEventArgs.cs" />
+    <Compile Include="Presentation\ViewModels\Network\ClientShimHandler.cs" />
+    <Compile Include="Presentation\ViewModels\Network\NetMQMessageEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\Modes\SteadyType.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\Easing\Easing.cs" />
@@ -250,7 +251,7 @@
     <Compile Include="Presentation\ViewModels\BaseControl\Range\IRange.cs" />
     <Compile Include="Presentation\ViewModels\BaseControl\Range\Range.cs" />
     <Compile Include="Models\InverterModel.cs" />
-    <Compile Include="Resources\Easings.cs" />
+    <Compile Include="Mathematics\Easings.cs" />
     <Compile Include="Presentation\ViewModels\Beat\Resync.cs" />
     <Compile Include="Presentation\ViewModels\BaseControl\ColorPicker\ColorPicker.cs" />
     <Compile Include="Presentation\ViewModels\BaseControl\ComboBox.cs" />
@@ -284,14 +285,13 @@
     <Compile Include="Models\Assets\IAssetModel.cs" />
     <Compile Include="Models\Assets\AssetTextureModel.cs" />
     <Compile Include="Models\Component\ComponentModel.cs" />
-    <Compile Include="Models\Interfaces\IComponentModel.cs" />
+    <Compile Include="Models\Component\IComponentModel.cs" />
     <Compile Include="Models\TextureFileModel.cs" />
     <Compile Include="Resources\SortableObservableCollection.cs" />
     <Compile Include="Presentation\ViewModels\Network\Client.cs" />
-    <Compile Include="Services\ModelEventArgs.cs" />
-    <Compile Include="Services\NetMQServer.cs" />
+    <Compile Include="Presentation\ViewModels\Network\NetMQServer.cs" />
     <Compile Include="Models\BlendModeModel.cs" />
-    <Compile Include="Models\Interfaces\IModel.cs" />
+    <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\Component\EntityModel.cs" />
     <Compile Include="Presentation\Controls\ControlPositionEnum.cs" />
     <Compile Include="Presentation\Themes\Styles\Windows\MainWindow.xaml.cs" />
@@ -397,10 +397,7 @@
     <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Presentation\BindingProxy.cs" />
-    <Compile Include="Tools\ColorUtils.cs" />
     <Compile Include="Presentation\ValueConverters\TreeViewItemExtensions.cs" />
-    <Compile Include="Tools\MyHelper.cs" />
-    <Compile Include="Tools\Utils.cs" />
     <Compile Include="Presentation\ViewModels\BaseViewModel\RelayCommand.cs" />
     <Compile Include="Presentation\ViewModels\BaseViewModel\ViewModel.cs" />
     <Compile Include="Presentation\ViewModels\Mask\MaskControlType.cs" />
@@ -433,9 +430,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Diagrams\MessageDiagram.cd" />
-    <None Include="Diagrams\ComponentDiagram.cd" />
-    <None Include="Diagrams\BeatDiagram.cd" />
     <None Include="packages.config" />
     <Resource Include="Presentation\Themes\Basic\Fonts\Roboto-Black.ttf" />
     <Resource Include="Presentation\Themes\Basic\Fonts\Roboto-BlackItalic.ttf" />

@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Models.Beat;
 using CMiX.Core.Models.Component;
 using System;

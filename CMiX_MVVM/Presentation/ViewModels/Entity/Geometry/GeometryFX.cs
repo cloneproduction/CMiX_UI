@@ -1,13 +1,12 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
     public class GeometryFX : ViewModel, IControl
     {
-        public GeometryFX(GeometryFXModel geometryFXModel) 
+        public GeometryFX(GeometryFXModel geometryFXModel)
         {
             this.ID = geometryFXModel.ID;
             Explode = new Slider(nameof(Explode), geometryFXModel.Explode);

@@ -1,11 +1,10 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CMiX.Core.Network.Messages;
 
 namespace CMiX.Core.Presentation.ViewModels
 {

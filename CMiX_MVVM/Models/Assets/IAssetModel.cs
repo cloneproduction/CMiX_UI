@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using System.Collections.ObjectModel;
 
 namespace CMiX.Core.Models

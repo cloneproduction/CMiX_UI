@@ -1,9 +1,7 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
-using CMiX.Core.Resources;
-using CMiX.Core.Tools;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels
@@ -50,7 +48,7 @@ namespace CMiX.Core.Presentation.ViewModels
                 else
                     val = 0.0 + (val - 0.0) % (1.0 - 0.0);
 
-                doubleToAnimate[i] = Utils.Map(Easings.Interpolate((float)val, easing.SelectedEasing), 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
+                doubleToAnimate[i] = MathUtils.Map(Easings.Interpolate((float)val, easing.SelectedEasing), 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
 
                 offset += periodOffset;
             }

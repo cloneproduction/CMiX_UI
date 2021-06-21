@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Beat;
 
 namespace CMiX.Core.Presentation.ViewModels

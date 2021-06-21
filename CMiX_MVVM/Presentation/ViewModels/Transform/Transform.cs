@@ -1,6 +1,5 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Observer;
 using System;
 

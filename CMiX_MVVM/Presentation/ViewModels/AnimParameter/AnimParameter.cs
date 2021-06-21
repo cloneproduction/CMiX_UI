@@ -1,6 +1,5 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Presentation.ViewModels.Observer;
 
@@ -8,7 +7,7 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class AnimParameter : ViewModel, IControl, IObserver
     {
-        public AnimParameter(string name, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel) 
+        public AnimParameter(string name, double[] defaultParameter, MasterBeat beat, AnimParameterModel animParameterModel)
         {
             Period = new double[0];
             Range = new Range(animParameterModel.RangeModel);

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using CMiX.Core.Interfaces;
+using CMiX.Core.Models;
 using CMiX.Core.Models.Component;
 
 namespace CMiX.Core.Models

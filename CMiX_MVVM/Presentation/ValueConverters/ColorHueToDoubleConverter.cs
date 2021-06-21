@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Tools;
+﻿using CMiX.Core.Mathematics;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -13,14 +13,14 @@ namespace CMiX.Core.Presentation.ValueConverters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Color colorIn = (Color)value;
-            ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+            ColorExtensions.ColorToHSV(colorIn, out hue, out sat, out val);
             return hue / 360;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double newhue = (double)value;
-            Color colorOut = ColorUtils.ColorFromHSV(newhue * 360, sat, val);
+            Color colorOut = ColorExtensions.ColorFromHSV(newhue * 360, sat, val);
             return colorOut;
         }
     }

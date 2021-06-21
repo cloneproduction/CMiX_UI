@@ -1,7 +1,6 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Models.Beat;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
 

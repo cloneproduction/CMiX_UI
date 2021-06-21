@@ -6,8 +6,6 @@ namespace CMiX.Core.Presentation.Behaviors
 {
     public class BindableSelectedItemBehavior : Behavior<TreeView>
     {
-        #region SelectedItem Property
-
         public object SelectedItem
         {
             get { return (object)GetValue(SelectedItemProperty); }
@@ -25,8 +23,6 @@ namespace CMiX.Core.Presentation.Behaviors
                 item.SetValue(TreeViewItem.IsSelectedProperty, true);
             }
         }
-
-        #endregion
 
         protected override void OnAttached()
         {

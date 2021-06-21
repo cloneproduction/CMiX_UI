@@ -1,7 +1,6 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
-using CMiX.Core.Tools;
+using CMiX.Core.Network.Communicators;
 using ColorMine.ColorSpaces;
 using System;
 using System.Windows.Input;
@@ -13,7 +12,7 @@ namespace CMiX.Core.Presentation.ViewModels
     {
         public ColorPicker(ColorPickerModel colorPickerModel)
         {
-            SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
+            SelectedColor = ColorExtensions.HexStringToColor(colorPickerModel.SelectedColor);
             this.ID = colorPickerModel.ID;
             Red = SelectedColor.R;
             Green = SelectedColor.G;
@@ -244,7 +243,7 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             ColorPickerModel colorPickerModel = model as ColorPickerModel;
             this.ID = colorPickerModel.ID;
-            this.SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
+            this.SelectedColor = colorPickerModel.SelectedColor.HexStringToColor();
             System.Console.WriteLine("ColorPicker SetViewModel Color " + SelectedColor);
         }
 
@@ -252,7 +251,7 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             ColorPickerModel model = new ColorPickerModel();
             model.ID = this.ID;
-            model.SelectedColor = Utils.ColorToHexString(this.SelectedColor);
+            model.SelectedColor = this.SelectedColor.ColorToHexString();
             return model;
         }
     }

@@ -1,8 +1,7 @@
-﻿using CMiX.Core.Presentation.Controls;
-using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
-using CMiX.Core.Resources;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Presentation.Controls;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels.Beat
@@ -65,7 +64,7 @@ namespace CMiX.Core.Presentation.ViewModels.Beat
 
         public bool CheckHitOnBeatTick()
         {
-            return (RandomNumbers.RandomDouble(0.0, 1.0) <= this.ChanceToHit.Amount / this.ChanceToHit.Maximum) ? true : false;
+            return (MathUtils.RandomDouble(0.0, 1.0) <= this.ChanceToHit.Amount / this.ChanceToHit.Maximum) ? true : false;
         }
 
         protected override void Multiply()

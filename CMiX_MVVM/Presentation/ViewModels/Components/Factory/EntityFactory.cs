@@ -1,5 +1,4 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Models;
+﻿using CMiX.Core.Models;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels.Components.Factories

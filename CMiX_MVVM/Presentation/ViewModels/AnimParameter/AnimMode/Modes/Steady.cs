@@ -1,7 +1,6 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
-using CMiX.Core.Tools;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 
@@ -67,7 +66,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
             if (SteadyType == SteadyType.Linear)
             {
-                if(LinearType == LinearType.Left)
+                if (LinearType == LinearType.Left)
                 {
                     startValue = range.Width;
                     for (int i = 0; i < doubleToAnimate.Length; i++)
@@ -96,12 +95,12 @@ namespace CMiX.Core.Presentation.ViewModels
                 }
             }
 
-            if(SteadyType == SteadyType.Random)
+            if (SteadyType == SteadyType.Random)
             {
                 var random = new Random(Seed);
                 for (int i = 0; i < doubleToAnimate.Length; i++)
                 {
-                    doubleToAnimate[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
+                    doubleToAnimate[i] = MathUtils.Map(random.NextDouble(), 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
                 }
             }
         }

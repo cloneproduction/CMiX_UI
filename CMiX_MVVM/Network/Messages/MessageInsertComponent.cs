@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Components;
 
 namespace CMiX.Core.Network.Messages

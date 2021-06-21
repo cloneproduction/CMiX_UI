@@ -1,11 +1,12 @@
-﻿using System;
+﻿using CMiX.Core.Mathematics;
+using CMiX.Core.Tools;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using CMiX.Core.Tools;
 
 namespace CMiX.Core.Presentation.Controls
 {
@@ -13,7 +14,7 @@ namespace CMiX.Core.Presentation.Controls
     {
         static XYController()
         {
-            UIElement.VisibilityProperty.OverrideMetadata(typeof(XYController),new PropertyMetadata(Visibility.Visible));
+            UIElement.VisibilityProperty.OverrideMetadata(typeof(XYController), new PropertyMetadata(Visibility.Visible));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(XYController), new FrameworkPropertyMetadata(typeof(XYController)));
             EventManager.RegisterClassHandler(typeof(XYController), Thumb.DragDeltaEvent, new DragDeltaEventHandler(XYController.OnThumbDragDelta));
         }
@@ -32,8 +33,8 @@ namespace CMiX.Core.Presentation.Controls
 
             if (xycontroller != null)
             {
-                xycontroller.m_thumbTransform.X = Utils.Map(xycontroller.ValueX, xycontroller.XMin, xycontroller.XMax, 0, xycontroller.ActualWidth);
-                xycontroller.m_thumbTransform.Y = Utils.Map(xycontroller.ValueY, xycontroller.YMin, xycontroller.YMax, xycontroller.ActualHeight, 0);
+                xycontroller.m_thumbTransform.X = MathUtils.Map(xycontroller.ValueX, xycontroller.XMin, xycontroller.XMax, 0, xycontroller.ActualWidth);
+                xycontroller.m_thumbTransform.Y = MathUtils.Map(xycontroller.ValueY, xycontroller.YMin, xycontroller.YMax, xycontroller.ActualHeight, 0);
             }
         }
 
@@ -50,7 +51,7 @@ namespace CMiX.Core.Presentation.Controls
         }
         public static readonly DependencyProperty SelectedColorProperty =
         DependencyProperty.Register("SelectedColor", typeof(Color), typeof(XYController),
-            new FrameworkPropertyMetadata(Colors.Red, 
+            new FrameworkPropertyMetadata(Colors.Red,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 
@@ -169,7 +170,7 @@ namespace CMiX.Core.Presentation.Controls
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
             double xPos = m_thumbTransform.X;
-            double yPos = Utils.Map(Math.Abs(m_thumbTransform.Y), 0, ActualHeight, ActualHeight, 0); // mouseUpPos.Y;
+            double yPos = MathUtils.Map(Math.Abs(m_thumbTransform.Y), 0, ActualHeight, ActualHeight, 0); // mouseUpPos.Y;
 
             if (xPos >= ActualWidth)
                 xPos = ActualWidth - 2;
@@ -219,8 +220,8 @@ namespace CMiX.Core.Presentation.Controls
             this.ValueX = newValueX;
             this.ValueY = newValueY;
 
-            m_thumbTransform.X = Utils.Map(newValueX, 0, 1, 0, ActualWidth);
-            m_thumbTransform.Y = Utils.Map(newValueY, 1, 0, 0, ActualHeight);
+            m_thumbTransform.X = MathUtils.Map(newValueX, 0, 1, 0, ActualWidth);
+            m_thumbTransform.Y = MathUtils.Map(newValueY, 1, 0, 0, ActualHeight);
 
             _lastPoint = GetMousePosition();
         }
@@ -229,7 +230,7 @@ namespace CMiX.Core.Presentation.Controls
         private static void OnThumbDragDelta(object sender, DragDeltaEventArgs e)
         {
             XYController xyControl = sender as XYController;
-            if(xyControl != null)
+            if (xyControl != null)
                 xyControl.OnThumbDragDelta(e);
         }
 
@@ -241,11 +242,11 @@ namespace CMiX.Core.Presentation.Controls
             var _mouseDownPos = e.GetPosition(this);
 
             m_thumbTransform.X = ((Point)_mouseDownPos).X;
-            m_thumbTransform.Y = Utils.Map(((Point)_mouseDownPos).Y, 0, ActualHeight, ActualHeight, 0);
+            m_thumbTransform.Y = MathUtils.Map(((Point)_mouseDownPos).Y, 0, ActualHeight, ActualHeight, 0);
 
-            ValueX = Utils.Map(_mouseDownPos.X, 0, ActualWidth, XMin, XMax);
-            ValueY = Utils.Map(_mouseDownPos.Y, 0, ActualHeight, YMin, YMax);
-                
+            ValueX = MathUtils.Map(_mouseDownPos.X, 0, ActualWidth, XMin, XMax);
+            ValueY = MathUtils.Map(_mouseDownPos.Y, 0, ActualHeight, YMin, YMax);
+
             m_thumb.RaiseEvent(e);
 
             _lastPoint = GetMousePosition();
@@ -263,7 +264,7 @@ namespace CMiX.Core.Presentation.Controls
 
         public override void OnApplyTemplate()
         {
-            
+
             m_thumb = GetTemplateChild(ThumbName) as Thumb;
             if (m_thumb != null)
             {

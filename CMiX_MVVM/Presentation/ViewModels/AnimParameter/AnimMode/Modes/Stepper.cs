@@ -1,7 +1,6 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
-using CMiX.Core.Tools;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 
@@ -48,7 +47,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
-            if(beatModifier.CheckHitOnBeatTick())
+            if (beatModifier.CheckHitOnBeatTick())
                 nextStep += 1.0;
 
             if (nextStep >= StepCount)
@@ -65,7 +64,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
             for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                doubleToAnimate[i] = position + Utils.Map(nextStep, 0, StepCount - 1, 0.0 - range.Width / 2.0, 0.0 + range.Width / 2.0);
+                doubleToAnimate[i] = position + MathUtils.Map(nextStep, 0, StepCount - 1, 0.0 - range.Width / 2.0, 0.0 + range.Width / 2.0);
 
                 position += stepDistance;
             }

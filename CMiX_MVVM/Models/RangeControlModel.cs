@@ -1,9 +1,4 @@
-﻿using CMiX.Core.Presentation.ViewModels;
-using CMiX.Core.Models;
-using System;
-using CMiX.Core.Interfaces;
-
-namespace CMiX.Core.Models
+﻿namespace CMiX.Core.Models
 {
     public class RangeControlModel : IModel
     {

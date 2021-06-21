@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Tools;
+﻿using CMiX.Core.Mathematics;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -14,14 +14,14 @@ namespace CMiX.Core.Presentation.ValueConverters
         {
             Console.WriteLine("DoubleToColorSatConverter");
             Color colorIn = (Color)value;
-            ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
-            return 1-sat;
+            ColorExtensions.ColorToHSV(colorIn, out hue, out sat, out val);
+            return 1 - sat;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double newsat = (double)value;
-            return ColorUtils.ColorFromHSV(hue, newsat, val); ;
+            return ColorExtensions.ColorFromHSV(hue, newsat, val); ;
         }
     }
 }

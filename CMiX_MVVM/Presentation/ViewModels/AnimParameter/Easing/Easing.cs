@@ -1,7 +1,6 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
-using CMiX.Core.Resources;
+using CMiX.Core.Network.Communicators;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels

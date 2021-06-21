@@ -1,6 +1,5 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using GongSolutions.Wpf.DragDrop;
 using System;
 using System.Windows;

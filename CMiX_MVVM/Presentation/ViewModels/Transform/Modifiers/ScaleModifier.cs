@@ -1,6 +1,5 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 
@@ -8,7 +7,7 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class ScaleModifier : ViewModel, IControl, IModifier
     {
-        public ScaleModifier(string name, Scale scale, MasterBeat beat, ScaleModifierModel scaleModifierModel) 
+        public ScaleModifier(string name, Scale scale, MasterBeat beat, ScaleModifierModel scaleModifierModel)
         {
             IsUniform = false;
             //X = new AnimParameter(nameof(X), this, scale.X.Amount, beat);

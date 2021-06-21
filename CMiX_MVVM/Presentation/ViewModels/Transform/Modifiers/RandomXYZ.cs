@@ -1,8 +1,6 @@
-﻿using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Models;
-using CMiX.Core.Resources;
-using CMiX.Core.Tools;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 using System.Collections.ObjectModel;
@@ -194,9 +192,9 @@ namespace CMiX.Core.Presentation.ViewModels
                         var org_Y = transform.Translate.Y.Amount;
                         var org_Z = transform.Translate.Z.Amount;
 
-                        var new_X = RandomNumbers.RandomDouble(-LocationX.Amount + 2.0, LocationX.Amount);
-                        var new_Y = RandomNumbers.RandomDouble(-LocationY.Amount + 2.0, LocationY.Amount);
-                        var new_Z = RandomNumbers.RandomDouble(-LocationZ.Amount + 2.0, LocationZ.Amount);
+                        var new_X = MathUtils.RandomDouble(-LocationX.Amount + 2.0, LocationX.Amount);
+                        var new_Y = MathUtils.RandomDouble(-LocationY.Amount + 2.0, LocationY.Amount);
+                        var new_Z = MathUtils.RandomDouble(-LocationZ.Amount + 2.0, LocationZ.Amount);
 
                         var aX = new_X * org_X;
                         var aY = new_Y * org_Y;
@@ -211,9 +209,9 @@ namespace CMiX.Core.Presentation.ViewModels
                         var org_Y = transform.Scale.Y.Amount;
                         var org_Z = transform.Scale.Z.Amount;
 
-                        var new_X = RandomNumbers.RandomDouble(-ScaleX.Amount + 2.0, ScaleX.Amount);
-                        var new_Y = RandomNumbers.RandomDouble(-ScaleY.Amount + 2.0, ScaleY.Amount);
-                        var new_Z = RandomNumbers.RandomDouble(-ScaleZ.Amount + 2.0, ScaleZ.Amount);
+                        var new_X = MathUtils.RandomDouble(-ScaleX.Amount + 2.0, ScaleX.Amount);
+                        var new_Y = MathUtils.RandomDouble(-ScaleY.Amount + 2.0, ScaleY.Amount);
+                        var new_Z = MathUtils.RandomDouble(-ScaleZ.Amount + 2.0, ScaleZ.Amount);
 
                         var aX = new_X * org_X;
                         var aY = new_Y * org_Y;
@@ -228,9 +226,9 @@ namespace CMiX.Core.Presentation.ViewModels
                         var org_Y = transform.Rotation.Y.Amount;
                         var org_Z = transform.Rotation.Z.Amount;
 
-                        var new_X = RandomNumbers.RandomDouble(-RotationX.Amount + 2.0, RotationX.Amount);
-                        var new_Y = RandomNumbers.RandomDouble(-RotationY.Amount + 2.0, RotationY.Amount);
-                        var new_Z = RandomNumbers.RandomDouble(-RotationZ.Amount + 2.0, RotationZ.Amount);
+                        var new_X = MathUtils.RandomDouble(-RotationX.Amount + 2.0, RotationX.Amount);
+                        var new_Y = MathUtils.RandomDouble(-RotationY.Amount + 2.0, RotationY.Amount);
+                        var new_Z = MathUtils.RandomDouble(-RotationZ.Amount + 2.0, RotationZ.Amount);
 
                         var aX = new_X * org_X;
                         var aY = new_Y * org_Y;
@@ -258,9 +256,9 @@ namespace CMiX.Core.Presentation.ViewModels
                 {
                     double eased = Easings.Interpolate((float)period, Easing.SelectedEasing);
 
-                    Vector3D lerpedLocation = Utils.Lerp(PreviousLocation[index], NextLocation[index], eased);
-                    Vector3D lerpedScale = Utils.Lerp(PreviousScale[index], NextScale[index], eased);
-                    Vector3D lerpedRotation = Utils.Lerp(PreviousRotation[index], NextRotation[index], eased);
+                    Vector3D lerpedLocation = MathUtils.Lerp(PreviousLocation[index], NextLocation[index], eased);
+                    Vector3D lerpedScale = MathUtils.Lerp(PreviousScale[index], NextScale[index], eased);
+                    Vector3D lerpedRotation = MathUtils.Lerp(PreviousRotation[index], NextRotation[index], eased);
 
                     if (RandomizeLocation.IsChecked)
                     {

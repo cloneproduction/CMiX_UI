@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace CMiX.Core.Interfaces
+namespace CMiX.Core.Models
 {
     public interface IComponentModel : IModel
     {

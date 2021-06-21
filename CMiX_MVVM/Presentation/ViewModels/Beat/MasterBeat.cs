@@ -1,7 +1,7 @@
-﻿using CMiX.Core.Presentation.Controls;
-using CMiX.Core.Interfaces;
-using CMiX.Core.Network.Communicators;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Models.Beat;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Presentation.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,5 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 
@@ -8,7 +7,7 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class RotationModifier : ViewModel, IControl, IModifier
     {
-        public RotationModifier(string name, Rotation rotation, MasterBeat beat, RotationModifierModel rotationModifierModel) 
+        public RotationModifier(string name, Rotation rotation, MasterBeat beat, RotationModifierModel rotationModifierModel)
         {
             //X = new AnimParameter(nameof(X), this, rotation.X.Amount, beat);
             //Y = new AnimParameter(nameof(Y), this, rotation.X.Amount, beat);

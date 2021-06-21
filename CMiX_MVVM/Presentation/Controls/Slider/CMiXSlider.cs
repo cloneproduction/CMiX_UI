@@ -1,4 +1,5 @@
-﻿using CMiX.Core.Tools;
+﻿using CMiX.Core.Mathematics;
+using CMiX.Core.Tools;
 using System;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -146,7 +147,7 @@ namespace CMiX.Core.Presentation.Controls
                 Point pointToScreen;
 
                 double YPos = ActualHeight / 2;
-                double XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
+                double XPos = MathUtils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
 
                 if (XPos >= ActualWidth)
                     XPos -= 1;

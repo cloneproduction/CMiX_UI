@@ -1,9 +1,8 @@
-﻿using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Resources;
-using CMiX.Core.Models;
 using System;
-using CMiX.Core.Interfaces;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace CMiX.Core.Presentation.ViewModels.Assets
 {
@@ -115,7 +114,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
         {
             foreach (var asset in this.Assets)
             {
-                if(asset is IDisposable)
+                if (asset is IDisposable)
                     ((IDisposable)asset).Dispose();
             }
             this.Assets.Clear();

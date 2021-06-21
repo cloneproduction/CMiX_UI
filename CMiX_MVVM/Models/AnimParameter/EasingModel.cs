@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Resources;
+﻿using CMiX.Core.Mathematics;
 using CMiX.Core.Presentation.ViewModels;
 using System;
 

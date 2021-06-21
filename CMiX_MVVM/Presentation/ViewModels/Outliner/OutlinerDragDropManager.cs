@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CMiX.Core.Presentation.Extensions;
+using CMiX.Core.Presentation.ViewModels.Components;
+using GongSolutions.Wpf.DragDrop;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Controls;
-using GongSolutions.Wpf.DragDrop;
-using CMiX.Core.Tools;
 using System.Windows;
-using CMiX.Core.Presentation.ViewModels.Components;
+using System.Windows.Controls;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -40,8 +40,8 @@ namespace CMiX.Core.Presentation.ViewModels
             SourceComponent = dropInfo.DragInfo.SourceItem as Component;
             TargetComponent = dropInfo.TargetItem as Component;
 
-            ParentVisualSource = Utils.FindParent<TreeViewItem>(VisualSource);
-            ParentVisualTarget = Utils.FindParent<TreeViewItem>(VisualTarget);
+            ParentVisualSource = VisualSource.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(VisualSource);
+            ParentVisualTarget = VisualTarget.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(VisualTarget);
 
             InsertPositionTargetItemCenter = dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter);
 
@@ -85,7 +85,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public bool CheckParentIsSameType(TreeViewItem target, TreeViewItem source, RelativeInsertPosition relativeInsertPosition)
         {
-            var parent = Utils.FindParent<TreeViewItem>(target);
+            var parent = target.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(target);
             if (parent == null)
             {
                 return false;
@@ -119,7 +119,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public bool CheckItemIsLast(TreeViewItem target, TreeViewItem source, RelativeInsertPosition relativeInsertPosition)
         {
-            var parent = Utils.FindParent<TreeViewItem>(target);
+            var parent = target.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(target);
             if (parent == null)
             {
                 return true;
@@ -151,8 +151,8 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             if (target != null && source != null)
             {
-                TreeViewItem targetParent = Utils.FindParent<TreeViewItem>(target);
-                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
+                TreeViewItem targetParent = target.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(target);
+                TreeViewItem sourceParent = source.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(source);
 
                 Component sourceComponent = source.DataContext as Component;
                 Component targetParentComponent = targetParent.DataContext as Component;
@@ -160,15 +160,14 @@ namespace CMiX.Core.Presentation.ViewModels
 
                 if (targetParentComponent.GetType() == sourceComponent.GetType())
                 {
-                    Component targetGrandParentComponent = Utils.FindParent<TreeViewItem>(targetParent).DataContext as Component;
+                    Component targetGrandParentComponent = targetParent.FindParent<TreeViewItem>().DataContext as Component;// Utils.FindParent<TreeViewItem>(targetParent).DataContext as Component;
 
                     sourceParentComponent.RemoveComponent(sourceComponent);
                     targetGrandParentComponent.AddComponent(sourceComponent);
+                    return;
                 }
-                else
-                {
-                    DropFromLastItem(targetParent, source);
-                }
+
+                DropFromLastItem(targetParent, source);
             }
         }
 
@@ -176,8 +175,8 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             if (target != null && source != null)
             {
-                TreeViewItem targetParent = Utils.FindParent<TreeViewItem>(target);
-                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
+                TreeViewItem targetParent = target.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(target);
+                TreeViewItem sourceParent = source.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(source);
 
                 Component sourceComponent = source.DataContext as Component;
                 Component targetParentComponent = targetParent.DataContext as Component;
@@ -186,12 +185,11 @@ namespace CMiX.Core.Presentation.ViewModels
                 if (SourceIndex < TargetIndex && targetParentComponent == sourceParentComponent)
                 {
                     sourceParentComponent.MoveComponent(SourceIndex, TargetIndex - 1);
+                    return;
                 }
-                else
-                {
-                    sourceParentComponent.RemoveComponent(sourceComponent);
-                    targetParentComponent.InsertComponent(TargetIndex, sourceComponent);
-                }
+
+                sourceParentComponent.RemoveComponent(sourceComponent);
+                targetParentComponent.InsertComponent(TargetIndex, sourceComponent);
             }
         }
 
@@ -199,9 +197,9 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             if (target != null && source != null)
             {
-                TreeViewItem targetParent = Utils.FindParent<TreeViewItem>(target);
-                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
-                TreeViewItem targetGrandParent = Utils.FindParent<TreeViewItem>(targetParent);
+                TreeViewItem targetParent = target.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(target);
+                TreeViewItem sourceParent = source.FindParent<TreeViewItem>(); //Utils.FindParent<TreeViewItem>(source);
+                TreeViewItem targetGrandParent = targetParent.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(targetParent);
 
                 Component sourceComponent = source.DataContext as Component;
                 Component targetParentComponent = targetParent.DataContext as Component;
@@ -236,7 +234,7 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             if (target != null && source != null)
             {
-                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
+                TreeViewItem sourceParent = source.FindParent<TreeViewItem>();// Utils.FindParent<TreeViewItem>(source);
 
                 Component sourceComponent = source.DataContext as Component;
                 Component targetComponent = target.DataContext as Component;
@@ -299,7 +297,7 @@ namespace CMiX.Core.Presentation.ViewModels
             }
         }
 
-        public  void Drop(IDropInfo dropInfo)
+        public void Drop(IDropInfo dropInfo)
         {
             DoDropInParent.Invoke(VisualTarget, VisualSource);
         }

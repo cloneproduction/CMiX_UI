@@ -1,13 +1,12 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using System;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
     public class Mask : ViewModel, IControl
     {
-        public Mask(MaskModel maskModel) 
+        public Mask(MaskModel maskModel)
         {
             MaskType = maskModel.MaskType;
             MaskControlType = maskModel.MaskControlType;

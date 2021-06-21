@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CMiX.Core.Resources
+namespace CMiX.Core.Mathematics
 {
     static public class Easings
     {

@@ -1,4 +1,4 @@
-﻿using CMiX.Core.Tools;
+﻿using CMiX.Core.Mathematics;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -16,7 +16,7 @@ namespace CMiX.Core.Presentation.ValueConverters
         {
             Color colorIn = (Color)value;
             System.Drawing.Color col = System.Drawing.Color.FromArgb(255, colorIn.R, colorIn.G, colorIn.B);
-            ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+            ColorExtensions.ColorToHSV(colorIn, out hue, out sat, out val);
 
             if ((string)parameter == "Hue")
                 output = col.GetHue(); ;
@@ -33,11 +33,11 @@ namespace CMiX.Core.Presentation.ValueConverters
             double newvalue = (double)value;
 
             if ((string)parameter == "Hue")
-                colorOut = ColorUtils.ColorFromHSV(newvalue, sat, val);
+                colorOut = ColorExtensions.ColorFromHSV(newvalue, sat, val);
             if ((string)parameter == "Sat")
-                colorOut = ColorUtils.ColorFromHSV(hue, newvalue, val);
+                colorOut = ColorExtensions.ColorFromHSV(hue, newvalue, val);
             if ((string)parameter == "Val")
-                colorOut = ColorUtils.ColorFromHSV(hue, sat, newvalue);
+                colorOut = ColorExtensions.ColorFromHSV(hue, sat, newvalue);
 
             return colorOut;
         }

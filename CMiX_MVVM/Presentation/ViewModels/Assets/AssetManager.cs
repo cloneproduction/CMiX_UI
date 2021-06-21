@@ -1,5 +1,6 @@
-﻿using CMiX.Core.Tools;
+﻿using CMiX.Core.Presentation.Extensions;
 using CMiX.Core.Presentation.ViewModels.Components;
+using CMiX.Core.Tools;
 using GongSolutions.Wpf.DragDrop;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
@@ -99,10 +100,10 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
         {
             foreach (Asset asset in assets)
             {
-                if(asset is AssetDirectory)
+                if (asset is AssetDirectory)
                     BuildAssetFlattenCollection(((AssetDirectory)asset).Assets);
                 else
-                    AssetsFlatten.Add(asset);                    
+                    AssetsFlatten.Add(asset);
             }
         }
 
@@ -120,7 +121,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
 
         public void RelinkAssets()
         {
-            if(SelectedItems.Count > 0)
+            if (SelectedItems.Count > 0)
             {
                 Asset asset = SelectedItems[0];
                 OpenFileDialogSettings settings = new OpenFileDialogSettings();
@@ -160,12 +161,12 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
             var toBeRemoved = new List<Asset>();
             foreach (var asset in directory.Assets)
             {
-                if(asset is AssetDirectory)
+                if (asset is AssetDirectory)
                     RemoveItemFromDirectory(asset as AssetDirectory);
 
                 toBeRemoved.Add(asset);
             }
-            
+
             foreach (var item in toBeRemoved)
             {
                 directory.Assets.Remove(item);
@@ -229,13 +230,13 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
 
             foreach (var textureFileType in Enum.GetValues(typeof(TextureFileType)))
             {
-                if(fileType == textureFileType.ToString())
+                if (fileType == textureFileType.ToString())
                     item = this.AssetFactory.CreateAssetTexture(fileName, filePath);
             }
 
             foreach (var geometryFileType in Enum.GetValues(typeof(GeometryFileType)))
             {
-                if(fileType == geometryFileType.ToString())
+                if (fileType == geometryFileType.ToString())
                     item = this.AssetFactory.CreateAssetGeometry(fileName, filePath);
             }
 
@@ -306,7 +307,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
             {
                 var targetItem = dropInfo.TargetItem;
                 var vSourceItem = dropInfo.DragInfo.VisualSourceItem as TreeViewItem;
-                var vSourceChild = Utils.FindVisualChildren<TreeViewItem>(vSourceItem);
+                var vSourceChild = vSourceItem.FindVisualChildren<TreeViewItem>();// Utils.FindVisualChildren<TreeViewItem>(vSourceItem);
                 var vTargetItem = dropInfo.VisualTargetItem as TreeViewItem;
 
                 if (targetItem is AssetDirectory)
@@ -403,8 +404,8 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
         {
             List<AssetDragDrop> dragList = new List<AssetDragDrop>();
             GetDragDropObjects(dragList, this.Assets);
-            
-            if(dragList.Count > 0)
+
+            if (dragList.Count > 0)
             {
                 dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                 dragInfo.Data = dragList;
@@ -441,7 +442,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
 
         public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            CanRenameAsset = (SelectedItems.Count == 1 && SelectedItems.OfType<AssetDirectory>().Any() );
+            CanRenameAsset = (SelectedItems.Count == 1 && SelectedItems.OfType<AssetDirectory>().Any());
             CanAddAsset = (SelectedItems.Count == 1 && SelectedItems.OfType<AssetDirectory>().Any());
             CanDeleteAsset = !SelectedItems.OfType<AssetDirectory>().Any(c => c.IsRoot == true);
             CanRelinkAsset = (SelectedItems.Count == 1 && !SelectedItems.OfType<AssetDirectory>().Any());

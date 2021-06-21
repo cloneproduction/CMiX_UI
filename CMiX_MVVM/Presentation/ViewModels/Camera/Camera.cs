@@ -1,6 +1,5 @@
-﻿using CMiX.Core.Interfaces;
+﻿using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using System;
 
@@ -8,7 +7,7 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class Camera : ViewModel, IControl
     {
-        public Camera(MasterBeat beat, CameraModel cameraModel) 
+        public Camera(MasterBeat beat, CameraModel cameraModel)
         {
             this.ID = cameraModel.ID;
             Rotation = ((CameraRotation)0).ToString();
