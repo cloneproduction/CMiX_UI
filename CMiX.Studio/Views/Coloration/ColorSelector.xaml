@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="CMiX.Studio.Views.ColorSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
+             xmlns:Tools="clr-namespace:CMiX.Core.Presentation;assembly=CMiX.Core"
+             xmlns:MVVM.Views="clr-namespace:CMiX.Core.Presentation.Views;assembly=CMiX.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="462.78" 
+             d:DesignWidth="255.06">
+
+    <!--<UserControl.Resources>
+        <ResourceDictionary>
+            <Tools:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
+        </ResourceDictionary>
+    </UserControl.Resources>-->
+
+    <StackPanel Background="{StaticResource HighDarkerColor}">
+        <Expander IsExpanded="True" Margin="0, 2" Header="Color" Style="{StaticResource ExpanderBase}">
+            <Border 
+                Margin="0, 4" 
+                Padding="8" 
+                Style="{StaticResource BorderContainer}">
+                <!--<Controls:ColorPicker 
+                    Style="{StaticResource ColorPickerStyle}"
+                    Hue="{Binding Path=ColorPicker.Hue}"
+                    Saturation="{Binding Path=ColorPicker.Sat}"
+                    Value="{Binding Path=ColorPicker.Val}"
+                    Red="{Binding Path=ColorPicker.Red}"
+                    Green="{Binding Path=ColorPicker.Green}"
+                    Blue="{Binding Path=ColorPicker.Blue}"
+                    SelectedColor="{Binding Path=ColorPicker.SelectedColor}" />-->
+                <MVVM.Views:ColorPicker DataContext="{Binding ColorPicker}"/>
+            </Border>
+        </Expander>
+    </StackPanel>
+</UserControl>
