@@ -1,0 +1,29 @@
+﻿using CMiX.Core.Presentation.ViewModels;
+using FluentScheduler;
+using System;
+
+namespace CMiX.Core.Presentation.ViewModels.Scheduler
+{
+    public class ToRunNow : ViewModel, IScheduleInterface<Schedule>
+    {
+        public ToRunNow()
+        {
+            Name = "ToRunNow";
+            SetScheduler = new Action<Schedule>((s) => { SetToRunNow(s); });
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
+        public Action<Schedule> SetScheduler { get; set; }
+
+        public void SetToRunNow(Schedule schedule)
+        {
+            schedule.ToRunNow();
+        }
+    }
+}

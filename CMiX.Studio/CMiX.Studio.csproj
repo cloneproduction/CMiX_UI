@@ -107,6 +107,9 @@
     <Reference Include="CMiX.Core">
       <HintPath>..\CMiX.Core\bin\Debug\CMiX.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.5.1\lib\netstandard2.0\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.2.3.2\lib\net47\GongSolutions.WPF.DragDrop.dll</HintPath>
     </Reference>
@@ -183,6 +186,42 @@
     </Compile>
     <Compile Include="Views\Component\Scene\ScenePanel.xaml.cs">
       <DependentUpon>ScenePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\At.xaml.cs">
+      <DependentUpon>At.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\Client.xaml.cs">
+      <DependentUpon>Client.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\JobEditor.xaml.cs">
+      <DependentUpon>JobEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\JobScheduled.xaml.cs">
+      <DependentUpon>JobScheduled.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\PlaylistEditor.xaml.cs">
+      <DependentUpon>PlaylistEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\Scheduler.xaml.cs">
+      <DependentUpon>Scheduler.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\ToRunEvery.xaml.cs">
+      <DependentUpon>ToRunEvery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\ToRunType.xaml.cs">
+      <DependentUpon>ToRunType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\UnitInterval.xaml.cs">
+      <DependentUpon>UnitInterval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\UnitType.xaml.cs">
+      <DependentUpon>UnitType.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
@@ -342,6 +381,54 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\Scene\ScenePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\At.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\Client.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\JobEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\JobScheduled.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\Overview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\PlaylistEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\Project.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\Scheduler.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\ToRunEvery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\ToRunType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\UnitInterval.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\UnitType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -51,6 +51,9 @@
     <Reference Include="ColorMine, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorMine.1.1.3.0\lib\ColorMine.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.5.1\lib\netstandard2.0\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.2.3.2\lib\net47\GongSolutions.WPF.DragDrop.dll</HintPath>
     </Reference>
@@ -90,6 +93,10 @@
   <ItemGroup>
     <Compile Include="Mathematics\ColorExtensions.cs" />
     <Compile Include="Mathematics\MathUtils.cs" />
+    <Compile Include="Models\Scheduler\DeviceModel.cs" />
+    <Compile Include="Models\Scheduler\OSCMessengerModel.cs" />
+    <Compile Include="Models\Scheduler\PlaylistModel.cs" />
+    <Compile Include="Models\Scheduler\ProjectModel.cs" />
     <Compile Include="Presentation\Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
     <Compile Include="Presentation\Behaviors\ClickBehavior.cs" />
     <Compile Include="Presentation\Behaviors\ContextMenuMouseDownBehavior.cs" />
@@ -231,6 +238,27 @@
     <Compile Include="Network\Messages\MessageIDIterator.cs" />
     <Compile Include="Presentation\ViewModels\Entity\Geometry\Instancer\TransformModifier.cs" />
     <Compile Include="Presentation\ViewModels\IIDObject.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\IScheduleInterface.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\JobSendComposition.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunEvery.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunNow.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunNowAndEvery.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunType.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\At.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\DayUnit.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\HourUnit.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\MinuteUnit.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\MonthUnit.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\SecondUnit.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\UnitInterval.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\UnitType.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Device.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\JobEditor.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Playlist.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\PlaylistEditor.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Project.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Scheduler.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Settings.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />
@@ -287,7 +315,7 @@
     <Compile Include="Models\Component\ComponentModel.cs" />
     <Compile Include="Models\Component\IComponentModel.cs" />
     <Compile Include="Models\TextureFileModel.cs" />
-    <Compile Include="Resources\SortableObservableCollection.cs" />
+    <Compile Include="Presentation\SortableObservableCollection.cs" />
     <Compile Include="Presentation\ViewModels\Network\Client.cs" />
     <Compile Include="Presentation\ViewModels\Network\NetMQServer.cs" />
     <Compile Include="Models\BlendModeModel.cs" />

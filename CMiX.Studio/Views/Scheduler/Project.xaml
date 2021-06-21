@@ -1,0 +1,179 @@
+﻿<UserControl x:Class="CMiX.Studio.Views.Scheduler.Project"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Views="clr-namespace:CMiX.Studio.Views.Scheduler"
+             mc:Ignorable="d" 
+             d:DesignHeight="498.751" d:DesignWidth="942.918">
+    
+    <DockPanel>
+        <Border 
+            DockPanel.Dock="Top"
+            Background="{StaticResource Color}" >
+            <Menu
+                Style="{StaticResource MenuDefault}"
+                Grid.Row="0"
+                Height="25"
+                HorizontalAlignment="Left"
+                VerticalContentAlignment="Center">
+                <MenuItem
+                    Style="{DynamicResource TopMenuItem}"
+                    Padding="20,0,20,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="File">
+                    <MenuItem
+                        Header="New"
+                        Command="{Binding NewProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
+                    <MenuItem
+                        Header="Open"
+                        Command="{Binding OpenProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
+                    <MenuItem
+                        Header="Save"
+                        Command="{Binding SaveProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
+                    <MenuItem
+                        Header="Save As"
+                        Command="{Binding SaveAsProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
+                    <MenuItem
+                        Header="Quit"
+                        Command="{Binding QuitCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        Template="{StaticResource SubMenuItemBase}" />
+                </MenuItem>
+                <MenuItem
+                    Style="{DynamicResource TopMenuItem}"
+                    Padding="20,0,20,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="Edit">
+                    <MenuItem
+                        Header="Undo    Ctrl + Z"
+                        Template="{StaticResource SubMenuItemBase}"
+                        Command="{Binding UndoCommand}"/>
+                    <MenuItem
+                        Header="Redo    Ctrl + Y"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        Command="{Binding RedoCommand}"/>
+                </MenuItem>
+                <MenuItem
+                    Style="{DynamicResource TopMenuItem}"
+                    Padding="20,0,20,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="Compo">
+                    <MenuItem
+                        Header="Add"
+                        Command="{Binding AddCompoCommand}"
+                        Style="{DynamicResource ContextMenuSubItem}" />
+                    <MenuItem
+                        Header="Delete"
+                        Command="{Binding DeleteCompoCommand}"
+                        CommandParameter="{Binding SelectedComposition}"
+                        Style="{DynamicResource ContextMenuSubItem}" />
+                    <MenuItem
+                        Header="Duplicate"
+                        Command="{Binding DuplicateCompoCommand}"
+                        CommandParameter="{Binding SelectedComposition}"
+                        Style="{DynamicResource ContextMenuSubItem}" />
+                    <Separator BorderThickness="0.5" Margin="0, 8, 8, 8" BorderBrush="{StaticResource DarkColor}"/>
+                    <MenuItem
+                        Header="Import"
+                        Command="{Binding ImportCompoCommand}"
+                        Style="{DynamicResource ContextMenuSubItem}" />
+                    <MenuItem
+                        Header="ImportFromProject"
+                        Command="{Binding ImportCompoFromProjectCommand}"
+                        Style="{DynamicResource ContextMenuSubItem}" />
+                    <MenuItem
+                        Header="Export"
+                        Command="{Binding ExportCompoCommand}"
+                        Style="{DynamicResource ContextMenuSubItem}" />
+                </MenuItem>
+            </Menu>
+        </Border>
+
+        <Border Margin="8">
+            <TabControl 
+                Style="{StaticResource TabControlVerticalPanel}">
+                <TabControl.Resources>
+                    <Style x:Key="HeaderStyle" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Padding" Value="10"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Control.FontSize" Value="16" />
+                    </Style>
+                </TabControl.Resources>
+
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Scheduler" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:Scheduler 
+                        Margin="16"
+                        Padding="10"
+                        DataContext="{Binding Scheduler}"/>
+                </TabItem>
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}" >
+                    <TabItem.Header>
+                        <TextBlock Text="Devices" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel 
+                            LastChildFill="False"
+                            Margin="16"
+                            Height="30" 
+                            DockPanel.Dock="Bottom">
+                            <Button 
+                                Width="100"
+                                Margin="4"
+                                Command="{Binding AddClientCommand}" 
+                                Content="Add Device" Grid.ColumnSpan="2"/>
+                            <Button 
+                                Width="100"
+                                Margin="4"
+                                Command="{Binding ResetAllClientCommand}" 
+                                Content="Reset All"/>
+                        </DockPanel>
+                        <Border      
+                            Style="{StaticResource BorderContainer}"
+                            Margin="16, 16, 16, 0"
+                            Padding="10">
+                            <Views:Client />
+                        </Border>
+                    </DockPanel>
+                </TabItem>
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Playlist" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:PlaylistEditor 
+                        Margin="16"
+                        DataContext="{Binding PlaylistEditor}"/>
+                </TabItem>
+                <TabItem
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Tasks" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:JobEditor 
+                        Margin="16"
+                        DataContext="{Binding JobEditor}"/>
+                </TabItem>
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Overview" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:Overview Margin="16" />
+                </TabItem>
+            </TabControl>
+        </Border>
+    </DockPanel>
+</UserControl>

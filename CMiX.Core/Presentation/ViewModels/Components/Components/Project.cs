@@ -6,6 +6,7 @@ using CMiX.Core.Models.Component;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
+using CMiX.Core.Presentation.ViewModels.Scheduler;
 using MvvmDialogs;
 using System.Collections.ObjectModel;
 
@@ -21,10 +22,14 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
+            Scheduler = new Scheduler.Scheduler();
         }
 
 
         public IDialogService DialogService { get; set; }
+
+        public Scheduler.Scheduler Scheduler { get; set; }
+
 
         private ObservableCollection<Asset> _assets;
         public ObservableCollection<Asset> Assets
@@ -32,6 +37,18 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             get => _assets;
             set => SetAndNotify(ref _assets, value);
         }
+
+
+        public override void SetCommunicator(Communicator communicator)
+        {
+            Communicator.SetCommunicator(communicator);
+        }
+
+        public override void UnsetCommunicator(Communicator communicator)
+        {
+            Communicator.UnsetCommunicator(communicator);
+        }
+
 
         public override IModel GetModel()
         {
@@ -77,16 +94,6 @@ namespace CMiX.Core.Presentation.ViewModels.Components
                 asset.SetViewModel(assetModel);
                 this.Assets.Add(asset);
             }
-        }
-
-        public override void SetCommunicator(Communicator communicator)
-        {
-            Communicator.SetCommunicator(communicator);
-        }
-
-        public override void UnsetCommunicator(Communicator communicator)
-        {
-            Communicator.UnsetCommunicator(communicator);
         }
     }
 }
