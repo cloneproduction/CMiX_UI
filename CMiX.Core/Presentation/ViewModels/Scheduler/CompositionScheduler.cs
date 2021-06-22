@@ -13,15 +13,15 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
     {
         public CompositionScheduler(ObservableCollection<Component> compositions)
         {
-            JobsOverview = new JobsOverview();
             Playlists = new ObservableCollection<Playlist>();
             PlaylistEditor = new PlaylistEditor(Playlists, compositions);
             JobEditor = new JobEditor(Playlists);
+            JobsOverview = new JobsOverview();
         }
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public SchedulerCommunicator Communicator { get; set; }
 
 
         public JobsOverview JobsOverview { get; set; }
@@ -43,7 +43,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new SchedulerCommunicator(this);
             Communicator.SetCommunicator(communicator);
         }
         public void UnsetCommunicator(Communicator communicator)

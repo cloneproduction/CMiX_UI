@@ -97,6 +97,8 @@
     <Compile Include="Models\Scheduler\OSCMessengerModel.cs" />
     <Compile Include="Models\Scheduler\PlaylistModel.cs" />
     <Compile Include="Models\Scheduler\ProjectModel.cs" />
+    <Compile Include="Network\Communicators\SchedulerCommunicator.cs" />
+    <Compile Include="Network\Messages\MessageSchedulerJob.cs" />
     <Compile Include="Presentation\Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
     <Compile Include="Presentation\Behaviors\ClickBehavior.cs" />
     <Compile Include="Presentation\Behaviors\ContextMenuMouseDownBehavior.cs" />
@@ -240,7 +242,7 @@
     <Compile Include="Presentation\ViewModels\IIDObject.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\CompositionScheduler.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\IScheduleInterface.cs" />
-    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\JobSendComposition.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\JobNextComposition.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunEvery.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunNow.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunNowAndEvery.cs" />
@@ -256,7 +258,7 @@
     <Compile Include="Presentation\ViewModels\Scheduler\JobEditor.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Playlist.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\PlaylistEditor.cs" />
-    <Compile Include="Presentation\ViewModels\Scheduler\Scheduler.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\JobsOverview.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />
