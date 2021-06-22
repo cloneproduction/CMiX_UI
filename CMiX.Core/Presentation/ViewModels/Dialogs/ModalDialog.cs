@@ -3,7 +3,6 @@
 
 using System.Windows;
 using System.Windows.Input;
-using CMiX.Core.Presentation.ViewModels;
 using MvvmDialogs;
 
 namespace CMiX.Core.Presentation.ViewModels
@@ -27,7 +26,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void Save(object obj)
         {
-            if(obj is Window)
+            if (obj is Window)
             {
                 DialogResult = true;
                 SaveProject = true;

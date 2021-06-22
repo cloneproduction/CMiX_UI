@@ -10,6 +10,10 @@
              d:DesignWidth="773.333">
 
     <UserControl.Resources>
+        <DataTemplate x:Key="ProjectTemplate" DataType="{x:Type Components:Project}">
+            <Views:Project DataContext="{Binding}"/>
+        </DataTemplate>
+        
         <DataTemplate x:Key="CompositionTemplate" DataType="{x:Type Components:Composition}">
             <Views:Composition DataContext="{Binding}"/>
         </DataTemplate>
@@ -26,7 +30,8 @@
             x:Key="ComponentTemplateSelector" 
             EntityTemplate="{StaticResource EntityTemplate}"
             LayerTemplate="{StaticResource LayerTemplate}" 
-            CompositionTemplate="{StaticResource CompositionTemplate}"/>
+            CompositionTemplate="{StaticResource CompositionTemplate}"
+            ProjectTemplate="{StaticResource ProjectTemplate}"/>
     </UserControl.Resources>
 
     <ContentPresenter 

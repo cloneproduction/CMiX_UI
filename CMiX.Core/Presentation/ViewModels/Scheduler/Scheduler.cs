@@ -12,27 +12,20 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
     {
         public Scheduler()
         {
-            //Devices = devices;
             //RunningJobs = runningJobs;
 
             RemoveJobCommand = new RelayCommand(p => RemoveJob(p));
         }
 
-        public ObservableCollection<Device> Devices { get; set; }
 
         public ObservableCollection<IJob> RunningJobs { get; set; }
 
-        private Device _selecteddevice;
-        public Device SelectedDevice
-        {
-            get { return _selecteddevice; }
-            set { _selecteddevice = value; }
-        }
 
         public ICommand RemoveJobCommand { get; set; }
 
         public ControlCommunicator Communicator { get; set; }
         public List<Action<Schedule>> action { get; set; }
+
         public Guid ID { get; set; }
 
         private void RemoveJob(object job)

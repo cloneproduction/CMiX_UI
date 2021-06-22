@@ -6,11 +6,10 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
     public class JobEditor : ViewModel
     {
-        public JobEditor(ObservableCollection<Device> devices, ObservableCollection<Playlist> playlists, ObservableCollection<IJob> runningJob)
+        public JobEditor(ObservableCollection<Playlist> playlists)
         {
-            Devices = devices;
             Playlists = playlists;
-            RunningJobs = runningJob;
+            RunningJobs = new ObservableCollection<IJob>();
             ToRunType = new ToRunType();
 
             CreateJobCommand = new RelayCommand(p => CreateJob());
@@ -18,16 +17,10 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public ICommand CreateJobCommand { get; }
 
-        public ObservableCollection<Device> Devices { get; set; }
         public ObservableCollection<IJob> RunningJobs { get; set; }
         public ObservableCollection<Playlist> Playlists { get; set; }
 
-        private Device _selecteddevice;
-        public Device SelectedDevice
-        {
-            get => _selecteddevice;
-            set => SetAndNotify(ref _selecteddevice, value);
-        }
+
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist
@@ -35,6 +28,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             get => _selectedplaylist;
             set => SetAndNotify(ref _selectedplaylist, value);
         }
+
 
         private ToRunType _toruntype;
         public ToRunType ToRunType
@@ -52,13 +46,13 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         private void CreateJob()
         {
-            //PROBLEM WITH OSCMESSENGER !
-            //if (SelectedPlaylist != null && SelectedDevice.OSCSender != null)
-            //{
-            //    var j = new JobSendComposition(JobName, SelectedPlaylist, SelectedDevice);
-            //    RunningJobs.Add(j);
-            //    JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
-            //}
+
+            if (SelectedPlaylist != null)
+            {
+                var j = new JobSendComposition(JobName, SelectedPlaylist);
+                RunningJobs.Add(j);
+                JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
+            }
         }
     }
 }

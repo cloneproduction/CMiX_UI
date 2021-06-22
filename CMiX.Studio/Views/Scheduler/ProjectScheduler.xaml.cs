@@ -5,9 +5,9 @@ namespace CMiX.Studio.Views.Scheduler
     /// <summary>
     /// Interaction logic for Project.xaml
     /// </summary>
-    public partial class Project : UserControl
+    public partial class ProjectScheduler : UserControl
     {
-        public Project()
+        public ProjectScheduler()
         {
             InitializeComponent();
         }

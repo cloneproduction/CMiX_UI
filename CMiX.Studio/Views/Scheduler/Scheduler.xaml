@@ -6,16 +6,21 @@
              xmlns:Views="clr-namespace:CMiX.Studio.Views.Scheduler"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ListView
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Stretch"
-        ItemsSource="{Binding RunningJobs}"
-        BorderThickness="0"
-        Background="{StaticResource HighDarkerColor}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <Views:JobScheduled/>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+
+    <Expander Header="Scheduler" IsExpanded="True" Style="{StaticResource ExpanderBase}">
+        <Border Padding="4">
+            <ListView
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                ItemsSource="{Binding RunningJobs}"
+                BorderThickness="0"
+                Background="{StaticResource HighDarkerColor}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Views:JobScheduled/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+    </Expander>
 </UserControl>

@@ -8,6 +8,7 @@
                     <Border
                         x:Name="Bd"
                         Background="{DynamicResource HighDarkerColor}"
+                        Padding="2"
                         SnapsToDevicePixels="True">
                         <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="False">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -56,11 +57,11 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Border
                         x:Name="Bd"
-                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{DynamicResource HighHighDarkerColor}"
+                        BorderThickness="0, 0, 0, 1"
                         SnapsToDevicePixels="True"
+                        Padding="4, 0"
                         TextBlock.Foreground="{DynamicResource TextBase}">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -77,7 +78,7 @@
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkerColor}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -85,7 +86,7 @@
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkColor}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -94,7 +95,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkColor}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkerColor}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />

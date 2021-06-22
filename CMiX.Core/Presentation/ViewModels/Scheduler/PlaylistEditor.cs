@@ -2,18 +2,18 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using Ceras;
 using CMiX.Core.Models;
-using CMiX.Core.Models.Scheduler;
+using CMiX.Core.Presentation.ViewModels.Components;
 using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
     public class PlaylistEditor : ViewModel, IDropTarget
     {
-        public PlaylistEditor(ObservableCollection<Playlist> playlists)
+        public PlaylistEditor(ObservableCollection<Playlist> playlists, ObservableCollection<Component> compositions)
         {
             Playlists = playlists;
+            Compositions = compositions;
 
             var play = new Playlist() { Name = "NewPlaylist" };
             Playlists.Add(play);
@@ -23,53 +23,21 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             DeletePlaylistCommand = new RelayCommand(p => DeletePlaylist());
 
             DeleteSelectedCompoCommand = new RelayCommand(p => DeleteSelectedCompo());
-            DuplicateSelectedCompoCommand = new RelayCommand(p => DuplicateSelectedCompo());
             DeleteAllCompoCommand = new RelayCommand(p => DeleteAllCompo());
-            ExportSelectedPlaylistCommand = new RelayCommand(p => ExportSelectedPlaylist());
-            ImportPlaylistCommand = new RelayCommand(p => ImportPlaylist());
+            AddCompositionToPlaylistCommand = new RelayCommand(p => AddCompositionToPlaylist(p as Composition));
         }
 
-        public void ExportSelectedPlaylist()
+
+        private void AddCompositionToPlaylist(Composition composition)
         {
-            System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            savedialog.Filter = "Playlist (*.playlist)|*.playlist";
-            savedialog.DefaultExt = "playlist";
-            savedialog.FileName = SelectedPlaylist.Name;
-            savedialog.AddExtension = true;
-
-            if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                PlaylistModel playlistmodel = new PlaylistModel();
-                SelectedPlaylist.Copy(playlistmodel);
-                string folderPath = savedialog.FileName;
-                //var data = Serializer.Serialize(playlistmodel);
-                //File.WriteAllBytes(folderPath, data);
-            }
-        }
-
-        public void ImportPlaylist()
-        {
-            System.Windows.Forms.OpenFileDialog opendialog = new System.Windows.Forms.OpenFileDialog();
-            opendialog.Filter = "Playlist (*.playlist)|*.playlist";
-
-            if (opendialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string folderPath = opendialog.FileName;
-                if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
-                {
-                    byte[] data = File.ReadAllBytes(folderPath);
-                    PlaylistModel playlistmodel = new PlaylistModel();// Serializer.Deserialize<PlaylistModel>(data);
-                    Playlist playlist = new Playlist();
-
-                    playlist.SetViewModel(playlistmodel);
-                    Playlists.Add(playlist);
-                    SelectedPlaylist = playlist;
-                }
-            }
+            if (composition != null)
+                SelectedPlaylist.Compositions.Add(composition);
         }
 
 
+        public ObservableCollection<Component> Compositions { get; set; }
         public ObservableCollection<Playlist> Playlists { get; set; }
+
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist
@@ -78,21 +46,21 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             set => SetAndNotify(ref _selectedplaylist, value);
         }
 
-        private CompositionModel _selectedComposition;
-        public CompositionModel SelectedComposition
+        private Composition _selectedComposition;
+        public Composition SelectedComposition
         {
             get => _selectedComposition;
             set => SetAndNotify(ref _selectedComposition, value);
         }
 
+        public ICommand AddCompositionToPlaylistCommand { get; set; }
         public ICommand NewPlaylistCommand { get; set; }
         public ICommand DeletePlaylistCommand { get; set; }
 
         public ICommand DeleteSelectedCompoCommand { get; set; }
         public ICommand DuplicateSelectedCompoCommand { get; set; }
         public ICommand DeleteAllCompoCommand { get; set; }
-        public ICommand ExportSelectedPlaylistCommand { get; set; }
-        public ICommand ImportPlaylistCommand { get; set; }
+
 
 
         public void DeleteSelectedCompo()
@@ -101,15 +69,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
                 SelectedPlaylist.Compositions.Remove(SelectedComposition);
         }
 
-        public void DuplicateSelectedCompo()
-        {
-            if (SelectedComposition != null)
-            {
-                //CompositionModel compo = new CompositionModel();
-                //compo = SelectedComposition;
-                //SelectedPlaylist.Compositions.Add(compo);
-            }
-        }
 
         public void DeleteAllCompo()
         {
@@ -140,7 +99,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
             var dataObject = dropInfo.Data as IDataObject;
 
-            if (dataObject != null 
+            if (dataObject != null
                 && dataObject.GetDataPresent(DataFormats.FileDrop)
                 || dropInfo.Data.GetType() == typeof(CompositionModel))
             {
@@ -162,8 +121,8 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
                         if (Path.GetExtension(str).ToUpperInvariant() == ".COMPMIX")
                         {
                             byte[] data = File.ReadAllBytes(str);
-                            var compositionmodel = new CompositionModel();// Serializer.Deserialize<CompositionModel>(data);
-                            SelectedPlaylist.Compositions.Add(compositionmodel);
+                            //var compositionmodel = new CompositionModel();// Serializer.Deserialize<CompositionModel>(data);
+                            //SelectedPlaylist.Compositions.Add(compositionmodel);
                         }
                     }
                 }

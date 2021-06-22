@@ -252,13 +252,10 @@
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\SecondUnit.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\UnitInterval.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\UnitType.cs" />
-    <Compile Include="Presentation\ViewModels\Scheduler\Device.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\JobEditor.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Playlist.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\PlaylistEditor.cs" />
-    <Compile Include="Presentation\ViewModels\Scheduler\Project.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Scheduler.cs" />
-    <Compile Include="Presentation\ViewModels\Scheduler\Settings.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\IModifier.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="Presentation\ViewModels\Transform\Modifiers\TransformModifierFactory.cs" />

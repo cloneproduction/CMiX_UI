@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
-using Ceras;
 using CMiX.Core.Models;
 using CMiX.Core.Models.Scheduler;
 using CMiX.Core.Network.Communicators;
+using CMiX.Core.Presentation.ViewModels.Components;
 using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
@@ -15,8 +14,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
     {
         public Playlist()
         {
-            Compositions = new ObservableCollection<CompositionModel>();
-            
+            Compositions = new ObservableCollection<Composition>();
         }
 
         private string _name;
@@ -28,11 +26,12 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
 
 
-        public ObservableCollection<CompositionModel> Compositions { get; set; }
+        public ObservableCollection<Composition> Compositions { get; set; }
 
-
+        public ControlCommunicator Communicator { get; set; }
 
         public Guid ID { get; set; }
+
 
         public void DragOver(IDropInfo dropInfo)
         {
@@ -65,39 +64,35 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             }
         }
 
-        public void Copy(PlaylistModel playlistmodel)
-        {
-            playlistmodel.Name = Name;
-            playlistmodel.Compositions = Compositions.ToList();
-        }
-
-        public void Paste(PlaylistModel playlistmodel)
-        {
-            Name = playlistmodel.Name;
-            foreach (var composition in playlistmodel.Compositions)
-            {
-                Compositions.Add(composition);
-            }
-        }
 
         public void SetCommunicator(Communicator communicator)
         {
-            throw new NotImplementedException();
+            Communicator = new ControlCommunicator(this);
+            Communicator.SetCommunicator(communicator);
         }
 
         public void UnsetCommunicator(Communicator communicator)
         {
-            throw new NotImplementedException();
+            Communicator.UnsetCommunicator(communicator);
         }
+
 
         public void SetViewModel(IModel model)
         {
-            throw new NotImplementedException();
+            PlaylistModel playlistModel = model as PlaylistModel;
+            this.Name = playlistModel.Name;
+            //foreach (var composition in playlistModel.Compositions)
+            //{
+            //    Compositions.Add(composition);
+            //}
         }
 
         public IModel GetModel()
         {
-            throw new NotImplementedException();
+            PlaylistModel playlistModel = new PlaylistModel();
+            playlistModel.Name = Name;
+            // playlistModel.Compositions = Compositions.ToList();
+            return playlistModel;
         }
     }
 }

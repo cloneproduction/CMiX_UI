@@ -10,11 +10,12 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.7*"/>
             </Grid.ColumnDefinitions>
             <TextBlock 
                 Padding="4"
                 VerticalAlignment="Center"
+                HorizontalAlignment="Right"
                 Grid.Column="0"
                 Text="Hours"
                 Foreground="{StaticResource TextBase}"/>
@@ -31,11 +32,12 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.7*"/>
             </Grid.ColumnDefinitions>
             <TextBlock 
                 Padding="4"
                 VerticalAlignment="Center"
+                HorizontalAlignment="Right"
                 Grid.Column="0"
                 Text="Minutes"
                 Foreground="{StaticResource TextBase}"/>

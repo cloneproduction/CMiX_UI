@@ -1,6 +1,7 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
+using System.Collections.ObjectModel;
 using CMiX.Core.Models;
 using CMiX.Core.Models.Component;
 using CMiX.Core.Network.Communicators;
@@ -8,7 +9,6 @@ using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
 using CMiX.Core.Presentation.ViewModels.Scheduler;
 using MvvmDialogs;
-using System.Collections.ObjectModel;
 
 
 namespace CMiX.Core.Presentation.ViewModels.Components
@@ -20,15 +20,30 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
 
+
+
+
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
             Scheduler = new Scheduler.Scheduler();
+            Playlists = new ObservableCollection<Playlist>();
+            PlaylistEditor = new PlaylistEditor(Playlists, this.Components);
+            JobEditor = new JobEditor(Playlists);
+
         }
+
+
+
+        public Scheduler.Scheduler Scheduler { get; set; }
+        public JobEditor JobEditor { get; set; }
+        public PlaylistEditor PlaylistEditor { get; set; }
+        public ObservableCollection<Playlist> Playlists { get; set; }
+
+
 
 
         public IDialogService DialogService { get; set; }
 
-        public Scheduler.Scheduler Scheduler { get; set; }
 
 
         private ObservableCollection<Asset> _assets;
@@ -41,6 +56,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
         public override void SetCommunicator(Communicator communicator)
         {
+            Communicator = new ComponentCommunicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

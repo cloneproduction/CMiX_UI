@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="65.958" d:DesignWidth="413.172">
     
-    <StackPanel>
+    <StackPanel Margin="0, 4">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -17,9 +17,11 @@
             <TextBlock
                 Foreground="{StaticResource TextBase}"
                 Text="Unit Type"
-                VerticalAlignment="Center"/>
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Padding="4"/>
             <ComboBox
-                Height="25"
+                Height="20"
                 Grid.Column="1"
                 ItemsSource="{Binding UnitTypes}"
                 SelectedItem="{Binding SelectedUnitType}">

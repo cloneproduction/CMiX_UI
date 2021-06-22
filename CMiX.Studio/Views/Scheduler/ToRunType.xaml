@@ -9,18 +9,19 @@
              d:DesignHeight="364.11" d:DesignWidth="509.543">
     
     <StackPanel>
-        <Grid>
+        <Grid Height="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.7*"/>
             </Grid.ColumnDefinitions>
             <TextBlock 
                 Grid.Column="0"
-                VerticalAlignment="Center"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" Padding="4"
                 Foreground="{StaticResource TextBase}"
                 Text="Run Type"/>
             <ComboBox 
-                Height="25"
+                
                 Grid.Column="1"
                 ItemsSource="{Binding ToRunTypes}"
                 SelectedItem="{Binding SelectedToRunType}">
@@ -31,12 +32,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-        <Separator 
-            Background="{StaticResource DarkColor}"
-            Margin="16"
-            DockPanel.Dock="Top"
-            VerticalAlignment="Stretch"/>
-        <ContentControl Margin="0, 4" Grid.Row="1" Content="{Binding SelectedToRunType}">
+        <ContentControl Margin="0, 0" Grid.Row="1" Content="{Binding SelectedToRunType}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type Scheduler:ToRunNow}">
 
