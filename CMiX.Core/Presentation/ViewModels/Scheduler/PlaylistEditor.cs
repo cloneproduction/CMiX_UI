@@ -15,7 +15,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             Playlists = playlists;
             Compositions = compositions;
 
-            var play = new Playlist() { Name = "NewPlaylist" };
+            Playlist play = new Playlist() { Name = "NewPlaylist" };
             Playlists.Add(play);
             SelectedPlaylist = play;
 
@@ -53,14 +53,13 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             set => SetAndNotify(ref _selectedComposition, value);
         }
 
+
         public ICommand AddCompositionToPlaylistCommand { get; set; }
         public ICommand NewPlaylistCommand { get; set; }
         public ICommand DeletePlaylistCommand { get; set; }
-
         public ICommand DeleteSelectedCompoCommand { get; set; }
         public ICommand DuplicateSelectedCompoCommand { get; set; }
         public ICommand DeleteAllCompoCommand { get; set; }
-
 
 
         public void DeleteSelectedCompo()

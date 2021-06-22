@@ -19,32 +19,25 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
-
-
-
+            CompositionScheduler = new CompositionScheduler(this.Components);
 
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
-            Scheduler = new Scheduler.Scheduler();
-            Playlists = new ObservableCollection<Playlist>();
-            PlaylistEditor = new PlaylistEditor(Playlists, this.Components);
-            JobEditor = new JobEditor(Playlists);
+            //Scheduler = new Scheduler.Scheduler();
+            //Playlists = new ObservableCollection<Playlist>();
+            //PlaylistEditor = new PlaylistEditor(Playlists, this.Components);
+            //JobEditor = new JobEditor(Playlists);
 
         }
 
+        public CompositionScheduler CompositionScheduler { get; set; }
 
-
-        public Scheduler.Scheduler Scheduler { get; set; }
-        public JobEditor JobEditor { get; set; }
-        public PlaylistEditor PlaylistEditor { get; set; }
-        public ObservableCollection<Playlist> Playlists { get; set; }
-
-
-
+        //public Scheduler.Scheduler Scheduler { get; set; }
+        //public JobEditor JobEditor { get; set; }
+        //public PlaylistEditor PlaylistEditor { get; set; }
+        //public ObservableCollection<Playlist> Playlists { get; set; }
 
         public IDialogService DialogService { get; set; }
-
-
 
         private ObservableCollection<Asset> _assets;
         public ObservableCollection<Asset> Assets

@@ -8,11 +8,11 @@ using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class Scheduler : ViewModel, IControl
+    public class JobsOverview : ViewModel, IControl
     {
-        public Scheduler()
+        public JobsOverview()
         {
-            //RunningJobs = runningJobs;
+            RunningJobs = new ObservableCollection<IJob>();
 
             RemoveJobCommand = new RelayCommand(p => RemoveJob(p));
         }
@@ -30,7 +30,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         private void RemoveJob(object job)
         {
-            JobSendComposition j = job as JobSendComposition;
+            JobNextComposition j = job as JobNextComposition;
             JobManager.RemoveJob(j.Name);
             RunningJobs.Remove(j);
         }

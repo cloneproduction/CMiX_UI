@@ -3,9 +3,9 @@ using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class JobSendComposition : ViewModel, IJob
+    public class JobNextComposition : ViewModel, IJob
     {
-        public JobSendComposition(string name, Playlist playlist)
+        public JobNextComposition(string name, Playlist playlist)
         {
             Name = name;
             Playlist = playlist;
