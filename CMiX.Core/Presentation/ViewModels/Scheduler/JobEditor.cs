@@ -3,29 +3,27 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
     public class JobEditor : ViewModel, IControl
     {
-        public JobEditor(ObservableCollection<Playlist> playlists)
+        public JobEditor(ObservableCollection<Playlist> playlists, JobScheduler jobScheduler)
         {
 
+            JobScheduler = jobScheduler;
             Playlists = playlists;
-            RunningJobs = new ObservableCollection<IJob>();
             ToRunType = new ToRunType();
 
             CreateJobCommand = new RelayCommand(p => CreateJob());
         }
 
-        public ICommand CreateJobCommand { get; }
 
+        public JobScheduler JobScheduler { get; set; }
 
-        public ObservableCollection<IJob> RunningJobs { get; set; }
         public ObservableCollection<Playlist> Playlists { get; set; }
 
-
+        public ICommand CreateJobCommand { get; set; }
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist
@@ -48,16 +46,16 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             get => _jobName;
             set => SetAndNotify(ref _jobName, value);
         }
+
+
         public Guid ID { get; set; }
 
         private void CreateJob()
         {
             if (SelectedPlaylist != null)
             {
-                var j = new JobNextComposition(JobName, SelectedPlaylist);
-                RunningJobs.Add(j);
-                JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
-
+                var j = new JobNextComposition(JobName, SelectedPlaylist, (s) => ToRunType.SetRunType(s.WithName(JobName)));
+                JobScheduler.AddJob(j);
             }
         }
 

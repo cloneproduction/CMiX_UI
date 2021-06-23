@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
@@ -10,29 +9,24 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
     public class JobsOverview : ViewModel, IControl
     {
-        public JobsOverview()
+        public JobsOverview(JobScheduler jobScheduler)
         {
-            RunningJobs = new ObservableCollection<IJob>();
-
-            RemoveJobCommand = new RelayCommand(p => RemoveJob(p));
+            JobScheduler = jobScheduler;
+            RemoveJobCommand = new RelayCommand(p => RemoveJob(p as Job));
         }
-
-
-        public ObservableCollection<IJob> RunningJobs { get; set; }
 
 
         public ICommand RemoveJobCommand { get; set; }
 
+        public JobScheduler JobScheduler { get; set; }
         public ControlCommunicator Communicator { get; set; }
         public List<Action<Schedule>> action { get; set; }
 
         public Guid ID { get; set; }
 
-        private void RemoveJob(object job)
+        private void RemoveJob(Job job)
         {
-            JobNextComposition j = job as JobNextComposition;
-            JobManager.RemoveJob(j.Name);
-            RunningJobs.Remove(j);
+            JobScheduler.RemoveJob(job);
         }
 
 

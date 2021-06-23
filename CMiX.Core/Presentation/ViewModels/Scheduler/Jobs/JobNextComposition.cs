@@ -1,22 +1,18 @@
-﻿using CMiX.Core.Presentation.ViewModels.Components;
+﻿using System;
+using CMiX.Core.Presentation.ViewModels.Components;
 using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class JobNextComposition : ViewModel, IJob
+    public class JobNextComposition : Job
     {
-        public JobNextComposition(string name, Playlist playlist)
+        public JobNextComposition(string name, Playlist playlist, Action<Schedule> action)
         {
             Name = name;
+            Action = action;
             Playlist = playlist;
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => SetAndNotify(ref _name, value);
-        }
 
         private Playlist _playlist;
         public Playlist Playlist
@@ -32,33 +28,37 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             set => SetAndNotify(ref _currentComposition, value);
         }
 
+
         public bool Pause { get; set; }
 
         int CompositionIndex = -1;
 
 
-        public void Execute()
+        public override void Execute()
         {
             if (!Pause)
                 Next();
+            var schedule = JobManager.GetSchedule(this.Name);
+            this.NextRun = schedule.NextRun;
+            this.Disabled = schedule.Disabled;
         }
-
 
         public void Next()
         {
+            CompositionIndex += 1;
+
             if (CompositionIndex >= Playlist.Compositions.Count - 1)
                 CompositionIndex = 0;
-            else
-                CompositionIndex += 1;
+
             CurrentComposition = Playlist.Compositions[CompositionIndex];
         }
 
         public void Previous()
         {
+            CompositionIndex -= 1;
             if (CompositionIndex <= 0)
                 CompositionIndex = Playlist.Compositions.Count - 1;
-            else
-                CompositionIndex -= 1;
+
             CurrentComposition = Playlist.Compositions[CompositionIndex];
         }
     }

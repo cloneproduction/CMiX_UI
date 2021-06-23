@@ -241,6 +241,8 @@
     <Compile Include="Presentation\ViewModels\Entity\Geometry\Instancer\TransformModifier.cs" />
     <Compile Include="Presentation\ViewModels\IIDObject.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\CompositionScheduler.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Job.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\JobScheduler.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\IScheduleInterface.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\JobNextComposition.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunEvery.cs" />

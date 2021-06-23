@@ -37,25 +37,25 @@
                 </Grid>
 
                 <Grid 
-                Height="20"
-                Margin="0, 4"
-                DockPanel.Dock="Top">
+                    Height="20"
+                    Margin="0, 4"
+                    DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Padding="4"
-                    Grid.Column="0"
-                    Foreground="{StaticResource TextBase}"
-                    Text="Playlist"/>
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Padding="4"
+                        Grid.Column="0"
+                        Foreground="{StaticResource TextBase}"
+                        Text="Playlist"/>
                     <ComboBox
-                    Grid.Column="1"
+                        Grid.Column="1"
 
-                    ItemsSource="{Binding Playlists}"
-                    SelectedItem="{Binding SelectedPlaylist}">
+                        ItemsSource="{Binding Playlists}"
+                        SelectedItem="{Binding SelectedPlaylist}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"/>
@@ -64,14 +64,13 @@
                     </ComboBox>
                 </Grid>
                 <Views:ToRunType 
-                Margin="0, 4"
-                DockPanel.Dock="Top"
-                DataContext="{Binding ToRunType}"/>
+                    Margin="0, 4"
+                    DockPanel.Dock="Top"
+                    DataContext="{Binding ToRunType}"/>
                 <Grid 
-                Height="20"
-                Margin="0, 4"
-                DockPanel.Dock="Top"
-                >
+                    Height="20"
+                    Margin="0, 4"
+                    DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0.7*"/>

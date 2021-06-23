@@ -14,6 +14,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock
             Margin="4"
@@ -21,6 +22,12 @@
             VerticalAlignment="Center"
             Grid.Column="0"
             Text="{Binding Name}"/>
+        <TextBlock
+            Margin="4"
+            Foreground="{StaticResource TextBase}"
+            VerticalAlignment="Center"
+            Grid.Column="0"
+            Text="{Binding NextRun}"/>
         <TextBlock
             Margin="4"
             Foreground="{StaticResource TextBase}"

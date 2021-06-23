@@ -23,19 +23,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
-            //Scheduler = new Scheduler.Scheduler();
-            //Playlists = new ObservableCollection<Playlist>();
-            //PlaylistEditor = new PlaylistEditor(Playlists, this.Components);
-            //JobEditor = new JobEditor(Playlists);
 
         }
 
-        public CompositionScheduler CompositionScheduler { get; set; }
 
-        //public Scheduler.Scheduler Scheduler { get; set; }
-        //public JobEditor JobEditor { get; set; }
-        //public PlaylistEditor PlaylistEditor { get; set; }
-        //public ObservableCollection<Playlist> Playlists { get; set; }
+        public CompositionScheduler CompositionScheduler { get; set; }
 
         public IDialogService DialogService { get; set; }
 
@@ -51,11 +43,15 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         {
             Communicator = new ComponentCommunicator(this);
             Communicator.SetCommunicator(communicator);
+
+            CompositionScheduler.SetCommunicator(Communicator);
         }
 
         public override void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
+
+            CompositionScheduler.UnsetCommunicator(Communicator);
         }
 
 

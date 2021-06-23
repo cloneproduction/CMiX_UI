@@ -4,9 +4,11 @@
 
     <Style TargetType="DataGrid">
         <!-- Make the border and grid lines a little less imposing -->
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource LightColor}" />
-        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource LightColor}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource SuperHighDarkerColor}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource HighHighDarkerColor}" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="AlternatingRowBackground" Value="Blue"/>
+        <Setter Property="AlternationCount" Value="2"/>
         <Setter Property="RowStyle">
             <Setter.Value>
                 <Style TargetType="DataGridRow">
@@ -16,72 +18,88 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{DynamicResource Color}" />
                         </Trigger>
+
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="{DynamicResource DarkerColor}"/>
+                        </Trigger>
+                        <!--then override with my own colour-->
+                        <DataTrigger Binding="{Binding InvoiceSet}" Value="True">
+                            <Setter Property="Background" Value="Green"></Setter>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="CellStyle">
+        
+        <!--<Setter Property="CellStyle" Value="{DynamicResource }">
             <Setter.Value>
                 <Style TargetType="DataGridCell">
                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="BorderBrush" Value="Transparent"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                <Border x:Name="contentBorder" Background="{DynamicResource DarkColor}">
-                                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                <Border x:Name="contentBorder" 
+                                        BorderBrush="Red"
+                                        BorderThickness="0"
+                                        Background="{DynamicResource DarkerColor}">
+                                    <ContentPresenter 
+                                        HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Center"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsEditing" Value="True">
 
                                     </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
+                                    --><!--<Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="BorderBrush" Value="Red"/>
 
-                                    </Trigger>
+                                    </Trigger>--><!--
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Style>
-                <!--<Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                <Border x:Name="CellBorder"
-                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                    BorderThickness="{TemplateBinding BorderThickness}" 
-                                    Background="{DynamicResource DarkColor}"
-                                    SnapsToDevicePixels="True">
-                                    <ContentPresenter x:Name="ContentPres" TextBlock.Foreground="Blue" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                                </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsEditing" Value="True">
-                                            <Setter TargetName="CellBorder" Property="BorderBrush" Value="Green" />
-                                            <Setter TargetName="CellBorder" Property="Background" Value="yellow" />
-                                            <Setter TargetName="CellBorder" Property="BorderThickness" Value="1" />
-                                            <Setter Property="Foreground" Value="Black" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>-->
+                
+
+                
             </Setter.Value>
-        </Setter>
+        </Setter>-->
         <Setter Property="ColumnHeaderStyle" Value="{DynamicResource DatagridColumnHeaderStyle}"/>
     </Style>
 
+    <Style TargetType="{x:Type DataGridCell}">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border x:Name="CellBorder"
+                            Background="Transparent"
+                            BorderBrush="{DynamicResource SuperHighDarkerColor}"
+                            BorderThickness="0, 0, 0, 0"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter x:Name="ContentPres" 
+                                          TextBlock.Foreground="Blue" 
+                                          HorizontalAlignment="Stretch" 
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
     <Style x:Key="DatagridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="Height" Value="30" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
@@ -95,20 +113,26 @@
                         <Border 
                             x:Name="BackgroundBorder" 
                             BorderThickness="1" 
-                            Background="{DynamicResource Color}" 
-                            BorderBrush="{DynamicResource LightColor}" 
-                            Grid.ColumnSpan="2" 
-                            />
-                        <ContentPresenter Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            Background="{DynamicResource DarkerColor}" 
+                            BorderBrush="{DynamicResource SuperHighDarkerColor}" 
+                            Grid.ColumnSpan="2" />
+                        <ContentPresenter 
+                            Margin="0" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" />
                         <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
                             Grid.Column="1" Width="8" Height="6" Fill="White" Margin="0,0,8,0" 
                             VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
-                        <Rectangle 
-                            Width="1" 
-                            Fill="Red" 
+                        <Border 
+                            BorderThickness="0, 0, 0, 2" 
+                            Background="Transparent" 
+                            BorderBrush="{DynamicResource SuperHighDarkerColor}" 
+                            Grid.ColumnSpan="2" />
+                        <!--<Rectangle 
+                            Width="2" 
+                            Fill="{DynamicResource DarkerColor}" 
                             HorizontalAlignment="Right" 
-                            Grid.ColumnSpan="2" 
-                            />
+                            Grid.ColumnSpan="2" />-->
                         <Thumb 
                             x:Name="PART_LeftHeaderGripper" 
                             Grid.Column="1"
@@ -118,7 +142,7 @@
                             Cursor="SizeWE">
                             <Thumb.Template>
                                 <ControlTemplate>
-                                    <Border Background="{DynamicResource HighDarkerColor}"></Border>
+                                    <Border Background="Transparent"/>
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
@@ -131,7 +155,7 @@
                             Cursor="SizeWE">
                             <Thumb.Template>
                                 <ControlTemplate>
-                                    <Border Background="{DynamicResource HighDarkerColor}"></Border>
+                                    <Border Background="Transparent"/>
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>

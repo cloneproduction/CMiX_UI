@@ -7,20 +7,61 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Expander Header="Scheduler" IsExpanded="True" Style="{StaticResource ExpanderBase}">
-        <Border Padding="4">
-            <ListView
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                ItemsSource="{Binding RunningJobs}"
-                BorderThickness="0"
-                Background="{StaticResource HighDarkerColor}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Views:JobScheduled/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Border>
+    <Expander Header="Task" IsExpanded="True" Style="{StaticResource ExpanderBase}">
+        <DataGrid 
+            ItemsSource="{Binding Schedules}" 
+            Background="Transparent"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+
+                <DataGridTemplateColumn Header="Name" Width="150" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock 
+                                    HorizontalAlignment="Center"
+                                    Foreground="{StaticResource TextBase}"
+                                    Text="{Binding Name}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn Header="Playlist" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock 
+                                HorizontalAlignment="Center"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding Playlist.Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Current Composition" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock 
+                                HorizontalAlignment="Center"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding CurrentComposition.Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            
+                <DataGridTemplateColumn Header="Next Run" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock 
+                                HorizontalAlignment="Center"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding NextRun}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Expander>
 </UserControl>
