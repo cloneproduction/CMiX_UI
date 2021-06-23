@@ -27,9 +27,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         public SchedulerCommunicator Communicator { get; set; }
 
 
-
-
-
         public JobScheduler JobScheduler { get; set; }
         public JobsOverview JobsOverview { get; set; }
         public JobEditor JobEditor { get; set; }
@@ -50,12 +47,15 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new SchedulerCommunicator(this);
-            Communicator.SetCommunicator(communicator);
+            //Communicator = new SchedulerCommunicator(this);
+            //Communicator.SetCommunicator(communicator);
+
+            JobScheduler.SetCommunicator(communicator);
         }
         public void UnsetCommunicator(Communicator communicator)
         {
-            Communicator.UnsetCommunicator(communicator);
+            //Communicator.UnsetCommunicator(communicator);
+            JobScheduler.UnsetCommunicator(communicator);
         }
     }
 }

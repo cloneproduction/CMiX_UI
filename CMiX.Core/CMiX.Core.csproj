@@ -93,10 +93,9 @@
   <ItemGroup>
     <Compile Include="Mathematics\ColorExtensions.cs" />
     <Compile Include="Mathematics\MathUtils.cs" />
-    <Compile Include="Models\Scheduler\DeviceModel.cs" />
-    <Compile Include="Models\Scheduler\OSCMessengerModel.cs" />
-    <Compile Include="Models\Scheduler\PlaylistModel.cs" />
-    <Compile Include="Models\Scheduler\ProjectModel.cs" />
+    <Compile Include="Models\Scheduler\JobModel.cs" />
+    <Compile Include="Models\Scheduler\JobSchedulerModel.cs" />
+    <Compile Include="Models\Scheduler\ToRunNowModel.cs" />
     <Compile Include="Network\Communicators\SchedulerCommunicator.cs" />
     <Compile Include="Network\Messages\MessageSchedulerJob.cs" />
     <Compile Include="Presentation\Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
@@ -203,6 +202,7 @@
     <Compile Include="Presentation\ValueConverters\RangeValueToStringConverter.cs" />
     <Compile Include="Presentation\ValueConverters\ValToColorConverter.cs" />
     <Compile Include="Presentation\ValueConverters\ValueAngleConverter.cs" />
+    <Compile Include="Presentation\ViewModels\IGetSetModel.cs" />
     <Compile Include="Presentation\ViewModels\Network\DataEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\Assets\AssetFactory.cs" />
     <Compile Include="Network\Communicators\AssetPathSelectorCommunicator.cs" />
@@ -457,10 +457,19 @@
     <Compile Include="Presentation\ViewModels\PostFX\PostFXTransforms.cs" />
     <Compile Include="Presentation\ViewModels\PostFX\PostFXView.cs" />
     <Compile Include="Presentation\ViewModels\Entity\Texture\TextureInvertMode.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <Resource Include="Presentation\Themes\Basic\Fonts\Roboto-Black.ttf" />
     <Resource Include="Presentation\Themes\Basic\Fonts\Roboto-BlackItalic.ttf" />
     <Resource Include="Presentation\Themes\Basic\Fonts\Roboto-Bold.ttf" />

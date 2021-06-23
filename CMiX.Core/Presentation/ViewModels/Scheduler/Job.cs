@@ -2,13 +2,13 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
+using CMiX.Core.Models;
 using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public abstract class Job : ViewModel, IJob
+    public abstract class Job : ViewModel, IGetSetModel, IJob
     {
-        //Schedule Schedule { get; set; }
         public Action<Schedule> Action { get; set; }
 
         private string _name;
@@ -33,6 +33,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         }
 
         public abstract void Execute();
-
+        public abstract void SetViewModel(IModel model);
+        public abstract IModel GetModel();
     }
 }

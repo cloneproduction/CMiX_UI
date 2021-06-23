@@ -9,9 +9,9 @@ namespace CMiX.Core.Models
 {
     public class ProjectModel : IComponentModel
     {
-        public ProjectModel(Guid id)
+        public ProjectModel()
         {
-            ID = id;
+            ID = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
             ComponentModels = new ObservableCollection<IComponentModel>();
             AssetModels = new ObservableCollection<IAssetModel>();
             AssetModelsFlatten = new ObservableCollection<IAssetModel>();

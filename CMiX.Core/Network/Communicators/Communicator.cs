@@ -36,7 +36,6 @@ namespace CMiX.Core.Network.Communicators
         private void UnregisterReceiver(Communicator communicator)
         {
             _childCommunicator.Remove(communicator.GetID());
-            Console.WriteLine("MessageReceiver Count is " + _childCommunicator.Count);
         }
 
 

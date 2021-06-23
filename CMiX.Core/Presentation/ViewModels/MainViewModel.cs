@@ -26,8 +26,7 @@ namespace CMiX.Core.Presentation.ViewModels
             Mementor = new Mementor();
             DataSender = new DataSender();
 
-            Guid g = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
-            var model = new ProjectModel(g);
+            var model = new ProjectModel();
 
             CurrentProject = new Project(model);
 
@@ -187,7 +186,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         private void NewProject()
         {
-            Project project = new Project(new ProjectModel(Guid.Empty));
+            Project project = new Project(new ProjectModel());
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

@@ -57,7 +57,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
         public override IModel GetModel()
         {
-            ProjectModel model = new ProjectModel(this.ID);
+            ProjectModel model = new ProjectModel();
 
             model.Enabled = this.Enabled;
             model.Name = this.Name;

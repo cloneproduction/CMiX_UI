@@ -1,10 +1,11 @@
-﻿using CMiX.Core.Presentation.ViewModels;
+﻿using System;
+using CMiX.Core.Models;
+using CMiX.Core.Models.Scheduler;
 using FluentScheduler;
-using System;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class ToRunNow : ViewModel, IScheduleInterface<Schedule>
+    public class ToRunNow : ViewModel, IGetSetModel, IScheduleInterface<Schedule>
     {
         public ToRunNow()
         {
@@ -24,6 +25,19 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         public void SetToRunNow(Schedule schedule)
         {
             schedule.ToRunNow();
+        }
+
+        public void SetViewModel(IModel model)
+        {
+            ToRunNowModel toRunNowModel = model as ToRunNowModel;
+            this.Name = toRunNowModel.Name;
+        }
+
+        public IModel GetModel()
+        {
+            ToRunNowModel toRunNowModel = new ToRunNowModel();
+            toRunNowModel.Name = this.Name;
+            return toRunNowModel;
         }
     }
 }

@@ -2,6 +2,7 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
+using CMiX.Core.Models.Scheduler;
 using FluentScheduler;
 
 namespace CMiX.Core.Network.Messages
@@ -13,12 +14,12 @@ namespace CMiX.Core.Network.Messages
 
         }
 
-        public MessageSchedulerJob(IJob job)
+        public MessageSchedulerJob(JobModel jobModel)
         {
-            Job = job;
+            JobModel = jobModel;
         }
 
-        public IJob Job { get; set; }
+        public JobModel JobModel { get; set; }
 
         public override void Process<T>(T receiver)
         {

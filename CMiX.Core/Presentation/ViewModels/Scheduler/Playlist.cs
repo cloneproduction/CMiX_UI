@@ -79,8 +79,8 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public void SetViewModel(IModel model)
         {
-            PlaylistModel playlistModel = model as PlaylistModel;
-            this.Name = playlistModel.Name;
+            //PlaylistModel playlistModel = model as PlaylistModel;
+            //this.Name = playlistModel.Name;
             //foreach (var composition in playlistModel.Compositions)
             //{
             //    Compositions.Add(composition);
@@ -89,10 +89,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public IModel GetModel()
         {
-            PlaylistModel playlistModel = new PlaylistModel();
-            playlistModel.Name = Name;
-            // playlistModel.Compositions = Compositions.ToList();
-            return playlistModel;
+            throw new NotImplementedException();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public JobScheduler JobScheduler { get; set; }
         public ControlCommunicator Communicator { get; set; }
-        public List<Action<Schedule>> action { get; set; }
+
 
         public Guid ID { get; set; }
 
