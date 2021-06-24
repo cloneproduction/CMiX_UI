@@ -3,12 +3,12 @@ using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class MinuteUnit : ViewModel, IScheduleInterface<TimeUnit>
+    public class MinuteUnit : ViewModel, IUnit
     {
         public MinuteUnit()
         {
             Name = "Minutes";
-            SetScheduler = new Action<TimeUnit>((s) => { SetMinuteUnit(s); });
+            SetScheduler = new Action<TimeUnit>((s) => { SetUnit(s); });
         }
 
         private string _name;
@@ -18,11 +18,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             set => SetAndNotify(ref _name, value);
         }
 
-        public Action <TimeUnit> SetScheduler { get; set; }
+        public Action<TimeUnit> SetScheduler { get; set; }
 
-        public void SetMinuteUnit(TimeUnit timeunit)
+        public void SetUnit(TimeUnit timeUnit)
         {
-            timeunit.Minutes();
+            timeUnit.Minutes();
         }
     }
 }

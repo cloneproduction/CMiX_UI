@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Core.Models;
+using CMiX.Core.Models.Scheduler;
 using CMiX.Core.Presentation.ViewModels.Components;
 using FluentScheduler;
 
@@ -10,6 +11,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         public JobNextComposition()
         {
 
+        }
+
+        public JobNextComposition(JobModel jobModel)
+        {
+            Name = jobModel.Name;
         }
 
         public JobNextComposition(string name, Playlist playlist, Action<Schedule> action)
@@ -47,14 +53,14 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
                 Next();
             var schedule = JobManager.GetSchedule(this.Name);
             this.NextRun = schedule.NextRun;
-            this.Disabled = schedule.Disabled;
+            //this.Disabled = schedule.Disabled;
         }
 
         public void Next()
         {
             CompositionIndex += 1;
 
-            if (CompositionIndex >= Playlist.Compositions.Count - 1)
+            if (CompositionIndex > Playlist.Compositions.Count - 1)
                 CompositionIndex = 0;
 
             CurrentComposition = Playlist.Compositions[CompositionIndex];
@@ -63,7 +69,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         public void Previous()
         {
             CompositionIndex -= 1;
-            if (CompositionIndex <= 0)
+            if (CompositionIndex < 0)
                 CompositionIndex = Playlist.Compositions.Count - 1;
 
             CurrentComposition = Playlist.Compositions[CompositionIndex];

@@ -1,15 +1,14 @@
 ﻿using System;
 using FluentScheduler;
-using CMiX.Core.Presentation.ViewModels;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class ToRunNowAndEvery : ViewModel, IScheduleInterface<Schedule>
+    public class ToRunNowAndEvery : ViewModel, IToRun//, IScheduleInterface<Schedule>
     {
         public ToRunNowAndEvery()
         {
             Name = "ToRunNowAndEvery";
-            SetScheduler = new Action<Schedule>((s) => { SetToRunNowAndEvery(s); });
+            SetScheduler = new Action<Schedule>((s) => { SetSchedule(s); });
             UnitType = new UnitType();
             UnitInterval = new UnitInterval(60);
         }
@@ -37,10 +36,15 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public Action<Schedule> SetScheduler { get; set; }
 
-        private void SetToRunNowAndEvery(Schedule schedule)
+        //private void SetToRunNowAndEvery(Schedule schedule)
+        //{
+        //    var unittype = UnitType.SelectedUnitType;
+        //    unittype.SetScheduler.Invoke(schedule.ToRunNow().AndEvery(UnitType.UnitInterval.Interval));
+        //}
+
+        private void SetSchedule(Schedule schedule)
         {
-            var unittype = (IScheduleInterface<TimeUnit>)UnitType.SelectedUnitType;
-            unittype.SetScheduler.Invoke(schedule.ToRunNow().AndEvery(UnitType.UnitInterval.Interval));
+            schedule.ToRunNow().AndEvery(UnitType.UnitInterval.Interval);
         }
     }
 }

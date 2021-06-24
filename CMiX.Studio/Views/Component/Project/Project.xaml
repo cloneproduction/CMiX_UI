@@ -7,20 +7,28 @@
              mc:Ignorable="d" d:DesignWidth="542.666" d:DesignHeight="388">
 
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0.7*"/>
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <ViewsScheduler:PlaylistEditor Margin="0, 0, 2, 0" DataContext="{Binding Path=CompositionScheduler.PlaylistEditor}"/>
-            <ViewsScheduler:JobEditor Grid.Column="1" Margin="2, 0, 0, 0" DataContext="{Binding Path=CompositionScheduler.JobEditor}"/>
-        </Grid>
-        <ViewsScheduler:Scheduler Grid.Row="1" Margin="0, 4, 0, 0" DataContext="{Binding Path=CompositionScheduler.JobScheduler}"/>
-    </Grid>
+    <StackPanel>
+        <Button Height="20" 
+                Margin="2"
+                Content="Add New Scheduler" 
+                Command="{Binding CreateSchedulerCommand}"/>
+        
+        <Button Height="20"
+                Margin="2"
+                Content="Delete Scheduler"
+                Command="{Binding DeleteSchedulerCommand}"/>
+        
+        <ComboBox Height="20"
+                  Margin="2"
+                  ItemsSource="{Binding CompositionSchedulers}"
+                  SelectedItem="{Binding SelectedScheduler}"
+                  DisplayMemberPath="Name"/>
+
+        <Border Visibility="{Binding SelectedScheduler, Converter={StaticResource NullToVisibility}}">
+            <ViewsScheduler:Scheduler DataContext="{Binding SelectedScheduler}"/>
+        </Border>
+
+    </StackPanel>
+
 
 </UserControl>

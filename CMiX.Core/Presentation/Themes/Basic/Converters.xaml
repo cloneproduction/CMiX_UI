@@ -41,7 +41,7 @@
     
 
     <Converters:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
-    
+    <Converters:NullToVisibilityConverter x:Key="NullToVisibility"/>
     <Converters:PathToFilenameConverter x:Key="PathToFileName" />
     <Converters:ColorToHSVControledConverter x:Key="ColorToHSVControled"/>
 

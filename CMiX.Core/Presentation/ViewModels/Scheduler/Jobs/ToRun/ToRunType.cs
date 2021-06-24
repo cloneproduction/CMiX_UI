@@ -1,6 +1,6 @@
-﻿using CMiX.Core.Presentation.ViewModels;
-using FluentScheduler;
+﻿using System;
 using System.Collections.ObjectModel;
+using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
@@ -8,7 +8,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
     {
         public ToRunType()
         {
-            ToRunTypes = new ObservableCollection<ViewModel>();
+            ToRunTypes = new ObservableCollection<IToRun>();
             ToRunTypes.Add(new ToRunNow());
             ToRunTypes.Add(new ToRunEvery());
             ToRunTypes.Add(new ToRunNowAndEvery());
@@ -16,19 +16,26 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             SelectedToRunType = new ToRunEvery();
         }
 
-        public ObservableCollection<ViewModel> ToRunTypes { get; set; }
+        public ObservableCollection<IToRun> ToRunTypes { get; set; }
 
-        private ViewModel _selectedToRunType;
-        public ViewModel SelectedToRunType
+        private IToRun _selectedToRunType;
+        public IToRun SelectedToRunType
         {
             get => _selectedToRunType;
-            set => SetAndNotify(ref _selectedToRunType, value);
+            set
+            {
+                if (SelectedToRunType != null)
+                    SetScheduler = SelectedToRunType.SetScheduler;
+                SetAndNotify(ref _selectedToRunType, value);
+            }
         }
+
+        public Action<Schedule> SetScheduler { get; set; }
 
         public void SetRunType(Schedule schedule)
         {
-            var selected = SelectedToRunType as IScheduleInterface<Schedule>;
-            selected.SetScheduler.Invoke(schedule);
+            //var selected = SelectedToRunType as IScheduleInterface<Schedule>;
+            SelectedToRunType.SetScheduler.Invoke(schedule);
         }
     }
 }

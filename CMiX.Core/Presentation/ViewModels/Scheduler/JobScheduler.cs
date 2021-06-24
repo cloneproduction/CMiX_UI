@@ -4,7 +4,6 @@
 using System;
 using System.Collections.ObjectModel;
 using CMiX.Core.Models;
-using CMiX.Core.Models.Scheduler;
 using CMiX.Core.Network.Communicators;
 using FluentScheduler;
 
@@ -17,6 +16,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             Schedules = new ObservableCollection<Job>();
         }
 
+
         public ObservableCollection<Job> Schedules { get; set; }
         public Guid ID { get; set; }
 
@@ -25,8 +25,8 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         {
             JobManager.AddJob(job, job.Action);
             Schedules.Add(job);
-            
-            Communicator.SendMessageSchedulerJob(job.GetModel() as JobModel);
+
+            //Communicator.SendMessageSchedulerJob(job.GetModel() as JobModel);
         }
 
         public void RemoveJob(Job job)

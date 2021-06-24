@@ -245,6 +245,7 @@
     <Compile Include="Presentation\ViewModels\Scheduler\JobScheduler.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\IScheduleInterface.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\JobNextComposition.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\IToRun.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunEvery.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunNow.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\ToRun\ToRunNowAndEvery.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\At.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\DayUnit.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\HourUnit.cs" />
+    <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\IUnit.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\MinuteUnit.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\MonthUnit.cs" />
     <Compile Include="Presentation\ViewModels\Scheduler\Jobs\UnitType\SecondUnit.cs" />

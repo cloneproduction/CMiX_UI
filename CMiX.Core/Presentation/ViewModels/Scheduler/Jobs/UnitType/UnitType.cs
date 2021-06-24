@@ -4,13 +4,13 @@ using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class UnitType : ViewModel, IScheduleInterface<TimeUnit>
+    public class UnitType : ViewModel//, IScheduleInterface<TimeUnit>
     {
         public UnitType()
         {
             SetScheduler = new Action<TimeUnit>((s) => { SetUnitType(s); });
 
-            UnitTypes = new ObservableCollection<ViewModel>();
+            UnitTypes = new ObservableCollection<IUnit>();
 
             UnitTypes.Add(new SecondUnit());
             UnitTypes.Add(new MinuteUnit());
@@ -22,9 +22,8 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             UnitInterval = new UnitInterval(60);
         }
 
-        public TimeUnit TimeUnit { get; set; }
-
-        public ObservableCollection<ViewModel> UnitTypes { get; set; }
+        //public TimeUnit TimeUnit { get; set; }
+        public ObservableCollection<IUnit> UnitTypes { get; set; }
 
         private UnitInterval _unitinterval;
         public UnitInterval UnitInterval
@@ -33,8 +32,8 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             set => SetAndNotify(ref _unitinterval, value);
         }
 
-        private ViewModel _selectedUnitType;
-        public ViewModel SelectedUnitType
+        private IUnit _selectedUnitType;
+        public IUnit SelectedUnitType
         {
             get => _selectedUnitType;
             set => SetAndNotify(ref _selectedUnitType, value);
@@ -42,10 +41,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public Action<TimeUnit> SetScheduler { get; set; }
 
-        public void SetUnitType(TimeUnit timeunit)
+        private void SetUnitType(TimeUnit timeUnit)
         {
-            var selected = SelectedUnitType as IScheduleInterface<TimeUnit>;
-            selected.SetScheduler.Invoke(timeunit);
+            //SelectedUnitType.SetScheduler.Invoke(timeUnit);
+            //var selected = SelectedUnitType as IScheduleInterface<TimeUnit>;
+            SelectedUnitType.SetScheduler.Invoke(timeUnit);
         }
     }
 }

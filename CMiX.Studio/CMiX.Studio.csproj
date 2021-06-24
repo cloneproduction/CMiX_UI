@@ -202,6 +202,9 @@
     <Compile Include="Views\Scheduler\PlaylistEditor.xaml.cs">
       <DependentUpon>PlaylistEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Scheduler\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Scheduler\Scheduler.xaml.cs">
       <DependentUpon>Scheduler.xaml</DependentUpon>
     </Compile>
@@ -398,9 +401,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Scheduler\Scheduler.xaml">
+    <Page Include="Views\Scheduler\Overview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduler\Scheduler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Scheduler\ToRunEvery.xaml">
       <Generator>MSBuild:Compile</Generator>

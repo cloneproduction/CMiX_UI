@@ -1,18 +1,16 @@
-﻿using CMiX.Core.Presentation.ViewModels;
+﻿using System;
 using FluentScheduler;
-using System;
-using System.Windows.Input;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class ToRunEvery : ViewModel, IScheduleInterface<Schedule>
+    public class ToRunEvery : ViewModel, IToRun//, IScheduleInterface<Schedule>
     {
         public ToRunEvery()
         {
             Name = "ToRunEvery";
-            SetScheduler = new Action<Schedule>((s) => { SetToRunEvery(s); });
+            SetScheduler = new Action<Schedule>((s) => { SetSchedule(s); });
             UnitType = new UnitType();
-            UnitInterval = new UnitInterval(60);
+            UnitInterval = new UnitInterval(5);
         }
 
         private string _name;
@@ -35,13 +33,20 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
             get => _unittype;
             set => SetAndNotify(ref _unittype, value);
         }
+        
 
         public Action<Schedule> SetScheduler { get; set; }
 
-        public void SetToRunEvery(Schedule schedule)
+        //public void SetToRunEvery(Schedule schedule)
+        //{
+        //    var unittype = (IScheduleInterface<TimeUnit>)UnitType.SelectedUnitType;
+        //    unittype.SetScheduler.Invoke(schedule.ToRunEvery(UnitType.UnitInterval.Interval));
+        //}
+
+        private void SetSchedule(Schedule schedule)
         {
-            var unittype = (IScheduleInterface<TimeUnit>)UnitType.SelectedUnitType;
-            unittype.SetScheduler.Invoke(schedule.ToRunEvery(UnitType.UnitInterval.Interval));
+            UnitType.SetScheduler.Invoke(schedule.ToRunEvery(UnitType.UnitInterval.Interval));
+            //schedule.ToRunEvery(UnitType.UnitInterval.Interval);
         }
     }
 }

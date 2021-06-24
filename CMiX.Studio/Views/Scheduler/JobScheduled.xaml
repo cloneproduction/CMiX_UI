@@ -54,7 +54,7 @@
                 Margin="1, 0"
                 Width="30"
                 Content="X"
-                Command="{Binding Path=DataContext.RemoveJobCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Scheduler}}}"
+                Command="{Binding Path=DataContext.RemoveJobCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Overview}}}"
                 CommandParameter="{Binding}"/>
             <Button
                 Margin="1, 0"

@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Components;
-using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
@@ -16,10 +15,19 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         {
             JobScheduler = new JobScheduler();
 
+            Name = "Scheduler";
             Playlists = new ObservableCollection<Playlist>();
             PlaylistEditor = new PlaylistEditor(Playlists, compositions);
             JobEditor = new JobEditor(Playlists, JobScheduler);
             JobsOverview = new JobsOverview(JobScheduler);
+        }
+
+        private string _name;
+
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
         }
 
 

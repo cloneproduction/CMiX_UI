@@ -3,12 +3,12 @@ using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class DayUnit : ViewModel, IScheduleInterface<TimeUnit>
+    public class DayUnit : ViewModel, IUnit//, IScheduleInterface<TimeUnit>
     {
         public DayUnit()
         {
             Name = "Days";
-            SetScheduler = new Action<TimeUnit>((s) => { SetDayUnit(s); });
+            SetScheduler = new Action<TimeUnit>((s) => { SetUnit(s); });
             At = new At();
         }
 
@@ -34,12 +34,12 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
         }
 
         public At At { get; set; }
-
         public Action<TimeUnit> SetScheduler { get; set; }
 
-        public void SetDayUnit(TimeUnit timeunit)
+
+        public void SetUnit(TimeUnit timeUnit)
         {
-            timeunit.Days().At(At.Hours, At.Minutes);
+            timeUnit.Days().At(At.Hours, At.Minutes);
         }
     }
 }

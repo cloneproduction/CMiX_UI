@@ -5,12 +5,12 @@ using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduler
 {
-    public class ToRunNow : ViewModel, IGetSetModel, IScheduleInterface<Schedule>
+    public class ToRunNow : ViewModel, IToRun, IGetSetModel//, IScheduleInterface<Schedule>
     {
         public ToRunNow()
         {
             Name = "ToRunNow";
-            SetScheduler = new Action<Schedule>((s) => { SetToRunNow(s); });
+            SetScheduler = new Action<Schedule>((s) => { SetSchedule(s); });
         }
 
         private string _name;
@@ -22,7 +22,12 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduler
 
         public Action<Schedule> SetScheduler { get; set; }
 
-        public void SetToRunNow(Schedule schedule)
+        //public void SetToRunNow(Schedule schedule)
+        //{
+        //    schedule.ToRunNow();
+        //}
+
+        public void SetSchedule(Schedule schedule)
         {
             schedule.ToRunNow();
         }
