@@ -2,14 +2,13 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
+using FluentScheduler;
 
-namespace CMiX.Core.Models.Scheduling
+namespace CMiX.Core.Presentation.ViewModels.Scheduling
 {
-    public sealed class JobSchedulerModel : Model
+    public interface IUnit
     {
-        public JobSchedulerModel()
-        {
-            this.ID = Guid.NewGuid();
-        }
+        //void SetUnit(TimeUnit timeUnit);
+        Action<TimeUnit> SetScheduler { get; set; }
     }
 }

@@ -205,8 +205,11 @@
     <Compile Include="Views\Scheduler\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Scheduler\Scheduler.xaml.cs">
-      <DependentUpon>Scheduler.xaml</DependentUpon>
+    <Compile Include="Views\Scheduler\CompositionScheduler.xaml.cs">
+      <DependentUpon>CompositionScheduler.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler\SchedulerManager.xaml.cs">
+      <DependentUpon>SchedulerManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Scheduler\ToRunEvery.xaml.cs">
       <DependentUpon>ToRunEvery.xaml</DependentUpon>
@@ -405,7 +408,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Scheduler\Scheduler.xaml">
+    <Page Include="Views\Scheduler\CompositionScheduler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduler\SchedulerManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

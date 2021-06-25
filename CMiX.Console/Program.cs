@@ -1,5 +1,4 @@
-﻿using System;
-using CMiX.Core.MessageService;
+﻿using CMiX.Core.MessageService;
 using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels;
 using CMiX.Core.Presentation.ViewModels.Components;
@@ -10,7 +9,7 @@ namespace CMiX.Console
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
             var projectModel = new ProjectModel();
             Project Project = new Project(projectModel);

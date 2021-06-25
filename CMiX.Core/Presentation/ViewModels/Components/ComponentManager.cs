@@ -44,7 +44,6 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         {
             var newComponent = component.ComponentFactory.CreateComponent();
             newComponent.SetCommunicator(component.Communicator);
-            //newComponent.SetSender(component.MessageSender);
             component.AddComponent(newComponent);
         }
 

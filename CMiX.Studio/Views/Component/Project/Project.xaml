@@ -6,29 +6,6 @@
              xmlns:ViewsScheduler="clr-namespace:CMiX.Studio.Views.Scheduler"
              mc:Ignorable="d" d:DesignWidth="542.666" d:DesignHeight="388">
 
-
-    <StackPanel>
-        <Button Height="20" 
-                Margin="2"
-                Content="Add New Scheduler" 
-                Command="{Binding CreateSchedulerCommand}"/>
-        
-        <Button Height="20"
-                Margin="2"
-                Content="Delete Scheduler"
-                Command="{Binding DeleteSchedulerCommand}"/>
-        
-        <ComboBox Height="20"
-                  Margin="2"
-                  ItemsSource="{Binding CompositionSchedulers}"
-                  SelectedItem="{Binding SelectedScheduler}"
-                  DisplayMemberPath="Name"/>
-
-        <Border Visibility="{Binding SelectedScheduler, Converter={StaticResource NullToVisibility}}">
-            <ViewsScheduler:Scheduler DataContext="{Binding SelectedScheduler}"/>
-        </Border>
-
-    </StackPanel>
-
+    <ViewsScheduler:SchedulerManager DataContext="{Binding SchedulerManager}"/>
 
 </UserControl>

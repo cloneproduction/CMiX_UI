@@ -2,13 +2,12 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Models.Component;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
-using CMiX.Core.Presentation.ViewModels.Scheduler;
+using CMiX.Core.Presentation.ViewModels.Scheduling;
 using MvvmDialogs;
 
 
@@ -21,32 +20,13 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
 
-            CompositionSchedulers = new ObservableCollection<CompositionScheduler>();
-
+            SchedulerManager = new SchedulerManager(projectModel.SchedulerManagerModel);
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
-
-            CreateSchedulerCommand = new RelayCommand(p => CreateScheduler());
-            DeleteSchedulerCommand = new RelayCommand(p => DeleteScheduler());
         }
 
 
-        public ICommand CreateSchedulerCommand { get; set; }
-        public ICommand DeleteSchedulerCommand { get; set; }
-
-
-
-
-        private CompositionScheduler _selectedScheduler;
-        public CompositionScheduler SelectedScheduler
-        {
-            get => _selectedScheduler;
-            set => SetAndNotify(ref _selectedScheduler, value);
-        }
-
-
-        public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
-
+        public SchedulerManager SchedulerManager { get; set; }
 
         public IDialogService DialogService { get; set; }
 
@@ -58,36 +38,21 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         }
 
 
-        public void CreateScheduler()
-        {
-            CompositionScheduler compositionScheduler = new CompositionScheduler(this.Components);
-            CompositionSchedulers.Add(compositionScheduler);
-        }
-
-        public void DeleteScheduler()
-        {
-            CompositionSchedulers.Remove(SelectedScheduler);
-            SelectedScheduler = null;
-        }
-
-
         public override void SetCommunicator(Communicator communicator)
         {
             Communicator = new ComponentCommunicator(this);
             Communicator.SetCommunicator(communicator);
 
-            //CompositionScheduler.SetCommunicator(Communicator);
+            SchedulerManager.SetCommunicator(Communicator);
+
         }
 
         public override void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
 
-            //CompositionScheduler.UnsetCommunicator(Communicator);
+            SchedulerManager.UnsetCommunicator(Communicator);
         }
-
-
-
 
 
         public override IModel GetModel()

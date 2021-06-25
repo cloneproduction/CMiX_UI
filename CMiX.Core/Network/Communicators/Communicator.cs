@@ -1,10 +1,10 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Network.Messages;
-using CMiX.Core.Presentation.ViewModels;
 using System;
 using System.Collections.Generic;
+using CMiX.Core.Network.Messages;
+using CMiX.Core.Presentation.ViewModels;
 
 namespace CMiX.Core.Network.Communicators
 {
@@ -54,6 +54,7 @@ namespace CMiX.Core.Network.Communicators
             {
                 Console.WriteLine("idIterator.IsDone on " + IIDObject.GetType());
                 this.CanSend = false;
+                Console.WriteLine("Communicator " + this.GetType().Name + "CanSend " + CanSend);
                 idIterator.Process(IIDObject);
                 return;
             }
@@ -81,7 +82,7 @@ namespace CMiX.Core.Network.Communicators
         {
             if (CanSend)
             {
-                Console.WriteLine("Communicator SendMessage with ID " + GetID());
+                Console.WriteLine("Communicator " + this.GetType().Name + " SendMessage with ID " + GetID());
                 message.AddID(GetID());
                 _parentCommunicator?.SendMessage(message);
             }

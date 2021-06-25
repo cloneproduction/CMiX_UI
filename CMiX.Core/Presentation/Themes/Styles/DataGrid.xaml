@@ -23,9 +23,9 @@
                             <Setter Property="Background" Value="{DynamicResource DarkerColor}"/>
                         </Trigger>
                         <!--then override with my own colour-->
-                        <DataTrigger Binding="{Binding InvoiceSet}" Value="True">
+                        <!--<DataTrigger Binding="{Binding InvoiceSet}" Value="True">
                             <Setter Property="Background" Value="Green"></Setter>
-                        </DataTrigger>
+                        </DataTrigger>-->
                     </Style.Triggers>
                 </Style>
             </Setter.Value>
