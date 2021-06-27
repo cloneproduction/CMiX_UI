@@ -10,8 +10,7 @@
              xmlns:Behaviors="clr-namespace:CMiX.Core.Presentation.Behaviors;assembly=CMiX.Core"
              mc:Ignorable="d" 
              x:Name="playlistEditor"
-             xmlns:dd="urn:gong-wpf-dragdrop" 
-             d:DesignHeight="734" d:DesignWidth="346">
+             xmlns:dd="urn:gong-wpf-dragdrop" d:DesignWidth="310.667" d:DesignHeight="228">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -30,7 +29,7 @@
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top" 
                                    Height="20" 
-                                   Margin="4">
+                                   Margin="0, 0, 0, 8">
                             <Button 
                             Command="{Binding NewPlaylistCommand}"
                             DockPanel.Dock="Right" 
@@ -47,8 +46,6 @@
                         </DockPanel>
 
                         <ListBox 
-                            Margin="4"
-                            BorderThickness="0"
                             Background="{StaticResource HighDarkerColor}"
                             Foreground="{StaticResource TextBase}"
                             SelectedItem="{Binding SelectedPlaylist}"
@@ -56,52 +53,31 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border 
-                                Height="30" >
+                                            Height="30" >
                                         <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
                                     </Border>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </DockPanel>
+                    
                     <Border HorizontalAlignment="Stretch" Margin="0, 8" Grid.Row="1" >
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <!--<Grid DockPanel.Dock="Top" 
-                              Height="20" 
-                              Margin="0, 2, 0, 4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Compositions" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Center" 
-                                       Padding="4" 
-                                       Foreground="{DynamicResource TextBase}"/>
-                            <DockPanel Grid.Column="1">
-                                -->
-
-                            <!--<Button Margin="4, 0, 0, 0"
-                                    Command="{Binding AddCompositionToPlaylistCommand}"
-                                    CommandParameter="{Binding SelectedItem, ElementName=CompositionSelector}"
-                                    DockPanel.Dock="Right" 
-                                    Style="{StaticResource ButtonImage}">
-                                <Button.Content>
-                                    <Image Margin="16" Source="{StaticResource Add}"/>
-                                </Button.Content>
-                            </Button>-->
+                        <Grid>
 
                             <ToggleButton x:Name="PopUpToggle" 
-                                      Content="Add Composition"
-                                      Height="25" 
-                                      Margin="0, 4"
-                                    HorizontalAlignment="Stretch"
-                                      Background="{DynamicResource DarkerColor}" 
-                                      Style="{StaticResource ToggleTransformModifierMenu}">
-                            </ToggleButton>
+                                          Content="Add Composition"
+                                          Height="25" 
+                                          Margin="0, 4"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Center"
 
+                                          Style="{StaticResource ToggleTransformModifierMenu}">
+                            </ToggleButton>
+                            
                             <Controls:CMiXPopup 
                                     AllowsTransparency="True"
                                     Behaviors:ClosePopupBehavior.PopupContainer="{Binding ElementName=playlistEditor}"
+                                    Width="{Binding ActualWidth, ElementName=PopUpToggle}"
                                     Placement="Custom"
                                     PlacementTarget="{Binding ElementName=PopUpToggle}"
                                     FlowDirection="LeftToRight"
@@ -111,46 +87,24 @@
                                         <DropShadowEffect BlurRadius="15" Opacity="0.8"  ShadowDepth="2" Direction="-90" RenderingBias="Performance" />
                                     </Border.Effect>
                                     <Border CornerRadius="{DynamicResource CornerRadiusBottomLarge}" Opacity="0.75" Background="{DynamicResource HighDarkerColor}">
-                                        <Grid Margin="8" Background="{DynamicResource HighDarkerColor}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <ItemsControl ItemsSource="{Binding DataContext.Components, RelativeSource={RelativeSource AncestorType={x:Type Views:Project}}}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Button
+                                        <ItemsControl ItemsSource="{Binding DataContext.Components, RelativeSource={RelativeSource AncestorType={x:Type Views:Project}}}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Button
                                                             Height="20"
+                                                        Margin="2"
                                                             Command="{Binding Path=DataContext.AddCompositionToPlaylistCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlaylistEditor}}}"
                                                             CommandParameter="{Binding }"
                                                             VerticalAlignment="Center" 
                                                             Content="{Binding Name}"/>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </Border>
                                 </Border>
                             </Controls:CMiXPopup>
 
-                            <!--<ComboBox x:Name="CompositionSelector" 
-                                    IsDropDownOpen="{Binding DropDownOpen}"
-                                    Grid.Column="1"
-                                    ItemsSource="{Binding DataContext.Components, RelativeSource={RelativeSource AncestorType={x:Type Views:Project}}}" 
-                                    DockPanel.Dock="Top">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Content="{Binding Name}" Command="{Binding DataContext.AddCompositionToPlaylistCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlaylistEditor}}}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>-->
-                        </DockPanel>
+                        </Grid>
                     </Border>
                 </Grid>
 

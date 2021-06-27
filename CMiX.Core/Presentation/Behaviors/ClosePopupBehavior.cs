@@ -30,8 +30,7 @@ namespace CMiX.Core.Presentation.Behaviors
                 typeof(ContentControl), typeof(ClosePopupBehavior)
             , new PropertyMetadata(OnPopupContainerChanged));
 
-        private static void OnPopupContainerChanged(DependencyObject d
-            , DependencyPropertyChangedEventArgs e)
+        private static void OnPopupContainerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var popup = (Popup)d;
             var contentControl = e.NewValue as ContentControl;

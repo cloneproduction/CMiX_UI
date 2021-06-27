@@ -19,7 +19,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local:PlaylistEditor Margin="2" DataContext="{Binding PlaylistEditor}"/>
+
             <local:JobEditor Grid.Column="1" Margin="2" DataContext="{Binding JobEditor}"/>
 
 

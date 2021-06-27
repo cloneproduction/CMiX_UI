@@ -10,6 +10,9 @@ namespace CMiX.Core.Models.Scheduling
         public SchedulerManagerModel()
         {
             this.ID = new Guid("22223344-5566-7788-99AA-BBCCDDEEFF00");
+            PlaylistEditorModel = new PlaylistEditorModel();
         }
+
+        public PlaylistEditorModel PlaylistEditorModel { get; set; }
     }
 }

@@ -13,12 +13,10 @@ namespace CMiX.Core.Models.Scheduling
 
             JobSchedulerModel = new JobSchedulerModel();
             JobEditorModel = new JobEditorModel();
-            PlaylistEditorModel = new PlaylistEditorModel();
         }
 
         public string Name { get; set; }
         public JobSchedulerModel JobSchedulerModel { get; set; }
         public JobEditorModel JobEditorModel { get; set; }
-        public PlaylistEditorModel PlaylistEditorModel { get; set; }
     }
 }

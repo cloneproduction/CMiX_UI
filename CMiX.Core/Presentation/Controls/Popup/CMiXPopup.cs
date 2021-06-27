@@ -27,7 +27,7 @@ namespace CMiX.Core.Presentation.Controls
 
         //double parentWidth;
         //double parentHeight;
-        TranslateTransform translateTransform;
+        public TranslateTransform translateTransform;
         //private void ExceptionPopup_Loaded(object sender, RoutedEventArgs e)
         //{
         //    if (PlacementTarget != null)
@@ -36,7 +36,7 @@ namespace CMiX.Core.Presentation.Controls
         //        {
         //            parentWidth = (PlacementTarget as FrameworkElement).ActualWidth;
         //            parentHeight = (PlacementTarget as FrameworkElement).ActualHeight;
-                    
+
         //        }
         //    }
         //}

@@ -11,19 +11,19 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 {
     public class CompositionScheduler : ViewModel, IControl
     {
-        public CompositionScheduler(CompositionSchedulerModel compositionSchedulerModel)
+        public CompositionScheduler(CompositionSchedulerModel compositionSchedulerModel, ObservableCollection<Playlist> playlists)
         {
             this.ID = compositionSchedulerModel.ID;
-            this.Name = compositionSchedulerModel.Name;
+            this.Name = $"Scheduler({SchedulerID})";
+            SchedulerID++;
 
-            Playlists = new ObservableCollection<Playlist>();
 
-            PlaylistEditor = new PlaylistEditor(compositionSchedulerModel.PlaylistEditorModel, Playlists);
 
             JobScheduler = new JobScheduler(compositionSchedulerModel.JobSchedulerModel);
-            JobEditor = new JobEditor(compositionSchedulerModel.JobEditorModel, Playlists, JobScheduler);
+            JobEditor = new JobEditor(compositionSchedulerModel.JobEditorModel, playlists, JobScheduler);
         }
 
+        public static int SchedulerID = -1;
 
         private string _name;
         public string Name
@@ -40,7 +40,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public JobScheduler JobScheduler { get; set; }
         public JobEditor JobEditor { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
-        public ObservableCollection<Playlist> Playlists { get; set; }
 
 
         public void SetCommunicator(Communicator communicator)
@@ -50,7 +49,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
             JobEditor.SetCommunicator(Communicator);
             JobScheduler.SetCommunicator(Communicator);
-            PlaylistEditor.SetCommunicator(Communicator);
         }
 
         public void UnsetCommunicator(Communicator communicator)
@@ -59,7 +57,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
             JobEditor.UnsetCommunicator(Communicator);
             JobScheduler.UnsetCommunicator(Communicator);
-            PlaylistEditor.UnsetCommunicator(Communicator);
         }
 
 
@@ -69,7 +66,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             compositionSchedulerModel.ID = this.ID;
             compositionSchedulerModel.JobEditorModel = (JobEditorModel)this.JobEditor.GetModel();
             compositionSchedulerModel.JobSchedulerModel = (JobSchedulerModel)this.JobScheduler.GetModel();
-            compositionSchedulerModel.PlaylistEditorModel = (PlaylistEditorModel)this.PlaylistEditor.GetModel();
             return compositionSchedulerModel;
         }
 
@@ -79,7 +75,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             this.ID = compositionSchedulerModel.ID;
             this.JobEditor.SetViewModel(compositionSchedulerModel.JobEditorModel);
             this.JobScheduler.SetViewModel(compositionSchedulerModel.JobSchedulerModel);
-            this.PlaylistEditor.SetViewModel(compositionSchedulerModel.PlaylistEditorModel);
         }
     }
 }

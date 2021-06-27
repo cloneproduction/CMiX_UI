@@ -6,26 +6,43 @@
              xmlns:local="clr-namespace:CMiX.Studio.Views.Scheduler"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <Button Height="20" 
-                Margin="2"
-                Content="Add New Scheduler" 
-                Command="{Binding CreateSchedulerCommand}"/>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Button Height="20" 
+            Margin="2"
+            Content="Add New Scheduler" 
+            Command="{Binding CreateSchedulerCommand}"/>
 
-        <Button Height="20"
-                Margin="2"
-                Content="Delete Scheduler"
-                Command="{Binding DeleteSchedulerCommand}"/>
+                <Button Height="20"
+            Margin="2"
+            Content="Delete Scheduler"
+            Command="{Binding DeleteSchedulerCommand}"/>
+                <ListBox
+                    Margin="2"
+                ItemsSource="{Binding CompositionSchedulers}"
+                SelectedItem="{Binding SelectedScheduler}"
+                SelectedIndex="{Binding SelectedSchedulerIndex}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="30" >
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <local:PlaylistEditor Grid.Column="1" Grid.ColumnSpan="2" Margin="2" DataContext="{Binding PlaylistEditor}"/>
 
-        <ComboBox Height="20"
-                  Margin="2"
-                  ItemsSource="{Binding CompositionSchedulers}"
-                  SelectedItem="{Binding SelectedScheduler}"
-                  SelectedIndex="{Binding SelectedSchedulerIndex}"
-                  DisplayMemberPath="Name"/>
-
-        <Border Visibility="{Binding SelectedScheduler, Converter={StaticResource NullToVisibility}}">
+        </Grid>
+        <Border Grid.Column="2" Visibility="{Binding SelectedScheduler, Converter={StaticResource NullToVisibility}}">
             <local:CompositionScheduler DataContext="{Binding SelectedScheduler}"/>
         </Border>
-    </StackPanel>
+    </DockPanel>
+
 </UserControl>
