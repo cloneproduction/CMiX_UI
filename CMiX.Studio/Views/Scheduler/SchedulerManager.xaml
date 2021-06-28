@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CMiX.Studio.Views.Scheduler"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
@@ -15,19 +16,19 @@
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <Button Height="20" 
-            Margin="2"
-            Content="Add New Scheduler" 
-            Command="{Binding CreateSchedulerCommand}"/>
+                    Margin="2"
+                    Content="Add New Scheduler" 
+                    Command="{Binding CreateSchedulerCommand}"/>
 
                 <Button Height="20"
-            Margin="2"
-            Content="Delete Scheduler"
-            Command="{Binding DeleteSchedulerCommand}"/>
+                    Margin="2"
+                    Content="Delete Scheduler"
+                    Command="{Binding DeleteSchedulerCommand}"/>
                 <ListBox
                     Margin="2"
-                ItemsSource="{Binding CompositionSchedulers}"
-                SelectedItem="{Binding SelectedScheduler}"
-                SelectedIndex="{Binding SelectedSchedulerIndex}">
+                    ItemsSource="{Binding CompositionSchedulers}"
+                    SelectedItem="{Binding SelectedScheduler}"
+                    SelectedIndex="{Binding SelectedSchedulerIndex}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Height="30" >

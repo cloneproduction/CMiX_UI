@@ -15,11 +15,9 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public SchedulerManager(SchedulerManagerModel schedulerModel)
         {
             this.ID = schedulerModel.ID;
-
             CompositionSchedulers = new ObservableCollection<CompositionScheduler>();
-            Playlists = new ObservableCollection<Playlist>();
 
-            PlaylistEditor = new PlaylistEditor(schedulerModel.PlaylistEditorModel, Playlists);
+            PlaylistEditor = new PlaylistEditor(schedulerModel.PlaylistEditorModel);
 
             CreateSchedulerCommand = new RelayCommand(p => CreateScheduler());
             DeleteSchedulerCommand = new RelayCommand(p => DeleteScheduler());
@@ -32,8 +30,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
         public PlaylistEditor PlaylistEditor { get; set; }
         public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
-        public ObservableCollection<Playlist> Playlists { get; set; }
-
 
 
         private CompositionScheduler _selectedScheduler;
@@ -60,7 +56,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public void CreateScheduler()
         {
             CompositionSchedulerModel compositionSchedulerModel = new CompositionSchedulerModel();
-            CompositionScheduler compositionScheduler = new CompositionScheduler(compositionSchedulerModel, Playlists);
+            CompositionScheduler compositionScheduler = new CompositionScheduler(compositionSchedulerModel, PlaylistEditor.Playlists);
             compositionScheduler.SetCommunicator(Communicator);
             CompositionSchedulers.Add(compositionScheduler);
 
@@ -69,7 +65,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
         public void CreateScheduler(CompositionSchedulerModel compositionSchedulerModel)
         {
-            CompositionScheduler compositionScheduler = new CompositionScheduler(compositionSchedulerModel, Playlists);
+            CompositionScheduler compositionScheduler = new CompositionScheduler(compositionSchedulerModel, PlaylistEditor.Playlists);
             compositionScheduler.SetCommunicator(Communicator);
             CompositionSchedulers.Add(compositionScheduler);
             Console.WriteLine("Scheduler Created");

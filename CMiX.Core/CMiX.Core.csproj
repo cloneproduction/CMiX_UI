@@ -98,8 +98,11 @@
     <Compile Include="Models\Scheduler\JobModel.cs" />
     <Compile Include="Models\Scheduler\JobSchedulerModel.cs" />
     <Compile Include="Models\Scheduler\PlaylistEditorModel.cs" />
+    <Compile Include="Models\Scheduler\PlaylistModel.cs" />
     <Compile Include="Models\Scheduler\SchedulerManagerModel.cs" />
     <Compile Include="Models\Scheduler\ToRunNowModel.cs" />
+    <Compile Include="Network\Messages\MessageAddNewPlaylist.cs" />
+    <Compile Include="Network\Communicators\PlaylistEditorCommunicator.cs" />
     <Compile Include="Network\Communicators\SchedulerCommunicator.cs" />
     <Compile Include="Network\Messages\MessageAddScheduler.cs" />
     <Compile Include="Network\Messages\MessageSchedulerJob.cs" />

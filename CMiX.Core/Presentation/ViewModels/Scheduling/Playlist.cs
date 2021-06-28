@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using CMiX.Core.Models;
+using CMiX.Core.Models.Scheduler;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Components;
 using GongSolutions.Wpf.DragDrop;
@@ -11,7 +12,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 {
     public class Playlist : ViewModel, IControl, IDropTarget
     {
-        public Playlist()
+        public Playlist(PlaylistModel playlistModel)
         {
             Compositions = new ObservableCollection<Composition>();
         }

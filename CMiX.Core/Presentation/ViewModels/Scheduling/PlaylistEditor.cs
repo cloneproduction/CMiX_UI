@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using CMiX.Core.Models;
+using CMiX.Core.Models.Scheduler;
 using CMiX.Core.Models.Scheduling;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Components;
@@ -13,15 +14,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 {
     public class PlaylistEditor : ViewModel, IControl, IDropTarget
     {
-        public PlaylistEditor(PlaylistEditorModel playlistEditorModel, ObservableCollection<Playlist> playlists)
+        public PlaylistEditor(PlaylistEditorModel playlistEditorModel)
         {
             this.ID = playlistEditorModel.ID;
 
-            Playlists = playlists;
-
-            Playlist play = new Playlist() { Name = "NewPlaylist" };
-            Playlists.Add(play);
-            SelectedPlaylist = play;
+            Playlists = new ObservableCollection<Playlist>();
 
             NewPlaylistCommand = new RelayCommand(p => NewPlaylist());
             DeletePlaylistCommand = new RelayCommand(p => DeletePlaylist());
@@ -94,10 +91,13 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public void NewPlaylist()
         {
             plCreateIndex++;
-            Playlist playlist = new Playlist();
+            Playlist playlist = new Playlist(new PlaylistModel());
             playlist.Name = $"Playlist ({plCreateIndex})";
             Playlists.Add(playlist);
             SelectedPlaylist = playlist;
+
+            Communicator?.SendMessageAddPlaylist();
+            Console.WriteLine("New Playlist Created");
         }
 
         public void DeletePlaylist()
@@ -156,11 +156,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         }
 
 
-        public ControlCommunicator Communicator { get; set; }
+        public PlaylistEditorCommunicator Communicator { get; set; }
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new PlaylistEditorCommunicator(this);
             Communicator.SetCommunicator(communicator);
         }
 
