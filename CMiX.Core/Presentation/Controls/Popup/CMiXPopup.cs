@@ -25,30 +25,7 @@ namespace CMiX.Core.Presentation.Controls
                 };
         }
 
-        //double parentWidth;
-        //double parentHeight;
         public TranslateTransform translateTransform;
-        //private void ExceptionPopup_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    if (PlacementTarget != null)
-        //    {
-        //        if (PlacementTarget is FrameworkElement)
-        //        {
-        //            parentWidth = (PlacementTarget as FrameworkElement).ActualWidth;
-        //            parentHeight = (PlacementTarget as FrameworkElement).ActualHeight;
-
-        //        }
-        //    }
-        //}
-
-
-        //protected override void OnOpened(EventArgs e)
-        //{
-        //    this.HorizontalOffset = this.ActualWidth;// - parentWidth;
-        //    Console.WriteLine("ActualWidth " + this.ActualWidth);
-        //    //this.VerticalOffset = parentHeight;
-        //    base.OnOpened(e);
-        //}
 
         public override void OnApplyTemplate()
         {

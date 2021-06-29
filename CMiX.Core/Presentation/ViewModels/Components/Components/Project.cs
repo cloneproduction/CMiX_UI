@@ -20,15 +20,14 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
 
-            SchedulerManager = new SchedulerManager(projectModel.SchedulerManagerModel);
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
         }
 
 
-        public SchedulerManager SchedulerManager { get; set; }
-
         public IDialogService DialogService { get; set; }
+        public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
+
 
         private ObservableCollection<Asset> _assets;
         public ObservableCollection<Asset> Assets
@@ -42,16 +41,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         {
             Communicator = new ComponentCommunicator(this);
             Communicator.SetCommunicator(communicator);
-
-            SchedulerManager.SetCommunicator(Communicator);
-
         }
 
         public override void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
-
-            SchedulerManager.UnsetCommunicator(Communicator);
         }
 
 

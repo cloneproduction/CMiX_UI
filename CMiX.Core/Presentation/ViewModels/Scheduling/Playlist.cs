@@ -14,6 +14,8 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
     {
         public Playlist(PlaylistModel playlistModel)
         {
+            this.ID = playlistModel.ID;
+            this.Name = playlistModel.Name;
             Compositions = new ObservableCollection<Composition>();
         }
 
@@ -25,18 +27,15 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         }
 
 
-
-        public ObservableCollection<Composition> Compositions { get; set; }
-
-        public ControlCommunicator Communicator { get; set; }
-
         public Guid ID { get; set; }
+        public ObservableCollection<Composition> Compositions { get; set; }
+        public ControlCommunicator Communicator { get; set; }
 
 
         public void DragOver(IDropInfo dropInfo)
         {
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-            var dataObject = dropInfo.Data as IDataObject;
+            IDataObject dataObject = dropInfo.Data as IDataObject;
             if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
                 dropInfo.Effects = DragDropEffects.Copy;
@@ -45,7 +44,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
         public void Drop(IDropInfo dropInfo)
         {
-            var dataObject = dropInfo.Data as DataObject;
+            DataObject dataObject = dropInfo.Data as DataObject;
             if (dataObject != null)
             {
                 if (dataObject.ContainsFileDropList())
@@ -55,7 +54,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
                     {
                         if (Path.GetExtension(str).ToUpperInvariant() == ".COMPMIX")
                         {
-                            byte[] data = File.ReadAllBytes(str);
+                            //byte[] data = File.ReadAllBytes(str);
                             //CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
                             //Compositions.Add(compositionmodel);
                         }
@@ -79,8 +78,9 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
         public void SetViewModel(IModel model)
         {
-            //PlaylistModel playlistModel = model as PlaylistModel;
-            //this.Name = playlistModel.Name;
+            PlaylistModel playlistModel = model as PlaylistModel;
+            this.ID = playlistModel.ID;
+            this.Name = playlistModel.Name;
             //foreach (var composition in playlistModel.Compositions)
             //{
             //    Compositions.Add(composition);
@@ -89,7 +89,10 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
         public IModel GetModel()
         {
-            throw new NotImplementedException();
+            PlaylistModel playlistModel = new PlaylistModel();
+            playlistModel.ID = this.ID;
+            playlistModel.Name = this.Name;
+            return playlistModel;
         }
     }
 }

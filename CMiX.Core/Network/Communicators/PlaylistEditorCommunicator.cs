@@ -1,12 +1,8 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CMiX.Core.Network.Messages;
+using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
 
 namespace CMiX.Core.Network.Communicators
@@ -18,9 +14,14 @@ namespace CMiX.Core.Network.Communicators
             IIDObject = playlistEditor;
         }
 
-        public void SendMessageAddPlaylist()
+        public void SendMessageAddPlaylist(Playlist playlist)
         {
-            this.SendMessage(new MessageAddNewPlaylist());
+            this.SendMessage(new MessageAddNewPlaylist(playlist));
+        }
+
+        internal void SendMessageAddComposition(Composition composition)
+        {
+            this.SendMessage(new MessageAddCompositionToPlaylist(composition));
         }
     }
 }

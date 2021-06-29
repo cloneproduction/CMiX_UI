@@ -61,7 +61,7 @@
                         </ListBox>
                     </DockPanel>
                     
-                    <Border HorizontalAlignment="Stretch" Margin="0, 8" Grid.Row="1" >
+                    <Border Visibility="{Binding SelectedPlaylist, Converter={StaticResource NullToVisibility}}" HorizontalAlignment="Stretch" Margin="0, 8" Grid.Row="1" >
                         <Grid>
 
                             <ToggleButton x:Name="PopUpToggle" 

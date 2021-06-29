@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Models.Scheduler;
 using CMiX.Core.Models.Scheduling;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Components;
-using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduling
 {
-    public class PlaylistEditor : ViewModel, IControl, IDropTarget
+    public class PlaylistEditor : ViewModel, IControl
     {
-        public PlaylistEditor(PlaylistEditorModel playlistEditorModel)
+        public PlaylistEditor(Project project)
         {
-            this.ID = playlistEditorModel.ID;
+            this.ID = new Guid("33223344-5566-7788-99AA-BBCCDDEEFF00");
+            Project = project;
 
             Playlists = new ObservableCollection<Playlist>();
 
@@ -29,16 +27,17 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         }
 
 
-        private void AddCompositionToPlaylist(Composition composition)
-        {
-            if (composition != null)
-            {
-                SelectedPlaylist.Compositions.Add(composition);
-                DropDownOpen = false;
-            }
-        }
+        int plCreateIndex = 0;
+        public Guid ID { get; set; }
+        public ICommand AddCompositionToPlaylistCommand { get; set; }
+        public ICommand NewPlaylistCommand { get; set; }
+        public ICommand DeletePlaylistCommand { get; set; }
+        public ICommand DeleteSelectedCompoCommand { get; set; }
+        public ICommand DuplicateSelectedCompoCommand { get; set; }
+        public ICommand DeleteAllCompoCommand { get; set; }
 
 
+        public Project Project { get; set; }
         public ObservableCollection<Playlist> Playlists { get; set; }
 
 
@@ -64,14 +63,16 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         }
 
 
-        public ICommand AddCompositionToPlaylistCommand { get; set; }
-        public ICommand NewPlaylistCommand { get; set; }
-        public ICommand DeletePlaylistCommand { get; set; }
-        public ICommand DeleteSelectedCompoCommand { get; set; }
-        public ICommand DuplicateSelectedCompoCommand { get; set; }
-        public ICommand DeleteAllCompoCommand { get; set; }
-        public Guid ID { get; set; }
-
+        public void AddCompositionToPlaylist(Composition composition)
+        {
+            if (composition != null)
+            {
+                SelectedPlaylist.Compositions.Add(composition);
+                DropDownOpen = false;
+                Communicator?.SendMessageAddComposition(composition);
+                Console.WriteLine("Composition added to playlist " + SelectedPlaylist.Name);
+            }
+        }
 
         public void DeleteSelectedCompo()
         {
@@ -79,14 +80,13 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
                 SelectedPlaylist.Compositions.Remove(SelectedComposition);
         }
 
-
         public void DeleteAllCompo()
         {
             if (SelectedPlaylist != null)
                 SelectedPlaylist.Compositions.Clear();
         }
 
-        int plCreateIndex = 0;
+
 
         public void NewPlaylist()
         {
@@ -96,7 +96,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             Playlists.Add(playlist);
             SelectedPlaylist = playlist;
 
-            Communicator?.SendMessageAddPlaylist();
+            Communicator?.SendMessageAddPlaylist(playlist);
             Console.WriteLine("New Playlist Created");
         }
 
@@ -107,53 +107,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
                 plCreateIndex = 0;
         }
 
-        public void DragOver(IDropInfo dropInfo)
-        {
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-            var dataObject = dropInfo.Data as IDataObject;
-
-            if (dataObject != null
-                && dataObject.GetDataPresent(DataFormats.FileDrop)
-                || dropInfo.Data.GetType() == typeof(CompositionModel))
-            {
-                dropInfo.Effects = DragDropEffects.Copy;
-            }
-        }
-
-        public void Drop(IDropInfo dropInfo)
-        {
-            var dataObject = dropInfo.Data as DataObject;
-
-            if (dataObject != null && SelectedPlaylist != null)
-            {
-                if (dataObject.ContainsFileDropList())
-                {
-                    var filedrop = dataObject.GetFileDropList();
-                    foreach (string str in filedrop)
-                    {
-                        if (Path.GetExtension(str).ToUpperInvariant() == ".COMPMIX")
-                        {
-                            byte[] data = File.ReadAllBytes(str);
-                            //var compositionmodel = new CompositionModel();// Serializer.Deserialize<CompositionModel>(data);
-                            //SelectedPlaylist.Compositions.Add(compositionmodel);
-                        }
-                    }
-                }
-            }
-
-            if (dropInfo.DragInfo != null)
-            {
-                int sourceindex = dropInfo.DragInfo.SourceIndex;
-                int insertindex = dropInfo.InsertIndex;
-
-                if (sourceindex != insertindex)
-                {
-                    if (insertindex >= SelectedPlaylist.Compositions.Count - 1)
-                        insertindex -= 1;
-                    SelectedPlaylist.Compositions.Move(sourceindex, insertindex);
-                }
-            }
-        }
 
 
         public PlaylistEditorCommunicator Communicator { get; set; }
@@ -168,6 +121,8 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         {
             Communicator.UnsetCommunicator(communicator);
         }
+
+
 
         public void SetViewModel(IModel model)
         {

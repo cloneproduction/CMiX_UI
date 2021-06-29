@@ -11,5 +11,7 @@ namespace CMiX.Core.Models.Scheduler
         {
             this.ID = Guid.NewGuid();
         }
+
+        public string Name { get; set; }
     }
 }

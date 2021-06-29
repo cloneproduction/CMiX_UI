@@ -1,20 +1,20 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using Ceras;
-using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models;
-using CMiX.Core.Presentation.ViewModels.Assets;
-using CMiX.Core.Presentation.ViewModels.Components;
-using Memento;
-using MvvmDialogs;
-using MvvmDialogs.FrameworkDialogs.OpenFile;
-using MvvmDialogs.FrameworkDialogs.SaveFile;
-using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using Ceras;
+using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Presentation.ViewModels.Assets;
+using CMiX.Core.Presentation.ViewModels.Components;
+using CMiX.Core.Presentation.ViewModels.Scheduling;
+using Memento;
+using MvvmDialogs;
+using MvvmDialogs.FrameworkDialogs.OpenFile;
+using MvvmDialogs.FrameworkDialogs.SaveFile;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -33,11 +33,13 @@ namespace CMiX.Core.Presentation.ViewModels
 
 
             var componentCommunicator = new DataSenderCommunicator(DataSender);
-            //componentCommunicator.MessageSender = DataSender;
+
             CurrentProject.SetCommunicator(componentCommunicator);
 
-            //CurrentProject.SetSender(DataSender);
             AssetManager = new AssetManager(CurrentProject);
+            SchedulerManager = new SchedulerManager(CurrentProject);
+            PlaylistEditor = new PlaylistEditor(CurrentProject);
+
 
 
             Projects = new ObservableCollection<Component>();
@@ -64,7 +66,6 @@ namespace CMiX.Core.Presentation.ViewModels
         }
 
 
-        #region PROPERTIES
         public ICommand NewProjectCommand { get; }
         public ICommand SaveProjectCommand { get; }
         public ICommand SaveAsProjectCommand { get; }
@@ -112,6 +113,10 @@ namespace CMiX.Core.Presentation.ViewModels
             get => assetManager;
             set => SetAndNotify(ref assetManager, value);
         }
+
+        public SchedulerManager SchedulerManager { get; set; }
+        public PlaylistEditor PlaylistEditor { get; set; }
+
 
         private ComponentManager _componentManager;
         public ComponentManager ComponentManager
@@ -167,7 +172,7 @@ namespace CMiX.Core.Presentation.ViewModels
                 }
             }
         }
-        #endregion
+
 
         public void AddComposition()
         {
@@ -217,16 +222,16 @@ namespace CMiX.Core.Presentation.ViewModels
 
         private void SaveProject()
         {
-            System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            if (!string.IsNullOrEmpty(FolderPath))
-            {
-                var data = Serializer.Serialize(CurrentProject.GetModel());
-                File.WriteAllBytes(FolderPath, data);
-            }
-            else
-            {
-                SaveAsProject();
-            }
+            //System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
+            //if (!string.IsNullOrEmpty(FolderPath))
+            //{
+            //    var data = Serializer.Serialize(CurrentProject.GetModel());
+            //    File.WriteAllBytes(FolderPath, data);
+            //}
+            //else
+            //{
+            //    SaveAsProject();
+            //}
         }
 
         private bool SaveAsProject()
