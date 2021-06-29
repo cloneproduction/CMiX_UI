@@ -22,8 +22,8 @@ namespace CMiX.Core.Network.Messages
         public override void Process<T>(T receiver)
         {
             SchedulerManager schedulerManager = receiver as SchedulerManager;
-            schedulerManager.SelectedSchedulerIndex = SelectedIndex;
-            schedulerManager.SelectedScheduler = schedulerManager.CompositionSchedulers[SelectedIndex];
+            //schedulerManager.SelectedSchedulerIndex = SelectedIndex;
+            //schedulerManager.SelectedScheduler = schedulerManager.CompositionSchedulers[SelectedIndex];
         }
     }
 }

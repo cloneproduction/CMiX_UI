@@ -18,7 +18,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             SchedulerID++;
 
 
-
             JobScheduler = new JobScheduler(compositionSchedulerModel.JobSchedulerModel);
             JobEditor = new JobEditor(compositionSchedulerModel.JobEditorModel, playlists, JobScheduler);
         }

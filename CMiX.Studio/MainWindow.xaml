@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
+    xmlns:Scheduling="clr-namespace:CMiX.Studio.Views.Scheduler"
     xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
     Title="C-MiX Studio"
     Width="1200"
@@ -137,6 +138,10 @@
                                 <Image Margin="2" Source="{StaticResource Network}"/>
                             </TabItem.Header>
                             <Views:MessengerManager DataContext="{Binding DataSender}"/>
+                        </TabItem>
+                        <TabItem Style="{StaticResource TabItemVerticalPanel}">
+
+                            <Scheduling:SchedulerManager DataContext="{Binding SchedulerManager}"/>
                         </TabItem>
                     </TabControl>
                 </Border>

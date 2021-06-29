@@ -19,6 +19,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
+            CompositionSchedulers = new ObservableCollection<CompositionScheduler>();
 
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);

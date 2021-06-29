@@ -16,6 +16,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         {
             this.ID = new Guid("22223344-5566-7788-99AA-BBCCDDEEFF00");
             Project = project;
+            PlaylistEditor = new PlaylistEditor(project);
 
             CreateSchedulerCommand = new RelayCommand(p => CreateScheduler());
             DeleteSchedulerCommand = new RelayCommand(p => DeleteScheduler());
@@ -25,6 +26,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public Guid ID { get; set; }
         public ICommand CreateSchedulerCommand { get; set; }
         public ICommand DeleteSchedulerCommand { get; set; }
+
         public Project Project { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
 
@@ -89,7 +91,6 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public void UnsetCommunicator(Communicator communicator)
         {
             Communicator.UnsetCommunicator(communicator);
-
             PlaylistEditor.UnsetCommunicator(Communicator);
         }
 

@@ -30,16 +30,16 @@ namespace CMiX.Core.Presentation.ViewModels
 
             CurrentProject = new Project(model);
 
-
-
             var componentCommunicator = new DataSenderCommunicator(DataSender);
 
             CurrentProject.SetCommunicator(componentCommunicator);
 
             AssetManager = new AssetManager(CurrentProject);
-            SchedulerManager = new SchedulerManager(CurrentProject);
-            PlaylistEditor = new PlaylistEditor(CurrentProject);
 
+            SchedulerManager = new SchedulerManager(CurrentProject);
+            SchedulerManager.SetCommunicator(componentCommunicator);
+
+            //PlaylistEditor = new PlaylistEditor(CurrentProject);
 
 
             Projects = new ObservableCollection<Component>();
@@ -114,7 +114,13 @@ namespace CMiX.Core.Presentation.ViewModels
             set => SetAndNotify(ref assetManager, value);
         }
 
-        public SchedulerManager SchedulerManager { get; set; }
+        private SchedulerManager _schedulerManager;
+        public SchedulerManager SchedulerManager
+        {
+            get => _schedulerManager;
+            set => SetAndNotify(ref _schedulerManager, value);
+        }
+
         public PlaylistEditor PlaylistEditor { get; set; }
 
 

@@ -25,8 +25,8 @@ namespace CMiX.Core.Network.Messages
         public override void Process<T>(T receiver)
         {
             PlaylistEditor playlistEditor = receiver as PlaylistEditor;
-            Composition composition = playlistEditor.Compositions.First(x => x.ID == CompositionID) as Composition;
-            playlistEditor.AddCompositionToPlaylist(composition);
+            //Composition composition = playlistEditor.Compositions.First(x => x.ID == CompositionID) as Composition;
+            //playlistEditor.AddCompositionToPlaylist(composition);
         }
     }
 }
