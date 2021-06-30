@@ -29,7 +29,7 @@ namespace CMiX.Core.Network.Messages
 
         public void AddID(Guid id)
         {
-            if(IDs == null)
+            if (IDs == null)
                 IDs = new List<Guid>();
 
             IDs.Insert(0, id);

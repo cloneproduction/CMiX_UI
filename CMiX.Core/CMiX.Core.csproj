@@ -57,6 +57,9 @@
     <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.2.3.2\lib\net47\GongSolutions.WPF.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="MediatR, Version=9.0.0.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.9.0.0\lib\net461\MediatR.dll</HintPath>
+    </Reference>
     <Reference Include="Memento, Version=1.0.0.0, Culture=neutral, PublicKeyToken=38cdbba176369010, processorArchitecture=MSIL">
       <HintPath>..\packages\Memento.1.2.1\lib\net40\Memento.dll</HintPath>
     </Reference>
@@ -161,6 +164,8 @@
     <Compile Include="Models\Range\IRangeModel.cs" />
     <Compile Include="Models\Range\RangeModel.cs" />
     <Compile Include="Presentation\Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Presentation\Mediator\RequestTest.cs" />
+    <Compile Include="Presentation\Mediator\Mediator.cs" />
     <Compile Include="Presentation\ValueConverters\AltBackgroundConverter.cs" />
     <Compile Include="Presentation\ValueConverters\AlwaysVisibleConverter.cs" />
     <Compile Include="Presentation\ValueConverters\BoolInverterConverter.cs" />

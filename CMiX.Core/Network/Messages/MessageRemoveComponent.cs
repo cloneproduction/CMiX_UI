@@ -22,7 +22,6 @@ namespace CMiX.Core.Network.Messages
         public override void Process<T>(T receiver)
         {
             var component = receiver as Component;
-            //Component componentToRemove = component.Components.ElementAt(Index);
             component.RemoveComponentAtIndex(Index);
             Console.WriteLine("ReceiveMessageRemoveComponent Count is " + component.Components.Count);
         }

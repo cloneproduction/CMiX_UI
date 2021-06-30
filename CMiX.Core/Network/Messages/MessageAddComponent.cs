@@ -19,7 +19,7 @@ namespace CMiX.Core.Network.Messages
             ComponentModel = component.GetModel() as IComponentModel;
         }
 
-        public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...
+        public IComponentModel ComponentModel { get; set; } 
 
         public override void Process<T>(T receiver)
         {

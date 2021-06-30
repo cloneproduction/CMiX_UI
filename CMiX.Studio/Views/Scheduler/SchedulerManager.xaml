@@ -19,20 +19,19 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Height="20" 
-                            DockPanel.Dock="Top"
-                            Margin="2"
-                            Content="Add New Scheduler" 
-                            Command="{Binding CreateSchedulerCommand}"/>
+                        DockPanel.Dock="Top"
+                        Margin="2"
+                        Content="Add New Scheduler" 
+                        Command="{Binding CreateSchedulerCommand}"/>
                 <Button Height="20"
-                            Grid.Column="1"
-                            DockPanel.Dock="Top"
-                            Margin="2"
-                            Content="Delete Scheduler"
-                            Command="{Binding DeleteSchedulerCommand}"/>
+                        Grid.Column="1"
+                        DockPanel.Dock="Top"
+                        Margin="2"
+                        Content="Delete Scheduler"
+                        Command="{Binding DeleteSchedulerCommand}"/>
             </Grid>
 
-            <ListBox
-                    Margin="2"
+            <ListBox Margin="2"
                     ItemsSource="{Binding Project.CompositionSchedulers}"
                     SelectedItem="{Binding SelectedScheduler}"
                     SelectedIndex="{Binding SelectedSchedulerIndex}">
