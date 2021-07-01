@@ -5,13 +5,14 @@ using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
+using MediatR;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(Composition composition, LayerModel layerModel)
-            : base(layerModel)
+        public Layer(Composition composition, LayerModel layerModel, IMediator mediator)
+            : base(layerModel, mediator)
         {
             Fade = new Slider(nameof(Fade), layerModel.Fade);
 

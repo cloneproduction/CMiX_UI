@@ -6,13 +6,14 @@ using CMiX.Core.Models.Beat;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
+using MediatR;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Composition : Component
     {
-        public Composition(Project project, CompositionModel compositionModel)
-            : base(compositionModel)
+        public Composition(Project project, CompositionModel compositionModel, IMediator mediator)
+            : base(compositionModel, mediator)
         {
             Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
 

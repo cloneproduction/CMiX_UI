@@ -1,8 +1,8 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Models;
 using System;
+using CMiX.Core.Models;
 
 namespace CMiX.Core.Presentation.ViewModels.Components.Factories
 {
@@ -20,14 +20,14 @@ namespace CMiX.Core.Presentation.ViewModels.Components.Factories
         public Component CreateComponent()
         {
             var model = new SceneModel(Guid.NewGuid());
-            var component = new Scene(ParentLayer, model);
+            var component = new Scene(ParentLayer, model, ParentLayer.Mediator);
             ID++;
             return component;
         }
 
         public Component CreateComponent(IComponentModel model)
         {
-            var component = new Scene(ParentLayer, model as SceneModel);
+            var component = new Scene(ParentLayer, model as SceneModel, ParentLayer.Mediator);
             return component;
         }
     }

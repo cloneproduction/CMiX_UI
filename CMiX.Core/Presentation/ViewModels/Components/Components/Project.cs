@@ -8,6 +8,7 @@ using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
+using MediatR;
 using MvvmDialogs;
 
 
@@ -15,7 +16,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Project : Component
     {
-        public Project(ProjectModel projectModel) : base(projectModel)
+        public Project(ProjectModel projectModel, IMediator mediator) : base(projectModel, mediator)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
@@ -24,7 +25,6 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
         }
-
 
         public IDialogService DialogService { get; set; }
         public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }

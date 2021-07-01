@@ -1,21 +1,23 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using Ceras;
-using CMiX.Core.Network.Messages;
-using CMiX.Core.Presentation.Views;
-using CMiX.Studio.ViewModels;
-using MvvmDialogs;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Ceras;
+using CMiX.Core.Network.Messages;
+using CMiX.Core.Presentation.ViewModels.Network;
+using CMiX.Core.Presentation.Views;
+using CMiX.Studio.ViewModels;
+using MvvmDialogs;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
-    public class DataSender : ViewModel
+    public class DataSender : ViewModel, IDataSender
     {
         public DataSender()
         {
+            Console.WriteLine("DATASENDER CREATED");
             Serializer = new CerasSerializer();
 
             MessengerFactory = new MessengerFactory();

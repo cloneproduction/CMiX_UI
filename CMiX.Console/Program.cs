@@ -12,7 +12,7 @@ namespace CMiX.Console
             Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 
             var projectModel = new ProjectModel();
-            Project Project = new Project(projectModel);
+            Project Project = new Project(projectModel, null);
 
             var dataReceiver = new DataReceiver();
 

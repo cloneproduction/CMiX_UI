@@ -7,11 +7,14 @@ using System.Windows;
 using System.Windows.Input;
 using Ceras;
 using CMiX.Core.Models;
-using CMiX.Core.Network.Communicators;
+using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components;
+using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
+using MediatR;
 using Memento;
+using Microsoft.Extensions.DependencyInjection;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using MvvmDialogs.FrameworkDialogs.SaveFile;
@@ -24,22 +27,30 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Mementor = new Mementor();
-            DataSender = new DataSender();
+            //DataSender = new DataSender();
 
             var model = new ProjectModel();
 
-            CurrentProject = new Project(model);
+            ServiceCollection = new ServiceCollection();
 
-            var componentCommunicator = new DataSenderCommunicator(DataSender);
 
-            CurrentProject.SetCommunicator(componentCommunicator);
+            DataSender = BuildDataSender(ServiceCollection) as DataSender;
+            Mediator = BuildMediator(ServiceCollection);
+
+            DataSender.SendMessage(null);
+            CurrentProject = new Project(model, Mediator);
+
+            //var componentCommunicator = new DataSenderCommunicator(DataSender as DataSender);
+
+            //CurrentProject.SetCommunicator(componentCommunicator);
 
             AssetManager = new AssetManager(CurrentProject);
 
             SchedulerManager = new SchedulerManager(CurrentProject);
-            SchedulerManager.SetCommunicator(componentCommunicator);
+            //SchedulerManager.SetCommunicator(componentCommunicator);
 
             //PlaylistEditor = new PlaylistEditor(CurrentProject);
+
 
 
             Projects = new ObservableCollection<Component>();
@@ -63,6 +74,28 @@ namespace CMiX.Core.Presentation.ViewModels
 
             AddCompositionCommand = new RelayCommand(p => AddComposition());
             AnimatedDouble = new ObservableCollection<double>();
+        }
+
+
+        public ServiceProvider ServiceProvider { get; set; }
+        public ServiceCollection ServiceCollection { get; set; }
+
+        public IDataSender BuildDataSender(ServiceCollection services)
+        {
+            services.AddSingleton<IDataSender, DataSender>();
+            var provider = services.BuildServiceProvider();
+            //DataSender = provider.GetService<IDataSender>() as DataSender;
+            return provider.GetService<IDataSender>();
+        }
+
+
+        public IMediator Mediator { get; set; }
+        private IMediator BuildMediator(ServiceCollection services)
+        {
+            //services.AddSingleton<IDataSender, DataSender>();
+            services.AddMediatR(typeof(AddNewComponentNotification));
+            var provider = services.BuildServiceProvider();
+            return provider.GetRequiredService<IMediator>();
         }
 
 
@@ -197,7 +230,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         private void NewProject()
         {
-            Project project = new Project(new ProjectModel());
+            Project project = new Project(new ProjectModel(), Mediator);
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

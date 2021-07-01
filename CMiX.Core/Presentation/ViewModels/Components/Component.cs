@@ -1,20 +1,23 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Models;
-using CMiX.Core.Network.Communicators;
-using CMiX.Core.Presentation.ViewModels.Components.Factories;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Presentation.Mediator;
+using CMiX.Core.Presentation.ViewModels.Components.Factories;
+using MediatR;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public abstract class Component : ViewModel, IControl, IDisposable
     {
-        public Component(IComponentModel componentModel)
+        public Component(IComponentModel componentModel, IMediator mediator)
         {
+            Mediator = mediator;
             ID = componentModel.ID;
 
             IsExpanded = false;
@@ -23,6 +26,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             Components = new ObservableCollection<Component>();
             Communicator = new ComponentCommunicator(this);
         }
+
 
         public ComponentCommunicator Communicator { get; set; }
 
@@ -77,14 +81,17 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             set => SetAndNotify(ref _components, value);
         }
 
+        public IMediator Mediator { get; set; }
 
-        public void AddComponent(Component component)
+        public async void AddComponent(Component component)
         {
             component.SetCommunicator(this.Communicator);
             Components.Add(component);
             IsExpanded = true;
 
-            Communicator?.SendMessageAddComponent(component);
+            //Communicator?.SendMessageAddComponent(component);
+            await Mediator.Publish(new AddNewComponentNotification(component));
+            //Console.WriteLine("Mediator Result = " + pouet);
         }
 
         public void RemoveComponent(Component component)

@@ -4,12 +4,13 @@
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
+using MediatR;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Entity : Component
     {
-        public Entity(Scene scene, EntityModel entityModel) : base(entityModel)
+        public Entity(Scene scene, EntityModel entityModel, IMediator mediator) : base(entityModel, mediator)
         {
             MasterBeat = scene.MasterBeat;
 

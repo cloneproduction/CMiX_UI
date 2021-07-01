@@ -5,12 +5,13 @@ using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
+using MediatR;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(Layer layer, SceneModel sceneModel) : base(sceneModel)
+        public Scene(Layer layer, SceneModel sceneModel, IMediator mediator) : base(sceneModel, mediator)
         {
             MasterBeat = layer.MasterBeat;
 
