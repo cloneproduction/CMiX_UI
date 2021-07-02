@@ -51,10 +51,7 @@ namespace CMiX.Core.Services
                     poller.Stop();
                     return;
                 }
-                else
-                {
-                    publisher.SendMultipartMessage(msg);
-                }
+                publisher.SendMultipartMessage(msg);
             }
 
             private void UpdateString(string stringmessage, string propertyToUpdate)

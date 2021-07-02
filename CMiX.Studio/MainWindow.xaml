@@ -29,10 +29,10 @@
             Command="{Binding SaveAsProjectCommand}" />
     </Window.InputBindings>
     
-    <Window.CommandBindings>
+    <!--<Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand_Executed" CanExecute="UndoCommand_CanExecute" />
         <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand_Executed" CanExecute="RedoCommand_CanExecute" />
-    </Window.CommandBindings>
+    </Window.CommandBindings>-->
 
     <DockPanel>
         <Border 

@@ -1,11 +1,6 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Windows;
-using System.Windows.Input;
-using Ceras;
 using CMiX.Core.Models;
 using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels.Assets;
@@ -13,11 +8,11 @@ using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
 using MediatR;
-using Memento;
 using Microsoft.Extensions.DependencyInjection;
 using MvvmDialogs;
-using MvvmDialogs.FrameworkDialogs.OpenFile;
-using MvvmDialogs.FrameworkDialogs.SaveFile;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -26,7 +21,7 @@ namespace CMiX.Core.Presentation.ViewModels
         public MainViewModel()
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-            Mementor = new Mementor();
+            //Mementor = new Mementor();
             //DataSender = new DataSender();
 
             var model = new ProjectModel();
@@ -34,10 +29,10 @@ namespace CMiX.Core.Presentation.ViewModels
             ServiceCollection = new ServiceCollection();
 
 
-            DataSender = BuildDataSender(ServiceCollection) as DataSender;
+            //DataSender = BuildDataSender(ServiceCollection) as DataSender;
             Mediator = BuildMediator(ServiceCollection);
 
-            DataSender.SendMessage(null);
+            //DataSender = ServiceProvider.GetService<DataSender>();
             CurrentProject = new Project(model, Mediator);
 
             //var componentCommunicator = new DataSenderCommunicator(DataSender as DataSender);
@@ -59,21 +54,22 @@ namespace CMiX.Core.Presentation.ViewModels
             ComponentManager = new ComponentManager(Projects);
             Outliner = new Outliner(Projects);
 
+            AnimatedDouble = new ObservableCollection<double>();
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
-            MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
-            MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
+            //MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
+            //MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
 
-            NewProjectCommand = new RelayCommand(p => NewProject());
-            OpenProjectCommand = new RelayCommand(p => OpenProject());
-            SaveProjectCommand = new RelayCommand(p => SaveProject());
-            SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
+            //NewProjectCommand = new RelayCommand(p => NewProject());
+            //OpenProjectCommand = new RelayCommand(p => OpenProject());
+            //SaveProjectCommand = new RelayCommand(p => SaveProject());
+            //SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
 
-            UndoCommand = new RelayCommand(p => Undo());
-            RedoCommand = new RelayCommand(p => Redo());
+            //UndoCommand = new RelayCommand(p => Undo());
+            //RedoCommand = new RelayCommand(p => Redo());
 
-            AddCompositionCommand = new RelayCommand(p => AddComposition());
-            AnimatedDouble = new ObservableCollection<double>();
+            //AddCompositionCommand = new RelayCommand(p => AddComposition());
+
         }
 
 
@@ -113,8 +109,8 @@ namespace CMiX.Core.Presentation.ViewModels
 
         private readonly IDialogService DialogService;
 
-        public Mementor Mementor { get; set; }
-        public CerasSerializer Serializer { get; set; }
+        //public Mementor Mementor { get; set; }
+        //public CerasSerializer Serializer { get; set; }
 
 
 
@@ -202,9 +198,9 @@ namespace CMiX.Core.Presentation.ViewModels
                 {
                     if (modalDialog.SaveProject)
                     {
-                        var projectSaved = SaveAsProject();
-                        if (projectSaved)
-                            window.Close();
+                        //var projectSaved = SaveAsProject();
+                        //if (projectSaved)
+                        //    window.Close();
                     }
                     else
                         window.Close();
@@ -212,91 +208,92 @@ namespace CMiX.Core.Presentation.ViewModels
             }
         }
 
-
-        public void AddComposition()
-        {
-            //ComponentFactory.CreateComposition(CurrentProject);
-        }
-        public void Undo()
-        {
-            //Mementor.Undo();
-        }
-
-        public void Redo()
-        {
-            //Mementor.Redo();
-        }
-
-
-        private void NewProject()
-        {
-            Project project = new Project(new ProjectModel(), Mediator);
-            Projects.Clear();
-            Projects.Add(project);
-            CurrentProject = project;
-            AssetManager = new AssetManager(project);
-        }
-
-        private void OpenProject()
-        {
-            OpenFileDialogSettings settings = new OpenFileDialogSettings();
-            settings.Filter = "Project (*.cmix)|*.cmix";
-
-            bool? success = DialogService.ShowOpenFileDialog(this, settings);
-            if (success == true)
-            {
-                string folderPath = settings.FileName;
-                if (settings.FileName.Trim() != string.Empty) // Check if you really have a file name 
-                {
-                    //CurrentProject.ComponentsInEditing.Clear();
-                    Projects.Clear();
-
-                    byte[] data = File.ReadAllBytes(folderPath);
-                    NewProject();
-                    CurrentProject.SetViewModel(Serializer.Deserialize<ProjectModel>(data));
-                    FolderPath = folderPath;
-                }
-            }
-        }
-
-        private void SaveProject()
-        {
-            //System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            //if (!string.IsNullOrEmpty(FolderPath))
-            //{
-            //    var data = Serializer.Serialize(CurrentProject.GetModel());
-            //    File.WriteAllBytes(FolderPath, data);
-            //}
-            //else
-            //{
-            //    SaveAsProject();
-            //}
-        }
-
-        private bool SaveAsProject()
-        {
-            SaveFileDialogSettings settings = new SaveFileDialogSettings();
-            settings.Filter = "Project (*.cmix)|*.cmix";
-            settings.DefaultExt = "cmix";
-            settings.AddExtension = true;
-
-            bool? success = DialogService.ShowSaveFileDialog(this, settings);
-            if (success == true && CurrentProject != null)
-            {
-                var data = Serializer.Serialize(CurrentProject.GetModel());
-                string folderPath = settings.FileName;
-                File.WriteAllBytes(folderPath, data);
-                FolderPath = folderPath;
-                return true;
-            }
-            else
-                return false;
-        }
-
         private void Quit(object p)
         {
             var window = p as Window;
             window.Close();
         }
+
+        //public void AddComposition()
+        //{
+        //    //ComponentFactory.CreateComposition(CurrentProject);
+        //}
+        //public void Undo()
+        //{
+        //    //Mementor.Undo();
+        //}
+
+        //public void Redo()
+        //{
+        //    //Mementor.Redo();
+        //}
+
+
+        //private void NewProject()
+        //{
+        //    Project project = new Project(new ProjectModel(), Mediator);
+        //    Projects.Clear();
+        //    Projects.Add(project);
+        //    CurrentProject = project;
+        //    AssetManager = new AssetManager(project);
+        //}
+
+        //private void OpenProject()
+        //{
+        //    OpenFileDialogSettings settings = new OpenFileDialogSettings();
+        //    settings.Filter = "Project (*.cmix)|*.cmix";
+
+        //    bool? success = DialogService.ShowOpenFileDialog(this, settings);
+        //    if (success == true)
+        //    {
+        //        string folderPath = settings.FileName;
+        //        if (settings.FileName.Trim() != string.Empty) // Check if you really have a file name 
+        //        {
+        //            //CurrentProject.ComponentsInEditing.Clear();
+        //            Projects.Clear();
+
+        //            byte[] data = File.ReadAllBytes(folderPath);
+        //            NewProject();
+        //            CurrentProject.SetViewModel(Serializer.Deserialize<ProjectModel>(data));
+        //            FolderPath = folderPath;
+        //        }
+        //    }
+        //}
+
+        //private void SaveProject()
+        //{
+        //    //System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
+        //    //if (!string.IsNullOrEmpty(FolderPath))
+        //    //{
+        //    //    var data = Serializer.Serialize(CurrentProject.GetModel());
+        //    //    File.WriteAllBytes(FolderPath, data);
+        //    //}
+        //    //else
+        //    //{
+        //    //    SaveAsProject();
+        //    //}
+        //}
+
+        //private bool SaveAsProject()
+        //{
+        //    SaveFileDialogSettings settings = new SaveFileDialogSettings();
+        //    settings.Filter = "Project (*.cmix)|*.cmix";
+        //    settings.DefaultExt = "cmix";
+        //    settings.AddExtension = true;
+
+        //    bool? success = DialogService.ShowSaveFileDialog(this, settings);
+        //    if (success == true && CurrentProject != null)
+        //    {
+        //        var data = Serializer.Serialize(CurrentProject.GetModel());
+        //        string folderPath = settings.FileName;
+        //        File.WriteAllBytes(folderPath, data);
+        //        FolderPath = folderPath;
+        //        return true;
+        //    }
+        //    else
+        //        return false;
+        //}
+
+
     }
 }
