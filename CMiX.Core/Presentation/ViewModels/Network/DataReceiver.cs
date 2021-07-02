@@ -16,6 +16,7 @@ namespace CMiX.Core.MessageService
     {
         public DataReceiver(IMediator mediator)
         {
+
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
             Serializer = new CerasSerializer();
@@ -35,16 +36,16 @@ namespace CMiX.Core.MessageService
                 Console.WriteLine("Client_DataReceived Message");
 
                 Message message = Serializer.Deserialize<Message>(e.Data);
-                Console.WriteLine("MessageType = " + message.GetType().Name);
-                Mediator.Publish(new ReceiveMessageNotification(message));
-                //if (message is MessageAddComponent)
-                //{
-                //    var mess = message as MessageAddComponent;
-                //    mess.ReceiveWithMediator(Mediator);
-                //}
-                //message.Process()
-                //var messageIDIterator = message.CreateIterator();
-                //Communicator.ReceiveMessage(messageIDIterator);
+                //Console.WriteLine("MessageType = " + message.GetType().Name);
+                //Mediator.Publish(new ReceiveMessageNotification(message));
+                ////if (message is MessageAddComponent)
+                ////{
+                ////    var mess = message as MessageAddComponent;
+                ////    mess.ReceiveWithMediator(Mediator);
+                ////}
+                ////message.Process()
+                var messageIDIterator = message.CreateIterator();
+                Communicator.ReceiveMessage(messageIDIterator);
             }
         }
 

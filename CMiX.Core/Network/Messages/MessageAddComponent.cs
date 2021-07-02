@@ -18,11 +18,11 @@ namespace CMiX.Core.Network.Messages
 
         }
 
-        public MessageAddComponent(Guid id, Component component)
+        public MessageAddComponent(Component component)
         {
             ComponentModel = component.GetModel() as IComponentModel;
             IDs = new List<Guid>();
-            IDs.Add(id);
+            //IDs.Add(id);
         }
 
         public IComponentModel ComponentModel { get; set; }
@@ -37,6 +37,7 @@ namespace CMiX.Core.Network.Messages
             var component = receiver as Component;
             Component newComponent = component.ComponentFactory.CreateComponent(ComponentModel);
             component.AddComponent(newComponent);
+            newComponent.SetCommunicator(component.Communicator);
             Console.WriteLine("ReceiveMessageAddComponent Count is " + component.Components.Count);
         }
     }

@@ -11,21 +11,18 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(Composition composition, LayerModel layerModel, IMediator mediator)
-            : base(layerModel, mediator)
+        public Layer(Composition composition, LayerModel layerModel, IMediator mediator): base(layerModel, mediator)
         {
             Fade = new Slider(nameof(Fade), layerModel.Fade);
 
             MasterBeat = composition.MasterBeat;
             Visibility = new Visibility(composition.Visibility, layerModel.VisibilityModel);
-
             PostFX = new PostFX(layerModel.PostFXModel);
             BlendMode = new BlendMode(layerModel.BlendMode);
             Mask = new Mask(layerModel.MaskModel);
 
             ComponentFactory = new SceneFactory(this);
         }
-
 
         public MasterBeat MasterBeat { get; set; }
         public Slider Fade { get; set; }

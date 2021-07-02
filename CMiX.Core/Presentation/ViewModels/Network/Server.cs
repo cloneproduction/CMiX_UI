@@ -3,6 +3,8 @@
 
 using CMiX.Core.Services;
 using System;
+using System.Text;
+using WatsonTcp;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -12,7 +14,38 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             Enabled = true;
             IsRunning = false;
+
+
+
+
         }
+
+
+
+        private void MessageReceived(object sender, MessageReceivedEventArgs e)
+        {
+            Console.WriteLine("Message from " + e.IpPort + ": " + Encoding.UTF8.GetString(e.Data));
+        }
+
+        private void ClientDisconnected(object sender, DisconnectionEventArgs e)
+        {
+            Console.WriteLine("Client disconnected: " + this.IP + ": " + e.Reason.ToString());
+        }
+
+        private void ClientConnected(object sender, ConnectionEventArgs e)
+        {
+            ipPort = e.IpPort;
+            Console.WriteLine("Client connected: " + e.IpPort);
+        }
+
+        private SyncResponse SyncRequestReceived(SyncRequest arg)
+        {
+            throw new NotImplementedException();
+            // return new SyncResponse("Hello back at you!");
+        }
+
+        public string ipPort { get; set; }
+
 
         private bool _isRunning;
         public bool IsRunning
@@ -77,22 +110,37 @@ namespace CMiX.Core.Presentation.ViewModels
         }
 
         public NetMQServer NetMQServer { get; set; }
+        public WatsonTcpServer WatsonTcpServer { get; set; }
+
 
         public void Send(byte[] data)
         {
-            if (Enabled && NetMQServer != null)
+            if(Enabled && WatsonTcpServer != null)
             {
-                NetMQServer.SendObject(Topic, data);
-                Console.WriteLine("NetMQServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length);
+                WatsonTcpServer.Send(this.ipPort, data);
+                Console.WriteLine("WatsonTcpServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length + $"{IP}:{Port}");
             }
+
+            //if (Enabled && NetMQServer != null)
+            //{
+            //    NetMQServer.SendObject(Topic, data);
+            //    Console.WriteLine("NetMQServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length);
+            //}
         }
 
         public void Start()
         {
-            if(NetMQServer == null)
-                NetMQServer = new NetMQServer(Address);
+            WatsonTcpServer = new WatsonTcpServer(IP, Port);
+            WatsonTcpServer.Events.ClientConnected += ClientConnected;
+            WatsonTcpServer.Events.ClientDisconnected += ClientDisconnected;
+            WatsonTcpServer.Events.MessageReceived += MessageReceived;
+            WatsonTcpServer.Callbacks.SyncRequestReceived = SyncRequestReceived;
+            WatsonTcpServer.Start();
 
-            NetMQServer.Start();
+            //if (NetMQServer == null)
+            //    NetMQServer = new NetMQServer(Address);
+
+            //NetMQServer.Start();
             IsRunning = true;
         }
 

@@ -105,12 +105,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             Components.Add(component);
             IsExpanded = true;
 
-            //Communicator?.SendMessageAddComponent(component);
-            if (Mediator != null)
-            {
-                await Mediator.Publish(new AddNewComponentNotification(this.ID, component));
-            }
-
+            //if (Mediator != null)
+            //{
+            //    await Mediator.Publish(new AddNewComponentNotification(this.ID, component));
+            //}
+            Communicator?.SendMessageAddComponent(component);
         }
 
         public void RemoveComponent(Component component)

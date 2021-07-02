@@ -2,6 +2,7 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Network;
@@ -26,8 +27,8 @@ namespace CMiX.Core.Presentation.ViewModels
             var model = new ProjectModel();
             CurrentProject = new Project(model, mediator);
 
-            //var componentCommunicator = new DataSenderCommunicator(DataSender as DataSender);
-            //CurrentProject.SetCommunicator(componentCommunicator);
+            var componentCommunicator = new DataSenderCommunicator(DataSender as DataSender);
+            CurrentProject.SetCommunicator(componentCommunicator);
 
             AssetManager = new AssetManager(CurrentProject);
 

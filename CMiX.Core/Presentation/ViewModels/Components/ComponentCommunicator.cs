@@ -14,9 +14,9 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             IIDObject = component;
         }
 
-        public void SendMessageAddComponent(Guid id, Component component)
+        public void SendMessageAddComponent(Component component)
         {
-            this.SendMessage(new MessageAddComponent(id, component));
+            this.SendMessage(new MessageAddComponent(component));
         }
 
         public void SendMessageRemoveComponent(int index)
