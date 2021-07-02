@@ -20,7 +20,7 @@ namespace CMiX.Core.Presentation.Mediator
 
         public Task Handle(AddNewComponentNotification notification, CancellationToken cancellationToken)
         {
-            _dataSender.SendMessage(new MessageAddComponent(notification.Component));
+            _dataSender.SendMessage(new MessageAddComponent(notification.ID, notification.Component));
             return Task.CompletedTask;
         }
     }

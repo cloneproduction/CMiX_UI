@@ -183,6 +183,10 @@
     <Compile Include="Models\Range\IRangeModel.cs" />
     <Compile Include="Models\Range\RangeModel.cs" />
     <Compile Include="Presentation\Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Presentation\Mediator\ReceiveAddNewComponentNotification.cs" />
+    <Compile Include="Presentation\Mediator\ReceiveMessageNotificationHandler.cs" />
+    <Compile Include="Presentation\Mediator\ReceiveNewComponentNotificationHandler.cs" />
+    <Compile Include="Presentation\Mediator\ReceiveMessageNotification.cs" />
     <Compile Include="Presentation\Mediator\AddNewComponentNotification.cs" />
     <Compile Include="Presentation\Mediator\AddNewComponentNotificationHandler.cs" />
     <Compile Include="Presentation\ValueConverters\AltBackgroundConverter.cs" />
@@ -236,6 +240,8 @@
     <Compile Include="Presentation\ValueConverters\RangeValueToStringConverter.cs" />
     <Compile Include="Presentation\ValueConverters\ValToColorConverter.cs" />
     <Compile Include="Presentation\ValueConverters\ValueAngleConverter.cs" />
+    <Compile Include="Presentation\ViewModels\Components\ComponentDatabase.cs" />
+    <Compile Include="Presentation\ViewModels\Components\IComponentDatabase.cs" />
     <Compile Include="Presentation\ViewModels\IGetSetModel.cs" />
     <Compile Include="Presentation\ViewModels\Network\DataEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\Assets\AssetFactory.cs" />

@@ -3,20 +3,20 @@
 
 
 using System;
-using CMiX.Core.Presentation.ViewModels.Components;
+using CMiX.Core.Models;
 using MediatR;
 
 namespace CMiX.Core.Presentation.Mediator
 {
-    public class AddNewComponentNotification : INotification
+    public class ReceiveAddNewComponentNotification : INotification
     {
-        public AddNewComponentNotification(Guid id, Component component)
+        public ReceiveAddNewComponentNotification(Guid id, IComponentModel componentModel)
         {
-            Component = component;
+            ComponentModel = componentModel;
             ID = id;
         }
 
         public Guid ID { get; }
-        public Component Component { get; }
+        public IComponentModel ComponentModel { get; }
     }
 }

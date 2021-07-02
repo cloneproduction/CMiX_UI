@@ -1,5 +1,4 @@
-﻿using CMiX.Core.Presentation.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 
 namespace CMiX
 {
@@ -9,7 +8,6 @@ namespace CMiX
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            DataContext = new MainViewModel();
         }
 
         //private void UndoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)

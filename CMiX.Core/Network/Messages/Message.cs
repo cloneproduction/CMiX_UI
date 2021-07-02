@@ -35,6 +35,7 @@ namespace CMiX.Core.Network.Messages
             IDs.Insert(0, id);
         }
 
+
         public abstract void Process<T>(T receiver);
     }
 }

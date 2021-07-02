@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
 using MediatR;
@@ -31,6 +32,21 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         public ComponentCommunicator Communicator { get; set; }
 
         public abstract void SetCommunicator(Communicator communicator);
+
+        internal void ReceiveMessage(Message message)
+        {
+            Console.WriteLine(this.GetType().Name + "ReceiveMessage of type" + message.GetType().Name);
+
+            if(message is MessageAddComponent)
+            {
+                var messageAddComponent = message as MessageAddComponent;
+                var newComponent = ComponentFactory.CreateComponent(messageAddComponent.ComponentModel);
+                this.AddComponent(newComponent);
+                //_componentDatabase.AddComponent(newComponent);
+            }
+
+        }
+
         public abstract void UnsetCommunicator(Communicator communicator);
 
 
@@ -90,8 +106,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             IsExpanded = true;
 
             //Communicator?.SendMessageAddComponent(component);
-            await Mediator.Publish(new AddNewComponentNotification(component));
-            //Console.WriteLine("Mediator Result = " + pouet);
+            if (Mediator != null)
+            {
+                await Mediator.Publish(new AddNewComponentNotification(this.ID, component));
+            }
+
         }
 
         public void RemoveComponent(Component component)

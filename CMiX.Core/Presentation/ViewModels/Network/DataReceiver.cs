@@ -1,24 +1,28 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
+using System;
 using Ceras;
 using CMiX.Core.Network.Messages;
+using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels;
 using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Services;
-using System;
+using MediatR;
 
 namespace CMiX.Core.MessageService
 {
     public class DataReceiver : ViewModel
     {
-        public DataReceiver()
+        public DataReceiver(IMediator mediator)
         {
             Client = new Client();
             Client.DataReceived += Client_DataReceived;
             Serializer = new CerasSerializer();
+            Mediator = mediator;
         }
 
+        public IMediator Mediator { get; set; }
         public void RegisterReceiver(ComponentCommunicator communicator)
         {
             Communicator = communicator;
@@ -31,8 +35,16 @@ namespace CMiX.Core.MessageService
                 Console.WriteLine("Client_DataReceived Message");
 
                 Message message = Serializer.Deserialize<Message>(e.Data);
-                var messageIDIterator = message.CreateIterator();
-                Communicator.ReceiveMessage(messageIDIterator);
+                Console.WriteLine("MessageType = " + message.GetType().Name);
+                Mediator.Publish(new ReceiveMessageNotification(message));
+                //if (message is MessageAddComponent)
+                //{
+                //    var mess = message as MessageAddComponent;
+                //    mess.ReceiveWithMediator(Mediator);
+                //}
+                //message.Process()
+                //var messageIDIterator = message.CreateIterator();
+                //Communicator.ReceiveMessage(messageIDIterator);
             }
         }
 
@@ -41,7 +53,6 @@ namespace CMiX.Core.MessageService
             get { return String.Format("tcp://{0}:{1}", IP, Port); }
         }
 
-        //private IMessageReceiver MessageReceiver;
 
         private ComponentCommunicator Communicator { get; set; }
         private CerasSerializer Serializer { get; set; }

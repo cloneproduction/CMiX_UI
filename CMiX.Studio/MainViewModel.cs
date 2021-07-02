@@ -2,7 +2,6 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using CMiX.Core.Models;
-using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Network;
@@ -18,32 +17,22 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        public MainViewModel()
+        public MainViewModel(IDataSender dataSender, IMediator mediator)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-            //Mementor = new Mementor();
-            //DataSender = new DataSender();
+
+            DataSender = dataSender as DataSender;
 
             var model = new ProjectModel();
-
-            ServiceCollection = new ServiceCollection();
-
-
-            //DataSender = BuildDataSender(ServiceCollection) as DataSender;
-            Mediator = BuildMediator(ServiceCollection);
-
-            //DataSender = ServiceProvider.GetService<DataSender>();
-            CurrentProject = new Project(model, Mediator);
+            CurrentProject = new Project(model, mediator);
 
             //var componentCommunicator = new DataSenderCommunicator(DataSender as DataSender);
-
             //CurrentProject.SetCommunicator(componentCommunicator);
 
             AssetManager = new AssetManager(CurrentProject);
 
             SchedulerManager = new SchedulerManager(CurrentProject);
             //SchedulerManager.SetCommunicator(componentCommunicator);
-
             //PlaylistEditor = new PlaylistEditor(CurrentProject);
 
 
@@ -72,27 +61,6 @@ namespace CMiX.Core.Presentation.ViewModels
 
         }
 
-
-        public ServiceProvider ServiceProvider { get; set; }
-        public ServiceCollection ServiceCollection { get; set; }
-
-        public IDataSender BuildDataSender(ServiceCollection services)
-        {
-            services.AddSingleton<IDataSender, DataSender>();
-            var provider = services.BuildServiceProvider();
-            //DataSender = provider.GetService<IDataSender>() as DataSender;
-            return provider.GetService<IDataSender>();
-        }
-
-
-        public IMediator Mediator { get; set; }
-        private IMediator BuildMediator(ServiceCollection services)
-        {
-            //services.AddSingleton<IDataSender, DataSender>();
-            services.AddMediatR(typeof(AddNewComponentNotification));
-            var provider = services.BuildServiceProvider();
-            return provider.GetRequiredService<IMediator>();
-        }
 
 
         public ICommand NewProjectCommand { get; }

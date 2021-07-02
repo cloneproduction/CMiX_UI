@@ -3,16 +3,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using CMiX.Core.Network.Messages;
-using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels;
-using MediatR;
 
 namespace CMiX.Core.Network.Communicators
 {
-    public class Communicator : IMediator
+    public class Communicator
     {
         public Communicator()
         {
@@ -90,28 +86,6 @@ namespace CMiX.Core.Network.Communicators
                 message.AddID(GetID());
                 _parentCommunicator?.SendMessage(message);
             }
-        }
-
-
-
-        public Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<object> Send(object request, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Publish(object notification, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
-        {
-            throw new NotImplementedException();
         }
     }
 }
