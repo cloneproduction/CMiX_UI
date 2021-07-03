@@ -36,14 +36,6 @@ namespace CMiX.Core.MessageService
                 Console.WriteLine("Client_DataReceived Message");
 
                 Message message = Serializer.Deserialize<Message>(e.Data);
-                //Console.WriteLine("MessageType = " + message.GetType().Name);
-                //Mediator.Publish(new ReceiveMessageNotification(message));
-                ////if (message is MessageAddComponent)
-                ////{
-                ////    var mess = message as MessageAddComponent;
-                ////    mess.ReceiveWithMediator(Mediator);
-                ////}
-                ////message.Process()
                 var messageIDIterator = message.CreateIterator();
                 Communicator.ReceiveMessage(messageIDIterator);
             }
@@ -126,5 +118,27 @@ namespace CMiX.Core.MessageService
         {
             Client.Stop();
         }
+
+
+
+        //private void Client_DataReceived(object sender, DataEventArgs e)
+        //{
+        //    if (Communicator != null)
+        //    {
+        //        Console.WriteLine("Client_DataReceived Message");
+
+        //        Message message = Serializer.Deserialize<Message>(e.Data);
+        //        //Console.WriteLine("MessageType = " + message.GetType().Name);
+        //        //Mediator.Publish(new ReceiveMessageNotification(message));
+        //        ////if (message is MessageAddComponent)
+        //        ////{
+        //        ////    var mess = message as MessageAddComponent;
+        //        ////    mess.ReceiveWithMediator(Mediator);
+        //        ////}
+        //        ////message.Process()
+        //        var messageIDIterator = message.CreateIterator();
+        //        Communicator.ReceiveMessage(messageIDIterator);
+        //    }
+        //}
     }
 }

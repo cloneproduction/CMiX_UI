@@ -78,6 +78,26 @@
                             Grid.Column="1"
                             Foreground="{StaticResource TextBase}"/>
                     </Grid>
+
+                    
+                    <Grid Height="25" Margin="0, 1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock 
+                            Text="Resync" 
+                            Margin="0, 0, 8, 0"
+                            Foreground="{StaticResource TextBase}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"/>
+                        <Button Grid.Column="1"
+                                Command="{Binding RequestProjectReSyncCommand}"
+                                Style="{DynamicResource ButtonRounded}"/>
+                    </Grid>
+                    
+                    
                     <Grid Height="25" Margin="0, 1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.4*"/>
@@ -108,13 +128,30 @@
                             Grid.Column="1"
                             Foreground="{StaticResource TextBase}"/>
                     </Grid>
-                    <Grid Height="25" Margin="0, 1">
+                    <!--<Grid Height="25" Margin="0, 1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.4*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <TextBlock 
                             Text="Status" 
+                            Margin="0, 0, 8, 0"
+                            Foreground="{StaticResource TextBase}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"/>
+                        <TextBlock
+                            Padding="4"
+                            Text="{Binding Server.Status}"
+                            Grid.Column="1"
+                            Foreground="{StaticResource TextBase}"/>
+                    </Grid>-->
+                    <Grid Height="25" Margin="0, 1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Text="Client" 
                             Margin="0, 0, 8, 0"
                             Foreground="{StaticResource TextBase}"
                             HorizontalAlignment="Right"

@@ -1,9 +1,8 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Presentation.ViewModels;
-using System;
 using System.Windows.Input;
+using CMiX.Core.Presentation.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -16,10 +15,13 @@ namespace CMiX.Studio.ViewModels
             Name = $"Messenger ({id})";
 
             StartServerCommand = new RelayCommand(p => StartServer());
+            RequestProjectReSyncCommand = new RelayCommand(p => RequestProjectResync());
             StopServerCommand = new RelayCommand(p => StopServer());
             RestartServerCommand = new RelayCommand(p => RestartServer());
         }
 
+
+        public ICommand RequestProjectReSyncCommand { get; }
         public ICommand StartServerCommand { get; }
         public ICommand StopServerCommand { get; }
         public ICommand RestartServerCommand { get; }
@@ -40,16 +42,21 @@ namespace CMiX.Studio.ViewModels
             this.Server.Send(data);
         }
 
-        public bool ServerIsRunning { get => Server.IsRunning; }
 
         public Settings GetSettings()
         {
             return new Settings(Name, Server.Topic, Server.IP, Server.Port);
         }
 
+
         public void StartServer()
         {
             Server.Start();
+        }
+
+        public void RequestProjectResync()
+        {
+            Server.SendRequestProjectSync();
         }
 
         public void StopServer()
@@ -64,9 +71,6 @@ namespace CMiX.Studio.ViewModels
 
         public void SetSettings(Settings settings)
         {
-            if (Server.IsRunning)
-                Server.Stop();
-
             Name = settings.Name;
             Server.Topic = settings.Topic;
             Server.IP = settings.IP;
