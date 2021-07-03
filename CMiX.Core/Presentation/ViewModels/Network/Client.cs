@@ -42,7 +42,22 @@ namespace CMiX.Core.Services
             client.Events.ServerDisconnected += ServerDisconnected;
             client.Events.MessageReceived += MessageReceived;
             client.Callbacks.SyncRequestReceived = SyncRequestReceived;
-            client.Connect();
+
+            client.Settings.ConnectTimeoutSeconds = 1000;
+
+            client.Keepalive.EnableTcpKeepAlives = true;
+            client.Keepalive.TcpKeepAliveInterval = 5;
+            client.Keepalive.TcpKeepAliveTime = 5;
+           
+            try
+            {
+                client.Connect();
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("CANT CONNECT");
+            }
 
             Console.WriteLine($"WatsonTcp Started with Address " + Address);
 
