@@ -2,7 +2,12 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using CMiX.Core.Presentation.ViewModels.Network;
 using WatsonTcp;
 
 namespace CMiX.Core.Presentation.ViewModels
@@ -14,6 +19,7 @@ namespace CMiX.Core.Presentation.ViewModels
             Enabled = true;
             ClientIsConnected = false;
             Status = "Disconnected";
+            ConnectedClients = new ObservableCollection<ConnectedClient>();
         }
 
 
@@ -24,14 +30,12 @@ namespace CMiX.Core.Presentation.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-
         private string _status;
         public string Status
         {
             get => _status;
             set => SetAndNotify(ref _status, value);
         }
-
 
         private string _ip;
         public string IP
@@ -61,7 +65,6 @@ namespace CMiX.Core.Presentation.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
-
         private bool _clientIsConnected;
         public bool ClientIsConnected
         {
@@ -69,15 +72,33 @@ namespace CMiX.Core.Presentation.ViewModels
             set => SetAndNotify(ref _clientIsConnected, value);
         }
 
+        private bool _unSync;
+        public bool UnSync
+        {
+            get => _unSync;
+            set => SetAndNotify(ref _unSync, value);
+        }
+
+        private ObservableCollection<ConnectedClient> _connectedClients;
+        public ObservableCollection<ConnectedClient> ConnectedClients
+        {
+            get => _connectedClients;
+            set => SetAndNotify(ref _connectedClients, value);
+        }
+
 
         private string ipPort { get; set; }
         public WatsonTcpServer WatsonTcpServer { get; set; }
+
+
+
 
 
         private void MessageReceived(object sender, MessageReceivedEventArgs e)
         {
             Console.WriteLine("Message from " + e.IpPort + ": " + Encoding.UTF8.GetString(e.Data));
         }
+
 
         private void ClientDisconnected(object sender, DisconnectionEventArgs e)
         {
@@ -87,16 +108,28 @@ namespace CMiX.Core.Presentation.ViewModels
 
         private void ClientConnected(object sender, ConnectionEventArgs e)
         {
-            ipPort = e.IpPort;
             Console.WriteLine("Client connected: " + e.IpPort);
+            ipPort = e.IpPort;
+
+            List<string> pouet = WatsonTcpServer.ListClients().ToList();
+
+            List<ConnectedClient> connectedClients = new List<ConnectedClient>();
+            foreach (var item in pouet)
+            {
+                ConnectedClient connectedClient = new ConnectedClient(item);
+                connectedClients.Add(connectedClient);
+                Console.WriteLine("ConnectedClient Added " + item);
+            }
+            ConnectedClients = new ObservableCollection<ConnectedClient>(connectedClients);
+            Console.WriteLine("ConnectedClients Count = " +  ConnectedClients.Count);
             Status = "Connected";
         }
+
 
         private SyncResponse SyncRequestReceived(SyncRequest arg)
         {
             return new SyncResponse(arg, "Hello back at you from Server!");
         }
-
 
         public void SendRequestProjectSync()
         {
@@ -111,15 +144,16 @@ namespace CMiX.Core.Presentation.ViewModels
             }
         }
 
+
         public void Send(byte[] data)
         {
             if (Enabled && WatsonTcpServer != null)
             {
                 WatsonTcpServer.Send(this.ipPort, data);
                 Console.WriteLine("WatsonTcpServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length + $"{IP}:{Port}");
-                var pouet = WatsonTcpServer.ListClients();
             }
         }
+
 
         public void Start()
         {
@@ -136,7 +170,6 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             if (WatsonTcpServer != null)
             {
-
                 WatsonTcpServer.Stop();
                 WatsonTcpServer.DisconnectClients();
                 WatsonTcpServer.Events.ClientConnected -= ClientConnected;

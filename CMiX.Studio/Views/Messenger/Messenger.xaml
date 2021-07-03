@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="179.799" d:DesignWidth="264.465">
+             d:DesignHeight="249.289" d:DesignWidth="293.576">
 
     <Border Style="{DynamicResource BorderShadow}">
         <StackPanel>
@@ -79,13 +79,13 @@
                             Foreground="{StaticResource TextBase}"/>
                     </Grid>
 
-                    
+
                     <Grid Height="25" Margin="0, 1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.4*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <TextBlock 
                             Text="Resync" 
                             Margin="0, 0, 8, 0"
@@ -96,8 +96,8 @@
                                 Command="{Binding RequestProjectReSyncCommand}"
                                 Style="{DynamicResource ButtonRounded}"/>
                     </Grid>
-                    
-                    
+
+
                     <Grid Height="25" Margin="0, 1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.4*"/>
@@ -183,7 +183,24 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                        
                     </Grid>
+                    <ItemsControl Margin="0, 8" 
+                                  MinHeight="50" 
+                                  ItemsSource="{Binding Server.ConnectedClients}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" Grid.Column="0" Margin="0, 0, 1, 0" Text="{Binding IP}"/>
+                                    <TextBlock HorizontalAlignment="Center" Grid.Column="1" Margin="1, 0, 0, 0" Text="{Binding Port}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </Border>
         </StackPanel>
