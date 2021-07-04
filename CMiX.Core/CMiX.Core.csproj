@@ -289,6 +289,7 @@
     <Compile Include="Network\Messages\MessageIDIterator.cs" />
     <Compile Include="Presentation\ViewModels\Entity\Geometry\Instancer\TransformModifier.cs" />
     <Compile Include="Presentation\ViewModels\IIDObject.cs" />
+    <Compile Include="Presentation\ViewModels\Network\ServerStatistics.cs" />
     <Compile Include="Presentation\ViewModels\Scheduling\CompositionScheduler.cs" />
     <Compile Include="Presentation\ViewModels\Scheduling\Job.cs" />
     <Compile Include="Presentation\ViewModels\Scheduling\JobScheduler.cs" />

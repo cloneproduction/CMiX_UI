@@ -8,7 +8,6 @@ using Ceras;
 using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.Views;
-using CMiX.Studio.ViewModels;
 using MvvmDialogs;
 
 namespace CMiX.Core.Presentation.ViewModels
@@ -41,6 +40,15 @@ namespace CMiX.Core.Presentation.ViewModels
         public ICommand RenameMessengerCommand { get; set; }
 
 
+
+        private Messenger _selectedMessenger;
+        public Messenger SelectedMessenger
+        {
+            get => _selectedMessenger;
+            set => SetAndNotify(ref _selectedMessenger, value);
+        }
+
+
         private ObservableCollection<Messenger> _messengers;
         public ObservableCollection<Messenger> Messengers
         {
@@ -68,6 +76,13 @@ namespace CMiX.Core.Presentation.ViewModels
             {
                 messenger.StopServer();
                 Messengers.Remove(messenger);
+
+                if (Messengers.Count > 0)
+                {
+                    SelectedMessenger = Messengers[0];
+                }
+                else
+                    SelectedMessenger = null;
             }
         }
 

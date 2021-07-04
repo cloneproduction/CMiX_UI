@@ -2,9 +2,8 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System.Windows.Input;
-using CMiX.Core.Presentation.ViewModels;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.Core.Presentation.ViewModels.Network
 {
     public class Messenger : ViewModel
     {
@@ -18,9 +17,10 @@ namespace CMiX.Studio.ViewModels
             RequestProjectReSyncCommand = new RelayCommand(p => RequestProjectResync());
             StopServerCommand = new RelayCommand(p => StopServer());
             RestartServerCommand = new RelayCommand(p => RestartServer());
+            RenameCommand = new RelayCommand(p => Rename());
         }
 
-
+        public ICommand RenameCommand { get; }
         public ICommand RequestProjectReSyncCommand { get; }
         public ICommand StartServerCommand { get; }
         public ICommand StopServerCommand { get; }
@@ -36,6 +36,18 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
+        private bool _isRenaming;
+        public bool IsRenaming
+        {
+            get => _isRenaming;
+            set => SetAndNotify(ref _isRenaming, value);
+        }
+
+        public void Rename()
+        {
+            IsRenaming = true;
+            System.Console.WriteLine("DOUBLE CLICK !!");
+        }
 
         public void SendData(byte[] data)
         {

@@ -18,7 +18,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
 
-            <Converters:DataTypeConverter x:Key="DataTypeConverter"/>
+            
 
             <Tools:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Tools:BindingProxy x:Key="OutlinerProxy" Data="{Binding Path=DataContext}"/>
@@ -31,16 +31,6 @@
                         Width="30" 
                         BorderBrush="{DynamicResource SuperHighDarkerColor}" 
                         BorderThickness="0, 0, 1, 0">
-                        <!--<Button>
-                            <Button.Content>
-                                <Image Source="{StaticResource Visible}"/>
-                            </Button.Content>
-                        </Button>-->
-                        <!--<ToggleButton 
-                            IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
-                            Style="{DynamicResource ToggleVisibility}"
-                            VerticalAlignment="Center">
-                        </ToggleButton>-->
                     </Border>
                     <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource LeftMarginMultiplier}, RelativeSource={RelativeSource TemplatedParent}}">
                         <Grid.ColumnDefinitions>
@@ -53,11 +43,6 @@
                                 IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                                 ClickMode="Press"/>
                         </Border>
-                        <!--<ContentPresenter x:Name="PART_Header"
-                            Grid.Column="1"
-                            ContentSource="Header"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>-->
                     </Grid>
                 </DockPanel>
             </DataTemplate>

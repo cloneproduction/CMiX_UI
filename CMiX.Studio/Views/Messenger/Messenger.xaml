@@ -7,203 +7,201 @@
              mc:Ignorable="d" 
              d:DesignHeight="249.289" d:DesignWidth="293.576">
 
-    <Border Style="{DynamicResource BorderShadow}">
-        <StackPanel>
-            <Border 
-                Height="30" 
-                CornerRadius="4, 4, 0, 0"
-                HorizontalAlignment="Stretch"
-                Background="{StaticResource DarkColor}">
-                <DockPanel>
-                    <Menu DockPanel.Dock="Right" Background="{DynamicResource DarkColor}">
-                        <MenuItem  Width="30" Style="{DynamicResource TopMenuItem}">
-                            <MenuItem.Icon>
-                                <Image Margin="2" Source="{StaticResource Menu}"/>
-                            </MenuItem.Icon>
-                            <MenuItem 
-                                Command="{Binding StartServerCommand}"
-                                Header="Start">
-                                <MenuItem.Icon>
-                                    <Image Margin="1" Opacity="0.75" Source="{StaticResource Play}"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Command="{Binding StopServerCommand}" Header="Stop">
-                                <MenuItem.Icon>
-                                    <Image Margin="3" Opacity="0.75" Source="{StaticResource Stop}"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Command="{Binding RestartServerCommand}" Header="Restart">
-                                <MenuItem.Icon>
-                                    <Image Opacity="0.75" Margin="2" Source="{StaticResource Reset}"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem 
-                                Header="Settings"
-                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.EditMessengerSettingsCommand}"
-                                CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
-                                <MenuItem.Icon>
-                                    <Image Opacity="0.75" Margin="2" Source="{StaticResource Settings}"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <Separator BorderThickness="0.5" Margin="4" BorderBrush="{StaticResource DarkColor}"/>
-                            <MenuItem 
-                                Header="Delete"
-                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.DeleteMessengerCommand}"
-                                CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
-                                <MenuItem.Icon>
-                                    <Image Opacity="0.75" Margin="2" Source="{StaticResource DeleteLayer}"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </MenuItem>
-                    </Menu>
-                    <TextBlock Padding="8, 0" Text="{Binding Name}" DockPanel.Dock="Left"/>
-                </DockPanel>
-            </Border>
-            <Border CornerRadius="0, 0, 4, 4" Background="{StaticResource DarkerColor}" Padding="8">
-                <StackPanel HorizontalAlignment="Stretch">
-                    <Grid Height="25" Margin="0, 1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="Engine" 
+    <StackPanel HorizontalAlignment="Stretch">
+
+        <Expander Header="Settings" Style="{DynamicResource InnerExpander}">
+            <StackPanel Margin="0, 8">
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="Engine" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <TextBlock
+                        Padding="4"
+                        Text="{Binding Server.Topic}"
+                        Grid.Column="1"
+                        Foreground="{StaticResource TextBase}"/>
+                </Grid>
+
+
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                        Text="Resync" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <Button Grid.Column="1"
+                            Command="{Binding RequestProjectReSyncCommand}"
+                            Style="{DynamicResource ButtonRounded}"/>
+                </Grid>
+
+
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="IP" 
+                        Foreground="{DynamicResource TextBase}"
+                        HorizontalAlignment="Right"
+                        Margin="0, 0, 8, 0"
+                        VerticalAlignment="Center"/>
+                    <TextBlock Padding="4" Grid.Column="1" Text="{Binding Server.IP}"/>
+                </Grid>
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="Port" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <TextBlock
+                        Padding="4"
+                        Text="{Binding Server.Port}"
+                        Grid.Column="1"
+                        Foreground="{StaticResource TextBase}"/>
+                </Grid>
+                <!--<Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="Status" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <TextBlock
+                        Padding="4"
+                        Text="{Binding Server.Status}"
+                        Grid.Column="1"
+                        Foreground="{StaticResource TextBase}"/>
+                </Grid>-->
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="Status" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{DynamicResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <TextBlock
+                        Padding="4"
+                        Text="{Binding Server.Status}"
+                        Grid.Column="1"
+                        Foreground="{DynamicResource TextBase}"/>
+                </Grid>
+            </StackPanel>
+        </Expander>
+
+        <Expander Header="Scheduler" Style="{DynamicResource InnerExpander}">
+            <Grid Margin="0, 8" Height="25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                        Text="" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{DynamicResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                <ComboBox
+                        Grid.Column="1"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CurrentProject.Components}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="2, 1" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+            </Grid>
+        </Expander>
+
+        <Expander Header="Clients" Style="{DynamicResource InnerExpander}">
+            <ItemsControl Margin="0, 8" 
+                                MinHeight="50" 
+                                ItemsSource="{Binding Server.ConnectedClients}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Margin="0, 0, 1, 0" Text="{Binding IP}"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Margin="1, 0, 0, 0" Text="{Binding Port}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Expander>
+
+        <Expander Header="Statistics" Style="{DynamicResource InnerExpander}">
+            <StackPanel>
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                            Text="Sent Messages Size" 
                             Margin="0, 0, 8, 0"
-                            Foreground="{StaticResource TextBase}"
+                            Foreground="{DynamicResource TextBase}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"/>
-                        <TextBlock
+                    <TextBlock
                             Padding="4"
-                            Text="{Binding Server.Topic}"
+                            HorizontalAlignment="Right"
+                            Text="{Binding Server.Statistics.SentMessagesAverageSize}"
                             Grid.Column="1"
-                            Foreground="{StaticResource TextBase}"/>
-                    </Grid>
+                            Foreground="{DynamicResource TextBase}"/>
+                </Grid>
 
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="Sent Messages" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{DynamicResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <TextBlock
+                        Padding="4"
+                        HorizontalAlignment="Right"
+                        Text="{Binding Server.Statistics.SentMessages}"
+                        Grid.Column="1"
+                        Foreground="{DynamicResource TextBase}"/>
+                </Grid>
+            </StackPanel>
 
-                    <Grid Height="25" Margin="0, 1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock 
-                            Text="Resync" 
-                            Margin="0, 0, 8, 0"
-                            Foreground="{StaticResource TextBase}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"/>
-                        <Button Grid.Column="1"
-                                Command="{Binding RequestProjectReSyncCommand}"
-                                Style="{DynamicResource ButtonRounded}"/>
-                    </Grid>
-
-
-                    <Grid Height="25" Margin="0, 1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="IP" 
-                            Foreground="{StaticResource TextBase}"
-                            HorizontalAlignment="Right"
-                            Margin="0, 0, 8, 0"
-                            VerticalAlignment="Center"/>
-                        <TextBlock Padding="4" Grid.Column="1" Text="{Binding Server.IP}"/>
-                    </Grid>
-                    <Grid Height="25" Margin="0, 1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="Port" 
-                            Margin="0, 0, 8, 0"
-                            Foreground="{StaticResource TextBase}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"/>
-                        <TextBlock
-                            Padding="4"
-                            Text="{Binding Server.Port}"
-                            Grid.Column="1"
-                            Foreground="{StaticResource TextBase}"/>
-                    </Grid>
-                    <!--<Grid Height="25" Margin="0, 1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="Status" 
-                            Margin="0, 0, 8, 0"
-                            Foreground="{StaticResource TextBase}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"/>
-                        <TextBlock
-                            Padding="4"
-                            Text="{Binding Server.Status}"
-                            Grid.Column="1"
-                            Foreground="{StaticResource TextBase}"/>
-                    </Grid>-->
-                    <Grid Height="25" Margin="0, 1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="Client" 
-                            Margin="0, 0, 8, 0"
-                            Foreground="{StaticResource TextBase}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"/>
-                        <TextBlock
-                            Padding="4"
-                            Text="{Binding Server.Status}"
-                            Grid.Column="1"
-                            Foreground="{StaticResource TextBase}"/>
-                    </Grid>
-                    <Grid Margin="0, 1" Height="25">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="Compo" 
-                            Margin="0, 0, 8, 0"
-                            Foreground="{StaticResource TextBase}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"/>
-                        <ComboBox
-                            Grid.Column="1"
-                            SelectedItem="{Binding SelectedComponent}"
-                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CurrentProject.Components}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Margin="2, 1" Text="{Binding Name}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        
-                    </Grid>
-                    <ItemsControl Margin="0, 8" 
-                                  MinHeight="50" 
-                                  ItemsSource="{Binding Server.ConnectedClients}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock HorizontalAlignment="Center" Grid.Column="0" Margin="0, 0, 1, 0" Text="{Binding IP}"/>
-                                    <TextBlock HorizontalAlignment="Center" Grid.Column="1" Margin="1, 0, 0, 0" Text="{Binding Port}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </Border>
-        </StackPanel>
-    </Border>
-
+        </Expander>
+        
+    </StackPanel>
+    
 </UserControl>

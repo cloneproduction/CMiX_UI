@@ -1,11 +1,11 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Presentation.Views;
-using CMiX.Studio.ViewModels;
-using MvvmDialogs.DialogTypeLocators;
 using System;
 using System.ComponentModel;
+using CMiX.Core.Presentation.ViewModels.Network;
+using CMiX.Core.Presentation.Views;
+using MvvmDialogs.DialogTypeLocators;
 
 namespace CMiX.Core.Presentation.ViewModels
 {

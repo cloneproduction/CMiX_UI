@@ -272,7 +272,7 @@
                                 Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                 HorizontalAlignment="Center" 
                                 SnapsToDevicePixels="false" 
-                                Stroke="{DynamicResource TextBase}" 
+                                Stroke="{DynamicResource HighLightColor}" 
                                 StrokeThickness="2" 
                                 VerticalAlignment="Center"/>
                             <ContentPresenter 
@@ -417,8 +417,7 @@
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                 Margin="{TemplateBinding Padding}" 
                                 Visibility="Collapsed" 
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                />
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </DockPanel>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -471,8 +470,7 @@
                                 MinHeight="0" 
                                 Padding="{TemplateBinding Padding}" 
                                 Style="{DynamicResource InnerExpanderDownHeaderStyle}" 
-                                VerticalContentAlignment="Center"
-                                />
+                                VerticalContentAlignment="Center"/>
                             <ContentPresenter 
                                 x:Name="ExpandSite" 
                                 DockPanel.Dock="Bottom" 
@@ -552,7 +550,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style x:Key="InnerExpanderLevel2" TargetType="{x:Type Expander}">
         <Setter Property="Foreground" Value="{DynamicResource TextBase}"/>

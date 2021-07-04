@@ -2,8 +2,6 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -18,8 +16,11 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             Enabled = true;
             ClientIsConnected = false;
+            DataSent = false;
+
             Status = "Disconnected";
             ConnectedClients = new ObservableCollection<ConnectedClient>();
+            Statistics = new ServerStatistics();
         }
 
 
@@ -72,12 +73,13 @@ namespace CMiX.Core.Presentation.ViewModels
             set => SetAndNotify(ref _clientIsConnected, value);
         }
 
-        private bool _unSync;
-        public bool UnSync
+        private bool _dataSent;
+        public bool DataSent
         {
-            get => _unSync;
-            set => SetAndNotify(ref _unSync, value);
+            get => _dataSent;
+            set => SetAndNotify(ref _dataSent, value);
         }
+
 
         private ObservableCollection<ConnectedClient> _connectedClients;
         public ObservableCollection<ConnectedClient> ConnectedClients
@@ -89,8 +91,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         private string ipPort { get; set; }
         public WatsonTcpServer WatsonTcpServer { get; set; }
-
-
+        public ServerStatistics Statistics { get; set; }
 
 
 
@@ -104,43 +105,49 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             Console.WriteLine("Client disconnected: " + this.IP + ": " + e.Reason.ToString());
             Status = "Disconnected";
+            ClientIsConnected = false;
         }
+
 
         private void ClientConnected(object sender, ConnectionEventArgs e)
         {
             Console.WriteLine("Client connected: " + e.IpPort);
             ipPort = e.IpPort;
 
-            List<string> pouet = WatsonTcpServer.ListClients().ToList();
-
-            List<ConnectedClient> connectedClients = new List<ConnectedClient>();
-            foreach (var item in pouet)
+            ObservableCollection<ConnectedClient> connectedClients = new ObservableCollection<ConnectedClient>();
+            foreach (var item in WatsonTcpServer.ListClients().ToList())
             {
                 ConnectedClient connectedClient = new ConnectedClient(item);
                 connectedClients.Add(connectedClient);
-                Console.WriteLine("ConnectedClient Added " + item);
             }
-            ConnectedClients = new ObservableCollection<ConnectedClient>(connectedClients);
-            Console.WriteLine("ConnectedClients Count = " +  ConnectedClients.Count);
+
+            ClientIsConnected = true;
+            ConnectedClients = connectedClients;
             Status = "Connected";
         }
 
 
         private SyncResponse SyncRequestReceived(SyncRequest arg)
         {
+
             return new SyncResponse(arg, "Hello back at you from Server!");
         }
 
+
+
         public void SendRequestProjectSync()
         {
-            try
+            if (WatsonTcpServer != null)
             {
-                SyncResponse resp = WatsonTcpServer.SendAndWait(5000, this.ipPort, "Project model requested from Server");
-                Console.WriteLine("Client replied : " + Encoding.UTF8.GetString(resp.Data));
-            }
-            catch (TimeoutException)
-            {
-                Console.WriteLine("Too slow...");
+                try
+                {
+                    SyncResponse resp = WatsonTcpServer.SendAndWait(5000, this.ipPort, "Project model requested from Server");
+                    Console.WriteLine("Client replied : " + Encoding.UTF8.GetString(resp.Data));
+                }
+                catch (TimeoutException)
+                {
+                    Console.WriteLine("Too slow...");
+                }
             }
         }
 
@@ -150,6 +157,7 @@ namespace CMiX.Core.Presentation.ViewModels
             if (Enabled && WatsonTcpServer != null)
             {
                 WatsonTcpServer.Send(this.ipPort, data);
+                Statistics.Update(WatsonTcpServer);
                 Console.WriteLine("WatsonTcpServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length + $"{IP}:{Port}");
             }
         }
@@ -175,6 +183,7 @@ namespace CMiX.Core.Presentation.ViewModels
                 WatsonTcpServer.Events.ClientConnected -= ClientConnected;
                 WatsonTcpServer.Events.ClientDisconnected -= ClientDisconnected;
                 WatsonTcpServer.Events.MessageReceived -= MessageReceived;
+                ClientIsConnected = false;
             }
         }
 

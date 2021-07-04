@@ -4,28 +4,56 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
+             xmlns:Controls="clr-namespace:CMiX.Core.Presentation.Controls;assembly=CMiX.Core"
              xmlns:Tools="clr-namespace:CMiX.Core.Presentation;assembly=CMiX.Core"
+             xmlns:Network="clr-namespace:CMiX.Core.Presentation.ViewModels.Network;assembly=CMiX.Core"
              xmlns:dd="urn:gong-wpf-dragdrop"
-             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              md:DialogServiceViews.IsRegistered="True"
              mc:Ignorable="d" 
              d:DesignHeight="631.333" d:DesignWidth="290.667">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Tools:BindingProxy x:Key="ProjectProxy" Data="{Binding}"/>
+            <Tools:BindingProxy x:Key="DataSenderProxy" Data="{Binding}"/>
+
+            <ContextMenu x:Key="MessengerManagerContextMenu" 
+                         Visibility="{Binding Data.SelectedMessenger, Converter={StaticResource NullToVisibility}, Source={StaticResource DataSenderProxy}}" 
+                         Style="{StaticResource ContextMenuDefault}" 
+                         Width="175">
+                <MenuItem
+                        Command="{Binding Data.SelectedMessenger.RenameCommand, Source={StaticResource DataSenderProxy}}"
+                        CommandParameter="{Binding Data.SelectedMessenger, Source={StaticResource DataSenderProxy}}"
+                        Header="Rename">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Rename}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem
+                    Command="{Binding Data.DeleteMessengerCommand, Source={StaticResource DataSenderProxy}}"
+                    CommandParameter="{Binding Data.SelectedMessenger, Source={StaticResource DataSenderProxy}}"
+                    Header="Delete">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource DeleteLayer}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+            </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border
-        HorizontalAlignment="Stretch"
-        Background="{StaticResource HighDarkerColor}">
-        <DockPanel>
+
+        <Border
+            HorizontalAlignment="Stretch"
+            Background="{StaticResource HighDarkerColor}">
+
+        <StackPanel>
             <Border 
-                VerticalAlignment="Center"
-                Padding="8"
-                DockPanel.Dock="Top"
-                Height="40">
+                    VerticalAlignment="Center"
+                    Padding="8"
+                    DockPanel.Dock="Top"
+                    Height="40">
                 <DockPanel>
                     <Button 
                         Command="{Binding AddMessengerCommand}"
@@ -39,18 +67,129 @@
                     <TextBlock DockPanel.Dock="Left" Text="NETWORK" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 </DockPanel>
             </Border>
-            <ItemsControl 
-                HorizontalContentAlignment="Stretch" 
-                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                ItemsSource="{Binding Messengers}" 
-                dd:DragDrop.IsDragSource="True"
-                dd:DragDrop.IsDropTarget="True">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Views:Messenger Margin="4"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </DockPanel>
+            
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <ListBox 
+                        Grid.Row="0"
+                        SelectedItem="{Binding SelectedMessenger}"
+                        Height="125"
+                        DockPanel.Dock="Top"
+                        ContextMenu="{DynamicResource MessengerManagerContextMenu}"
+                        ItemsSource="{Binding Messengers}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Border DockPanel.Dock="Right">
+                                    <Ellipse 
+                                     Margin="4" 
+                                     Width="8" 
+                                     Height="8" >
+                                        <Ellipse.Style>
+                                            <Style TargetType="{x:Type Ellipse}">
+                                                <Setter Property="Fill" Value="Red"/>
+                                                <Setter Property="Opacity" Value="0.7"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger  Binding="{Binding Path=Server.ClientIsConnected}" Value="True">
+                                                        <Setter Property="Fill" Value="Green"/>
+                                                        <Setter Property="Opacity" Value="1.0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                </Border>
+                                <Border>
+                                    <Grid>
+
+                                        <Controls:EditableTextBox   
+                            IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        DockPanel.Dock="Left" 
+                                                        Height="30" 
+                                                        Padding="4" 
+                                                        VerticalAlignment="Center" />
+                                    </Grid>
+
+                                </Border>
+
+                            </DockPanel>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+
+                <Border Grid.Row="1" Visibility="{Binding SelectedMessenger, Converter={StaticResource NullToVisibility}, ConverterParameter={x:Static Visibility.Hidden}}">
+                    <DockPanel>
+                        <Separator DockPanel.Dock="Top" BorderThickness="0.5" Margin="0, 4" BorderBrush="{DynamicResource DarkColor}"/>
+                        <Border 
+                            Margin="0, 8"
+                            Height="25"
+                            DockPanel.Dock="Top"
+                            HorizontalAlignment="Stretch"
+                            Background="{DynamicResource DarkColor}">
+                            <DockPanel>
+                                <Menu DockPanel.Dock="Right" Background="{DynamicResource DarkColor}">
+                                    <MenuItem  Width="25" Style="{DynamicResource TopMenuItem}">
+                                        <MenuItem.Icon>
+                                            <Image Margin="2" Opacity="0.5" Source="{StaticResource Menu}"/>
+                                        </MenuItem.Icon>
+                                        <MenuItem 
+                                                Command="{Binding SelectedMessenger.StartServerCommand}"
+                                                Header="Start">
+                                            <MenuItem.Icon>
+                                                <Image Margin="1" Opacity="0.75" Source="{StaticResource Play}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Command="{Binding SelectedMessenger.StopServerCommand}" Header="Stop">
+                                            <MenuItem.Icon>
+                                                <Image Margin="3" Opacity="0.75" Source="{StaticResource Stop}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Command="{Binding SelectedMessenger.RestartServerCommand}" Header="Restart">
+                                            <MenuItem.Icon>
+                                                <Image Opacity="0.75" Margin="2" Source="{StaticResource Reset}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem 
+                                            Header="Settings"
+                                            Command="{Binding EditMessengerSettingsCommand}"
+                                            CommandParameter="{Binding SelectedMessenger}">
+                                            <MenuItem.Icon>
+                                                <Image Opacity="0.75" Margin="2" Source="{StaticResource Settings}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <Separator BorderThickness="0.5" Margin="4" BorderBrush="{DynamicResource DarkColor}"/>
+                                        <MenuItem 
+                            Header="Delete"
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.DeleteMessengerCommand}"
+                            CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
+                                            <MenuItem.Icon>
+                                                <Image Opacity="0.75" Margin="2" Source="{DynamicResource DeleteLayer}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuItem>
+                                </Menu>
+                                <TextBox Text="{Binding SelectedMessenger.Name}" 
+                                    Padding="4, 0"  
+                                    DockPanel.Dock="Left"/>
+                            </DockPanel>
+                        </Border>
+
+                        <Views:Messenger DataContext="{Binding SelectedMessenger}" Margin="4"/>
+                    </DockPanel>
+
+                </Border>
+            </Grid>
+
+        </StackPanel>
     </Border>
+
+
 </UserControl>
