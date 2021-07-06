@@ -135,13 +135,15 @@ namespace CMiX.Core.Presentation.ViewModels
 
 
 
-        public void SendRequestProjectSync()
+
+        public void SendRequestProjectSync(byte[] data)
         {
             if (WatsonTcpServer != null)
             {
                 try
                 {
-                    SyncResponse resp = WatsonTcpServer.SendAndWait(5000, this.ipPort, "Project model requested from Server");
+                    SyncResponse resp = WatsonTcpServer.SendAndWait(5000, this.ipPort, data);
+                    //SyncResponse resp = WatsonTcpServer.SendAndWait(5000, this.ipPort, "Project model requested from Server");
                     Console.WriteLine("Client replied : " + Encoding.UTF8.GetString(resp.Data));
                 }
                 catch (TimeoutException)

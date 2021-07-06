@@ -44,6 +44,7 @@
                         VerticalAlignment="Center"/>
                     <Button Grid.Column="1"
                             Command="{Binding RequestProjectReSyncCommand}"
+                            CommandParameter="{Binding DataContext.CurrentProject, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                             Style="{DynamicResource ButtonRounded}"/>
                 </Grid>
 

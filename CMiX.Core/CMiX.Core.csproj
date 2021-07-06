@@ -433,7 +433,7 @@
     <Compile Include="Presentation\ViewModels\Network\Messenger.cs" />
     <Compile Include="Presentation\ViewModels\Network\MessengerFactory.cs" />
     <Compile Include="Presentation\ViewModels\Network\DataSender.cs" />
-    <Compile Include="Presentation\ViewModels\Network\DataReceiver.cs" />
+    <Compile Include="Presentation\ViewModels\Network\MessageReceiver.cs" />
     <Compile Include="Presentation\ViewModels\Network\Server.cs" />
     <Compile Include="Presentation\ViewModels\Network\Settings.cs" />
     <Compile Include="Presentation\ViewModels\PostFX\PostFX.cs" />

@@ -2,7 +2,8 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
-using System.Text;
+using Ceras;
+using CMiX.Core.Models;
 using WatsonTcp;
 
 namespace CMiX.Core.Services
@@ -11,7 +12,7 @@ namespace CMiX.Core.Services
     {
         public Client()
         {
-
+            Serializer = new CerasSerializer();
         }
 
 
@@ -22,6 +23,7 @@ namespace CMiX.Core.Services
         }
 
 
+        public CerasSerializer Serializer { get; set; }
         public string Topic { get; set; }
         public string IP { get; set; }
         public int Port { get; set; }
@@ -51,7 +53,10 @@ namespace CMiX.Core.Services
 
         private SyncResponse SyncRequestReceived(SyncRequest arg)
         {
-            Console.WriteLine("Client received the request : " + Encoding.UTF8.GetString(arg.Data));
+            var projectModel = Serializer.Deserialize<ProjectModel>(arg.Data);
+            Console.WriteLine("Data size is " + arg.Data.Length);
+            Console.WriteLine("ProjectModel had " + projectModel.ComponentModels.Count + "Components");
+            Console.WriteLine("Client received the request of type :  " + projectModel.GetType());
             return new SyncResponse(arg, "Client receive the request, send the ProjectModel back to Server");
         }
 

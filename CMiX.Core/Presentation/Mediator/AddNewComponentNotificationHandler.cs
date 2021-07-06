@@ -3,7 +3,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Network;
 using MediatR;
 

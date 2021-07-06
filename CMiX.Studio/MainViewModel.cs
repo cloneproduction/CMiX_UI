@@ -8,7 +8,6 @@ using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using MvvmDialogs;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -27,8 +26,8 @@ namespace CMiX.Core.Presentation.ViewModels
             var model = new ProjectModel();
             CurrentProject = new Project(model, mediator);
 
-            var componentCommunicator = new DataSenderCommunicator(DataSender as DataSender);
-            CurrentProject.SetCommunicator(componentCommunicator);
+            var dataSenderCommunicator = new DataSenderCommunicator(DataSender);
+            CurrentProject.SetCommunicator(dataSenderCommunicator);
 
             AssetManager = new AssetManager(CurrentProject);
 
@@ -37,18 +36,16 @@ namespace CMiX.Core.Presentation.ViewModels
             //PlaylistEditor = new PlaylistEditor(CurrentProject);
 
 
-
-            Projects = new ObservableCollection<Component>();
-            Projects.Add(CurrentProject);
+            Projects = new ObservableCollection<Component>() { CurrentProject };
 
             ComponentManager = new ComponentManager(Projects);
             Outliner = new Outliner(Projects);
 
-            AnimatedDouble = new ObservableCollection<double>();
+            //AnimatedDouble = new ObservableCollection<double>();
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
-            //MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
-            //MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
+            MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
+            MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
 
             //NewProjectCommand = new RelayCommand(p => NewProject());
             //OpenProjectCommand = new RelayCommand(p => OpenProject());

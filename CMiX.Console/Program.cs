@@ -29,7 +29,7 @@ namespace CMiX.Console
             Project.SetCommunicator(componentCommunicator);
 
 
-            var dataReceiver = new DataReceiver(serviceProvider.GetService<IMediator>());
+            var dataReceiver = new MessageReceiver(serviceProvider.GetService<IMediator>());
             dataReceiver.Start(settings);
             dataReceiver.RegisterReceiver(componentCommunicator);
 

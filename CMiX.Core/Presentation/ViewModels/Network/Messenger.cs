@@ -2,6 +2,8 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System.Windows.Input;
+using Ceras;
+using CMiX.Core.Presentation.ViewModels.Components;
 
 namespace CMiX.Core.Presentation.ViewModels.Network
 {
@@ -10,21 +12,23 @@ namespace CMiX.Core.Presentation.ViewModels.Network
         public Messenger(int id)
         {
             Server = new Server();
-
+            Serializer = new CerasSerializer();
             Name = $"Messenger ({id})";
 
             StartServerCommand = new RelayCommand(p => StartServer());
-            RequestProjectReSyncCommand = new RelayCommand(p => RequestProjectResync());
+            RequestProjectReSyncCommand = new RelayCommand(p => RequestProjectResync(p as Project));
             StopServerCommand = new RelayCommand(p => StopServer());
             RestartServerCommand = new RelayCommand(p => RestartServer());
             RenameCommand = new RelayCommand(p => Rename());
         }
+
 
         public ICommand RenameCommand { get; }
         public ICommand RequestProjectReSyncCommand { get; }
         public ICommand StartServerCommand { get; }
         public ICommand StopServerCommand { get; }
         public ICommand RestartServerCommand { get; }
+
 
         public Server Server { get; set; }
 
@@ -66,9 +70,14 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             Server.Start();
         }
 
-        public void RequestProjectResync()
+
+        private CerasSerializer Serializer { get; set; }
+        public void RequestProjectResync(Project project)
         {
-            Server.SendRequestProjectSync();
+            byte[] data = Serializer.Serialize(project.GetModel());
+
+            System.Console.WriteLine("Messenger send project to Instance");
+            Server.SendRequestProjectSync(data);
         }
 
         public void StopServer()

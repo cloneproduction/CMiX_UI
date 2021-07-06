@@ -12,9 +12,9 @@ using MediatR;
 
 namespace CMiX.Core.MessageService
 {
-    public class DataReceiver : ViewModel
+    public class MessageReceiver : ViewModel
     {
-        public DataReceiver(IMediator mediator)
+        public MessageReceiver(IMediator mediator)
         {
 
             Client = new Client();
@@ -41,10 +41,10 @@ namespace CMiX.Core.MessageService
             }
         }
 
-        public string Address
-        {
-            get { return String.Format("tcp://{0}:{1}", IP, Port); }
-        }
+        //public string Address
+        //{
+        //    get { return String.Format("tcp://{0}:{1}", IP, Port); }
+        //}
 
 
         private ComponentCommunicator Communicator { get; set; }

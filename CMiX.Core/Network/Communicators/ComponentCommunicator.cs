@@ -1,7 +1,6 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using System;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Network.Messages;
 
@@ -22,6 +21,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         public void SendMessageRemoveComponent(int index)
         {
             this.SendMessage(new MessageRemoveComponent(index));
+        }
+
+        public void SendMessageUpdateViewModel(Component component)
+        {
+            this.SendMessage(new MessageUpdateViewModel(component));
         }
     }
 }

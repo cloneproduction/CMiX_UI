@@ -16,7 +16,6 @@ namespace CMiX.Core.Presentation.ViewModels
     {
         public DataSender()
         {
-            Console.WriteLine("DATASENDER CREATED");
             Serializer = new CerasSerializer();
 
             MessengerFactory = new MessengerFactory();
@@ -33,6 +32,7 @@ namespace CMiX.Core.Presentation.ViewModels
         private MessengerFactory MessengerFactory { get; set; }
         private CerasSerializer Serializer { get; set; }
         private IDialogService DialogService { get; set; }
+
 
         public ICommand EditMessengerSettingsCommand { get; }
         public ICommand AddMessengerCommand { get; set; }
