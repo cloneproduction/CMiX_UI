@@ -87,12 +87,12 @@
                 </MenuItem>
                 <MenuItem
                     Style="{DynamicResource TopMenuItem}"
-                        Padding="8,0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="center"
-                        Header="Compo">
+                    Padding="8,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="Compo">
                     <MenuItem
-                        Header="Add Composition"
+                        Header="New Composition"
                         Command="{Binding AddCompositionCommand}"/>
                     <MenuItem
                         Header="Delete"/>
@@ -137,10 +137,9 @@
                             <TabItem.Header>
                                 <Image Margin="2" Source="{StaticResource Network}"/>
                             </TabItem.Header>
-                            <Views:MessengerManager DataContext="{Binding DataSender}"/>
+                            <Views:MessengerManager DataContext="{Binding MessengerManager}"/>
                         </TabItem>
                         <TabItem Style="{StaticResource TabItemVerticalPanel}">
-
                             <Scheduling:SchedulerManager DataContext="{Binding SchedulerManager}"/>
                         </TabItem>
                     </TabControl>

@@ -20,14 +20,14 @@ namespace CMiX.Core.Presentation.ViewModels.Components.Factories
         public Component CreateComponent()
         {
             var model = new LayerModel(Guid.NewGuid());
-            var component = new Layer(ParentComposition, model, ParentComposition.Mediator);
+            var component = new Layer(ParentComposition, model);
             ID++;
             return component;
         }
 
         public Component CreateComponent(IComponentModel model)
         {
-            var component = new Layer(ParentComposition, model as LayerModel, ParentComposition.Mediator);
+            var component = new Layer(ParentComposition, model as LayerModel);
             return component;
         }
     }

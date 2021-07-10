@@ -248,6 +248,7 @@
     <Compile Include="Presentation\ValueConverters\ValToColorConverter.cs" />
     <Compile Include="Presentation\ValueConverters\ValueAngleConverter.cs" />
     <Compile Include="Presentation\ViewModels\Components\ComponentDatabase.cs" />
+    <Compile Include="Presentation\ViewModels\Components\Components\IProject.cs" />
     <Compile Include="Presentation\ViewModels\Components\IComponentDatabase.cs" />
     <Compile Include="Presentation\ViewModels\IGetSetModel.cs" />
     <Compile Include="Presentation\ViewModels\Network\ConnectedClient.cs" />
@@ -269,7 +270,8 @@
     <Compile Include="Network\Messages\MessageRemoveTransformModifier.cs" />
     <Compile Include="Network\Messages\MessageAddTransformModifier.cs" />
     <Compile Include="Presentation\ViewModels\Network\ClientShimHandler.cs" />
-    <Compile Include="Presentation\ViewModels\Network\IDataSender.cs" />
+    <Compile Include="Presentation\ViewModels\Network\IMessageSender.cs" />
+    <Compile Include="Presentation\ViewModels\Network\Messenger\MessengerManager.cs" />
     <Compile Include="Presentation\ViewModels\Network\NetMQMessageEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\Modes\SteadyType.cs" />
@@ -430,9 +432,9 @@
     <Compile Include="Models\Geometry\Transform\TransformModel.cs" />
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
-    <Compile Include="Presentation\ViewModels\Network\Messenger.cs" />
-    <Compile Include="Presentation\ViewModels\Network\MessengerFactory.cs" />
-    <Compile Include="Presentation\ViewModels\Network\DataSender.cs" />
+    <Compile Include="Presentation\ViewModels\Network\Messenger\Messenger.cs" />
+    <Compile Include="Presentation\ViewModels\Network\Messenger\MessengerFactory.cs" />
+    <Compile Include="Presentation\ViewModels\Network\MessageSender.cs" />
     <Compile Include="Presentation\ViewModels\Network\MessageReceiver.cs" />
     <Compile Include="Presentation\ViewModels\Network\Server.cs" />
     <Compile Include="Presentation\ViewModels\Network\Settings.cs" />

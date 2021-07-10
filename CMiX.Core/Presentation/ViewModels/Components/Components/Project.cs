@@ -1,23 +1,27 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
+using System;
 using System.Collections.ObjectModel;
 using CMiX.Core.Models;
 using CMiX.Core.Models.Component;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
+using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
 using MediatR;
 using MvvmDialogs;
 
-
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
-    public class Project : Component
+    public class Project : Component, IProject
     {
-        public Project(ProjectModel projectModel, IMediator mediator) : base(projectModel, mediator)
+        public Project(IMessageSender dataSender)
         {
+            DataSender = dataSender;
+            ID = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
+
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
             CompositionSchedulers = new ObservableCollection<CompositionScheduler>();
@@ -26,6 +30,8 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             ComponentFactory = new CompositionFactory(this);
         }
 
+
+        private IMessageSender DataSender { get; set; }
         public IDialogService DialogService { get; set; }
         public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
 

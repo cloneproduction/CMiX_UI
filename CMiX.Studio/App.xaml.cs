@@ -27,9 +27,10 @@ namespace CMiX
         {
             services.AddSingleton<IComponentDatabase, ComponentDatabase>();
             services.AddSingleton<IMediator, Mediator>();
-            services.AddSingleton<IDataSender, DataSender>();
+            services.AddSingleton<IMessageSender, MessageSender>();
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainViewModel>();
+            services.AddTransient<IProject, Project>();
             services.AddMediatR(typeof(AddNewComponentNotification));
 
             var provider = services.BuildServiceProvider();

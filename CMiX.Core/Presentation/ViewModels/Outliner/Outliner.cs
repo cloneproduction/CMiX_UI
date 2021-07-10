@@ -8,10 +8,16 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class Outliner : ViewModel
     {
-        public Outliner(ObservableCollection<Component> components)
+        //public Outliner(ObservableCollection<Component> components)
+        //{
+        //    OutlinerDragDropManager = new OutlinerDragDropManager();
+        //    Components = components;
+        //}
+
+        public Outliner(Project project)
         {
             OutlinerDragDropManager = new OutlinerDragDropManager();
-            Components = components;
+            Components = project.Components;
         }
 
         public ObservableCollection<Component> Components { get; set; }

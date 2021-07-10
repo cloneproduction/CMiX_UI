@@ -21,6 +21,7 @@ namespace CMiX.Core.Network.Communicators
         internal Dictionary<Guid, Communicator> _childCommunicator { get; set; }
         internal IIDObject IIDObject { get; set; }
 
+
         private Guid GetID()
         {
             return IIDObject.ID;

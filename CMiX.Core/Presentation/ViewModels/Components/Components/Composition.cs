@@ -13,8 +13,8 @@ namespace CMiX.Core.Presentation.ViewModels.Components
     public class Composition : Component
     {
         public Composition(Project project, CompositionModel compositionModel, IMediator mediator)
-            : base(compositionModel, mediator)
         {
+            ID = compositionModel.ID;
             Transition = new Slider(nameof(Transition), compositionModel.TransitionModel);
 
             MasterBeat = new MasterBeat(compositionModel.MasterBeatModel);

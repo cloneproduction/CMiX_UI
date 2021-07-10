@@ -11,8 +11,9 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Layer : Component
     {
-        public Layer(Composition composition, LayerModel layerModel, IMediator mediator): base(layerModel, mediator)
+        public Layer(Composition composition, LayerModel layerModel)
         {
+            ID = layerModel.ID;
             Fade = new Slider(nameof(Fade), layerModel.Fade);
 
             MasterBeat = composition.MasterBeat;

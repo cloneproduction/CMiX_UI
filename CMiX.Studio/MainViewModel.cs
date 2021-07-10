@@ -1,47 +1,41 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
+using System.Windows;
+using System.Windows.Input;
 using CMiX.Core.Models;
-using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
 using MediatR;
 using MvvmDialogs;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        public MainViewModel(IDataSender dataSender, IMediator mediator)
+        public MainViewModel(IProject project, IMessageSender dataSender, IMediator mediator)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
-            DataSender = dataSender as DataSender;
-
             var model = new ProjectModel();
-            CurrentProject = new Project(model, mediator);
+            CurrentProject = project as Project;
 
-            var dataSenderCommunicator = new DataSenderCommunicator(DataSender);
-            CurrentProject.SetCommunicator(dataSenderCommunicator);
+            //var dataSenderCommunicator = new DataSenderCommunicator(DataSender);
+            //CurrentProject.SetCommunicator(dataSenderCommunicator);
 
+            MessengerManager = new MessengerManager(CurrentProject);
             AssetManager = new AssetManager(CurrentProject);
-
             SchedulerManager = new SchedulerManager(CurrentProject);
+            ComponentManager = new ComponentManager(CurrentProject);
+
+            Outliner = new Outliner(CurrentProject);
+            PlaylistEditor = new PlaylistEditor(CurrentProject);
+
             //SchedulerManager.SetCommunicator(componentCommunicator);
-            //PlaylistEditor = new PlaylistEditor(CurrentProject);
 
-
-            Projects = new ObservableCollection<Component>() { CurrentProject };
-
-            ComponentManager = new ComponentManager(Projects);
-            Outliner = new Outliner(Projects);
-
-            //AnimatedDouble = new ObservableCollection<double>();
+            AddCompositionCommand = new RelayCommand(p => AddComposition());
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
@@ -54,11 +48,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
             //UndoCommand = new RelayCommand(p => Undo());
             //RedoCommand = new RelayCommand(p => Redo());
-
-            //AddCompositionCommand = new RelayCommand(p => AddComposition());
-
         }
-
 
 
         public ICommand NewProjectCommand { get; }
@@ -69,37 +59,18 @@ namespace CMiX.Core.Presentation.ViewModels
         public ICommand MinimizeWindowCommand { get; }
         public ICommand MaximizeWindowCommand { get; }
 
-        public ICommand UndoCommand { get; }
-        public ICommand RedoCommand { get; }
+        //public ICommand UndoCommand { get; }
+        //public ICommand RedoCommand { get; }
         public ICommand AddCompositionCommand { get; }
 
-        private readonly IDialogService DialogService;
-
         //public Mementor Mementor { get; set; }
-        //public CerasSerializer Serializer { get; set; }
 
 
-
+        private readonly IDialogService DialogService;
         public Outliner Outliner { get; set; }
-        public string FolderPath { get; set; }
-        public ObservableCollection<Component> Projects { get; set; }
 
-
-
-        private ObservableCollection<double> _animatedDouble;
-        public ObservableCollection<double> AnimatedDouble
-        {
-            get => _animatedDouble;
-            set => SetAndNotify(ref _animatedDouble, value);
-        }
-
-
-        private DataSender _dataSender;
-        public DataSender DataSender
-        {
-            get => _dataSender;
-            set => SetAndNotify(ref _dataSender, value);
-        }
+        public PlaylistEditor PlaylistEditor { get; set; }
+        public MessengerManager MessengerManager { get; set; }
 
 
         private AssetManager assetManager;
@@ -115,9 +86,6 @@ namespace CMiX.Core.Presentation.ViewModels
             get => _schedulerManager;
             set => SetAndNotify(ref _schedulerManager, value);
         }
-
-        public PlaylistEditor PlaylistEditor { get; set; }
-
 
         private ComponentManager _componentManager;
         public ComponentManager ComponentManager
@@ -164,12 +132,12 @@ namespace CMiX.Core.Presentation.ViewModels
                 {
                     if (modalDialog.SaveProject)
                     {
+                        return;
                         //var projectSaved = SaveAsProject();
                         //if (projectSaved)
                         //    window.Close();
                     }
-                    else
-                        window.Close();
+                    window.Close();
                 }
             }
         }
@@ -180,10 +148,14 @@ namespace CMiX.Core.Presentation.ViewModels
             window.Close();
         }
 
-        //public void AddComposition()
-        //{
-        //    //ComponentFactory.CreateComposition(CurrentProject);
-        //}
+        public void AddComposition()
+        {
+            ComponentManager.CreateComponent(CurrentProject);
+            //CurrentProject.Fa.CreateComposition(CurrentProject);
+        }
+
+
+        //public string FolderPath { get; set; }
         //public void Undo()
         //{
         //    //Mementor.Undo();

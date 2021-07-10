@@ -5,7 +5,7 @@ using CMiX.Core.Network.Messages;
 
 namespace CMiX.Core.Presentation.ViewModels.Network
 {
-    public interface IDataSender
+    public interface IMessageSender
     {
         void SendMessage(Message message);
     }

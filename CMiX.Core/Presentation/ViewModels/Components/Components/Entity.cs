@@ -10,8 +10,9 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Entity : Component
     {
-        public Entity(Scene scene, EntityModel entityModel, IMediator mediator) : base(entityModel, mediator)
+        public Entity(Scene scene, EntityModel entityModel) : base()
         {
+            ID = entityModel.ID;
             MasterBeat = scene.MasterBeat;
 
             BeatModifier = new BeatModifier(scene.MasterBeat, entityModel.BeatModifierModel);

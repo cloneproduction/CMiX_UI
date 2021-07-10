@@ -16,10 +16,10 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public abstract class Component : ViewModel, IControl, IDisposable
     {
-        public Component(IComponentModel componentModel, IMediator mediator)
+        public Component()
         {
-            Mediator = mediator;
-            ID = componentModel.ID;
+            //Mediator = mediator;
+            //ID = componentModel.ID;
 
             IsExpanded = false;
             Name = this.GetType().Name;
@@ -44,11 +44,9 @@ namespace CMiX.Core.Presentation.ViewModels.Components
                 this.AddComponent(newComponent);
                 //_componentDatabase.AddComponent(newComponent);
             }
-
         }
 
         public abstract void UnsetCommunicator(Communicator communicator);
-
 
         public Visibility Visibility { get; set; }
         public ICommand VisibilityCommand { get; set; }

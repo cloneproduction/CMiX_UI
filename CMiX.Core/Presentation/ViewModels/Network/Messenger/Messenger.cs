@@ -30,6 +30,7 @@ namespace CMiX.Core.Presentation.ViewModels.Network
         public ICommand RestartServerCommand { get; }
 
 
+        private CerasSerializer Serializer { get; set; }
         public Server Server { get; set; }
 
 
@@ -46,6 +47,7 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             get => _isRenaming;
             set => SetAndNotify(ref _isRenaming, value);
         }
+
 
         public void Rename()
         {
@@ -70,16 +72,6 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             Server.Start();
         }
 
-
-        private CerasSerializer Serializer { get; set; }
-        public void RequestProjectResync(Project project)
-        {
-            byte[] data = Serializer.Serialize(project.GetModel());
-
-            System.Console.WriteLine("Messenger send project to Instance");
-            Server.SendRequestProjectSync(data);
-        }
-
         public void StopServer()
         {
             Server.Stop();
@@ -90,13 +82,22 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             Server.Restart();
         }
 
+
+        public void RequestProjectResync(Project project)
+        {
+            byte[] data = Serializer.Serialize(project.GetModel());
+
+            System.Console.WriteLine("Messenger send project to Instance");
+            Server.SendRequestProjectSync(data);
+        }
+
+
         public void SetSettings(Settings settings)
         {
             Name = settings.Name;
             Server.Topic = settings.Topic;
             Server.IP = settings.IP;
             Server.Port = settings.Port;
-
             Server.Start();
         }
     }

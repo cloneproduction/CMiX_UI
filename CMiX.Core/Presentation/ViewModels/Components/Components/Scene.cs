@@ -11,8 +11,9 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Scene : Component
     {
-        public Scene(Layer layer, SceneModel sceneModel, IMediator mediator) : base(sceneModel, mediator)
+        public Scene(Layer layer, SceneModel sceneModel)
         {
+            ID = sceneModel.ID;
             MasterBeat = layer.MasterBeat;
 
             Visibility = new Visibility(layer.Visibility, sceneModel.VisibilityModel);

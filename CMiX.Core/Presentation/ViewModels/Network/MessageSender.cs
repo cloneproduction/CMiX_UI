@@ -12,9 +12,9 @@ using MvvmDialogs;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
-    public class DataSender : ViewModel, IDataSender
+    public class MessageSender : ViewModel, IMessageSender
     {
-        public DataSender()
+        public MessageSender()
         {
             Serializer = new CerasSerializer();
 
@@ -33,7 +33,6 @@ namespace CMiX.Core.Presentation.ViewModels
         private CerasSerializer Serializer { get; set; }
         private IDialogService DialogService { get; set; }
 
-
         public ICommand EditMessengerSettingsCommand { get; }
         public ICommand AddMessengerCommand { get; set; }
         public ICommand DeleteMessengerCommand { get; set; }
@@ -48,13 +47,13 @@ namespace CMiX.Core.Presentation.ViewModels
             set => SetAndNotify(ref _selectedMessenger, value);
         }
 
-
         private ObservableCollection<Messenger> _messengers;
         public ObservableCollection<Messenger> Messengers
         {
             get => _messengers;
             set => SetAndNotify(ref _messengers, value);
         }
+
 
         public void EditMessengerSettings(Messenger messenger)
         {

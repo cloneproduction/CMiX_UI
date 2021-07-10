@@ -9,9 +9,9 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components)
+        public ComponentManager(Project project)
         {
-            Components = components;
+            Project = project;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -26,7 +26,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         public ICommand RenameComponentCommand { get; }
 
 
-        public ObservableCollection<Component> Components { get; set; }
+        private Project Project { get; set; }
 
 
         private Component _selectedComponent;
@@ -42,6 +42,9 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
         public void CreateComponent(Component component)
         {
+            if(component is null)
+                component = this.Project;
+
             var newComponent = component.ComponentFactory.CreateComponent();
             newComponent.SetCommunicator(component.Communicator);
             component.AddComponent(newComponent);
@@ -50,9 +53,14 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
         public void DeleteComponent(Component component)
         {
-            var selectedParent = GetParent(Components);
-            selectedParent.RemoveComponent(component);
             component.Dispose();
+            if (component is Composition)
+            {
+                Project.RemoveComponent(component);
+                return;
+            }
+            var selectedParent = GetParent(Project.Components);
+            selectedParent.RemoveComponent(component);
         }
 
 
@@ -79,8 +87,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
                     components.Remove(component);
                     break;
                 }
-                else
-                    DeleteSelectedComponent(component.Components);
+                DeleteSelectedComponent(component.Components);
             }
         }
 
@@ -96,10 +103,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
                     result = component;
                     break;
                 }
-                else
-                {
-                    result = GetParent(component.Components);
-                }
+                result = GetParent(component.Components);
             }
             return result;
         }

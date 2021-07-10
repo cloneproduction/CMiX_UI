@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="249.289" d:DesignWidth="293.576">
+             d:DesignHeight="502.789" d:DesignWidth="325.076">
 
     <StackPanel HorizontalAlignment="Stretch">
 
@@ -202,7 +202,7 @@
             </StackPanel>
 
         </Expander>
-        
+
     </StackPanel>
-    
+
 </UserControl>
