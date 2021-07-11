@@ -8,16 +8,16 @@ namespace CMiX.Core.Network.Communicators
 {
     public class DataSenderCommunicator : Communicator
     {
-        public DataSenderCommunicator(MessageSender dataSender) : base()
+        public DataSenderCommunicator(MessageSender messageSender) : base()
         {
-            _dataSender = dataSender;
+            MessageSender = messageSender;
         }
 
-        private MessageSender _dataSender { get; set; }
+        private MessageSender MessageSender { get; set; }
 
         public override void SendMessage(Message message)
         {
-            _dataSender?.SendMessage(message);
+            //MessageSender?.SendMessage(message);
         }
     }
 }

@@ -15,12 +15,13 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        public MainViewModel(IProject project, IMessageSender dataSender, IMediator mediator)
+        public MainViewModel(IProject project, IMediator mediator)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
             var model = new ProjectModel();
             CurrentProject = project as Project;
+            CurrentProject.SetCommunicator(null);
 
             //var dataSenderCommunicator = new DataSenderCommunicator(DataSender);
             //CurrentProject.SetCommunicator(dataSenderCommunicator);

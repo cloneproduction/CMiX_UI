@@ -17,9 +17,8 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class Project : Component, IProject
     {
-        public Project(IMessageSender dataSender)
+        public Project()
         {
-            DataSender = dataSender;
             ID = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
@@ -31,9 +30,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         }
 
 
-        private IMessageSender DataSender { get; set; }
         public IDialogService DialogService { get; set; }
+
+
         public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
+        public ObservableCollection<Messenger> Messengers { get; set; }
 
 
         private ObservableCollection<Asset> _assets;
@@ -43,11 +44,12 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             set => SetAndNotify(ref _assets, value);
         }
 
+        private ProjectCommunicator projectCommunicator { get; set; }
 
         public override void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ComponentCommunicator(this);
-            Communicator.SetCommunicator(communicator);
+            //projectCommunicator = new ProjectCommunicator(this);
+            //projectCommunicator.SetCommunicator(projectCommunicator);
         }
 
         public override void UnsetCommunicator(Communicator communicator)

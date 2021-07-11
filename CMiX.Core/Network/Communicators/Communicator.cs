@@ -83,7 +83,7 @@ namespace CMiX.Core.Network.Communicators
         {
             if (CanSend)
             {
-                Console.WriteLine("Communicator " + this.GetType().Name + " SendMessage with ID " + GetID());
+                Console.WriteLine("Communicator from" + IIDObject.GetType().Name + " SendMessage with ID " + GetID());
                 message.AddID(GetID());
                 _parentCommunicator?.SendMessage(message);
             }

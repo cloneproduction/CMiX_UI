@@ -18,9 +18,6 @@ namespace CMiX.Core.Presentation.ViewModels.Components
     {
         public Component()
         {
-            //Mediator = mediator;
-            //ID = componentModel.ID;
-
             IsExpanded = false;
             Name = this.GetType().Name;
 
@@ -29,9 +26,10 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         }
 
 
-        public ComponentCommunicator Communicator { get; set; }
-
+        internal ComponentCommunicator Communicator { get; set; }
         public abstract void SetCommunicator(Communicator communicator);
+        public abstract void UnsetCommunicator(Communicator communicator);
+
 
         internal void ReceiveMessage(Message message)
         {
@@ -46,7 +44,6 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             }
         }
 
-        public abstract void UnsetCommunicator(Communicator communicator);
 
         public Visibility Visibility { get; set; }
         public ICommand VisibilityCommand { get; set; }

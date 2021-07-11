@@ -12,7 +12,7 @@ using MvvmDialogs;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
-    public class MessageSender : ViewModel, IMessageSender
+    public class MessageSender : ViewModel//, IMessageSender
     {
         public MessageSender()
         {
@@ -92,15 +92,15 @@ namespace CMiX.Core.Presentation.ViewModels
         }
 
 
-        public void SendMessage(Message message)
-        {
-            byte[] data = Serializer.Serialize(message);
+        //public void SendMessage(Message message)
+        //{
+        //    byte[] data = Serializer.Serialize(message);
 
-            foreach (var messenger in Messengers)
-            {
-                messenger.SendData(data);
-                Console.WriteLine("DataSender SendMessageAggregator");
-            }
-        }
+        //    foreach (var messenger in Messengers)
+        //    {
+        //        messenger.SendData(data);
+        //        Console.WriteLine("DataSender SendMessageAggregator");
+        //    }
+        //}
     }
 }

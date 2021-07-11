@@ -4,6 +4,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Ceras;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.Views;
 using MvvmDialogs;
@@ -35,7 +36,7 @@ namespace CMiX.Core.Presentation.ViewModels.Network
         private IDialogService DialogService { get; set; }
 
 
-        public Project Project { get; set; }
+        private Project Project { get; set; }
         private MessengerFactory MessengerFactory { get; set; }
         private CerasSerializer Serializer { get; set; }
         public ObservableCollection<Messenger> Messengers { get; set; }
@@ -85,5 +86,16 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             if (obj != null)
                 obj.IsRenaming = true;
         }
+
+        //public void SendMessage(Message message)
+        //{
+        //    byte[] data = Serializer.Serialize(message);
+
+        //    foreach (var messenger in Messengers)
+        //    {
+        //        messenger.SendData(data);
+        //        Console.WriteLine("DataSender SendMessageAggregator");
+        //    }
+        //}
     }
 }

@@ -1,8 +1,10 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
+using System;
 using System.Windows.Input;
 using Ceras;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Components;
 
 namespace CMiX.Core.Presentation.ViewModels.Network
@@ -22,6 +24,11 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             RenameCommand = new RelayCommand(p => Rename());
         }
 
+        internal void SendMessage(Message message)
+        {
+            var data = Serializer.Serialize(message);
+            this.Server.Send(data);
+        }
 
         public ICommand RenameCommand { get; }
         public ICommand RequestProjectReSyncCommand { get; }
@@ -55,10 +62,10 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             System.Console.WriteLine("DOUBLE CLICK !!");
         }
 
-        public void SendData(byte[] data)
-        {
-            this.Server.Send(data);
-        }
+        //public void SendData(byte[] data)
+        //{
+        //    this.Server.Send(data);
+        //}
 
 
         public Settings GetSettings()

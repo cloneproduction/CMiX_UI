@@ -130,6 +130,7 @@
     <Compile Include="Models\Scheduler\SchedulerManagerModel.cs" />
     <Compile Include="Models\Scheduler\ToRunNowModel.cs" />
     <Compile Include="Network\Communicators\DataCommunicator.cs" />
+    <Compile Include="Network\Communicators\ProjectCommunicator.cs" />
     <Compile Include="Network\Messages\MessageAddCompositionToPlaylist.cs" />
     <Compile Include="Network\Messages\MessageAddNewPlaylist.cs" />
     <Compile Include="Network\Communicators\PlaylistEditorCommunicator.cs" />
