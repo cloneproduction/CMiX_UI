@@ -29,7 +29,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
         public Guid ID { get; set; }
         public ObservableCollection<Composition> Compositions { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
 
 
         public void DragOver(IDropInfo dropInfo)
@@ -66,7 +66,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

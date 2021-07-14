@@ -1,13 +1,14 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Mathematics;
-using CMiX.Core.Models;
-using CMiX.Core.Network.Communicators;
-using ColorMine.ColorSpaces;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
+using CMiX.Core.Mathematics;
+using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
+using ColorMine.ColorSpaces;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -29,7 +30,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public ICommand PreviewMouseDownCommand { get; set; }
         public ICommand PreviewMouseUpCommand { get; set; }
         public ICommand PreviewMouseLeaveCommand { get; set; }
@@ -43,14 +44,14 @@ namespace CMiX.Core.Presentation.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                Communicator?.SendMessageUpdateViewModel(this);
+                Communicator?.SendMessage(new MessageUpdateViewModel(this));
             }
         }
 
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

@@ -26,7 +26,7 @@ namespace CMiX.Core.Presentation.ViewModels
         public Vector3D[] Location { get; set; }
         public Vector3D[] Scale { get; set; }
         public Vector3D[] Rotation { get; set; }
-        public ControlCommunicator Communicator { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Communicator Communicator { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private double[] oldRandom;
         private double[] newRandom;

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Models.Scheduling;
 using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Components;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduling
@@ -46,7 +47,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             set
             {
                 SetAndNotify(ref _selectedSchedulerIndex, value);
-                Communicator?.SendMessageSelectedSchedulerIndex(value);
+                Communicator?.SendMessage(new MessageSelectedSchedulerIndex(value));
                 Console.WriteLine("SelectedSchedulerIndex = " + SelectedSchedulerIndex);
             }
         }
@@ -59,7 +60,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             compositionScheduler.SetCommunicator(Communicator);
             Project.CompositionSchedulers.Add(compositionScheduler);
 
-            Communicator.SendMessageAddScheduler(compositionSchedulerModel);
+            Communicator?.SendMessage(new MessageAddScheduler(compositionSchedulerModel));
         }
 
         public void CreateScheduler(CompositionSchedulerModel compositionSchedulerModel)
@@ -78,11 +79,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         }
 
 
-        public SchedulerCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new SchedulerCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
 
             PlaylistEditor.SetCommunicator(Communicator);

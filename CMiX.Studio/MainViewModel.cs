@@ -1,8 +1,6 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using System.Windows;
-using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components;
@@ -10,6 +8,8 @@ using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
 using MediatR;
 using MvvmDialogs;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -21,11 +21,13 @@ namespace CMiX.Core.Presentation.ViewModels
 
             var model = new ProjectModel();
             CurrentProject = project as Project;
-            CurrentProject.SetCommunicator(null);
+
+            //CurrentProject.SetCommunicator(null);
 
             //var dataSenderCommunicator = new DataSenderCommunicator(DataSender);
             //CurrentProject.SetCommunicator(dataSenderCommunicator);
 
+            MessageSender = new MessageSender(CurrentProject);
             MessengerManager = new MessengerManager(CurrentProject);
             AssetManager = new AssetManager(CurrentProject);
             SchedulerManager = new SchedulerManager(CurrentProject);
@@ -37,7 +39,6 @@ namespace CMiX.Core.Presentation.ViewModels
             //SchedulerManager.SetCommunicator(componentCommunicator);
 
             AddCompositionCommand = new RelayCommand(p => AddComposition());
-
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
             MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
@@ -70,6 +71,7 @@ namespace CMiX.Core.Presentation.ViewModels
         private readonly IDialogService DialogService;
         public Outliner Outliner { get; set; }
 
+        public MessageSender MessageSender { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
         public MessengerManager MessengerManager { get; set; }
 

@@ -68,7 +68,7 @@ namespace CMiX.Core.Presentation.ViewModels
             }
         }
 
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public System.Guid ID { get; set; }
 
         private void SetAnimMode()

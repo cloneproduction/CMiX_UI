@@ -31,11 +31,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
         public override void SetCommunicator(Communicator communicator)
         {
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
 
             Transition.SetCommunicator(Communicator);
             MasterBeat.SetCommunicator(Communicator);
-
         }
 
         public override void UnsetCommunicator(Communicator communicator)

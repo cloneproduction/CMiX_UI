@@ -21,7 +21,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public Slider Feedback { get; set; }
         public Slider Blur { get; set; }
 
@@ -50,7 +50,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
 
             Feedback.SetCommunicator(Communicator);

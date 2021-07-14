@@ -1,11 +1,12 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Models;
-using CMiX.Core.Network.Communicators;
-using GongSolutions.Wpf.DragDrop;
 using System;
 using System.Windows;
+using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
+using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.Core.Presentation.ViewModels.Assets
 {
@@ -19,7 +20,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
 
 
         public Guid ID { get; set; }
-        public AssetPathSelectorCommunicator AssetPathSelectorCommunicator { get; set; }
+        public Communicator AssetPathSelectorCommunicator { get; set; }
 
 
         private Asset _selectedAsset;
@@ -30,7 +31,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
             {
                 SetAndNotify(ref _selectedAsset, value);
 
-                AssetPathSelectorCommunicator?.SendMessageSelectedAsset(SelectedAsset);
+                AssetPathSelectorCommunicator?.SendMessage(new MessageAsset(SelectedAsset));
                 if (value != null)
                     System.Console.WriteLine("SelectedAsset Name is " + SelectedAsset.Name);
             }
@@ -39,7 +40,7 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
 
         public void SetCommunicator(Communicator communicator)
         {
-            AssetPathSelectorCommunicator = new AssetPathSelectorCommunicator(this);
+            AssetPathSelectorCommunicator = new Communicator(this);
             AssetPathSelectorCommunicator.SetCommunicator(communicator);
         }
 

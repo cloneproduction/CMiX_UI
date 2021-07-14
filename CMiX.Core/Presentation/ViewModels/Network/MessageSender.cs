@@ -6,20 +6,22 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Ceras;
 using CMiX.Core.Network.Messages;
+using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.Views;
 using MvvmDialogs;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
-    public class MessageSender : ViewModel//, IMessageSender
+    public class MessageSender : ViewModel, IMessageSender
     {
-        public MessageSender()
+        public MessageSender(Project project)
         {
             Serializer = new CerasSerializer();
-
+            Project = project;
+            Project.Communicator.MessageSent += Communicator_MessageSent;
             MessengerFactory = new MessengerFactory();
-            Messengers = new ObservableCollection<Messenger>();
+            //Messengers = new ObservableCollection<Messenger>();
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
@@ -28,7 +30,13 @@ namespace CMiX.Core.Presentation.ViewModels
             EditMessengerSettingsCommand = new RelayCommand(p => EditMessengerSettings(p as Messenger));
         }
 
+        private void Communicator_MessageSent(object sender, MessageEventArgs e)
+        {
+            this.SendMessage(e.Message);
+        }
 
+
+        public Project Project { get; set; }
         private MessengerFactory MessengerFactory { get; set; }
         private CerasSerializer Serializer { get; set; }
         private IDialogService DialogService { get; set; }
@@ -66,23 +74,23 @@ namespace CMiX.Core.Presentation.ViewModels
         public void AddMessenger()
         {
             var messenger = MessengerFactory.CreateMessenger();
-            Messengers.Add(messenger);
+            //Messengers.Add(messenger);
         }
 
         private void DeleteMessenger(Messenger messenger)
         {
-            if (messenger != null)
-            {
-                messenger.StopServer();
-                Messengers.Remove(messenger);
+            //if (messenger != null)
+            //{
+            //    messenger.StopServer();
+            //    Messengers.Remove(messenger);
 
-                if (Messengers.Count > 0)
-                {
-                    SelectedMessenger = Messengers[0];
-                }
-                else
-                    SelectedMessenger = null;
-            }
+            //    if (Messengers.Count > 0)
+            //    {
+            //        SelectedMessenger = Messengers[0];
+            //    }
+            //    else
+            //        SelectedMessenger = null;
+            //}
         }
 
         private void RenameServer(Server obj)
@@ -92,15 +100,15 @@ namespace CMiX.Core.Presentation.ViewModels
         }
 
 
-        //public void SendMessage(Message message)
-        //{
-        //    byte[] data = Serializer.Serialize(message);
+        public void SendMessage(Message message)
+        {
+            //byte[] data = Serializer.Serialize(message);
 
-        //    foreach (var messenger in Messengers)
-        //    {
-        //        messenger.SendData(data);
-        //        Console.WriteLine("DataSender SendMessageAggregator");
-        //    }
-        //}
+            foreach (var messenger in Project.Messengers)
+            {
+                messenger.SendMessage(message);
+                Console.WriteLine("DataSender SendMessage");
+            }
+        }
     }
 }

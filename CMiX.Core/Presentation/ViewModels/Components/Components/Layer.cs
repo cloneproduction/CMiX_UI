@@ -5,7 +5,6 @@ using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Beat;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
-using MediatR;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
@@ -24,6 +23,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
             ComponentFactory = new SceneFactory(this);
         }
+
 
         public MasterBeat MasterBeat { get; set; }
         public Slider Fade { get; set; }

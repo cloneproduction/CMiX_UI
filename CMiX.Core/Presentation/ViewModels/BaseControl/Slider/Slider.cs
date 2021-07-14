@@ -1,10 +1,11 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Models;
-using CMiX.Core.Network.Communicators;
 using System;
 using System.Windows.Input;
+using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -23,7 +24,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
 
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
@@ -45,7 +46,7 @@ namespace CMiX.Core.Presentation.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                Communicator?.SendMessageUpdateViewModel(this);
+                Communicator?.SendMessage(new MessageUpdateViewModel(this));
             }
         }
 
@@ -71,7 +72,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

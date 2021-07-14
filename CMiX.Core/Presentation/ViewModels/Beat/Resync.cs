@@ -19,7 +19,7 @@ namespace CMiX.Core.Presentation.ViewModels.Beat
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public BeatAnimations BeatAnimations { get; set; }
         public ICommand ResyncCommand { get; }
 
@@ -48,7 +48,7 @@ namespace CMiX.Core.Presentation.ViewModels.Beat
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

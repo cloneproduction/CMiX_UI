@@ -10,7 +10,6 @@ using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
 using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
-using MediatR;
 using MvvmDialogs;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
@@ -24,11 +23,12 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
             CompositionSchedulers = new ObservableCollection<CompositionScheduler>();
+            Messengers = new ObservableCollection<Messenger>();
 
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
+            Communicator = new Communicator(this);
         }
-
 
         public IDialogService DialogService { get; set; }
 
@@ -44,12 +44,12 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             set => SetAndNotify(ref _assets, value);
         }
 
-        private ProjectCommunicator projectCommunicator { get; set; }
 
         public override void SetCommunicator(Communicator communicator)
         {
+            //this.Communicator = communicator;
+            //Communicator.SetCommunicator(communicator);
             //projectCommunicator = new ProjectCommunicator(this);
-            //projectCommunicator.SetCommunicator(projectCommunicator);
         }
 
         public override void UnsetCommunicator(Communicator communicator)

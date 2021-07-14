@@ -3,10 +3,9 @@
 
 using System;
 using Ceras;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Network.Messages;
-using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels;
-using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Services;
 using MediatR;
 
@@ -24,7 +23,7 @@ namespace CMiX.Core.MessageService
         }
 
         public IMediator Mediator { get; set; }
-        public void RegisterReceiver(ComponentCommunicator communicator)
+        public void RegisterReceiver(Communicator communicator)
         {
             Communicator = communicator;
         }
@@ -41,13 +40,8 @@ namespace CMiX.Core.MessageService
             }
         }
 
-        //public string Address
-        //{
-        //    get { return String.Format("tcp://{0}:{1}", IP, Port); }
-        //}
 
-
-        private ComponentCommunicator Communicator { get; set; }
+        private Communicator Communicator { get; set; }
         private CerasSerializer Serializer { get; set; }
 
 

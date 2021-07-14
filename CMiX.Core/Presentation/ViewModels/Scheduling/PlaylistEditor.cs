@@ -5,6 +5,7 @@ using CMiX.Core.Models;
 using CMiX.Core.Models.Scheduler;
 using CMiX.Core.Models.Scheduling;
 using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Components;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduling
@@ -69,7 +70,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             {
                 SelectedPlaylist.Compositions.Add(composition);
                 DropDownOpen = false;
-                Communicator?.SendMessageAddComposition(composition);
+                Communicator?.SendMessage(new MessageAddCompositionToPlaylist(composition));
                 Console.WriteLine("Composition added to playlist " + SelectedPlaylist.Name);
             }
         }
@@ -96,7 +97,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             Playlists.Add(playlist);
             SelectedPlaylist = playlist;
 
-            Communicator?.SendMessageAddPlaylist(playlist);
+            Communicator?.SendMessage(new MessageAddNewPlaylist(playlist));
             Console.WriteLine("New Playlist Created");
         }
 
@@ -109,11 +110,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 
 
 
-        public PlaylistEditorCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new PlaylistEditorCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

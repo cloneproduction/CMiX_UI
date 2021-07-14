@@ -160,7 +160,7 @@ namespace CMiX.Core.Presentation.ViewModels
             {
                 WatsonTcpServer.Send(this.ipPort, data);
                 Statistics.Update(WatsonTcpServer);
-                Console.WriteLine("WatsonTcpServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length + $"{IP}:{Port}");
+                Console.WriteLine("WatsonTcpServer SendObject with  Topic : " + this.Topic + " Data Size = " + data.Length + "to address : " + $"{IP}:{Port}");
             }
         }
 

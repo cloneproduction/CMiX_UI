@@ -8,7 +8,6 @@ using System.Windows.Input;
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Network.Messages;
-using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
 using MediatR;
 
@@ -22,11 +21,11 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             Name = this.GetType().Name;
 
             Components = new ObservableCollection<Component>();
-            Communicator = new ComponentCommunicator(this);
+            //Communicator = new ComponentCommunicator(this);
         }
 
 
-        internal ComponentCommunicator Communicator { get; set; }
+        internal Communicator Communicator { get; set; }
         public abstract void SetCommunicator(Communicator communicator);
         public abstract void UnsetCommunicator(Communicator communicator);
 
@@ -35,7 +34,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         {
             Console.WriteLine(this.GetType().Name + "ReceiveMessage of type" + message.GetType().Name);
 
-            if(message is MessageAddComponent)
+            if (message is MessageAddComponent)
             {
                 var messageAddComponent = message as MessageAddComponent;
                 var newComponent = ComponentFactory.CreateComponent(messageAddComponent.ComponentModel);
@@ -104,7 +103,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             //{
             //    await Mediator.Publish(new AddNewComponentNotification(this.ID, component));
             //}
-            Communicator?.SendMessageAddComponent(component);
+            Communicator?.SendMessage(new MessageAddComponent(component));
         }
 
         public void RemoveComponent(Component component)
@@ -114,7 +113,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             component.UnsetCommunicator(this.Communicator);
             Components.Remove(component);
 
-            Communicator?.SendMessageRemoveComponent(index);
+            Communicator?.SendMessage(new MessageRemoveComponent(index));
         }
 
         public void RemoveComponentAtIndex(int index)

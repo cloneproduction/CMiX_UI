@@ -1,9 +1,10 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
+using System;
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
-using System;
+using CMiX.Core.Network.Messages;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -16,7 +17,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
 
 
         private T _selection;
@@ -26,7 +27,7 @@ namespace CMiX.Core.Presentation.ViewModels
             set
             {
                 SetAndNotify(ref _selection, value);
-                Communicator?.SendMessageUpdateViewModel(this);
+                Communicator?.SendMessage(new MessageUpdateViewModel(this));
                 Console.WriteLine("Combobox Selection is " + Selection.ToString());
             }
         }
@@ -34,7 +35,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

@@ -3,8 +3,6 @@
 
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Ceras;
-using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.Views;
 using MvvmDialogs;
@@ -16,10 +14,7 @@ namespace CMiX.Core.Presentation.ViewModels.Network
         public MessengerManager(Project project)
         {
             Project = project;
-            Serializer = new CerasSerializer();
-
             MessengerFactory = new MessengerFactory();
-            Messengers = new ObservableCollection<Messenger>();
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
@@ -38,8 +33,14 @@ namespace CMiX.Core.Presentation.ViewModels.Network
 
         private Project Project { get; set; }
         private MessengerFactory MessengerFactory { get; set; }
-        private CerasSerializer Serializer { get; set; }
-        public ObservableCollection<Messenger> Messengers { get; set; }
+
+
+        public ObservableCollection<Messenger> Messengers
+        {
+            get => Project.Messengers;
+            //set => SetAndNotify(ref _messengers, value);
+        }
+
 
 
         private Messenger _selectedMessenger;
@@ -69,11 +70,11 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             if (messenger != null)
             {
                 messenger.StopServer();
-                Messengers.Remove(messenger);
+                Project.Messengers.Remove(messenger);
 
-                if (Messengers.Count > 0)
+                if (Project.Messengers.Count > 0)
                 {
-                    SelectedMessenger = Messengers[0];
+                    SelectedMessenger = Project.Messengers[0];
                     return;
                 }
 
@@ -86,16 +87,5 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             if (obj != null)
                 obj.IsRenaming = true;
         }
-
-        //public void SendMessage(Message message)
-        //{
-        //    byte[] data = Serializer.Serialize(message);
-
-        //    foreach (var messenger in Messengers)
-        //    {
-        //        messenger.SendData(data);
-        //        Console.WriteLine("DataSender SendMessageAggregator");
-        //    }
-        //}
     }
 }

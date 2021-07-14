@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using CMiX.Core.Models;
 using CMiX.Core.Models.Scheduling;
 using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 using FluentScheduler;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduling
@@ -28,7 +29,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
             JobManager.AddJob(job, job.Action);
             Schedules.Add(job);
 
-            Communicator.SendMessageSchedulerJob(job.GetModel() as JobModel);
+            Communicator?.SendMessage(new MessageSchedulerJob(job.GetModel() as JobModel));
         }
 
         public void RemoveJob(Job job)
@@ -38,11 +39,11 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         }
 
 
-        private SchedulerCommunicator Communicator { get; set; }
+        private Communicator Communicator { get; set; }
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new SchedulerCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

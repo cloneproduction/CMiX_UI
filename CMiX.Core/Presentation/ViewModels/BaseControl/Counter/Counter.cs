@@ -3,6 +3,7 @@
 
 using CMiX.Core.Models;
 using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 using System;
 using System.Windows.Input;
 
@@ -37,12 +38,12 @@ namespace CMiX.Core.Presentation.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-                Communicator?.SendMessageUpdateViewModel(this);
+                Communicator?.SendMessage(new MessageUpdateViewModel(this));
             }
         }
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
 
         private void Add() => Count += 1;
 
@@ -69,7 +70,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

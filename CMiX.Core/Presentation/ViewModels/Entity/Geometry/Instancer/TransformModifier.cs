@@ -35,7 +35,7 @@ namespace CMiX.Core.Presentation.ViewModels
             get => _transformModifiers;
             set => SetAndNotify(ref _transformModifiers, value);
         }
-        public ControlCommunicator Communicator { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Communicator Communicator { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Guid ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void CreateTransformModifier(TransformModifierNames transformModifierNames)

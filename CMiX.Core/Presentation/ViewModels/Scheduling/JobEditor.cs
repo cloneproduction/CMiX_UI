@@ -59,10 +59,10 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         }
 
 
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

@@ -1,5 +1,5 @@
 ﻿using CMiX.Core.MessageService;
-using CMiX.Core.Models;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels;
 using CMiX.Core.Presentation.ViewModels.Components;
@@ -25,13 +25,13 @@ namespace CMiX.Console
 
             componentDatabase.AddComponent(Project);
 
-            var componentCommunicator = new ComponentCommunicator(Project);
-            Project.SetCommunicator(componentCommunicator);
+            var communicator = new Communicator(Project);
+            Project.SetCommunicator(communicator);
 
 
-            var dataReceiver = new MessageReceiver(serviceProvider.GetService<IMediator>());
-            dataReceiver.Start(settings);
-            dataReceiver.RegisterReceiver(componentCommunicator);
+            var messageReceiver = new MessageReceiver(serviceProvider.GetService<IMediator>());
+            messageReceiver.Start(settings);
+            messageReceiver.RegisterReceiver(communicator);
 
             System.Console.ReadLine();
         }
@@ -42,7 +42,7 @@ namespace CMiX.Console
             services.AddSingleton<IComponentDatabase, ComponentDatabase>();
             services.AddSingleton<IMediator, Mediator>();
             services.AddMediatR(typeof(AddNewComponentNotification));
-            services.AddSingleton<IProject, Project>();
+            services.AddSingleton<Project>();
         }
     }
 }

@@ -18,12 +18,12 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public Guid ID { get; set; }
         public Slider Explode { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
 
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

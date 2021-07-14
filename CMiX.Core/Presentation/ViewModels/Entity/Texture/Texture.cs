@@ -32,7 +32,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public AssetPathSelector AssetPathSelector { get; set; }
         public Slider Brightness { get; set; }
         public Slider Contrast { get; set; }
@@ -49,7 +49,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
 
             AssetPathSelector.SetCommunicator(Communicator);

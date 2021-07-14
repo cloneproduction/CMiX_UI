@@ -1,11 +1,12 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using CMiX.Core.Models;
-using CMiX.Core.Network.Communicators;
-using CMiX.Core.Models.Component;
 using System;
 using System.Windows.Input;
+using CMiX.Core.Models;
+using CMiX.Core.Models.Component;
+using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 
 namespace CMiX.Core.Presentation.ViewModels.Components
 {
@@ -27,7 +28,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public ICommand SetVisibilityCommand { get; set; }
 
         private bool _isVisible;
@@ -37,8 +38,8 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             set
             {
                 SetAndNotify(ref _isVisible, value);
-                Communicator?.SendMessageUpdateViewModel(this);
-                System.Console.WriteLine("Visibility Is " + IsVisible);
+                Communicator?.SendMessage(new MessageUpdateViewModel(this));
+                Console.WriteLine("Visibility Is " + IsVisible);
             }
         }
 
@@ -76,7 +77,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

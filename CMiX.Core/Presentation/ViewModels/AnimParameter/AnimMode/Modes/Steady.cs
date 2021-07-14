@@ -20,7 +20,7 @@ namespace CMiX.Core.Presentation.ViewModels
         }
 
 
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public Guid ID { get; set; }
 
         private int _seed;
@@ -111,7 +111,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 

@@ -1,10 +1,12 @@
-﻿using System;
-using System.Windows;
-using CMiX.Core.Presentation.Mediator;
+﻿using CMiX.Core.Presentation.Mediator;
 using CMiX.Core.Presentation.ViewModels;
 using CMiX.Core.Presentation.ViewModels.Components;
+using CMiX.Core.Presentation.ViewModels.Network;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using MvvmDialogs;
+using System;
+using System.Windows;
 
 namespace CMiX
 {
@@ -26,11 +28,17 @@ namespace CMiX
         {
             services.AddSingleton<IComponentDatabase, ComponentDatabase>();
             services.AddSingleton<IMediator, Mediator>();
-            //services.AddSingleton<IMessageSender, MessageSender>();
+            services.AddSingleton(typeof(MessengerManager));
+            services.AddSingleton<IDialogService, DialogService>();
+            services.AddSingleton<IMessageSender, MessageSender>();
+            services.AddTransient<IProject, Project>();
+
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainViewModel>();
-            services.AddTransient<IProject, Project>();
+
             services.AddMediatR(typeof(AddNewComponentNotification));
+
+            //services.AddSingleton(typeof(IServiceProvider));
 
             var provider = services.BuildServiceProvider();
         }

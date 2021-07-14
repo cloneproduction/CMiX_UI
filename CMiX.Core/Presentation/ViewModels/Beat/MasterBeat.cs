@@ -4,6 +4,7 @@
 using CMiX.Core.Models;
 using CMiX.Core.Models.Beat;
 using CMiX.Core.Network.Communicators;
+using CMiX.Core.Network.Messages;
 using CMiX.Core.Presentation.Controls;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace CMiX.Core.Presentation.ViewModels.Beat
         }
 
         public Guid ID { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public BeatAnimations BeatAnimations { get; set; }
         public Resync Resync { get; set; }
         public ICommand TapCommand { get; }
@@ -97,7 +98,7 @@ namespace CMiX.Core.Presentation.ViewModels.Beat
 
         public void SetCommunicator(Communicator communicator)
         {
-            Communicator = new ControlCommunicator(this);
+            Communicator = new Communicator(this);
             Communicator.SetCommunicator(communicator);
         }
 
@@ -114,7 +115,7 @@ namespace CMiX.Core.Presentation.ViewModels.Beat
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (Periods.Length - 1) / 2];
             this.NotifyBeatChange(Period);
             Notify(nameof(BPM));
-            Communicator?.SendMessageUpdateViewModel(this);
+            Communicator?.SendMessage(new MessageUpdateViewModel(this));
         }
 
 

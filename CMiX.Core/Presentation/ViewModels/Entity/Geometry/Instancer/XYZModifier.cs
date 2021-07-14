@@ -126,7 +126,7 @@ namespace CMiX.Core.Presentation.ViewModels
         public AnimParameter X { get; set; }
         public AnimParameter Y { get; set; }
         public AnimParameter Z { get; set; }
-        public ControlCommunicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public Guid ID { get; set; }
     }
 }
