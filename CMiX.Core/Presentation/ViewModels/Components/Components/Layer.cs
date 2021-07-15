@@ -22,6 +22,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             Mask = new Mask(layerModel.MaskModel);
 
             ComponentFactory = new SceneFactory(this);
+            Communicator = new Communicator(this);
         }
 
 

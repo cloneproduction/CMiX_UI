@@ -25,7 +25,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         }
 
 
-        internal Communicator Communicator { get; set; }
+        public Communicator Communicator { get; set; }
         public abstract void SetCommunicator(Communicator communicator);
         public abstract void UnsetCommunicator(Communicator communicator);
 

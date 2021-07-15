@@ -429,7 +429,7 @@
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
     <Compile Include="Presentation\ViewModels\Network\Messenger\Messenger.cs" />
     <Compile Include="Presentation\ViewModels\Network\Messenger\MessengerFactory.cs" />
-    <Compile Include="Presentation\ViewModels\Network\MessageSender.cs" />
+    <Compile Include="Presentation\ViewModels\Network\MessageService.cs" />
     <Compile Include="Presentation\ViewModels\Network\MessageReceiver.cs" />
     <Compile Include="Presentation\ViewModels\Network\Server.cs" />
     <Compile Include="Presentation\ViewModels\Network\Settings.cs" />

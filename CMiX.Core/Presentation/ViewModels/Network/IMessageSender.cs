@@ -9,6 +9,6 @@ namespace CMiX.Core.Presentation.ViewModels.Network
     public interface IMessageSender
     {
         void SendMessage(Message message);
-        ObservableCollection<Messenger> Messengers { get; set; }
+        //ObservableCollection<Messenger> Messengers { get; set; }
     }
 }

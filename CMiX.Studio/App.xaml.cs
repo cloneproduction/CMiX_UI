@@ -30,7 +30,7 @@ namespace CMiX
             services.AddSingleton<IMediator, Mediator>();
             services.AddSingleton(typeof(MessengerManager));
             services.AddSingleton<IDialogService, DialogService>();
-            services.AddSingleton<IMessageSender, MessageSender>();
+            services.AddSingleton<IMessageSender, MessageService>();
             services.AddTransient<IProject, Project>();
 
             services.AddSingleton<MainWindow>();

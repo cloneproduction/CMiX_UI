@@ -22,17 +22,15 @@ namespace CMiX.Core.Presentation.ViewModels
             var model = new ProjectModel();
             CurrentProject = project as Project;
 
-            //CurrentProject.SetCommunicator(null);
 
-            //var dataSenderCommunicator = new DataSenderCommunicator(DataSender);
-            //CurrentProject.SetCommunicator(dataSenderCommunicator);
+            //var messengerService = new MessengerService();
+            //MessageSender = new MessageSender(messengerService, project.Communicator);
+            //MessengerManager = new MessengerManager(messengerService);
 
-            MessageSender = new MessageSender(CurrentProject);
-            MessengerManager = new MessengerManager(CurrentProject);
+
             AssetManager = new AssetManager(CurrentProject);
             SchedulerManager = new SchedulerManager(CurrentProject);
             ComponentManager = new ComponentManager(CurrentProject);
-
             Outliner = new Outliner(CurrentProject);
             PlaylistEditor = new PlaylistEditor(CurrentProject);
 
@@ -71,31 +69,15 @@ namespace CMiX.Core.Presentation.ViewModels
         private readonly IDialogService DialogService;
         public Outliner Outliner { get; set; }
 
-        public MessageSender MessageSender { get; set; }
+        public MessageService MessageSender { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
         public MessengerManager MessengerManager { get; set; }
 
+        public AssetManager AssetManager { get; set; }
+        public ComponentManager ComponentManager { get; set; }
+        public SchedulerManager SchedulerManager { get; set; }
 
-        private AssetManager assetManager;
-        public AssetManager AssetManager
-        {
-            get => assetManager;
-            set => SetAndNotify(ref assetManager, value);
-        }
 
-        private SchedulerManager _schedulerManager;
-        public SchedulerManager SchedulerManager
-        {
-            get => _schedulerManager;
-            set => SetAndNotify(ref _schedulerManager, value);
-        }
-
-        private ComponentManager _componentManager;
-        public ComponentManager ComponentManager
-        {
-            get => _componentManager;
-            set => SetAndNotify(ref _componentManager, value);
-        }
 
         private Project _currentProject;
         public Project CurrentProject

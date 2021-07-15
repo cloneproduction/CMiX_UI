@@ -3,7 +3,6 @@
 
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.Views;
 using MvvmDialogs;
 
@@ -11,9 +10,10 @@ namespace CMiX.Core.Presentation.ViewModels.Network
 {
     public class MessengerManager : ViewModel
     {
-        public MessengerManager(Project project)
+        public MessengerManager(MessengerService messageService)
         {
-            Project = project;
+            MessageService = messageService;
+
             MessengerFactory = new MessengerFactory();
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
@@ -31,13 +31,13 @@ namespace CMiX.Core.Presentation.ViewModels.Network
         private IDialogService DialogService { get; set; }
 
 
-        private Project Project { get; set; }
+        //private Project Project { get; set; }
         private MessengerFactory MessengerFactory { get; set; }
-
+        public MessengerService MessageService { get; set; }
 
         public ObservableCollection<Messenger> Messengers
         {
-            get => Project.Messengers;
+            get => MessageService.Messengers;
             //set => SetAndNotify(ref _messengers, value);
         }
 
@@ -70,11 +70,11 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             if (messenger != null)
             {
                 messenger.StopServer();
-                Project.Messengers.Remove(messenger);
+                MessageService.Messengers.Remove(messenger);
 
-                if (Project.Messengers.Count > 0)
+                if (MessageService.Messengers.Count > 0)
                 {
-                    SelectedMessenger = Project.Messengers[0];
+                    SelectedMessenger = MessageService.Messengers[0];
                     return;
                 }
 
