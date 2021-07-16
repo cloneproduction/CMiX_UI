@@ -129,7 +129,6 @@
     <Compile Include="Models\Scheduler\PlaylistModel.cs" />
     <Compile Include="Models\Scheduler\SchedulerManagerModel.cs" />
     <Compile Include="Models\Scheduler\ToRunNowModel.cs" />
-    <Compile Include="Network\Communicators\ProjectCommunicator.cs" />
     <Compile Include="Network\Messages\MessageAddCompositionToPlaylist.cs" />
     <Compile Include="Network\Messages\MessageAddNewPlaylist.cs" />
     <Compile Include="Network\Messages\MessageAddScheduler.cs" />
@@ -266,7 +265,7 @@
     <Compile Include="Network\Messages\MessageAddTransformModifier.cs" />
     <Compile Include="Presentation\ViewModels\Network\ClientShimHandler.cs" />
     <Compile Include="Presentation\ViewModels\Network\IMessageSender.cs" />
-    <Compile Include="Presentation\ViewModels\Network\Messenger\MessengerManager.cs" />
+    <Compile Include="Presentation\ViewModels\Network\Messenger\ServerManager.cs" />
     <Compile Include="Presentation\ViewModels\Network\NetMQMessageEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\Modes\SteadyType.cs" />
@@ -428,7 +427,7 @@
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
     <Compile Include="Presentation\ViewModels\Network\Messenger\Messenger.cs" />
-    <Compile Include="Presentation\ViewModels\Network\Messenger\MessengerFactory.cs" />
+    <Compile Include="Presentation\ViewModels\Network\Messenger\ServerFactory.cs" />
     <Compile Include="Presentation\ViewModels\Network\MessageService.cs" />
     <Compile Include="Presentation\ViewModels\Network\MessageReceiver.cs" />
     <Compile Include="Presentation\ViewModels\Network\Server.cs" />

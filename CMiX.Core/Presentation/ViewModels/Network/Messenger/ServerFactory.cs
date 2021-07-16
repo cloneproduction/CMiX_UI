@@ -3,15 +3,15 @@
 
 namespace CMiX.Core.Presentation.ViewModels.Network
 {
-    public class MessengerFactory
+    public class ServerFactory
     {
         int ID = 0;
 
-        public Messenger CreateMessenger()
+        public Server CreateServer()
         {
-            var messenger = new Messenger(ID);
+            var server = new Server(ID);
             ID++;
-            return messenger;
+            return server;
         }
     }
 }

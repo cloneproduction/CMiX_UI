@@ -27,7 +27,7 @@ namespace CMiX.Core.Presentation.ViewModels
             //MessageSender = new MessageSender(messengerService, project.Communicator);
             //MessengerManager = new MessengerManager(messengerService);
 
-
+            MessageService = new MessageService();
             AssetManager = new AssetManager(CurrentProject);
             SchedulerManager = new SchedulerManager(CurrentProject);
             ComponentManager = new ComponentManager(CurrentProject);
@@ -69,9 +69,9 @@ namespace CMiX.Core.Presentation.ViewModels
         private readonly IDialogService DialogService;
         public Outliner Outliner { get; set; }
 
-        public MessageService MessageSender { get; set; }
+        public MessageService MessageService { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
-        public MessengerManager MessengerManager { get; set; }
+        public ServerManager MessengerManager { get; set; }
 
         public AssetManager AssetManager { get; set; }
         public ComponentManager ComponentManager { get; set; }

@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.Views;
 using MvvmDialogs.DialogTypeLocators;
 
@@ -13,7 +12,7 @@ namespace CMiX.Core.Presentation.ViewModels
     {
         public Type Locate(INotifyPropertyChanged viewModel)
         {
-            if (viewModel is Messenger)
+            if (viewModel is Server)
                 return typeof(MessengerSettingsWindow);
 
             else if (viewModel is ModalDialog)

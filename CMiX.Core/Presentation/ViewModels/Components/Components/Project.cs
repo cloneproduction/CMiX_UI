@@ -23,7 +23,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
             CompositionSchedulers = new ObservableCollection<CompositionScheduler>();
-            Messengers = new ObservableCollection<Messenger>();
+            //Messengers = new ObservableCollection<Messenger>();
 
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
@@ -34,7 +34,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 
 
         public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
-        public ObservableCollection<Messenger> Messengers { get; set; }
+        //public ObservableCollection<Messenger> Messengers { get; set; }
 
 
         private ObservableCollection<Asset> _assets;

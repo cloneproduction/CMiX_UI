@@ -2,34 +2,51 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
-using System.Collections.ObjectModel;
+using Ceras;
+using CMiX.Core.Network.Communicators;
 using CMiX.Core.Network.Messages;
-using CMiX.Core.Presentation.ViewModels.Components;
 using CMiX.Core.Presentation.ViewModels.Network;
+using CMiX.Core.Services;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
     public class MessageService : ViewModel, IMessageSender
     {
-        public MessageService(Project project)
+        public MessageService()
         {
-            _project = project;
-            project.Communicator.MessageSent += Communicator_MessageSent;
+            ServerManager = new ServerManager();
+            Serializer = new CerasSerializer();
         }
 
-        private readonly Project _project;
-        public ObservableCollection<Messenger> Messengers { get; set; }
+
+        private CerasSerializer Serializer { get; set; }
+        public ServerManager ServerManager { get; set; }
+        public Client Client { get; set; }
+
+
+
+        public void SetCommunicator(Communicator communicator)
+        {
+            communicator.MessageSent += Communicator_MessageSent;
+        }
+
+        public void UnSetCommunicator(Communicator communicator)
+        {
+            communicator.MessageSent -= Communicator_MessageSent;
+        }
+
 
         private void Communicator_MessageSent(object sender, MessageEventArgs e)
         {
             this.SendMessage(e.Message);
         }
 
-        public void SendMessage(Message message)
+        private void SendMessage(Message message)
         {
-            foreach (var messenger in _project.Messengers)
+            var data = Serializer.Serialize(message);
+            foreach (var server in ServerManager.Servers)
             {
-                messenger.SendMessage(message);
+                server.Send(data);
                 Console.WriteLine("DataSender SendMessage");
             }
         }

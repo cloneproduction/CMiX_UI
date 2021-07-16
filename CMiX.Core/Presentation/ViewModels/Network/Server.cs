@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using CMiX.Core.Presentation.ViewModels.Network;
 using WatsonTcp;
 
@@ -12,7 +13,7 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class Server : ViewModel
     {
-        public Server()
+        public Server(int id)
         {
             Enabled = true;
             ClientIsConnected = false;
@@ -21,7 +22,21 @@ namespace CMiX.Core.Presentation.ViewModels
             Status = "Disconnected";
             ConnectedClients = new ObservableCollection<ConnectedClient>();
             Statistics = new ServerStatistics();
+
+
+            StartCommand = new RelayCommand(p => Start());
+            //RequestProjectReSyncCommand = new RelayCommand(p => RequestProjectResync(p as Project));
+            StopCommand = new RelayCommand(p => Stop());
+            RestartCommand = new RelayCommand(p => Restart());
+            RenameCommand = new RelayCommand(p => Rename());
         }
+
+        public ICommand RenameCommand { get; }
+        public ICommand RequestProjectReSyncCommand { get; }
+        public ICommand StartCommand { get; }
+        public ICommand StopCommand { get; }
+        public ICommand RestartCommand { get; }
+
 
 
         private string _name;
@@ -94,6 +109,26 @@ namespace CMiX.Core.Presentation.ViewModels
         public ServerStatistics Statistics { get; set; }
 
 
+        public Settings GetSettings()
+        {
+            return new Settings(Name, Topic, IP, Port);
+        }
+
+        public void SetSettings(Settings settings)
+        {
+            Name = settings.Name;
+            Topic = settings.Topic;
+            IP = settings.IP;
+            Port = settings.Port;
+            Start();
+        }
+
+
+        public void Rename()
+        {
+            IsRenaming = true;
+            System.Console.WriteLine("DOUBLE CLICK !!");
+        }
 
         private void MessageReceived(object sender, MessageReceivedEventArgs e)
         {
