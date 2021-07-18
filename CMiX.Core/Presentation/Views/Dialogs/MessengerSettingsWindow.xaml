@@ -74,7 +74,7 @@
                         Foreground="{StaticResource TextBase}"
                         Background="{StaticResource HighHighDarkerColor}"/>
                 </Grid>
-                <Grid Height="25" Margin="0, 1">
+                <!--<Grid Height="25" Margin="0, 1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.4*"/>
                         <ColumnDefinition/>
@@ -94,7 +94,7 @@
                         BorderBrush="{StaticResource DarkColor}"
                         Foreground="{StaticResource TextBase}"
                         Background="{StaticResource HighHighDarkerColor}"/>
-                </Grid>
+                </Grid>-->
                 <Grid Height="25" Margin="0, 1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.4*"/>

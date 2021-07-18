@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Studio.Views.MessengerManager"
+﻿<UserControl x:Class="CMiX.Studio.Views.ServerManager"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,39 +15,80 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Tools:BindingProxy x:Key="DataSenderProxy" Data="{Binding}"/>
+            <Tools:BindingProxy x:Key="serverManager" Data="{Binding}"/>
 
             <ContextMenu x:Key="MessengerManagerContextMenu" 
-                         Visibility="{Binding Data.SelectedMessenger, Converter={StaticResource NullToVisibility}, Source={StaticResource DataSenderProxy}}" 
+                         Visibility="{Binding Data.SelectedServer, Converter={StaticResource NullToVisibility}, Source={StaticResource serverManager}}" 
                          Style="{StaticResource ContextMenuDefault}" 
                          Width="175">
+
+                <MenuItem 
+                    Command="{Binding Data.SelectedServer.StartCommand}"
+                    Header="Start">
+                    <MenuItem.Icon>
+                        <Image Margin="1" Opacity="0.75" Source="{StaticResource Play}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                
+                <MenuItem Command="{Binding Data.SelectedServer.StopCommand}"
+                          IsEnabled="{Binding Data.SelectedServer.ServerIsRunning}"
+                          Header="Stop">
+                    <MenuItem.Icon>
+                        <Image Margin="3" Opacity="0.75" Source="{StaticResource Stop}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
                 <MenuItem
-                        Command="{Binding Data.SelectedMessenger.RenameCommand, Source={StaticResource DataSenderProxy}}"
-                        CommandParameter="{Binding Data.SelectedMessenger, Source={StaticResource DataSenderProxy}}"
+                        Command="{Binding Data.SelectedServer.RenameCommand, Source={StaticResource serverManager}}"
+                        CommandParameter="{Binding Data.SelectedServer, Source={StaticResource serverManager}}"
                         Header="Rename">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource Rename}"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                
+                <!--<MenuItem IsEnabled="False" 
+                          Command="{Binding Data.SelectedServer.RestartCommand}"
+                          Header="Restart">
+                    <MenuItem.Icon>
+                        <Image Opacity="0.75" Margin="2" Source="{StaticResource Reset}"/>
+                    </MenuItem.Icon>
+                </MenuItem>-->
+                
+                <MenuItem 
+                    Header="Edit"
+                    Command="{Binding EditMessengerSettingsCommand}"
+                    CommandParameter="{Binding SelectedServer}">
+                    <MenuItem.Icon>
+                        <Image Opacity="0.75" Margin="2" Source="{StaticResource Settings}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
 
                 <MenuItem
-                    Command="{Binding Data.DeleteMessengerCommand, Source={StaticResource DataSenderProxy}}"
-                    CommandParameter="{Binding Data.SelectedMessenger, Source={StaticResource DataSenderProxy}}"
+                    Command="{Binding Data.DeleteServerCommand, Source={StaticResource serverManager}}"
+                    CommandParameter="{Binding Data.SelectedServer, Source={StaticResource serverManager}}"
                     Header="Delete">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource DeleteLayer}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-
+                <!--<Separator BorderThickness="0.5" Margin="4" BorderBrush="{DynamicResource DarkColor}"/>-->
+                <!--<MenuItem 
+                    Header="Delete"
+                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.DeleteMessengerCommand}"
+                    CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Server}}}">
+                    <MenuItem.Icon>
+                        <Image Opacity="0.75" Margin="2" Source="{DynamicResource DeleteLayer}"/>
+                    </MenuItem.Icon>
+                </MenuItem>-->
             </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>
 
 
-        <Border
+    <Border
             HorizontalAlignment="Stretch"
             Background="{StaticResource HighDarkerColor}">
-
         <StackPanel>
             <Border 
                     VerticalAlignment="Center"
@@ -68,7 +109,6 @@
                 </DockPanel>
             </Border>
             
-            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -76,26 +116,26 @@
                 </Grid.RowDefinitions>
 
                 <ListBox 
-                        Grid.Row="0"
-                        SelectedItem="{Binding SelectedServer}"
-                        Height="125"
-                        DockPanel.Dock="Top"
-                        ContextMenu="{DynamicResource MessengerManagerContextMenu}"
-                        ItemsSource="{Binding Servers}">
+                    Grid.Row="0"
+                    SelectedItem="{Binding SelectedServer}"
+                    Height="125"
+                    DockPanel.Dock="Top"
+                    ContextMenu="{DynamicResource MessengerManagerContextMenu}"
+                    ItemsSource="{Binding Servers}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
                                 <Border DockPanel.Dock="Right">
                                     <Ellipse 
-                                     Margin="4" 
-                                     Width="8" 
-                                     Height="8" >
+                                         Margin="4" 
+                                         Width="8" 
+                                         Height="8">
                                         <Ellipse.Style>
                                             <Style TargetType="{x:Type Ellipse}">
                                                 <Setter Property="Fill" Value="Red"/>
                                                 <Setter Property="Opacity" Value="0.7"/>
                                                 <Style.Triggers>
-                                                    <DataTrigger  Binding="{Binding Path=Server.ClientIsConnected}" Value="True">
+                                                    <DataTrigger  Binding="{Binding ClientIsConnected}" Value="True">
                                                         <Setter Property="Fill" Value="Green"/>
                                                         <Setter Property="Opacity" Value="1.0"/>
                                                     </DataTrigger>
@@ -108,25 +148,23 @@
                                     <Grid>
 
                                         <Controls:EditableTextBox   
-                            IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        DockPanel.Dock="Left" 
-                                                        Height="30" 
-                                                        Padding="4" 
-                                                        VerticalAlignment="Center" />
+                                            IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DockPanel.Dock="Left" 
+                                            Height="30" 
+                                            Padding="4" 
+                                            VerticalAlignment="Center" />
                                     </Grid>
-
                                 </Border>
-
                             </DockPanel>
-
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
 
-                <Border Grid.Row="1" Visibility="{Binding SelectedMessenger, Converter={StaticResource NullToVisibility}, ConverterParameter={x:Static Visibility.Hidden}}">
-                    <DockPanel>
+                <Border Grid.Row="1" Visibility="{Binding SelectedServer, Converter={StaticResource NullToVisibility}, ConverterParameter={x:Static Visibility.Hidden}}">
+                    <Views:Server DataContext="{Binding SelectedServer}" Margin="4"/>
+                    <!--<DockPanel>
                         <Separator DockPanel.Dock="Top" BorderThickness="0.5" Margin="0, 4" BorderBrush="{DynamicResource DarkColor}"/>
                         <Border 
                             Margin="0, 8"
@@ -141,18 +179,18 @@
                                             <Image Margin="2" Opacity="0.5" Source="{StaticResource Menu}"/>
                                         </MenuItem.Icon>
                                         <MenuItem 
-                                                Command="{Binding SelectedServer.StartServerCommand}"
+                                                Command="{Binding SelectedServer.StartCommand}"
                                                 Header="Start">
                                             <MenuItem.Icon>
                                                 <Image Margin="1" Opacity="0.75" Source="{StaticResource Play}"/>
                                             </MenuItem.Icon>
                                         </MenuItem>
-                                        <MenuItem Command="{Binding SelectedServer.StopServerCommand}" Header="Stop">
+                                        <MenuItem Command="{Binding SelectedServer.StopCommand}" Header="Stop">
                                             <MenuItem.Icon>
                                                 <Image Margin="3" Opacity="0.75" Source="{StaticResource Stop}"/>
                                             </MenuItem.Icon>
                                         </MenuItem>
-                                        <MenuItem Command="{Binding SelectedServer.RestartServerCommand}" Header="Restart">
+                                        <MenuItem Command="{Binding SelectedServer.RestartCommand}" Header="Restart">
                                             <MenuItem.Icon>
                                                 <Image Opacity="0.75" Margin="2" Source="{StaticResource Reset}"/>
                                             </MenuItem.Icon>
@@ -168,8 +206,8 @@
                                         <Separator BorderThickness="0.5" Margin="4" BorderBrush="{DynamicResource DarkColor}"/>
                                         <MenuItem 
                                             Header="Delete"
-                                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.DeleteMessengerCommand}"
-                                            CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
+                                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.DeleteMessengerCommand}"
+                                            CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Server}}}">
                                             <MenuItem.Icon>
                                                 <Image Opacity="0.75" Margin="2" Source="{DynamicResource DeleteLayer}"/>
                                             </MenuItem.Icon>
@@ -181,9 +219,7 @@
                                     DockPanel.Dock="Left"/>
                             </DockPanel>
                         </Border>
-
-                        <Views:Messenger DataContext="{Binding SelectedMessenger}" Margin="4"/>
-                    </DockPanel>
+                    </DockPanel>-->
 
                 </Border>
             </Grid>

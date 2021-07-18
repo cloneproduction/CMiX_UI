@@ -2,9 +2,9 @@
 
 namespace CMiX.Studio.Views
 {
-    public partial class Messenger : UserControl
+    public partial class Server : UserControl
     {
-        public Messenger()
+        public Server()
         {
             InitializeComponent();
         }

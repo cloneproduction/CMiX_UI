@@ -17,12 +17,13 @@ namespace CMiX.Core.Presentation.ViewModels
         {
             Enabled = true;
             ClientIsConnected = false;
+            ServerIsRunning = false;
             DataSent = false;
 
+            Name = $"Server ({id})";
             Status = "Disconnected";
             ConnectedClients = new ObservableCollection<ConnectedClient>();
             Statistics = new ServerStatistics();
-
 
             StartCommand = new RelayCommand(p => Start());
             //RequestProjectReSyncCommand = new RelayCommand(p => RequestProjectResync(p as Project));
@@ -31,12 +32,12 @@ namespace CMiX.Core.Presentation.ViewModels
             RenameCommand = new RelayCommand(p => Rename());
         }
 
+
         public ICommand RenameCommand { get; }
         public ICommand RequestProjectReSyncCommand { get; }
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
         public ICommand RestartCommand { get; }
-
 
 
         private string _name;
@@ -88,13 +89,19 @@ namespace CMiX.Core.Presentation.ViewModels
             set => SetAndNotify(ref _clientIsConnected, value);
         }
 
+        private bool _serverIsRunning;
+        public bool ServerIsRunning
+        {
+            get => _serverIsRunning;
+            set => SetAndNotify(ref _serverIsRunning, value);
+        }
+
         private bool _dataSent;
         public bool DataSent
         {
             get => _dataSent;
             set => SetAndNotify(ref _dataSent, value);
         }
-
 
         private ObservableCollection<ConnectedClient> _connectedClients;
         public ObservableCollection<ConnectedClient> ConnectedClients
@@ -135,14 +142,12 @@ namespace CMiX.Core.Presentation.ViewModels
             Console.WriteLine("Message from " + e.IpPort + ": " + Encoding.UTF8.GetString(e.Data));
         }
 
-
         private void ClientDisconnected(object sender, DisconnectionEventArgs e)
         {
             Console.WriteLine("Client disconnected: " + this.IP + ": " + e.Reason.ToString());
             Status = "Disconnected";
             ClientIsConnected = false;
         }
-
 
         private void ClientConnected(object sender, ConnectionEventArgs e)
         {
@@ -167,9 +172,6 @@ namespace CMiX.Core.Presentation.ViewModels
 
             return new SyncResponse(arg, "Hello back at you from Server!");
         }
-
-
-
 
         public void SendRequestProjectSync(byte[] data)
         {
@@ -209,6 +211,7 @@ namespace CMiX.Core.Presentation.ViewModels
             WatsonTcpServer.Events.MessageReceived += MessageReceived;
             WatsonTcpServer.Callbacks.SyncRequestReceived = SyncRequestReceived;
             WatsonTcpServer.Start();
+            ServerIsRunning = true;
         }
 
         public void Stop()
@@ -221,6 +224,7 @@ namespace CMiX.Core.Presentation.ViewModels
                 WatsonTcpServer.Events.ClientDisconnected -= ClientDisconnected;
                 WatsonTcpServer.Events.MessageReceived -= MessageReceived;
                 ClientIsConnected = false;
+                ServerIsRunning = false;
             }
         }
 
