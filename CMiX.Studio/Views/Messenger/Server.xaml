@@ -11,7 +11,8 @@
 
         <Expander Header="Settings" Style="{DynamicResource InnerExpander}">
             <StackPanel Margin="0, 8">
-                <Grid Height="25" Margin="0, 1">
+                
+                <!--<Grid Height="25" Margin="0, 1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.4*"/>
                         <ColumnDefinition/>
@@ -27,8 +28,7 @@
                         Text="{Binding Topic}"
                         Grid.Column="1"
                         Foreground="{StaticResource TextBase}"/>
-                </Grid>
-
+                </Grid>-->
 
                 <Grid Height="25" Margin="0, 1">
                     <Grid.ColumnDefinitions>
@@ -42,6 +42,7 @@
                         Foreground="{StaticResource TextBase}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"/>
+                    
                     <Button Grid.Column="1"
                             Command="{Binding RequestProjectReSyncCommand}"
                             CommandParameter="{Binding DataContext.CurrentProject, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"

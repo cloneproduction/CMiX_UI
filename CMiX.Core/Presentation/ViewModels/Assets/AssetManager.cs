@@ -22,12 +22,13 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
 {
     public class AssetManager : ViewModel, IDropTarget, IDragSource
     {
-        public AssetManager(Project project)
+        public AssetManager(IProject project, IDialogService dialogService)
         {
             AssetFactory = new AssetFactory();
 
-            DialogService = project.DialogService;
-            Assets = project.Assets;
+            DialogService = dialogService;
+            Project = project;
+            //Assets = project.Assets;
 
             this.Assets.Add(AssetFactory.CreateRootDirectory("RESOURCES"));
 
@@ -45,12 +46,14 @@ namespace CMiX.Core.Presentation.ViewModels.Assets
             RelinkAssetsCommand = new RelayCommand(p => RelinkAssets());
         }
 
+        private IProject Project { get; set; }
         private AssetFactory AssetFactory { get; set; }
+
 
         private ObservableCollection<Asset> _assets;
         public ObservableCollection<Asset> Assets
         {
-            get => _assets;
+            get => Project.Assets;
             set => SetAndNotify(ref _assets, value);
         }
 

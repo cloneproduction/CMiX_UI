@@ -10,12 +10,12 @@ namespace CMiX.Core.Presentation.Mediator
 {
     public class AddNewComponentNotificationHandler : INotificationHandler<AddNewComponentNotification>
     {
-        public AddNewComponentNotificationHandler(IMessageSender dataSender)
+        public AddNewComponentNotificationHandler(IMessageService dataSender)
         {
             _dataSender = dataSender;
         }
 
-        private readonly IMessageSender _dataSender;
+        private readonly IMessageService _dataSender;
 
         public Task Handle(AddNewComponentNotification notification, CancellationToken cancellationToken)
         {

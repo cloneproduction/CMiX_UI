@@ -264,7 +264,7 @@
     <Compile Include="Network\Messages\MessageRemoveTransformModifier.cs" />
     <Compile Include="Network\Messages\MessageAddTransformModifier.cs" />
     <Compile Include="Presentation\ViewModels\Network\ClientShimHandler.cs" />
-    <Compile Include="Presentation\ViewModels\Network\IMessageSender.cs" />
+    <Compile Include="Presentation\ViewModels\Network\IMessageService.cs" />
     <Compile Include="Presentation\ViewModels\Network\Messenger\ServerManager.cs" />
     <Compile Include="Presentation\ViewModels\Network\NetMQMessageEventArgs.cs" />
     <Compile Include="Presentation\ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />

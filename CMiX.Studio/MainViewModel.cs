@@ -15,23 +15,20 @@ namespace CMiX.Core.Presentation.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        public MainViewModel(IProject project, IMediator mediator)
+        public MainViewModel(IProject project, IMessageService messageService)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
             var model = new ProjectModel();
             CurrentProject = project as Project;
 
+            ServerManager = new ServerManager(messageService, DialogService);
 
-            //var messengerService = new MessengerService();
-            //MessageSender = new MessageSender(messengerService, project.Communicator);
-            //MessengerManager = new MessengerManager(messengerService);
+            AssetManager = new AssetManager(project, DialogService);
 
-            MessageService = new MessageService();
-            AssetManager = new AssetManager(CurrentProject);
             SchedulerManager = new SchedulerManager(CurrentProject);
-            ComponentManager = new ComponentManager(CurrentProject);
-            Outliner = new Outliner(CurrentProject);
+            ComponentManager = new ComponentManager(project);
+            Outliner = new Outliner(project);
             PlaylistEditor = new PlaylistEditor(CurrentProject);
 
             //SchedulerManager.SetCommunicator(componentCommunicator);
@@ -69,6 +66,7 @@ namespace CMiX.Core.Presentation.ViewModels
         private readonly IDialogService DialogService;
         public Outliner Outliner { get; set; }
 
+        public ServerManager ServerManager { get; set; }
         public MessageService MessageService { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
         public ServerManager MessengerManager { get; set; }

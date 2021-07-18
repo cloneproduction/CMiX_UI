@@ -8,7 +8,6 @@ using CMiX.Core.Models.Component;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components.Factories;
-using CMiX.Core.Presentation.ViewModels.Network;
 using CMiX.Core.Presentation.ViewModels.Scheduling;
 using MvvmDialogs;
 
@@ -20,21 +19,17 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         {
             ID = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00");
 
-            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
+            //DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<Asset>();
             CompositionSchedulers = new ObservableCollection<CompositionScheduler>();
-            //Messengers = new ObservableCollection<Messenger>();
 
             Visibility = new Visibility(new VisibilityModel());
             ComponentFactory = new CompositionFactory(this);
             Communicator = new Communicator(this);
         }
 
-        public IDialogService DialogService { get; set; }
-
-
+        //public IDialogService DialogService { get; set; }
         public ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
-        //public ObservableCollection<Messenger> Messengers { get; set; }
 
 
         private ObservableCollection<Asset> _assets;

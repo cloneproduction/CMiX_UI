@@ -28,17 +28,15 @@ namespace CMiX
         {
             services.AddSingleton<IComponentDatabase, ComponentDatabase>();
             services.AddSingleton<IMediator, Mediator>();
-            services.AddSingleton(typeof(ServerManager));
-            services.AddSingleton<IDialogService, DialogService>();
-            services.AddSingleton<IMessageSender, MessageService>();
+
+            services.AddSingleton<IDialogService, DialogService>(new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator()));
+            services.AddSingleton<IMessageService, MessageService>();
             services.AddTransient<IProject, Project>();
 
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainViewModel>();
 
             services.AddMediatR(typeof(AddNewComponentNotification));
-
-            //services.AddSingleton(typeof(IServiceProvider));
 
             var provider = services.BuildServiceProvider();
         }

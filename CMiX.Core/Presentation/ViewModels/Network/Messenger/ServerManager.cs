@@ -1,7 +1,6 @@
 ﻿// Copyright (c) CloneProduction Shanghai Company Limited (https://cloneproduction.net/)
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.Core.Presentation.Views;
 using MvvmDialogs;
@@ -10,11 +9,11 @@ namespace CMiX.Core.Presentation.ViewModels.Network
 {
     public class ServerManager : ViewModel
     {
-        public ServerManager()
+        public ServerManager(IMessageService messageService, IDialogService dialogService)
         {
+            MessageService = messageService;
             ServerFactory = new ServerFactory();
-            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-            Servers = new ObservableCollection<Server>();
+            DialogService = dialogService;
 
             AddServerCommand = new RelayCommand(p => AddServer());
             DeleteServerCommand = new RelayCommand(p => DeleteServer(p as Server));
@@ -30,9 +29,8 @@ namespace CMiX.Core.Presentation.ViewModels.Network
         private IDialogService DialogService { get; set; }
 
 
-
+        public IMessageService MessageService { get; set; }
         private ServerFactory ServerFactory { get; set; }
-        public ObservableCollection<Server> Servers { get; set; }
 
 
         private Server _selectedServer;
@@ -54,7 +52,7 @@ namespace CMiX.Core.Presentation.ViewModels.Network
         public void AddServer()
         {
             var messenger = ServerFactory.CreateServer();
-            Servers.Add(messenger);
+            MessageService.Servers.Add(messenger);
         }
 
         private void DeleteServer(Server server)
@@ -62,11 +60,11 @@ namespace CMiX.Core.Presentation.ViewModels.Network
             if (server != null)
             {
                 server.Stop();
-                Servers.Remove(server);
+                MessageService.Servers.Remove(server);
 
-                if (Servers.Count > 0)
+                if (MessageService.Servers.Count > 0)
                 {
-                    SelectedServer = Servers[0];
+                    SelectedServer = MessageService.Servers[0];
                     return;
                 }
 

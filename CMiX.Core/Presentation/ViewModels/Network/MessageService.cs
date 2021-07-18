@@ -2,6 +2,7 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
+using System.Collections.ObjectModel;
 using Ceras;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Network.Messages;
@@ -10,19 +11,18 @@ using CMiX.Core.Services;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
-    public class MessageService : ViewModel, IMessageSender
+    public class MessageService : ViewModel, IMessageService
     {
         public MessageService()
         {
-            ServerManager = new ServerManager();
+            Servers = new ObservableCollection<Server>();
             Serializer = new CerasSerializer();
         }
 
 
         private CerasSerializer Serializer { get; set; }
-        public ServerManager ServerManager { get; set; }
         public Client Client { get; set; }
-
+        public ObservableCollection<Server> Servers { get; set; }
 
 
         public void SetCommunicator(Communicator communicator)
@@ -41,10 +41,10 @@ namespace CMiX.Core.Presentation.ViewModels
             this.SendMessage(e.Message);
         }
 
-        private void SendMessage(Message message)
+        public void SendMessage(Message message)
         {
             var data = Serializer.Serialize(message);
-            foreach (var server in ServerManager.Servers)
+            foreach (var server in Servers)
             {
                 server.Send(data);
                 Console.WriteLine("DataSender SendMessage");

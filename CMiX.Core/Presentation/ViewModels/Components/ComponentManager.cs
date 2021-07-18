@@ -9,7 +9,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(Project project)
+        public ComponentManager(IProject project)
         {
             Project = project;
 
@@ -26,7 +26,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         public ICommand RenameComponentCommand { get; }
 
 
-        private Project Project { get; set; }
+        private IProject Project { get; set; }
 
 
         private Component _selectedComponent;
@@ -43,7 +43,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         public void CreateComponent(Component component)
         {
             if(component is null)
-                component = this.Project;
+                component = this.Project as Component;
 
             var newComponent = component.ComponentFactory.CreateComponent();
             newComponent.SetCommunicator(component.Communicator);
@@ -78,7 +78,7 @@ namespace CMiX.Core.Presentation.ViewModels.Components
         }
 
 
-        public void DeleteSelectedComponent(ObservableCollection<Component> components)
+        private void DeleteSelectedComponent(ObservableCollection<Component> components)
         {
             foreach (Component component in components)
             {
