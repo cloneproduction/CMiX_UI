@@ -7,13 +7,12 @@ using CMiX.Core.Models;
 using CMiX.Core.Models.Scheduling;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Network.Messages;
-using CMiX.Core.Presentation.ViewModels.Components;
 
 namespace CMiX.Core.Presentation.ViewModels.Scheduling
 {
     public class SchedulerManager : ViewModel, IControl
     {
-        public SchedulerManager(Project project)
+        public SchedulerManager(IProject project)
         {
             this.ID = new Guid("22223344-5566-7788-99AA-BBCCDDEEFF00");
             Project = project;
@@ -28,7 +27,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public ICommand CreateSchedulerCommand { get; set; }
         public ICommand DeleteSchedulerCommand { get; set; }
 
-        public Project Project { get; set; }
+        public IProject Project { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
 
 

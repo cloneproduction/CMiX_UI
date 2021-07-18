@@ -26,10 +26,10 @@ namespace CMiX.Core.Presentation.ViewModels
 
             AssetManager = new AssetManager(project, DialogService);
 
-            SchedulerManager = new SchedulerManager(CurrentProject);
+            SchedulerManager = new SchedulerManager(project);
             ComponentManager = new ComponentManager(project);
             Outliner = new Outliner(project);
-            PlaylistEditor = new PlaylistEditor(CurrentProject);
+            PlaylistEditor = new PlaylistEditor(project);
 
             //SchedulerManager.SetCommunicator(componentCommunicator);
 

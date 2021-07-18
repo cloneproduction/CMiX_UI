@@ -12,7 +12,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
 {
     public class PlaylistEditor : ViewModel, IControl
     {
-        public PlaylistEditor(Project project)
+        public PlaylistEditor(IProject project)
         {
             this.ID = new Guid("33223344-5566-7788-99AA-BBCCDDEEFF00");
             Project = project;
@@ -38,7 +38,7 @@ namespace CMiX.Core.Presentation.ViewModels.Scheduling
         public ICommand DeleteAllCompoCommand { get; set; }
 
 
-        public Project Project { get; set; }
+        public IProject Project { get; set; }
         public ObservableCollection<Playlist> Playlists { get; set; }
 
 

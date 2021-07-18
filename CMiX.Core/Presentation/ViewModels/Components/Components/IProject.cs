@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using CMiX.Core.Network.Communicators;
 using CMiX.Core.Presentation.ViewModels.Assets;
 using CMiX.Core.Presentation.ViewModels.Components;
+using CMiX.Core.Presentation.ViewModels.Scheduling;
 
 namespace CMiX.Core.Presentation.ViewModels
 {
@@ -14,7 +15,7 @@ namespace CMiX.Core.Presentation.ViewModels
 
         ObservableCollection<Component> Components { get; set; }
         ObservableCollection<Asset> Assets { get; set; }
-
+        ObservableCollection<CompositionScheduler> CompositionSchedulers { get; set; }
         void RemoveComponent(Component component);
         void AddComponent(Component component);
     }

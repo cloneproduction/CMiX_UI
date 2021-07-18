@@ -29,7 +29,7 @@ namespace CMiX
             services.AddSingleton<IComponentDatabase, ComponentDatabase>();
             services.AddSingleton<IMediator, Mediator>();
 
-            services.AddSingleton<IDialogService, DialogService>(new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator()));
+            services.AddSingleton<IDialogService, DialogService>();
             services.AddSingleton<IMessageService, MessageService>();
             services.AddTransient<IProject, Project>();
 
